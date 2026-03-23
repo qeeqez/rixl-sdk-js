@@ -1,0 +1,1059 @@
+{
+  "schemes": [
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "**Build a powerful video experience from on-demand streaming to dynamic social feeds with a single API.**\n\nRIXL handles video processing, ingestion and global delivery so you don't have to.\nWith builtin support for transcoding, storage and structured media feeds, Our API makes it easy to deliver high-quality media content at scale.",
+    "title": "RIXL API",
+    "contact": {
+      "name": "RIXL Support",
+      "url": "https://rixl.com/support",
+      "email": "support@rixl.com"
+    },
+    "license": {
+      "name": "All Rights Reserved",
+      "url": "https://rixl.com/terms-of-service"
+    },
+    "version": "2.0"
+  },
+  "basePath": "/",
+  "paths": {
+    "/images": {
+      "get": {
+        "description": "Retrieve all images for a specific project, with pagination and sorting.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Images"
+        ],
+        "summary": "List images for a project",
+        "parameters": [
+          {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer",
+            "default": 25,
+            "description": "Maximum number of items to return in a single request. <br> **Default:** `25`",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "minimum": 0,
+            "type": "integer",
+            "default": 0,
+            "description": "Starting point of the result set. <br>To get page 2 with a limit of 25, set `offset` to `25`. <br> **Default:** `0`",
+            "name": "offset",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "Field to sort by (created_at, name, size, updated_at)",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "Sort order (asc, desc)",
+            "name": "order",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/pagination.PaginatedResponse-Image"
+            }
+          },
+          "400": {
+            "description": "Invalid query parameters",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "x-order": 2,
+        "operationId": "get_images"
+      }
+    },
+    "/images/upload/complete": {
+      "post": {
+        "description": "Complete the upload process and create the image record using API key authentication",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Images"
+        ],
+        "summary": "Upload: Mark as complete",
+        "parameters": [
+          {
+            "description": "Upload completion request",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/internal_images_handler.completeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          },
+          "400": {
+            "description": "Invalid request body",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid API key",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "File not found",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Failed to complete upload or create image",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "x-order": 4,
+        "operationId": "post_images_upload_complete"
+      }
+    },
+    "/images/upload/init": {
+      "post": {
+        "description": "Initialize a presigned URL upload for an image file using API key authentication",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Images"
+        ],
+        "summary": "Upload: Init",
+        "parameters": [
+          {
+            "description": "Upload initialization request",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/internal_images_handler.uploadInitRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/internal_images_handler.initResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid request body",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid API key",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Failed to initialize upload",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "x-order": 3,
+        "operationId": "post_images_upload_init"
+      }
+    },
+    "/images/{imageId}": {
+      "get": {
+        "description": "Retrieve an image by its ID for a specific project.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Images"
+        ],
+        "summary": "Get image",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Image ID",
+            "name": "imageId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          },
+          "400": {
+            "description": "Invalid image ID",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Image not found",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "x-order": 1,
+        "operationId": "get_images_imageId"
+      },
+      "delete": {
+        "description": "delete an image by marking it as deleted",
+        "tags": [
+          "Images"
+        ],
+        "summary": "Delete image",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Image ID",
+            "name": "imageId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Image deleted successfully"
+          },
+          "400": {
+            "description": "Invalid project ID or image ID",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Image not found",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Failed to delete image",
+            "schema": {
+              "$ref": "#/definitions/github_com_qeeqez_api_internal_errors.ErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "x-order": 5,
+        "operationId": "delete_images_imageId"
+      }
+    }
+  },
+  "definitions": {
+    "AudioTrack": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "example": "2025-12-21T12:00:00Z"
+        },
+        "format": {
+          "type": "string",
+          "example": "mp3"
+        },
+        "id": {
+          "type": "string",
+          "example": "3n7v9k4m2p"
+        },
+        "label": {
+          "type": "string",
+          "example": "Spanish"
+        },
+        "language_code": {
+          "type": "string",
+          "example": "es-ES"
+        },
+        "name": {
+          "type": "string",
+          "example": "spanish_audio.mp3"
+        },
+        "size": {
+          "type": "integer",
+          "example": 2048576
+        },
+        "url": {
+          "type": "string",
+          "example": "https://cdn.rixl.io/audio_tracks/project_id/video_id/es-ES-3n7v9k4m2p.mp3"
+        },
+        "video_id": {
+          "type": "string",
+          "example": "x8n2p5v9k7"
+        }
+      }
+    },
+    "AudioTrackDelete": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Audio track deleted"
+        },
+        "status": {
+          "type": "string",
+          "example": "ok"
+        }
+      }
+    },
+    "Chapter": {
+      "type": "object",
+      "properties": {
+        "duration_label": {
+          "type": "string",
+          "example": "02:25"
+        },
+        "end_time_sec": {
+          "type": "number",
+          "example": 145
+        },
+        "start_time_sec": {
+          "type": "number",
+          "example": 0
+        },
+        "title": {
+          "type": "string",
+          "example": "Introduction"
+        }
+      }
+    },
+    "File": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "example": "2025-01-01T00:00:00Z"
+        },
+        "format": {
+          "type": "string",
+          "example": "avif"
+        },
+        "id": {
+          "type": "string",
+          "example": "FpvLwyDMqu"
+        },
+        "name": {
+          "type": "string",
+          "example": "original.jpeg"
+        },
+        "project_id": {
+          "type": "string",
+          "example": "Bq4y3QB38S"
+        },
+        "size": {
+          "type": "integer",
+          "example": 1048576
+        },
+        "status": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/FileStatus"
+            }
+          ],
+          "example": "ready"
+        },
+        "updated_at": {
+          "type": "string",
+          "example": "2025-01-01T00:00:00Z"
+        },
+        "url": {
+          "type": "string",
+          "example": "https://images.rixl.com/Bq4y3QB38S/FpvLwyDMqu"
+        }
+      }
+    },
+    "FileStatus": {
+      "type": "string",
+      "enum": [
+        "uploading",
+        "uploaded",
+        "processing",
+        "preparing",
+        "ready",
+        "error"
+      ],
+      "x-enum-comments": {
+        "FileStatusError": "error happened, file is corrupt",
+        "FileStatusProcessing": "asset is currently processing Other",
+        "FileStatusReady": "file is ready to consume",
+        "FileStatusUploaded": "upload finished",
+        "FileStatusUploading": "upload is currently happening"
+      },
+      "x-enum-varnames": [
+        "FileStatusUploading",
+        "FileStatusUploaded",
+        "FileStatusProcessing",
+        "FileStatusPreparing",
+        "FileStatusReady",
+        "FileStatusError"
+      ]
+    },
+    "Image": {
+      "type": "object",
+      "properties": {
+        "attached_to_video": {
+          "type": "boolean",
+          "example": false
+        },
+        "file": {
+          "$ref": "#/definitions/File"
+        },
+        "height": {
+          "type": "integer",
+          "example": 1080
+        },
+        "id": {
+          "type": "string",
+          "example": "PS5IMKoFLm"
+        },
+        "thumbhash": {
+          "type": "string",
+          "example": "1QcSHQRnh493V4dIh4eXh1h4kJUI"
+        },
+        "width": {
+          "type": "integer",
+          "example": 1920
+        }
+      }
+    },
+    "Post": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "example": "2025-01-01T00:00:00Z"
+        },
+        "creator_id": {
+          "type": "string",
+          "example": "CR8y3QB38S"
+        },
+        "description": {
+          "type": "string",
+          "example": "My awesome post"
+        },
+        "feed_id": {
+          "type": "string",
+          "example": "FD4y3QB38S"
+        },
+        "id": {
+          "type": "string",
+          "example": "PS5IMKoFLm"
+        },
+        "image": {
+          "$ref": "#/definitions/Image"
+        },
+        "plan_type": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/github_com_qeeqez_api_db_sqlc.PlanType"
+            }
+          ],
+          "example": "free"
+        },
+        "type": {
+          "enum": [
+            "video",
+            "image"
+          ],
+          "allOf": [
+            {
+              "$ref": "#/definitions/PostType"
+            }
+          ],
+          "example": "video"
+        },
+        "updated_at": {
+          "type": "string",
+          "example": "2025-01-01T00:00:00Z"
+        },
+        "video": {
+          "$ref": "#/definitions/github_com_qeeqez_api_internal_videos.VideoResponse"
+        }
+      }
+    },
+    "PostType": {
+      "type": "string",
+      "enum": [
+        "image",
+        "video"
+      ],
+      "x-enum-varnames": [
+        "PostTypeImage",
+        "PostTypeVideo"
+      ]
+    },
+    "Subtitle": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "example": "2025-12-21T12:00:00Z"
+        },
+        "id": {
+          "type": "string",
+          "example": "5m9k8p2v7q"
+        },
+        "label": {
+          "type": "string",
+          "example": "English"
+        },
+        "language_code": {
+          "type": "string",
+          "example": "en-US"
+        },
+        "name": {
+          "type": "string",
+          "example": "english_subs.srt"
+        },
+        "size": {
+          "type": "integer",
+          "example": 1024
+        },
+        "url": {
+          "type": "string",
+          "example": "https://cdn.rixl.io/subtitles/project_id/video_id/en-US-5m9k8p2v7q.srt"
+        },
+        "video_id": {
+          "type": "string",
+          "example": "x8n2p5v9k7"
+        }
+      }
+    },
+    "SubtitleDelete": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Subtitle deleted"
+        },
+        "status": {
+          "type": "string",
+          "example": "ok"
+        }
+      }
+    },
+    "UpdateChaptersRequest": {
+      "type": "object",
+      "properties": {
+        "chapters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/github_com_qeeqez_api_internal_videos_types.ChapterInput"
+          }
+        }
+      }
+    },
+    "UpdateChaptersResponse": {
+      "type": "object",
+      "properties": {
+        "chapters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Chapter"
+          }
+        },
+        "video_id": {
+          "type": "string",
+          "example": "x8n2p5v9k7"
+        }
+      }
+    },
+    "Video": {
+      "type": "object",
+      "properties": {
+        "bitrate": {
+          "type": "integer"
+        },
+        "chapters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Chapter"
+          }
+        },
+        "codec": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "number"
+        },
+        "file": {
+          "$ref": "#/definitions/File"
+        },
+        "framerate": {
+          "type": "string"
+        },
+        "hdr": {
+          "type": "boolean"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "plan_type": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/github_com_qeeqez_api_db_sqlc.PlanType"
+            }
+          ],
+          "example": "free"
+        },
+        "poster": {
+          "$ref": "#/definitions/Image"
+        },
+        "width": {
+          "type": "integer"
+        }
+      }
+    },
+    "VideoUploadInitRequest": {
+      "type": "object",
+      "required": [
+        "file_name"
+      ],
+      "properties": {
+        "file_name": {
+          "type": "string",
+          "example": "my-video.mp4"
+        },
+        "image_format": {
+          "type": "string",
+          "example": "jpg"
+        },
+        "video_quality": {
+          "enum": [
+            "basic",
+            "shorts",
+            "pro"
+          ],
+          "allOf": [
+            {
+              "$ref": "#/definitions/github_com_qeeqez_api_db_sqlc.VideoQuality"
+            }
+          ],
+          "example": "shorts"
+        }
+      }
+    },
+    "github_com_qeeqez_api_db_sqlc.PlanType": {
+      "type": "string",
+      "enum": [
+        "free",
+        "pro",
+        "custom",
+        "pay_as_you_go"
+      ],
+      "x-enum-varnames": [
+        "PlanTypeFree",
+        "PlanTypePro",
+        "PlanTypeCustom",
+        "PlanTypePayAsYouGo"
+      ]
+    },
+    "github_com_qeeqez_api_db_sqlc.VideoQuality": {
+      "type": "string",
+      "enum": [
+        "basic",
+        "shorts",
+        "pro"
+      ],
+      "x-enum-varnames": [
+        "VideoQualityBasic",
+        "VideoQualityShorts",
+        "VideoQualityPro"
+      ]
+    },
+    "github_com_qeeqez_api_internal_errors.ErrorResponse": {
+      "description": "Standard error response returned by the API",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "HTTP status code",
+          "type": "integer",
+          "example": 400
+        },
+        "details": {
+          "description": "Optional details about the error",
+          "type": "string",
+          "example": "The provided ID is not valid"
+        },
+        "error": {
+          "description": "Error message describing what went wrong",
+          "type": "string",
+          "example": "Invalid request"
+        }
+      }
+    },
+    "github_com_qeeqez_api_internal_videos.VideoResponse": {
+      "type": "object",
+      "properties": {
+        "bitrate": {
+          "type": "integer"
+        },
+        "chapters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Chapter"
+          }
+        },
+        "codec": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "number"
+        },
+        "file": {
+          "$ref": "#/definitions/File"
+        },
+        "framerate": {
+          "type": "string"
+        },
+        "hdr": {
+          "type": "boolean"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "plan_type": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/github_com_qeeqez_api_db_sqlc.PlanType"
+            }
+          ],
+          "example": "free"
+        },
+        "poster": {
+          "$ref": "#/definitions/Image"
+        },
+        "width": {
+          "type": "integer"
+        }
+      }
+    },
+    "github_com_qeeqez_api_internal_videos_handler_upload.CompleteRequest": {
+      "type": "object",
+      "properties": {
+        "video_id": {
+          "type": "string",
+          "example": "VI9VXQxWXQ"
+        }
+      }
+    },
+    "github_com_qeeqez_api_internal_videos_handler_upload.InitResponse": {
+      "type": "object",
+      "properties": {
+        "poster_id": {
+          "type": "string",
+          "example": "PS5IMKoFLm"
+        },
+        "poster_presigned_url": {
+          "type": "string",
+          "example": "https://images.rixl.com/Bq4y3QB38S/PS5IMKoFLm?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAEXAMPLE%2F20250831%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250831T103000Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=b228dbec8c1008c80c162e1210e4503dceead1e4d4d55"
+        },
+        "upload_expires": {
+          "type": "integer",
+          "example": 1640995200
+        },
+        "video_id": {
+          "type": "string",
+          "example": "VI9VXQxWXQ"
+        },
+        "video_presigned_url": {
+          "type": "string",
+          "example": "https://videos.rixl.com/Bq4y3QB38S/VI9VXQxWXQ?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAEXAMPLE%2F20250831%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250831T103000Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=b228dbec8c1008c80c162e1210e4503dceead1e4d4d55"
+        }
+      }
+    },
+    "github_com_qeeqez_api_internal_videos_types.ChapterInput": {
+      "type": "object",
+      "properties": {
+        "start_time_sec": {
+          "type": "number"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "internal_images_handler.completeRequest": {
+      "type": "object",
+      "properties": {
+        "attached_to_video": {
+          "type": "boolean",
+          "example": false
+        },
+        "image_id": {
+          "type": "string",
+          "example": "PS5IMKoFLm"
+        }
+      }
+    },
+    "internal_images_handler.initResponse": {
+      "type": "object",
+      "properties": {
+        "image_id": {
+          "type": "string",
+          "example": "PS5IMKoFLm"
+        },
+        "presigned_url": {
+          "type": "string",
+          "example": "https://images.rixl.com/Bq4y3QB38S/PS5IMKoFLm?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAEXAMPLE%2F20250831%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250831T103000Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=b228dbec8c1008c80c162e1210e4503dceead1e4d4751b4d9787314fd6da4d55"
+        },
+        "upload_expires": {
+          "type": "integer",
+          "example": 1640995200
+        }
+      }
+    },
+    "internal_images_handler.uploadInitRequest": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "type": "string",
+          "example": "jpg"
+        },
+        "name": {
+          "type": "string",
+          "example": "my-image.jpg"
+        }
+      }
+    },
+    "internal_videos_handler_subtitles.languageResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "pagination.PaginatedResponse-Image": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "Data contains the slice of items for the current request.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Image"
+          }
+        },
+        "pagination": {
+          "description": "Pagination data for the request.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/pagination.Pagination"
+            }
+          ]
+        }
+      }
+    },
+    "pagination.PaginatedResponse-Post": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "Data contains the slice of items for the current request.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Post"
+          }
+        },
+        "pagination": {
+          "description": "Pagination data for the request.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/pagination.Pagination"
+            }
+          ]
+        }
+      }
+    },
+    "pagination.PaginatedResponse-Video": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "Data contains the slice of items for the current request.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Video"
+          }
+        },
+        "pagination": {
+          "description": "Pagination data for the request.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/pagination.Pagination"
+            }
+          ]
+        }
+      }
+    },
+    "pagination.Pagination": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "description": "Maximum number of items to return in a single request.",
+          "type": "integer",
+          "default": 25,
+          "maximum": 100,
+          "minimum": 1,
+          "example": 100
+        },
+        "offset": {
+          "description": "Starting point of the result set.",
+          "type": "integer",
+          "default": 0,
+          "minimum": 0,
+          "example": 50
+        },
+        "total": {
+          "description": "The total number of available items in the full list.",
+          "type": "integer",
+          "minimum": 0,
+          "example": 1000
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "ApiKeyAuth": {
+      "description": "Internal API key for service-to-service communication.",
+      "type": "apiKey",
+      "name": "X-API-Key",
+      "in": "header"
+    }
+  },
+  "tags": [
+    {
+      "description": "**Deliver fast, perfectly formatted images.**<br><br>RIXL automatically handles image optimization, format conversion, and ThumbHash generation. All images are served via our global CDN for an ideal user experience.",
+      "name": "Images"
+    }
+  ],
+  "host": "api.rixl.com"
+}
