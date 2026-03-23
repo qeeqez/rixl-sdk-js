@@ -78,7 +78,7 @@ class Video {
                 obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
             if (data.hasOwnProperty('plan_type')) {
-                obj['plan_type'] = ApiClient.convertToType(data['plan_type'], GithubComQeeqezApiDbSqlcPlanType);
+                obj['plan_type'] = GithubComQeeqezApiDbSqlcPlanType.constructFromObject(data['plan_type']);
             }
             if (data.hasOwnProperty('poster')) {
                 obj['poster'] = Image.constructFromObject(data['poster']);

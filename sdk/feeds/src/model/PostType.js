@@ -33,6 +33,20 @@ export default class PostType {
         "PostTypeVideo" = "video";
 
     
+        /**
+         * value: "video"
+         * @const
+         */
+        "video2" = "video";
+
+    
+        /**
+         * value: "image"
+         * @const
+         */
+        "image2" = "image";
+
+    
 
     /**
     * Returns a <code>PostType</code> enum value from a Javascript object name.

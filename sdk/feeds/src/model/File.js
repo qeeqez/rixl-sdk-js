@@ -67,7 +67,7 @@ class File {
                 obj['size'] = ApiClient.convertToType(data['size'], 'Number');
             }
             if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], FileStatus);
+                obj['status'] = FileStatus.constructFromObject(data['status']);
             }
             if (data.hasOwnProperty('updated_at')) {
                 obj['updated_at'] = ApiClient.convertToType(data['updated_at'], 'String');

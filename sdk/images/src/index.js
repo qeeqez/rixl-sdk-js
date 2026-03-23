@@ -22,6 +22,8 @@ import InternalImagesHandlerInitResponse from './model/InternalImagesHandlerInit
 import InternalImagesHandlerUploadInitRequest from './model/InternalImagesHandlerUploadInitRequest';
 import PaginationPaginatedResponseImage from './model/PaginationPaginatedResponseImage';
 import PaginationPagination from './model/PaginationPagination';
+import PostImagesUploadCompleteRequest from './model/PostImagesUploadCompleteRequest';
+import PostImagesUploadInitRequest from './model/PostImagesUploadInitRequest';
 import ImagesApi from './api/ImagesApi';
 
 
@@ -116,6 +118,18 @@ export {
      * @property {module:model/PaginationPagination}
      */
     PaginationPagination,
+
+    /**
+     * The PostImagesUploadCompleteRequest model constructor.
+     * @property {module:model/PostImagesUploadCompleteRequest}
+     */
+    PostImagesUploadCompleteRequest,
+
+    /**
+     * The PostImagesUploadInitRequest model constructor.
+     * @property {module:model/PostImagesUploadInitRequest}
+     */
+    PostImagesUploadInitRequest,
 
     /**
     * The ImagesApi service constructor.

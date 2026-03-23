@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class PaginationPagination {
     /**
      * Constructs a new <code>PaginationPagination</code>.
+     * Pagination data for the request.
      * @alias module:model/PaginationPagination
      */
     constructor() { 
@@ -34,6 +35,8 @@ class PaginationPagination {
      * Only for internal use.
      */
     static initialize(obj) { 
+        obj['limit'] = 25;
+        obj['offset'] = 0;
     }
 
     /**
@@ -78,14 +81,16 @@ class PaginationPagination {
 /**
  * Maximum number of items to return in a single request.
  * @member {Number} limit
+ * @default 25
  */
-PaginationPagination.prototype['limit'] = undefined;
+PaginationPagination.prototype['limit'] = 25;
 
 /**
  * Starting point of the result set.
  * @member {Number} offset
+ * @default 0
  */
-PaginationPagination.prototype['offset'] = undefined;
+PaginationPagination.prototype['offset'] = 0;
 
 /**
  * The total number of available items in the full list.

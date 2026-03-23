@@ -147,6 +147,8 @@ Class | Method | HTTP request | Description
  - [RixlApi.InternalImagesHandlerUploadInitRequest](docs/InternalImagesHandlerUploadInitRequest.md)
  - [RixlApi.PaginationPaginatedResponseImage](docs/PaginationPaginatedResponseImage.md)
  - [RixlApi.PaginationPagination](docs/PaginationPagination.md)
+ - [RixlApi.PostImagesUploadCompleteRequest](docs/PostImagesUploadCompleteRequest.md)
+ - [RixlApi.PostImagesUploadInitRequest](docs/PostImagesUploadInitRequest.md)
 
 
 ## Documentation for Authorization

@@ -53,7 +53,7 @@ class PaginationPaginatedResponseVideo {
                 obj['data'] = ApiClient.convertToType(data['data'], [Video]);
             }
             if (data.hasOwnProperty('pagination')) {
-                obj['pagination'] = ApiClient.convertToType(data['pagination'], PaginationPagination);
+                obj['pagination'] = PaginationPagination.constructFromObject(data['pagination']);
             }
         }
         return obj;
@@ -95,7 +95,6 @@ class PaginationPaginatedResponseVideo {
 PaginationPaginatedResponseVideo.prototype['data'] = undefined;
 
 /**
- * Pagination data for the request.
  * @member {module:model/PaginationPagination} pagination
  */
 PaginationPaginatedResponseVideo.prototype['pagination'] = undefined;

@@ -70,10 +70,10 @@ class Post {
                 obj['image'] = Image.constructFromObject(data['image']);
             }
             if (data.hasOwnProperty('plan_type')) {
-                obj['plan_type'] = ApiClient.convertToType(data['plan_type'], GithubComQeeqezApiDbSqlcPlanType);
+                obj['plan_type'] = GithubComQeeqezApiDbSqlcPlanType.constructFromObject(data['plan_type']);
             }
             if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], PostType);
+                obj['type'] = PostType.constructFromObject(data['type']);
             }
             if (data.hasOwnProperty('updated_at')) {
                 obj['updated_at'] = ApiClient.convertToType(data['updated_at'], 'String');

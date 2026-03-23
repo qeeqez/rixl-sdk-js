@@ -16,16 +16,16 @@ import ApiClient from "../ApiClient";
 import AudioTrack from '../model/AudioTrack';
 import AudioTrackDelete from '../model/AudioTrackDelete';
 import GithubComQeeqezApiInternalErrorsErrorResponse from '../model/GithubComQeeqezApiInternalErrorsErrorResponse';
-import GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest from '../model/GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest';
 import GithubComQeeqezApiInternalVideosHandlerUploadInitResponse from '../model/GithubComQeeqezApiInternalVideosHandlerUploadInitResponse';
 import InternalVideosHandlerSubtitlesLanguageResponse from '../model/InternalVideosHandlerSubtitlesLanguageResponse';
 import PaginationPaginatedResponseVideo from '../model/PaginationPaginatedResponseVideo';
+import PostVideosUploadCompleteRequest from '../model/PostVideosUploadCompleteRequest';
+import PostVideosUploadInitRequest from '../model/PostVideosUploadInitRequest';
+import PutVideosVideoIdChaptersRequest from '../model/PutVideosVideoIdChaptersRequest';
 import Subtitle from '../model/Subtitle';
 import SubtitleDelete from '../model/SubtitleDelete';
-import UpdateChaptersRequest from '../model/UpdateChaptersRequest';
 import UpdateChaptersResponse from '../model/UpdateChaptersResponse';
 import Video from '../model/Video';
-import VideoUploadInitRequest from '../model/VideoUploadInitRequest';
 
 /**
 * Videos service.
@@ -72,7 +72,7 @@ export default class VideosApi {
 
       let authNames = ['ApiKeyAuth'];
       let contentTypes = [];
-      let accepts = ['*/*'];
+      let accepts = ['application/json'];
       let returnType = AudioTrackDelete;
       return this.apiClient.callApi(
         '/videos/{videoId}/audio-tracks', 'DELETE',
@@ -126,7 +126,7 @@ export default class VideosApi {
 
       let authNames = ['ApiKeyAuth'];
       let contentTypes = [];
-      let accepts = ['*/*'];
+      let accepts = ['application/json'];
       let returnType = AudioTrackDelete;
       return this.apiClient.callApi(
         '/videos/{videoId}/audio-tracks/{lang_code}', 'DELETE',
@@ -181,7 +181,7 @@ export default class VideosApi {
 
       let authNames = ['ApiKeyAuth'];
       let contentTypes = [];
-      let accepts = ['*/*'];
+      let accepts = ['application/json'];
       let returnType = AudioTrackDelete;
       return this.apiClient.callApi(
         '/videos/{videoId}/audio-tracks/{trackId}', 'DELETE',
@@ -278,7 +278,7 @@ export default class VideosApi {
 
       let authNames = ['ApiKeyAuth'];
       let contentTypes = [];
-      let accepts = ['*/*'];
+      let accepts = ['application/json'];
       let returnType = null;
       return this.apiClient.callApi(
         '/videos/{videoId}/delete', 'DELETE',
@@ -326,7 +326,7 @@ export default class VideosApi {
 
       let authNames = ['ApiKeyAuth'];
       let contentTypes = [];
-      let accepts = ['*/*'];
+      let accepts = ['application/json'];
       let returnType = SubtitleDelete;
       return this.apiClient.callApi(
         '/videos/{videoId}/subtitles', 'DELETE',
@@ -380,7 +380,7 @@ export default class VideosApi {
 
       let authNames = ['ApiKeyAuth'];
       let contentTypes = [];
-      let accepts = ['*/*'];
+      let accepts = ['application/json'];
       let returnType = SubtitleDelete;
       return this.apiClient.callApi(
         '/videos/{videoId}/subtitles/{lang_code}', 'DELETE',
@@ -435,7 +435,7 @@ export default class VideosApi {
 
       let authNames = ['ApiKeyAuth'];
       let contentTypes = [];
-      let accepts = ['*/*'];
+      let accepts = ['application/json'];
       let returnType = SubtitleDelete;
       return this.apiClient.callApi(
         '/videos/{videoId}/subtitles/{subtitleId}', 'DELETE',
@@ -607,14 +607,14 @@ export default class VideosApi {
     /**
      * Upload: Mark as complete
      * Mark a video upload as complete after successful upload to storage using API key authentication
-     * @param {module:model/GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest} request Video upload completion request
+     * @param {module:model/PostVideosUploadCompleteRequest} postVideosUploadCompleteRequest Video upload completion request
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Video} and HTTP response
      */
-    postVideosUploadCompleteWithHttpInfo(request) {
-      let postBody = request;
-      // verify the required parameter 'request' is set
-      if (request === undefined || request === null) {
-        throw new Error("Missing the required parameter 'request' when calling postVideosUploadComplete");
+    postVideosUploadCompleteWithHttpInfo(postVideosUploadCompleteRequest) {
+      let postBody = postVideosUploadCompleteRequest;
+      // verify the required parameter 'postVideosUploadCompleteRequest' is set
+      if (postVideosUploadCompleteRequest === undefined || postVideosUploadCompleteRequest === null) {
+        throw new Error("Missing the required parameter 'postVideosUploadCompleteRequest' when calling postVideosUploadComplete");
       }
 
       let pathParams = {
@@ -640,11 +640,11 @@ export default class VideosApi {
     /**
      * Upload: Mark as complete
      * Mark a video upload as complete after successful upload to storage using API key authentication
-     * @param {module:model/GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest} request Video upload completion request
+     * @param {module:model/PostVideosUploadCompleteRequest} postVideosUploadCompleteRequest Video upload completion request
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Video}
      */
-    postVideosUploadComplete(request) {
-      return this.postVideosUploadCompleteWithHttpInfo(request)
+    postVideosUploadComplete(postVideosUploadCompleteRequest) {
+      return this.postVideosUploadCompleteWithHttpInfo(postVideosUploadCompleteRequest)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -654,14 +654,14 @@ export default class VideosApi {
     /**
      * Upload: Init
      * Initialize a video upload and get presigned URLs for video and poster using API key authentication
-     * @param {module:model/VideoUploadInitRequest} request Video upload initialization request
+     * @param {module:model/PostVideosUploadInitRequest} postVideosUploadInitRequest Video upload initialization request
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/GithubComQeeqezApiInternalVideosHandlerUploadInitResponse} and HTTP response
      */
-    postVideosUploadInitWithHttpInfo(request) {
-      let postBody = request;
-      // verify the required parameter 'request' is set
-      if (request === undefined || request === null) {
-        throw new Error("Missing the required parameter 'request' when calling postVideosUploadInit");
+    postVideosUploadInitWithHttpInfo(postVideosUploadInitRequest) {
+      let postBody = postVideosUploadInitRequest;
+      // verify the required parameter 'postVideosUploadInitRequest' is set
+      if (postVideosUploadInitRequest === undefined || postVideosUploadInitRequest === null) {
+        throw new Error("Missing the required parameter 'postVideosUploadInitRequest' when calling postVideosUploadInit");
       }
 
       let pathParams = {
@@ -687,11 +687,11 @@ export default class VideosApi {
     /**
      * Upload: Init
      * Initialize a video upload and get presigned URLs for video and poster using API key authentication
-     * @param {module:model/VideoUploadInitRequest} request Video upload initialization request
+     * @param {module:model/PostVideosUploadInitRequest} postVideosUploadInitRequest Video upload initialization request
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/GithubComQeeqezApiInternalVideosHandlerUploadInitResponse}
      */
-    postVideosUploadInit(request) {
-      return this.postVideosUploadInitWithHttpInfo(request)
+    postVideosUploadInit(postVideosUploadInitRequest) {
+      return this.postVideosUploadInitWithHttpInfo(postVideosUploadInitRequest)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -702,28 +702,13 @@ export default class VideosApi {
      * Bulk upsert video audio tracks
      * Replace all audio tracks with the provided ones using API key authentication
      * @param {String} videoId Video ID
-     * @param {Array.<File>} files Audio files (.mp3, .opus, .flac, .wav, .ac3, .m4a, .aac)
-     * @param {String} languageCodes Comma-separated language codes
-     * @param {String} labels Comma-separated labels
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/AudioTrack>} and HTTP response
      */
-    postVideosVideoIdAudioTracksWithHttpInfo(videoId, files, languageCodes, labels) {
+    postVideosVideoIdAudioTracksWithHttpInfo(videoId) {
       let postBody = null;
       // verify the required parameter 'videoId' is set
       if (videoId === undefined || videoId === null) {
         throw new Error("Missing the required parameter 'videoId' when calling postVideosVideoIdAudioTracks");
-      }
-      // verify the required parameter 'files' is set
-      if (files === undefined || files === null) {
-        throw new Error("Missing the required parameter 'files' when calling postVideosVideoIdAudioTracks");
-      }
-      // verify the required parameter 'languageCodes' is set
-      if (languageCodes === undefined || languageCodes === null) {
-        throw new Error("Missing the required parameter 'languageCodes' when calling postVideosVideoIdAudioTracks");
-      }
-      // verify the required parameter 'labels' is set
-      if (labels === undefined || labels === null) {
-        throw new Error("Missing the required parameter 'labels' when calling postVideosVideoIdAudioTracks");
       }
 
       let pathParams = {
@@ -734,13 +719,10 @@ export default class VideosApi {
       let headerParams = {
       };
       let formParams = {
-        'files': this.apiClient.buildCollectionParam(files, 'passthrough'),
-        'language_codes': languageCodes,
-        'labels': labels
       };
 
       let authNames = ['ApiKeyAuth'];
-      let contentTypes = ['multipart/form-data'];
+      let contentTypes = ['application/x-www-form-urlencoded', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = [AudioTrack];
       return this.apiClient.callApi(
@@ -754,13 +736,10 @@ export default class VideosApi {
      * Bulk upsert video audio tracks
      * Replace all audio tracks with the provided ones using API key authentication
      * @param {String} videoId Video ID
-     * @param {Array.<File>} files Audio files (.mp3, .opus, .flac, .wav, .ac3, .m4a, .aac)
-     * @param {String} languageCodes Comma-separated language codes
-     * @param {String} labels Comma-separated labels
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/AudioTrack>}
      */
-    postVideosVideoIdAudioTracks(videoId, files, languageCodes, labels) {
-      return this.postVideosVideoIdAudioTracksWithHttpInfo(videoId, files, languageCodes, labels)
+    postVideosVideoIdAudioTracks(videoId) {
+      return this.postVideosVideoIdAudioTracksWithHttpInfo(videoId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -771,28 +750,13 @@ export default class VideosApi {
      * Bulk upsert video subtitles
      * Replace all subtitles with the provided ones using API key authentication
      * @param {String} videoId Video ID
-     * @param {Array.<File>} files Subtitle files (.srt or .vtt)
-     * @param {String} languageCodes Comma-separated language codes
-     * @param {String} labels Comma-separated labels
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Subtitle>} and HTTP response
      */
-    postVideosVideoIdSubtitlesWithHttpInfo(videoId, files, languageCodes, labels) {
+    postVideosVideoIdSubtitlesWithHttpInfo(videoId) {
       let postBody = null;
       // verify the required parameter 'videoId' is set
       if (videoId === undefined || videoId === null) {
         throw new Error("Missing the required parameter 'videoId' when calling postVideosVideoIdSubtitles");
-      }
-      // verify the required parameter 'files' is set
-      if (files === undefined || files === null) {
-        throw new Error("Missing the required parameter 'files' when calling postVideosVideoIdSubtitles");
-      }
-      // verify the required parameter 'languageCodes' is set
-      if (languageCodes === undefined || languageCodes === null) {
-        throw new Error("Missing the required parameter 'languageCodes' when calling postVideosVideoIdSubtitles");
-      }
-      // verify the required parameter 'labels' is set
-      if (labels === undefined || labels === null) {
-        throw new Error("Missing the required parameter 'labels' when calling postVideosVideoIdSubtitles");
       }
 
       let pathParams = {
@@ -803,13 +767,10 @@ export default class VideosApi {
       let headerParams = {
       };
       let formParams = {
-        'files': this.apiClient.buildCollectionParam(files, 'passthrough'),
-        'language_codes': languageCodes,
-        'labels': labels
       };
 
       let authNames = ['ApiKeyAuth'];
-      let contentTypes = ['multipart/form-data'];
+      let contentTypes = ['application/x-www-form-urlencoded', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = [Subtitle];
       return this.apiClient.callApi(
@@ -823,13 +784,10 @@ export default class VideosApi {
      * Bulk upsert video subtitles
      * Replace all subtitles with the provided ones using API key authentication
      * @param {String} videoId Video ID
-     * @param {Array.<File>} files Subtitle files (.srt or .vtt)
-     * @param {String} languageCodes Comma-separated language codes
-     * @param {String} labels Comma-separated labels
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Subtitle>}
      */
-    postVideosVideoIdSubtitles(videoId, files, languageCodes, labels) {
-      return this.postVideosVideoIdSubtitlesWithHttpInfo(videoId, files, languageCodes, labels)
+    postVideosVideoIdSubtitles(videoId) {
+      return this.postVideosVideoIdSubtitlesWithHttpInfo(videoId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -841,13 +799,9 @@ export default class VideosApi {
      * Add or replace an audio track for a specific language using API key authentication
      * @param {String} videoId Video ID
      * @param {String} langCode Language Code (BCP 47)
-     * @param {File} file Audio file (.mp3, .opus, .flac, .wav, .ac3, .m4a, .aac)
-     * @param {Object} opts Optional parameters
-     * @param {String} [label] Label (e.g. English)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AudioTrack} and HTTP response
      */
-    putVideosVideoIdAudioTracksLangCodeWithHttpInfo(videoId, langCode, file, opts) {
-      opts = opts || {};
+    putVideosVideoIdAudioTracksLangCodeWithHttpInfo(videoId, langCode) {
       let postBody = null;
       // verify the required parameter 'videoId' is set
       if (videoId === undefined || videoId === null) {
@@ -856,10 +810,6 @@ export default class VideosApi {
       // verify the required parameter 'langCode' is set
       if (langCode === undefined || langCode === null) {
         throw new Error("Missing the required parameter 'langCode' when calling putVideosVideoIdAudioTracksLangCode");
-      }
-      // verify the required parameter 'file' is set
-      if (file === undefined || file === null) {
-        throw new Error("Missing the required parameter 'file' when calling putVideosVideoIdAudioTracksLangCode");
       }
 
       let pathParams = {
@@ -871,12 +821,10 @@ export default class VideosApi {
       let headerParams = {
       };
       let formParams = {
-        'file': file,
-        'label': opts['label']
       };
 
       let authNames = ['ApiKeyAuth'];
-      let contentTypes = ['multipart/form-data'];
+      let contentTypes = ['application/x-www-form-urlencoded', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = AudioTrack;
       return this.apiClient.callApi(
@@ -891,13 +839,10 @@ export default class VideosApi {
      * Add or replace an audio track for a specific language using API key authentication
      * @param {String} videoId Video ID
      * @param {String} langCode Language Code (BCP 47)
-     * @param {File} file Audio file (.mp3, .opus, .flac, .wav, .ac3, .m4a, .aac)
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.label Label (e.g. English)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AudioTrack}
      */
-    putVideosVideoIdAudioTracksLangCode(videoId, langCode, file, opts) {
-      return this.putVideosVideoIdAudioTracksLangCodeWithHttpInfo(videoId, langCode, file, opts)
+    putVideosVideoIdAudioTracksLangCode(videoId, langCode) {
+      return this.putVideosVideoIdAudioTracksLangCodeWithHttpInfo(videoId, langCode)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -908,18 +853,18 @@ export default class VideosApi {
      * Update video chapters
      * Replace all chapters for a video (atomic PUT operation) using API key authentication
      * @param {String} videoId Video ID
-     * @param {module:model/UpdateChaptersRequest} request Chapters array
+     * @param {module:model/PutVideosVideoIdChaptersRequest} putVideosVideoIdChaptersRequest Chapters array
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UpdateChaptersResponse} and HTTP response
      */
-    putVideosVideoIdChaptersWithHttpInfo(videoId, request) {
-      let postBody = request;
+    putVideosVideoIdChaptersWithHttpInfo(videoId, putVideosVideoIdChaptersRequest) {
+      let postBody = putVideosVideoIdChaptersRequest;
       // verify the required parameter 'videoId' is set
       if (videoId === undefined || videoId === null) {
         throw new Error("Missing the required parameter 'videoId' when calling putVideosVideoIdChapters");
       }
-      // verify the required parameter 'request' is set
-      if (request === undefined || request === null) {
-        throw new Error("Missing the required parameter 'request' when calling putVideosVideoIdChapters");
+      // verify the required parameter 'putVideosVideoIdChaptersRequest' is set
+      if (putVideosVideoIdChaptersRequest === undefined || putVideosVideoIdChaptersRequest === null) {
+        throw new Error("Missing the required parameter 'putVideosVideoIdChaptersRequest' when calling putVideosVideoIdChapters");
       }
 
       let pathParams = {
@@ -947,11 +892,11 @@ export default class VideosApi {
      * Update video chapters
      * Replace all chapters for a video (atomic PUT operation) using API key authentication
      * @param {String} videoId Video ID
-     * @param {module:model/UpdateChaptersRequest} request Chapters array
+     * @param {module:model/PutVideosVideoIdChaptersRequest} putVideosVideoIdChaptersRequest Chapters array
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UpdateChaptersResponse}
      */
-    putVideosVideoIdChapters(videoId, request) {
-      return this.putVideosVideoIdChaptersWithHttpInfo(videoId, request)
+    putVideosVideoIdChapters(videoId, putVideosVideoIdChaptersRequest) {
+      return this.putVideosVideoIdChaptersWithHttpInfo(videoId, putVideosVideoIdChaptersRequest)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -963,13 +908,9 @@ export default class VideosApi {
      * Add or replace a subtitle for a specific language using API key authentication
      * @param {String} videoId Video ID
      * @param {String} langCode Language Code (BCP 47)
-     * @param {File} file Subtitle file (.srt or .vtt)
-     * @param {Object} opts Optional parameters
-     * @param {String} [label] Label (e.g. English)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Subtitle} and HTTP response
      */
-    putVideosVideoIdSubtitlesLangCodeWithHttpInfo(videoId, langCode, file, opts) {
-      opts = opts || {};
+    putVideosVideoIdSubtitlesLangCodeWithHttpInfo(videoId, langCode) {
       let postBody = null;
       // verify the required parameter 'videoId' is set
       if (videoId === undefined || videoId === null) {
@@ -978,10 +919,6 @@ export default class VideosApi {
       // verify the required parameter 'langCode' is set
       if (langCode === undefined || langCode === null) {
         throw new Error("Missing the required parameter 'langCode' when calling putVideosVideoIdSubtitlesLangCode");
-      }
-      // verify the required parameter 'file' is set
-      if (file === undefined || file === null) {
-        throw new Error("Missing the required parameter 'file' when calling putVideosVideoIdSubtitlesLangCode");
       }
 
       let pathParams = {
@@ -993,12 +930,10 @@ export default class VideosApi {
       let headerParams = {
       };
       let formParams = {
-        'file': file,
-        'label': opts['label']
       };
 
       let authNames = ['ApiKeyAuth'];
-      let contentTypes = ['multipart/form-data'];
+      let contentTypes = ['application/x-www-form-urlencoded', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = Subtitle;
       return this.apiClient.callApi(
@@ -1013,13 +948,10 @@ export default class VideosApi {
      * Add or replace a subtitle for a specific language using API key authentication
      * @param {String} videoId Video ID
      * @param {String} langCode Language Code (BCP 47)
-     * @param {File} file Subtitle file (.srt or .vtt)
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.label Label (e.g. English)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Subtitle}
      */
-    putVideosVideoIdSubtitlesLangCode(videoId, langCode, file, opts) {
-      return this.putVideosVideoIdSubtitlesLangCodeWithHttpInfo(videoId, langCode, file, opts)
+    putVideosVideoIdSubtitlesLangCode(videoId, langCode) {
+      return this.putVideosVideoIdSubtitlesLangCodeWithHttpInfo(videoId, langCode)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -1030,18 +962,13 @@ export default class VideosApi {
      * Update video thumbnail
      * Update the thumbnail image for an existing video using API key authentication
      * @param {String} videoId Video ID
-     * @param {File} thumbnail Thumbnail image file (max 5MB, image/_*)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Video} and HTTP response
      */
-    putVideosVideoIdThumbnailWithHttpInfo(videoId, thumbnail) {
+    putVideosVideoIdThumbnailWithHttpInfo(videoId) {
       let postBody = null;
       // verify the required parameter 'videoId' is set
       if (videoId === undefined || videoId === null) {
         throw new Error("Missing the required parameter 'videoId' when calling putVideosVideoIdThumbnail");
-      }
-      // verify the required parameter 'thumbnail' is set
-      if (thumbnail === undefined || thumbnail === null) {
-        throw new Error("Missing the required parameter 'thumbnail' when calling putVideosVideoIdThumbnail");
       }
 
       let pathParams = {
@@ -1052,11 +979,10 @@ export default class VideosApi {
       let headerParams = {
       };
       let formParams = {
-        'thumbnail': thumbnail
       };
 
       let authNames = ['ApiKeyAuth'];
-      let contentTypes = ['multipart/form-data'];
+      let contentTypes = ['application/x-www-form-urlencoded', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = Video;
       return this.apiClient.callApi(
@@ -1070,11 +996,10 @@ export default class VideosApi {
      * Update video thumbnail
      * Update the thumbnail image for an existing video using API key authentication
      * @param {String} videoId Video ID
-     * @param {File} thumbnail Thumbnail image file (max 5MB, image/_*)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Video}
      */
-    putVideosVideoIdThumbnail(videoId, thumbnail) {
-      return this.putVideosVideoIdThumbnailWithHttpInfo(videoId, thumbnail)
+    putVideosVideoIdThumbnail(videoId) {
+      return this.putVideosVideoIdThumbnailWithHttpInfo(videoId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

@@ -57,7 +57,7 @@ class VideoUploadInitRequest {
                 obj['image_format'] = ApiClient.convertToType(data['image_format'], 'String');
             }
             if (data.hasOwnProperty('video_quality')) {
-                obj['video_quality'] = ApiClient.convertToType(data['video_quality'], GithubComQeeqezApiDbSqlcVideoQuality);
+                obj['video_quality'] = GithubComQeeqezApiDbSqlcVideoQuality.constructFromObject(data['video_quality']);
             }
         }
         return obj;

@@ -17,6 +17,9 @@ docs/Image.md
 docs/InternalVideosHandlerSubtitlesLanguageResponse.md
 docs/PaginationPaginatedResponseVideo.md
 docs/PaginationPagination.md
+docs/PostVideosUploadCompleteRequest.md
+docs/PostVideosUploadInitRequest.md
+docs/PutVideosVideoIdChaptersRequest.md
 docs/Subtitle.md
 docs/SubtitleDelete.md
 docs/UpdateChaptersRequest.md
@@ -45,9 +48,15 @@ src/model/Image.js
 src/model/InternalVideosHandlerSubtitlesLanguageResponse.js
 src/model/PaginationPaginatedResponseVideo.js
 src/model/PaginationPagination.js
+src/model/PostVideosUploadCompleteRequest.js
+src/model/PostVideosUploadInitRequest.js
+src/model/PutVideosVideoIdChaptersRequest.js
 src/model/Subtitle.js
 src/model/SubtitleDelete.js
 src/model/UpdateChaptersRequest.js
 src/model/UpdateChaptersResponse.js
 src/model/Video.js
 src/model/VideoUploadInitRequest.js
+test/model/PostVideosUploadCompleteRequest.spec.js
+test/model/PostVideosUploadInitRequest.spec.js
+test/model/PutVideosVideoIdChaptersRequest.spec.js

@@ -28,6 +28,9 @@ import Image from './model/Image';
 import InternalVideosHandlerSubtitlesLanguageResponse from './model/InternalVideosHandlerSubtitlesLanguageResponse';
 import PaginationPaginatedResponseVideo from './model/PaginationPaginatedResponseVideo';
 import PaginationPagination from './model/PaginationPagination';
+import PostVideosUploadCompleteRequest from './model/PostVideosUploadCompleteRequest';
+import PostVideosUploadInitRequest from './model/PostVideosUploadInitRequest';
+import PutVideosVideoIdChaptersRequest from './model/PutVideosVideoIdChaptersRequest';
 import Subtitle from './model/Subtitle';
 import SubtitleDelete from './model/SubtitleDelete';
 import UpdateChaptersRequest from './model/UpdateChaptersRequest';
@@ -164,6 +167,24 @@ export {
      * @property {module:model/PaginationPagination}
      */
     PaginationPagination,
+
+    /**
+     * The PostVideosUploadCompleteRequest model constructor.
+     * @property {module:model/PostVideosUploadCompleteRequest}
+     */
+    PostVideosUploadCompleteRequest,
+
+    /**
+     * The PostVideosUploadInitRequest model constructor.
+     * @property {module:model/PostVideosUploadInitRequest}
+     */
+    PostVideosUploadInitRequest,
+
+    /**
+     * The PutVideosVideoIdChaptersRequest model constructor.
+     * @property {module:model/PutVideosVideoIdChaptersRequest}
+     */
+    PutVideosVideoIdChaptersRequest,
 
     /**
      * The Subtitle model constructor.

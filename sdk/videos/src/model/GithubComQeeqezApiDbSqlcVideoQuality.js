@@ -40,6 +40,27 @@ export default class GithubComQeeqezApiDbSqlcVideoQuality {
         "VideoQualityPro" = "pro";
 
     
+        /**
+         * value: "basic"
+         * @const
+         */
+        "basic2" = "basic";
+
+    
+        /**
+         * value: "shorts"
+         * @const
+         */
+        "shorts2" = "shorts";
+
+    
+        /**
+         * value: "pro"
+         * @const
+         */
+        "pro2" = "pro";
+
+    
 
     /**
     * Returns a <code>GithubComQeeqezApiDbSqlcVideoQuality</code> enum value from a Javascript object name.
