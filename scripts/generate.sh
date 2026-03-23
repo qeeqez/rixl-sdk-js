@@ -112,6 +112,21 @@ for service in "${services[@]}"; do
 	jq --arg pkg "${package_name}" --arg service "${service}" '
 		.name = $pkg
 		| .description = ("RIXL public JavaScript SDK for " + $service + " generated from the public OpenAPI spec.")
+		| .main = "dist/index.js"
+		| .scripts = {
+			"build": "babel --config-file ../../babel.config.json src -d dist",
+			"prepare": "npm run build"
+		}
+		| .dependencies = {
+			"superagent": "^5.3.0"
+		}
+		| .devDependencies = (
+			(.devDependencies // {})
+			+ {
+				"@babel/cli": "^7.0.0"
+			}
+			| del(.["@babel/register"], .["expect.js"], .["mocha"], .["sinon"])
+		)
 		| .author = "Rixl Inc."
 		| .homepage = "https://rixl.com"
 		| .license = "SEE LICENSE IN LICENSE.md"
@@ -119,7 +134,7 @@ for service in "${services[@]}"; do
 			"type": "git",
 			"url": "https://github.com/qeeqez/rixl-sdk-js.git"
 		}
-		| .files = ["src"]
+		| .files = ["dist"]
 		| .publishConfig = {"access": "public"}
 		| .keywords = ["rixl", "sdk", "api", "openapi", "javascript", $service]
 	' "${service_tmp}/package.json" > "${tmp_package_json}"
@@ -128,7 +143,14 @@ for service in "${services[@]}"; do
 	perl -0pi -e 's{localhost API}{RIXL public API}g; s{\*http://localhost\*}{*https://api.rixl.com*}g' "${service_tmp}/README.md"
 
 	rm -rf "${service_tmp}/.openapi-generator"
-	rm -f "${service_tmp}/.travis.yml" "${service_tmp}/git_push.sh"
+	rm -f \
+		"${service_tmp}/.travis.yml" \
+		"${service_tmp}/git_push.sh" \
+		"${service_tmp}/README.md" \
+		"${service_tmp}/.gitignore" \
+		"${service_tmp}/.openapi-generator-ignore" \
+		"${service_tmp}/.babelrc" \
+		"${service_tmp}/mocha.opts"
 
 	mkdir -p "${output_dir}"
 	rsync -a --delete \
