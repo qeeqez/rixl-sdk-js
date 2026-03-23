@@ -1,7 +1,7 @@
 {
-  "name": "@rixl/api-sdk",
+  "name": "@rixl/sdk-js",
   "version": "2.0.0",
-  "description": "RIXL public API SDK generated from the public OpenAPI spec.",
+  "description": "RIXL public JavaScript SDK generated from the public OpenAPI spec.",
   "author": "Rixl Inc.",
   "repository": {
     "type": "git",
@@ -12,7 +12,6 @@
     "sdk",
     "api",
     "openapi",
-    "typescript",
     "javascript"
   ],
   "license": "SEE LICENSE IN LICENSE.md",
