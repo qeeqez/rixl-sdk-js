@@ -24,18 +24,10 @@ import GithubComQeeqezApiInternalErrorsErrorResponse from './models/GithubComQee
 import GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest from './models/GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest';
 import GithubComQeeqezApiInternalVideosHandlerUploadInitResponse from './models/GithubComQeeqezApiInternalVideosHandlerUploadInitResponse';
 import GithubComQeeqezApiInternalVideosTypesChapterInput from './models/GithubComQeeqezApiInternalVideosTypesChapterInput';
-import GithubComQeeqezApiInternalVideosVideoResponse from './models/GithubComQeeqezApiInternalVideosVideoResponse';
 import Image from './models/Image';
-import InternalImagesHandlerCompleteRequest from './models/InternalImagesHandlerCompleteRequest';
-import InternalImagesHandlerInitResponse from './models/InternalImagesHandlerInitResponse';
-import InternalImagesHandlerUploadInitRequest from './models/InternalImagesHandlerUploadInitRequest';
 import InternalVideosHandlerSubtitlesLanguageResponse from './models/InternalVideosHandlerSubtitlesLanguageResponse';
-import PaginationPaginatedResponseImage from './models/PaginationPaginatedResponseImage';
-import PaginationPaginatedResponsePost from './models/PaginationPaginatedResponsePost';
 import PaginationPaginatedResponseVideo from './models/PaginationPaginatedResponseVideo';
 import PaginationPagination from './models/PaginationPagination';
-import Post from './models/Post';
-import PostType from './models/PostType';
 import Subtitle from './models/Subtitle';
 import SubtitleDelete from './models/SubtitleDelete';
 import UpdateChaptersRequest from './models/UpdateChaptersRequest';
@@ -150,52 +142,16 @@ export {
     GithubComQeeqezApiInternalVideosTypesChapterInput,
 
     /**
-     * The GithubComQeeqezApiInternalVideosVideoResponse model constructor.
-     * @property {module:models/GithubComQeeqezApiInternalVideosVideoResponse}
-     */
-    GithubComQeeqezApiInternalVideosVideoResponse,
-
-    /**
      * The Image model constructor.
      * @property {module:models/Image}
      */
     Image,
 
     /**
-     * The InternalImagesHandlerCompleteRequest model constructor.
-     * @property {module:models/InternalImagesHandlerCompleteRequest}
-     */
-    InternalImagesHandlerCompleteRequest,
-
-    /**
-     * The InternalImagesHandlerInitResponse model constructor.
-     * @property {module:models/InternalImagesHandlerInitResponse}
-     */
-    InternalImagesHandlerInitResponse,
-
-    /**
-     * The InternalImagesHandlerUploadInitRequest model constructor.
-     * @property {module:models/InternalImagesHandlerUploadInitRequest}
-     */
-    InternalImagesHandlerUploadInitRequest,
-
-    /**
      * The InternalVideosHandlerSubtitlesLanguageResponse model constructor.
      * @property {module:models/InternalVideosHandlerSubtitlesLanguageResponse}
      */
     InternalVideosHandlerSubtitlesLanguageResponse,
-
-    /**
-     * The PaginationPaginatedResponseImage model constructor.
-     * @property {module:models/PaginationPaginatedResponseImage}
-     */
-    PaginationPaginatedResponseImage,
-
-    /**
-     * The PaginationPaginatedResponsePost model constructor.
-     * @property {module:models/PaginationPaginatedResponsePost}
-     */
-    PaginationPaginatedResponsePost,
 
     /**
      * The PaginationPaginatedResponseVideo model constructor.
@@ -208,18 +164,6 @@ export {
      * @property {module:models/PaginationPagination}
      */
     PaginationPagination,
-
-    /**
-     * The Post model constructor.
-     * @property {module:models/Post}
-     */
-    Post,
-
-    /**
-     * The PostType model constructor.
-     * @property {module:models/PostType}
-     */
-    PostType,
 
     /**
      * The Subtitle model constructor.

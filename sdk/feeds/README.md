@@ -134,35 +134,17 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
- - [RixlSdkJsFeeds.AudioTrack](docs/AudioTrack.md)
- - [RixlSdkJsFeeds.AudioTrackDelete](docs/AudioTrackDelete.md)
  - [RixlSdkJsFeeds.Chapter](docs/Chapter.md)
  - [RixlSdkJsFeeds.File](docs/File.md)
  - [RixlSdkJsFeeds.FileStatus](docs/FileStatus.md)
  - [RixlSdkJsFeeds.GithubComQeeqezApiDbSqlcPlanType](docs/GithubComQeeqezApiDbSqlcPlanType.md)
- - [RixlSdkJsFeeds.GithubComQeeqezApiDbSqlcVideoQuality](docs/GithubComQeeqezApiDbSqlcVideoQuality.md)
  - [RixlSdkJsFeeds.GithubComQeeqezApiInternalErrorsErrorResponse](docs/GithubComQeeqezApiInternalErrorsErrorResponse.md)
- - [RixlSdkJsFeeds.GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest](docs/GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest.md)
- - [RixlSdkJsFeeds.GithubComQeeqezApiInternalVideosHandlerUploadInitResponse](docs/GithubComQeeqezApiInternalVideosHandlerUploadInitResponse.md)
- - [RixlSdkJsFeeds.GithubComQeeqezApiInternalVideosTypesChapterInput](docs/GithubComQeeqezApiInternalVideosTypesChapterInput.md)
  - [RixlSdkJsFeeds.GithubComQeeqezApiInternalVideosVideoResponse](docs/GithubComQeeqezApiInternalVideosVideoResponse.md)
  - [RixlSdkJsFeeds.Image](docs/Image.md)
- - [RixlSdkJsFeeds.InternalImagesHandlerCompleteRequest](docs/InternalImagesHandlerCompleteRequest.md)
- - [RixlSdkJsFeeds.InternalImagesHandlerInitResponse](docs/InternalImagesHandlerInitResponse.md)
- - [RixlSdkJsFeeds.InternalImagesHandlerUploadInitRequest](docs/InternalImagesHandlerUploadInitRequest.md)
- - [RixlSdkJsFeeds.InternalVideosHandlerSubtitlesLanguageResponse](docs/InternalVideosHandlerSubtitlesLanguageResponse.md)
- - [RixlSdkJsFeeds.PaginationPaginatedResponseImage](docs/PaginationPaginatedResponseImage.md)
  - [RixlSdkJsFeeds.PaginationPaginatedResponsePost](docs/PaginationPaginatedResponsePost.md)
- - [RixlSdkJsFeeds.PaginationPaginatedResponseVideo](docs/PaginationPaginatedResponseVideo.md)
  - [RixlSdkJsFeeds.PaginationPagination](docs/PaginationPagination.md)
  - [RixlSdkJsFeeds.Post](docs/Post.md)
  - [RixlSdkJsFeeds.PostType](docs/PostType.md)
- - [RixlSdkJsFeeds.Subtitle](docs/Subtitle.md)
- - [RixlSdkJsFeeds.SubtitleDelete](docs/SubtitleDelete.md)
- - [RixlSdkJsFeeds.UpdateChaptersRequest](docs/UpdateChaptersRequest.md)
- - [RixlSdkJsFeeds.UpdateChaptersResponse](docs/UpdateChaptersResponse.md)
- - [RixlSdkJsFeeds.Video](docs/Video.md)
- - [RixlSdkJsFeeds.VideoUploadInitRequest](docs/VideoUploadInitRequest.md)
 
 
 ## Documentation for Authorization

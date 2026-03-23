@@ -138,35 +138,15 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
- - [RixlSdkJsImages.AudioTrack](docs/AudioTrack.md)
- - [RixlSdkJsImages.AudioTrackDelete](docs/AudioTrackDelete.md)
- - [RixlSdkJsImages.Chapter](docs/Chapter.md)
  - [RixlSdkJsImages.File](docs/File.md)
  - [RixlSdkJsImages.FileStatus](docs/FileStatus.md)
- - [RixlSdkJsImages.GithubComQeeqezApiDbSqlcPlanType](docs/GithubComQeeqezApiDbSqlcPlanType.md)
- - [RixlSdkJsImages.GithubComQeeqezApiDbSqlcVideoQuality](docs/GithubComQeeqezApiDbSqlcVideoQuality.md)
  - [RixlSdkJsImages.GithubComQeeqezApiInternalErrorsErrorResponse](docs/GithubComQeeqezApiInternalErrorsErrorResponse.md)
- - [RixlSdkJsImages.GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest](docs/GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest.md)
- - [RixlSdkJsImages.GithubComQeeqezApiInternalVideosHandlerUploadInitResponse](docs/GithubComQeeqezApiInternalVideosHandlerUploadInitResponse.md)
- - [RixlSdkJsImages.GithubComQeeqezApiInternalVideosTypesChapterInput](docs/GithubComQeeqezApiInternalVideosTypesChapterInput.md)
- - [RixlSdkJsImages.GithubComQeeqezApiInternalVideosVideoResponse](docs/GithubComQeeqezApiInternalVideosVideoResponse.md)
  - [RixlSdkJsImages.Image](docs/Image.md)
  - [RixlSdkJsImages.InternalImagesHandlerCompleteRequest](docs/InternalImagesHandlerCompleteRequest.md)
  - [RixlSdkJsImages.InternalImagesHandlerInitResponse](docs/InternalImagesHandlerInitResponse.md)
  - [RixlSdkJsImages.InternalImagesHandlerUploadInitRequest](docs/InternalImagesHandlerUploadInitRequest.md)
- - [RixlSdkJsImages.InternalVideosHandlerSubtitlesLanguageResponse](docs/InternalVideosHandlerSubtitlesLanguageResponse.md)
  - [RixlSdkJsImages.PaginationPaginatedResponseImage](docs/PaginationPaginatedResponseImage.md)
- - [RixlSdkJsImages.PaginationPaginatedResponsePost](docs/PaginationPaginatedResponsePost.md)
- - [RixlSdkJsImages.PaginationPaginatedResponseVideo](docs/PaginationPaginatedResponseVideo.md)
  - [RixlSdkJsImages.PaginationPagination](docs/PaginationPagination.md)
- - [RixlSdkJsImages.Post](docs/Post.md)
- - [RixlSdkJsImages.PostType](docs/PostType.md)
- - [RixlSdkJsImages.Subtitle](docs/Subtitle.md)
- - [RixlSdkJsImages.SubtitleDelete](docs/SubtitleDelete.md)
- - [RixlSdkJsImages.UpdateChaptersRequest](docs/UpdateChaptersRequest.md)
- - [RixlSdkJsImages.UpdateChaptersResponse](docs/UpdateChaptersResponse.md)
- - [RixlSdkJsImages.Video](docs/Video.md)
- - [RixlSdkJsImages.VideoUploadInitRequest](docs/VideoUploadInitRequest.md)
 
 
 ## Documentation for Authorization

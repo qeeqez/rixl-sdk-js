@@ -91,10 +91,10 @@ if [[ -n "${service_arg}" ]]; then
 	services=("${service_arg}")
 fi
 
-mkdir -p "${ROOT_DIR}/sdk"
+mkdir -p "${ROOT_DIR}/sdk" "${ROOT_DIR}/openapi/services"
 
 for service in "${services[@]}"; do
-	service_spec="${TMP_DIR}/${service}.swagger.json"
+	service_spec="${ROOT_DIR}/openapi/services/${service}.swagger.json"
 	service_tmp="${TMP_DIR}/out-${service}"
 	output_dir="${ROOT_DIR}/sdk/${service}"
 	package_name="@rixl/sdk-js-${service}"
@@ -128,7 +128,7 @@ for service in "${services[@]}"; do
 	perl -0pi -e 's{localhost API}{RIXL public API}g; s{\*http://localhost\*}{*https://api.rixl.com*}g' "${service_tmp}/README.md"
 
 	rm -rf "${service_tmp}/.openapi-generator"
-	rm -f "${service_tmp}/git_push.sh"
+	rm -f "${service_tmp}/.travis.yml" "${service_tmp}/git_push.sh"
 
 	mkdir -p "${output_dir}"
 	rsync -a --delete \
