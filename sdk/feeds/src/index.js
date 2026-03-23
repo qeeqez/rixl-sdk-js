@@ -13,18 +13,18 @@
 
 
 import ApiClient from './ApiClient';
-import Chapter from './models/Chapter';
-import File from './models/File';
-import FileStatus from './models/FileStatus';
-import GithubComQeeqezApiDbSqlcPlanType from './models/GithubComQeeqezApiDbSqlcPlanType';
-import GithubComQeeqezApiInternalErrorsErrorResponse from './models/GithubComQeeqezApiInternalErrorsErrorResponse';
-import GithubComQeeqezApiInternalVideosVideoResponse from './models/GithubComQeeqezApiInternalVideosVideoResponse';
-import Image from './models/Image';
-import PaginationPaginatedResponsePost from './models/PaginationPaginatedResponsePost';
-import PaginationPagination from './models/PaginationPagination';
-import Post from './models/Post';
-import PostType from './models/PostType';
-import FeedsApi from './services/FeedsApi';
+import Chapter from './model/Chapter';
+import File from './model/File';
+import FileStatus from './model/FileStatus';
+import GithubComQeeqezApiDbSqlcPlanType from './model/GithubComQeeqezApiDbSqlcPlanType';
+import GithubComQeeqezApiInternalErrorsErrorResponse from './model/GithubComQeeqezApiInternalErrorsErrorResponse';
+import GithubComQeeqezApiInternalVideosVideoResponse from './model/GithubComQeeqezApiInternalVideosVideoResponse';
+import Image from './model/Image';
+import PaginationPaginatedResponsePost from './model/PaginationPaginatedResponsePost';
+import PaginationPagination from './model/PaginationPagination';
+import Post from './model/Post';
+import PostType from './model/PostType';
+import FeedsApi from './api/FeedsApi';
 
 
 /**
@@ -33,9 +33,9 @@ import FeedsApi from './services/FeedsApi';
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
 * <pre>
-* var RixlSdkJsFeeds = require('index'); // See note below*.
-* var xxxSvc = new RixlSdkJsFeeds.XxxApi(); // Allocate the API class we're going to use.
-* var yyyModel = new RixlSdkJsFeeds.Yyy(); // Construct a model instance.
+* var RixlApi = require('index'); // See note below*.
+* var xxxSvc = new RixlApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyyModel = new RixlApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -47,8 +47,8 @@ import FeedsApi from './services/FeedsApi';
 * <p>
 * A non-AMD browser application (discouraged) might do something like this:
 * <pre>
-* var xxxSvc = new RixlSdkJsFeeds.XxxApi(); // Allocate the API class we're going to use.
-* var yyy = new RixlSdkJsFeeds.Yyy(); // Construct a model instance.
+* var xxxSvc = new RixlApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyy = new RixlApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -56,7 +56,7 @@ import FeedsApi from './services/FeedsApi';
 * </pre>
 * </p>
 * @module index
-* @version 2.0.0
+* @version 2.0
 */
 export {
     /**
@@ -67,73 +67,73 @@ export {
 
     /**
      * The Chapter model constructor.
-     * @property {module:models/Chapter}
+     * @property {module:model/Chapter}
      */
     Chapter,
 
     /**
      * The File model constructor.
-     * @property {module:models/File}
+     * @property {module:model/File}
      */
     File,
 
     /**
      * The FileStatus model constructor.
-     * @property {module:models/FileStatus}
+     * @property {module:model/FileStatus}
      */
     FileStatus,
 
     /**
      * The GithubComQeeqezApiDbSqlcPlanType model constructor.
-     * @property {module:models/GithubComQeeqezApiDbSqlcPlanType}
+     * @property {module:model/GithubComQeeqezApiDbSqlcPlanType}
      */
     GithubComQeeqezApiDbSqlcPlanType,
 
     /**
      * The GithubComQeeqezApiInternalErrorsErrorResponse model constructor.
-     * @property {module:models/GithubComQeeqezApiInternalErrorsErrorResponse}
+     * @property {module:model/GithubComQeeqezApiInternalErrorsErrorResponse}
      */
     GithubComQeeqezApiInternalErrorsErrorResponse,
 
     /**
      * The GithubComQeeqezApiInternalVideosVideoResponse model constructor.
-     * @property {module:models/GithubComQeeqezApiInternalVideosVideoResponse}
+     * @property {module:model/GithubComQeeqezApiInternalVideosVideoResponse}
      */
     GithubComQeeqezApiInternalVideosVideoResponse,
 
     /**
      * The Image model constructor.
-     * @property {module:models/Image}
+     * @property {module:model/Image}
      */
     Image,
 
     /**
      * The PaginationPaginatedResponsePost model constructor.
-     * @property {module:models/PaginationPaginatedResponsePost}
+     * @property {module:model/PaginationPaginatedResponsePost}
      */
     PaginationPaginatedResponsePost,
 
     /**
      * The PaginationPagination model constructor.
-     * @property {module:models/PaginationPagination}
+     * @property {module:model/PaginationPagination}
      */
     PaginationPagination,
 
     /**
      * The Post model constructor.
-     * @property {module:models/Post}
+     * @property {module:model/Post}
      */
     Post,
 
     /**
      * The PostType model constructor.
-     * @property {module:models/PostType}
+     * @property {module:model/PostType}
      */
     PostType,
 
     /**
     * The FeedsApi service constructor.
-    * @property {module:services/FeedsApi}
+    * @property {module:api/FeedsApi}
     */
     FeedsApi
 };

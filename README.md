@@ -1,41 +1,34 @@
-# RIXL JavaScript SDKs
+# RIXL JavaScript SDK
 
-This repository contains the JavaScript SDK split by service instead of one flat generated client.
+The RIXL JavaScript SDK provides a robust, modular, and type-safe interface for the RIXL API. It is designed to be lightweight and easy to integrate into both browser and Node.js environments.
 
-## Layout
+## Packages
 
-- `sdk/feeds` -> package `@rixl/sdk-js-feeds`
-- `sdk/videos` -> package `@rixl/sdk-js-videos`
-- `sdk/images` -> package `@rixl/sdk-js-images`
+The SDK is split into standalone service packages:
 
-Each service folder is a standalone generated package with its own `package.json` and `src` directory.
+- **@rixl/sdk-js-feeds**: Interact with user and global feeds.
+- **@rixl/sdk-js-videos**: Manage video content, uploads, and metadata.
+- **@rixl/sdk-js-images**: Handle image assets and transformations.
 
-## Build Example
+## Installation
 
-Build the videos SDK:
+Install the SDK packages via npm or yarn:
 
-```sh
-cd sdk/videos
-npm install
-npm run build
+```bash
+npm install @rixl/sdk-js-feeds @rixl/sdk-js-videos @rixl/sdk-js-images
 ```
 
-## Regenerate
+## Usage
 
-Generate all services:
+Each service can be used independently:
 
-```sh
-./scripts/generate.sh
+```javascript
+import { FeedsApi } from '@rixl/sdk-js-feeds';
+
+const feeds = new FeedsApi();
+// feeds.getFeed().then(...)
 ```
 
-Generate one service:
+## Support
 
-```sh
-./scripts/generate.sh --service videos
-```
-
-Regenerate from a fresh OpenAPI file:
-
-```sh
-./scripts/generate.sh --spec /path/to/public.swagger.json --service images
-```
+For technical support or issues, please visit our documentation or open a GitHub issue.

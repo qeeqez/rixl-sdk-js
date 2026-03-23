@@ -13,28 +13,28 @@
 
 
 import ApiClient from './ApiClient';
-import AudioTrack from './models/AudioTrack';
-import AudioTrackDelete from './models/AudioTrackDelete';
-import Chapter from './models/Chapter';
-import File from './models/File';
-import FileStatus from './models/FileStatus';
-import GithubComQeeqezApiDbSqlcPlanType from './models/GithubComQeeqezApiDbSqlcPlanType';
-import GithubComQeeqezApiDbSqlcVideoQuality from './models/GithubComQeeqezApiDbSqlcVideoQuality';
-import GithubComQeeqezApiInternalErrorsErrorResponse from './models/GithubComQeeqezApiInternalErrorsErrorResponse';
-import GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest from './models/GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest';
-import GithubComQeeqezApiInternalVideosHandlerUploadInitResponse from './models/GithubComQeeqezApiInternalVideosHandlerUploadInitResponse';
-import GithubComQeeqezApiInternalVideosTypesChapterInput from './models/GithubComQeeqezApiInternalVideosTypesChapterInput';
-import Image from './models/Image';
-import InternalVideosHandlerSubtitlesLanguageResponse from './models/InternalVideosHandlerSubtitlesLanguageResponse';
-import PaginationPaginatedResponseVideo from './models/PaginationPaginatedResponseVideo';
-import PaginationPagination from './models/PaginationPagination';
-import Subtitle from './models/Subtitle';
-import SubtitleDelete from './models/SubtitleDelete';
-import UpdateChaptersRequest from './models/UpdateChaptersRequest';
-import UpdateChaptersResponse from './models/UpdateChaptersResponse';
-import Video from './models/Video';
-import VideoUploadInitRequest from './models/VideoUploadInitRequest';
-import VideosApi from './services/VideosApi';
+import AudioTrack from './model/AudioTrack';
+import AudioTrackDelete from './model/AudioTrackDelete';
+import Chapter from './model/Chapter';
+import File from './model/File';
+import FileStatus from './model/FileStatus';
+import GithubComQeeqezApiDbSqlcPlanType from './model/GithubComQeeqezApiDbSqlcPlanType';
+import GithubComQeeqezApiDbSqlcVideoQuality from './model/GithubComQeeqezApiDbSqlcVideoQuality';
+import GithubComQeeqezApiInternalErrorsErrorResponse from './model/GithubComQeeqezApiInternalErrorsErrorResponse';
+import GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest from './model/GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest';
+import GithubComQeeqezApiInternalVideosHandlerUploadInitResponse from './model/GithubComQeeqezApiInternalVideosHandlerUploadInitResponse';
+import GithubComQeeqezApiInternalVideosTypesChapterInput from './model/GithubComQeeqezApiInternalVideosTypesChapterInput';
+import Image from './model/Image';
+import InternalVideosHandlerSubtitlesLanguageResponse from './model/InternalVideosHandlerSubtitlesLanguageResponse';
+import PaginationPaginatedResponseVideo from './model/PaginationPaginatedResponseVideo';
+import PaginationPagination from './model/PaginationPagination';
+import Subtitle from './model/Subtitle';
+import SubtitleDelete from './model/SubtitleDelete';
+import UpdateChaptersRequest from './model/UpdateChaptersRequest';
+import UpdateChaptersResponse from './model/UpdateChaptersResponse';
+import Video from './model/Video';
+import VideoUploadInitRequest from './model/VideoUploadInitRequest';
+import VideosApi from './api/VideosApi';
 
 
 /**
@@ -43,9 +43,9 @@ import VideosApi from './services/VideosApi';
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
 * <pre>
-* var RixlSdkJsVideos = require('index'); // See note below*.
-* var xxxSvc = new RixlSdkJsVideos.XxxApi(); // Allocate the API class we're going to use.
-* var yyyModel = new RixlSdkJsVideos.Yyy(); // Construct a model instance.
+* var RixlApi = require('index'); // See note below*.
+* var xxxSvc = new RixlApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyyModel = new RixlApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -57,8 +57,8 @@ import VideosApi from './services/VideosApi';
 * <p>
 * A non-AMD browser application (discouraged) might do something like this:
 * <pre>
-* var xxxSvc = new RixlSdkJsVideos.XxxApi(); // Allocate the API class we're going to use.
-* var yyy = new RixlSdkJsVideos.Yyy(); // Construct a model instance.
+* var xxxSvc = new RixlApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyy = new RixlApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -66,7 +66,7 @@ import VideosApi from './services/VideosApi';
 * </pre>
 * </p>
 * @module index
-* @version 2.0.0
+* @version 2.0
 */
 export {
     /**
@@ -77,133 +77,133 @@ export {
 
     /**
      * The AudioTrack model constructor.
-     * @property {module:models/AudioTrack}
+     * @property {module:model/AudioTrack}
      */
     AudioTrack,
 
     /**
      * The AudioTrackDelete model constructor.
-     * @property {module:models/AudioTrackDelete}
+     * @property {module:model/AudioTrackDelete}
      */
     AudioTrackDelete,
 
     /**
      * The Chapter model constructor.
-     * @property {module:models/Chapter}
+     * @property {module:model/Chapter}
      */
     Chapter,
 
     /**
      * The File model constructor.
-     * @property {module:models/File}
+     * @property {module:model/File}
      */
     File,
 
     /**
      * The FileStatus model constructor.
-     * @property {module:models/FileStatus}
+     * @property {module:model/FileStatus}
      */
     FileStatus,
 
     /**
      * The GithubComQeeqezApiDbSqlcPlanType model constructor.
-     * @property {module:models/GithubComQeeqezApiDbSqlcPlanType}
+     * @property {module:model/GithubComQeeqezApiDbSqlcPlanType}
      */
     GithubComQeeqezApiDbSqlcPlanType,
 
     /**
      * The GithubComQeeqezApiDbSqlcVideoQuality model constructor.
-     * @property {module:models/GithubComQeeqezApiDbSqlcVideoQuality}
+     * @property {module:model/GithubComQeeqezApiDbSqlcVideoQuality}
      */
     GithubComQeeqezApiDbSqlcVideoQuality,
 
     /**
      * The GithubComQeeqezApiInternalErrorsErrorResponse model constructor.
-     * @property {module:models/GithubComQeeqezApiInternalErrorsErrorResponse}
+     * @property {module:model/GithubComQeeqezApiInternalErrorsErrorResponse}
      */
     GithubComQeeqezApiInternalErrorsErrorResponse,
 
     /**
      * The GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest model constructor.
-     * @property {module:models/GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest}
+     * @property {module:model/GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest}
      */
     GithubComQeeqezApiInternalVideosHandlerUploadCompleteRequest,
 
     /**
      * The GithubComQeeqezApiInternalVideosHandlerUploadInitResponse model constructor.
-     * @property {module:models/GithubComQeeqezApiInternalVideosHandlerUploadInitResponse}
+     * @property {module:model/GithubComQeeqezApiInternalVideosHandlerUploadInitResponse}
      */
     GithubComQeeqezApiInternalVideosHandlerUploadInitResponse,
 
     /**
      * The GithubComQeeqezApiInternalVideosTypesChapterInput model constructor.
-     * @property {module:models/GithubComQeeqezApiInternalVideosTypesChapterInput}
+     * @property {module:model/GithubComQeeqezApiInternalVideosTypesChapterInput}
      */
     GithubComQeeqezApiInternalVideosTypesChapterInput,
 
     /**
      * The Image model constructor.
-     * @property {module:models/Image}
+     * @property {module:model/Image}
      */
     Image,
 
     /**
      * The InternalVideosHandlerSubtitlesLanguageResponse model constructor.
-     * @property {module:models/InternalVideosHandlerSubtitlesLanguageResponse}
+     * @property {module:model/InternalVideosHandlerSubtitlesLanguageResponse}
      */
     InternalVideosHandlerSubtitlesLanguageResponse,
 
     /**
      * The PaginationPaginatedResponseVideo model constructor.
-     * @property {module:models/PaginationPaginatedResponseVideo}
+     * @property {module:model/PaginationPaginatedResponseVideo}
      */
     PaginationPaginatedResponseVideo,
 
     /**
      * The PaginationPagination model constructor.
-     * @property {module:models/PaginationPagination}
+     * @property {module:model/PaginationPagination}
      */
     PaginationPagination,
 
     /**
      * The Subtitle model constructor.
-     * @property {module:models/Subtitle}
+     * @property {module:model/Subtitle}
      */
     Subtitle,
 
     /**
      * The SubtitleDelete model constructor.
-     * @property {module:models/SubtitleDelete}
+     * @property {module:model/SubtitleDelete}
      */
     SubtitleDelete,
 
     /**
      * The UpdateChaptersRequest model constructor.
-     * @property {module:models/UpdateChaptersRequest}
+     * @property {module:model/UpdateChaptersRequest}
      */
     UpdateChaptersRequest,
 
     /**
      * The UpdateChaptersResponse model constructor.
-     * @property {module:models/UpdateChaptersResponse}
+     * @property {module:model/UpdateChaptersResponse}
      */
     UpdateChaptersResponse,
 
     /**
      * The Video model constructor.
-     * @property {module:models/Video}
+     * @property {module:model/Video}
      */
     Video,
 
     /**
      * The VideoUploadInitRequest model constructor.
-     * @property {module:models/VideoUploadInitRequest}
+     * @property {module:model/VideoUploadInitRequest}
      */
     VideoUploadInitRequest,
 
     /**
     * The VideosApi service constructor.
-    * @property {module:services/VideosApi}
+    * @property {module:api/VideosApi}
     */
     VideosApi
 };

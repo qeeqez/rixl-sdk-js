@@ -13,16 +13,16 @@
 
 
 import ApiClient from './ApiClient';
-import File from './models/File';
-import FileStatus from './models/FileStatus';
-import GithubComQeeqezApiInternalErrorsErrorResponse from './models/GithubComQeeqezApiInternalErrorsErrorResponse';
-import Image from './models/Image';
-import InternalImagesHandlerCompleteRequest from './models/InternalImagesHandlerCompleteRequest';
-import InternalImagesHandlerInitResponse from './models/InternalImagesHandlerInitResponse';
-import InternalImagesHandlerUploadInitRequest from './models/InternalImagesHandlerUploadInitRequest';
-import PaginationPaginatedResponseImage from './models/PaginationPaginatedResponseImage';
-import PaginationPagination from './models/PaginationPagination';
-import ImagesApi from './services/ImagesApi';
+import File from './model/File';
+import FileStatus from './model/FileStatus';
+import GithubComQeeqezApiInternalErrorsErrorResponse from './model/GithubComQeeqezApiInternalErrorsErrorResponse';
+import Image from './model/Image';
+import InternalImagesHandlerCompleteRequest from './model/InternalImagesHandlerCompleteRequest';
+import InternalImagesHandlerInitResponse from './model/InternalImagesHandlerInitResponse';
+import InternalImagesHandlerUploadInitRequest from './model/InternalImagesHandlerUploadInitRequest';
+import PaginationPaginatedResponseImage from './model/PaginationPaginatedResponseImage';
+import PaginationPagination from './model/PaginationPagination';
+import ImagesApi from './api/ImagesApi';
 
 
 /**
@@ -31,9 +31,9 @@ import ImagesApi from './services/ImagesApi';
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
 * <pre>
-* var RixlSdkJsImages = require('index'); // See note below*.
-* var xxxSvc = new RixlSdkJsImages.XxxApi(); // Allocate the API class we're going to use.
-* var yyyModel = new RixlSdkJsImages.Yyy(); // Construct a model instance.
+* var RixlApi = require('index'); // See note below*.
+* var xxxSvc = new RixlApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyyModel = new RixlApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -45,8 +45,8 @@ import ImagesApi from './services/ImagesApi';
 * <p>
 * A non-AMD browser application (discouraged) might do something like this:
 * <pre>
-* var xxxSvc = new RixlSdkJsImages.XxxApi(); // Allocate the API class we're going to use.
-* var yyy = new RixlSdkJsImages.Yyy(); // Construct a model instance.
+* var xxxSvc = new RixlApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyy = new RixlApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -54,7 +54,7 @@ import ImagesApi from './services/ImagesApi';
 * </pre>
 * </p>
 * @module index
-* @version 2.0.0
+* @version 2.0
 */
 export {
     /**
@@ -65,61 +65,61 @@ export {
 
     /**
      * The File model constructor.
-     * @property {module:models/File}
+     * @property {module:model/File}
      */
     File,
 
     /**
      * The FileStatus model constructor.
-     * @property {module:models/FileStatus}
+     * @property {module:model/FileStatus}
      */
     FileStatus,
 
     /**
      * The GithubComQeeqezApiInternalErrorsErrorResponse model constructor.
-     * @property {module:models/GithubComQeeqezApiInternalErrorsErrorResponse}
+     * @property {module:model/GithubComQeeqezApiInternalErrorsErrorResponse}
      */
     GithubComQeeqezApiInternalErrorsErrorResponse,
 
     /**
      * The Image model constructor.
-     * @property {module:models/Image}
+     * @property {module:model/Image}
      */
     Image,
 
     /**
      * The InternalImagesHandlerCompleteRequest model constructor.
-     * @property {module:models/InternalImagesHandlerCompleteRequest}
+     * @property {module:model/InternalImagesHandlerCompleteRequest}
      */
     InternalImagesHandlerCompleteRequest,
 
     /**
      * The InternalImagesHandlerInitResponse model constructor.
-     * @property {module:models/InternalImagesHandlerInitResponse}
+     * @property {module:model/InternalImagesHandlerInitResponse}
      */
     InternalImagesHandlerInitResponse,
 
     /**
      * The InternalImagesHandlerUploadInitRequest model constructor.
-     * @property {module:models/InternalImagesHandlerUploadInitRequest}
+     * @property {module:model/InternalImagesHandlerUploadInitRequest}
      */
     InternalImagesHandlerUploadInitRequest,
 
     /**
      * The PaginationPaginatedResponseImage model constructor.
-     * @property {module:models/PaginationPaginatedResponseImage}
+     * @property {module:model/PaginationPaginatedResponseImage}
      */
     PaginationPaginatedResponseImage,
 
     /**
      * The PaginationPagination model constructor.
-     * @property {module:models/PaginationPagination}
+     * @property {module:model/PaginationPagination}
      */
     PaginationPagination,
 
     /**
     * The ImagesApi service constructor.
-    * @property {module:services/ImagesApi}
+    * @property {module:api/ImagesApi}
     */
     ImagesApi
 };
