@@ -1,4 +1,4 @@
-## @rixl/api-sdk@2.0.0
+## @rixl/sdk-js@2.0.0
 
 This generator creates TypeScript/JavaScript client that utilizes fetch-api.
 
@@ -20,8 +20,8 @@ Navigate to the folder of your consuming project and run one of the following co
 
 _published:_
 
-```
-npm install @rixl/api-sdk@2.0.0 --save
+```sh
+npm install @rixl/sdk-js@2.0.0 --save
 ```
 
 _unPublished (not recommended):_
