@@ -8,6 +8,8 @@ INPUT_SPEC="${ROOT_DIR}/openapi/public.swagger.json"
 TMP_DIR="$(mktemp -d)"
 trap 'rm -rf "${TMP_DIR}"' EXIT
 
+cd "${ROOT_DIR}"
+
 require_command() {
 	local command="$1"
 	if ! command -v "${command}" >/dev/null 2>&1; then
@@ -38,15 +40,15 @@ if [[ ! -f "${INPUT_SPEC}" ]]; then
 fi
 
 npx -y @openapitools/openapi-generator-cli generate \
-	-g typescript \
+	-g javascript \
 	-i "${INPUT_SPEC}" \
 	-o "${TMP_DIR}" \
 	--global-property apiTests=false,modelTests=false \
-	--additional-properties "npmName=@rixl/api-sdk,npmVersion=2.0.0,supportsES6=true,useSingleRequestParameter=true,stringEnums=true,withInterfaces=true,modelPropertyNaming=original,enumPropertyNaming=original,disallowAdditionalPropertiesIfNotPresent=false"
+	--additional-properties "projectName=rixl-sdk-js,projectVersion=2.0.0,projectDescription=RIXL public JavaScript SDK generated from the public OpenAPI spec.,sourceFolder=sdk,apiPackage=services,modelPackage=models,usePromises=true,emitJSDoc=true,modelPropertyNaming=original,sortParamsByRequiredFlag=true,sortModelPropertiesByRequiredFlag=true,disallowAdditionalPropertiesIfNotPresent=false"
 
 tmp_package_json="$(mktemp)"
 jq '
-	.name = "@rixl/api-sdk"
+	.name = "@rixl/sdk-js"
 	| .description = "RIXL public JavaScript SDK generated from the public OpenAPI spec."
 	| .author = "Rixl Inc."
 	| .homepage = "https://rixl.com"
@@ -55,9 +57,9 @@ jq '
 		"type": "git",
 		"url": "https://github.com/qeeqez/rixl-sdk-js.git"
 	}
-	| .files = ["dist"]
+	| .files = ["sdk"]
 	| .publishConfig = {"access": "public"}
-	| .keywords = ["rixl", "sdk", "api", "openapi", "typescript", "javascript"]
+	| .keywords = ["rixl", "sdk", "api", "openapi", "javascript"]
 ' "${TMP_DIR}/package.json" > "${tmp_package_json}"
 mv "${tmp_package_json}" "${TMP_DIR}/package.json"
 
