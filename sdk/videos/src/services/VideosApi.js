@@ -1028,7 +1028,7 @@ export default class VideosApi {
 
     /**
      * Update video thumbnail
-     * Update the thumbnail image for an existing video
+     * Update the thumbnail image for an existing video using API key authentication
      * @param {String} videoId Video ID
      * @param {File} thumbnail Thumbnail image file (max 5MB, image/_*)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:models/Video} and HTTP response
@@ -1055,7 +1055,7 @@ export default class VideosApi {
         'thumbnail': thumbnail
       };
 
-      let authNames = [];
+      let authNames = ['ApiKeyAuth'];
       let contentTypes = ['multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = Video;
@@ -1068,7 +1068,7 @@ export default class VideosApi {
 
     /**
      * Update video thumbnail
-     * Update the thumbnail image for an existing video
+     * Update the thumbnail image for an existing video using API key authentication
      * @param {String} videoId Video ID
      * @param {File} thumbnail Thumbnail image file (max 5MB, image/_*)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:models/Video}
