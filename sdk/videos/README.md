@@ -113,8 +113,13 @@ ApiKeyAuth.apiKey = "YOUR API KEY"
 //ApiKeyAuth.apiKeyPrefix['X-API-Key'] = "Token"
 
 var api = new RixlApi.VideosApi()
-var videoId = "videoId_example"; // {String} Video ID
-api.deleteVideosVideoIdAudioTracks(videoId).then(function(data) {
+var opts = {
+  'limit': 25, // {Number} Maximum number of items to return in a single request. <br> **Default:** `25`
+  'offset': 0, // {Number} Starting point of the result set. <br>To get page 2 with a limit of 25, set `offset` to `25`. <br> **Default:** `0`
+  'sort': "created_at", // {String} Field to sort by (created_at, name, size, updated_at, duration)
+  'order': "desc" // {String} Sort order (asc, desc)
+};
+api.videosGet(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -125,29 +130,29 @@ api.deleteVideosVideoIdAudioTracks(videoId).then(function(data) {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.rixl.com*
+All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*RixlApi.VideosApi* | [**deleteVideosVideoIdAudioTracks**](docs/VideosApi.md#deleteVideosVideoIdAudioTracks) | **DELETE** /videos/{videoId}/audio-tracks | Delete all audio tracks
-*RixlApi.VideosApi* | [**deleteVideosVideoIdAudioTracksLangCode**](docs/VideosApi.md#deleteVideosVideoIdAudioTracksLangCode) | **DELETE** /videos/{videoId}/audio-tracks/{lang_code} | Delete audio track by language
-*RixlApi.VideosApi* | [**deleteVideosVideoIdAudioTracksTrackId**](docs/VideosApi.md#deleteVideosVideoIdAudioTracksTrackId) | **DELETE** /videos/{videoId}/audio-tracks/{trackId} | Delete audio track
-*RixlApi.VideosApi* | [**deleteVideosVideoIdChapters**](docs/VideosApi.md#deleteVideosVideoIdChapters) | **DELETE** /videos/{videoId}/chapters | Delete video chapters
-*RixlApi.VideosApi* | [**deleteVideosVideoIdDelete**](docs/VideosApi.md#deleteVideosVideoIdDelete) | **DELETE** /videos/{videoId}/delete | Delete video
-*RixlApi.VideosApi* | [**deleteVideosVideoIdSubtitles**](docs/VideosApi.md#deleteVideosVideoIdSubtitles) | **DELETE** /videos/{videoId}/subtitles | Delete all subtitles
-*RixlApi.VideosApi* | [**deleteVideosVideoIdSubtitlesLangCode**](docs/VideosApi.md#deleteVideosVideoIdSubtitlesLangCode) | **DELETE** /videos/{videoId}/subtitles/{lang_code} | Delete subtitle by language
-*RixlApi.VideosApi* | [**deleteVideosVideoIdSubtitlesSubtitleId**](docs/VideosApi.md#deleteVideosVideoIdSubtitlesSubtitleId) | **DELETE** /videos/{videoId}/subtitles/{subtitleId} | Delete subtitle
-*RixlApi.VideosApi* | [**getVideos**](docs/VideosApi.md#getVideos) | **GET** /videos | List videos for a project
-*RixlApi.VideosApi* | [**getVideosLanguages**](docs/VideosApi.md#getVideosLanguages) | **GET** /videos/languages | List available subtitle languages
-*RixlApi.VideosApi* | [**getVideosVideoId**](docs/VideosApi.md#getVideosVideoId) | **GET** /videos/{videoId} | Get a video
-*RixlApi.VideosApi* | [**postVideosUploadComplete**](docs/VideosApi.md#postVideosUploadComplete) | **POST** /videos/upload/complete | Upload: Mark as complete
-*RixlApi.VideosApi* | [**postVideosUploadInit**](docs/VideosApi.md#postVideosUploadInit) | **POST** /videos/upload/init | Upload: Init
-*RixlApi.VideosApi* | [**postVideosVideoIdAudioTracks**](docs/VideosApi.md#postVideosVideoIdAudioTracks) | **POST** /videos/{videoId}/audio-tracks | Bulk upsert video audio tracks
-*RixlApi.VideosApi* | [**postVideosVideoIdSubtitles**](docs/VideosApi.md#postVideosVideoIdSubtitles) | **POST** /videos/{videoId}/subtitles | Bulk upsert video subtitles
-*RixlApi.VideosApi* | [**putVideosVideoIdAudioTracksLangCode**](docs/VideosApi.md#putVideosVideoIdAudioTracksLangCode) | **PUT** /videos/{videoId}/audio-tracks/{lang_code} | Upsert video audio track
-*RixlApi.VideosApi* | [**putVideosVideoIdChapters**](docs/VideosApi.md#putVideosVideoIdChapters) | **PUT** /videos/{videoId}/chapters | Update video chapters
-*RixlApi.VideosApi* | [**putVideosVideoIdSubtitlesLangCode**](docs/VideosApi.md#putVideosVideoIdSubtitlesLangCode) | **PUT** /videos/{videoId}/subtitles/{lang_code} | Upsert video subtitle
-*RixlApi.VideosApi* | [**putVideosVideoIdThumbnail**](docs/VideosApi.md#putVideosVideoIdThumbnail) | **PUT** /videos/{videoId}/thumbnail | Update video thumbnail
+*RixlApi.VideosApi* | [**videosGet**](docs/VideosApi.md#videosGet) | **GET** /videos | List videos for a project
+*RixlApi.VideosApi* | [**videosLanguagesGet**](docs/VideosApi.md#videosLanguagesGet) | **GET** /videos/languages | List available subtitle languages
+*RixlApi.VideosApi* | [**videosUploadCompletePost**](docs/VideosApi.md#videosUploadCompletePost) | **POST** /videos/upload/complete | Upload: Mark as complete
+*RixlApi.VideosApi* | [**videosUploadInitPost**](docs/VideosApi.md#videosUploadInitPost) | **POST** /videos/upload/init | Upload: Init
+*RixlApi.VideosApi* | [**videosVideoIdAudioTracksDelete**](docs/VideosApi.md#videosVideoIdAudioTracksDelete) | **DELETE** /videos/{videoId}/audio-tracks | Delete all audio tracks
+*RixlApi.VideosApi* | [**videosVideoIdAudioTracksLangCodeDelete**](docs/VideosApi.md#videosVideoIdAudioTracksLangCodeDelete) | **DELETE** /videos/{videoId}/audio-tracks/{lang_code} | Delete audio track by language
+*RixlApi.VideosApi* | [**videosVideoIdAudioTracksLangCodePut**](docs/VideosApi.md#videosVideoIdAudioTracksLangCodePut) | **PUT** /videos/{videoId}/audio-tracks/{lang_code} | Upsert video audio track
+*RixlApi.VideosApi* | [**videosVideoIdAudioTracksPost**](docs/VideosApi.md#videosVideoIdAudioTracksPost) | **POST** /videos/{videoId}/audio-tracks | Bulk upsert video audio tracks
+*RixlApi.VideosApi* | [**videosVideoIdAudioTracksTrackIdDelete**](docs/VideosApi.md#videosVideoIdAudioTracksTrackIdDelete) | **DELETE** /videos/{videoId}/audio-tracks/{trackId} | Delete audio track
+*RixlApi.VideosApi* | [**videosVideoIdChaptersDelete**](docs/VideosApi.md#videosVideoIdChaptersDelete) | **DELETE** /videos/{videoId}/chapters | Delete video chapters
+*RixlApi.VideosApi* | [**videosVideoIdChaptersPut**](docs/VideosApi.md#videosVideoIdChaptersPut) | **PUT** /videos/{videoId}/chapters | Update video chapters
+*RixlApi.VideosApi* | [**videosVideoIdDeleteDelete**](docs/VideosApi.md#videosVideoIdDeleteDelete) | **DELETE** /videos/{videoId}/delete | Delete video
+*RixlApi.VideosApi* | [**videosVideoIdGet**](docs/VideosApi.md#videosVideoIdGet) | **GET** /videos/{videoId} | Get a video
+*RixlApi.VideosApi* | [**videosVideoIdSubtitlesDelete**](docs/VideosApi.md#videosVideoIdSubtitlesDelete) | **DELETE** /videos/{videoId}/subtitles | Delete all subtitles
+*RixlApi.VideosApi* | [**videosVideoIdSubtitlesLangCodeDelete**](docs/VideosApi.md#videosVideoIdSubtitlesLangCodeDelete) | **DELETE** /videos/{videoId}/subtitles/{lang_code} | Delete subtitle by language
+*RixlApi.VideosApi* | [**videosVideoIdSubtitlesLangCodePut**](docs/VideosApi.md#videosVideoIdSubtitlesLangCodePut) | **PUT** /videos/{videoId}/subtitles/{lang_code} | Upsert video subtitle
+*RixlApi.VideosApi* | [**videosVideoIdSubtitlesPost**](docs/VideosApi.md#videosVideoIdSubtitlesPost) | **POST** /videos/{videoId}/subtitles | Bulk upsert video subtitles
+*RixlApi.VideosApi* | [**videosVideoIdSubtitlesSubtitleIdDelete**](docs/VideosApi.md#videosVideoIdSubtitlesSubtitleIdDelete) | **DELETE** /videos/{videoId}/subtitles/{subtitleId} | Delete subtitle
+*RixlApi.VideosApi* | [**videosVideoIdThumbnailPut**](docs/VideosApi.md#videosVideoIdThumbnailPut) | **PUT** /videos/{videoId}/thumbnail | Update video thumbnail
 
 
 ## Documentation for Models
@@ -167,15 +172,15 @@ Class | Method | HTTP request | Description
  - [RixlApi.InternalVideosHandlerSubtitlesLanguageResponse](docs/InternalVideosHandlerSubtitlesLanguageResponse.md)
  - [RixlApi.PaginationPaginatedResponseVideo](docs/PaginationPaginatedResponseVideo.md)
  - [RixlApi.PaginationPagination](docs/PaginationPagination.md)
- - [RixlApi.PostVideosUploadCompleteRequest](docs/PostVideosUploadCompleteRequest.md)
- - [RixlApi.PostVideosUploadInitRequest](docs/PostVideosUploadInitRequest.md)
- - [RixlApi.PutVideosVideoIdChaptersRequest](docs/PutVideosVideoIdChaptersRequest.md)
  - [RixlApi.Subtitle](docs/Subtitle.md)
  - [RixlApi.SubtitleDelete](docs/SubtitleDelete.md)
  - [RixlApi.UpdateChaptersRequest](docs/UpdateChaptersRequest.md)
  - [RixlApi.UpdateChaptersResponse](docs/UpdateChaptersResponse.md)
  - [RixlApi.Video](docs/Video.md)
  - [RixlApi.VideoUploadInitRequest](docs/VideoUploadInitRequest.md)
+ - [RixlApi.VideosUploadCompletePostRequest](docs/VideosUploadCompletePostRequest.md)
+ - [RixlApi.VideosUploadInitPostRequest](docs/VideosUploadInitPostRequest.md)
+ - [RixlApi.VideosVideoIdChaptersPutRequest](docs/VideosVideoIdChaptersPutRequest.md)
 
 
 ## Documentation for Authorization
@@ -187,5 +192,12 @@ Authentication schemes defined for the API:
 
 - **Type**: API key
 - **API key parameter name**: X-API-Key
+- **Location**: HTTP header
+
+### Bearer
+
+
+- **Type**: API key
+- **API key parameter name**: Authorization
 - **Location**: HTTP header
 

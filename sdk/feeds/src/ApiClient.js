@@ -32,11 +32,11 @@ class ApiClient {
      * Overrides the default value set in spec file if present
      * @param {String} basePath
      */
-    constructor(basePath = 'https://api.rixl.com') {
+    constructor(basePath = 'http://localhost') {
         /**
          * The base URL against which to resolve every API call's (relative) path.
          * @type {String}
-         * @default https://api.rixl.com
+         * @default http://localhost
          */
         this.basePath = basePath.replace(/\/+$/, '');
 
@@ -45,7 +45,8 @@ class ApiClient {
          * @type {Array.<String>}
          */
         this.authentications = {
-            'ApiKeyAuth': {type: 'apiKey', 'in': 'header', name: 'X-API-Key'}
+            'ApiKeyAuth': {type: 'apiKey', 'in': 'header', name: 'X-API-Key'},
+            'Bearer': {type: 'apiKey', 'in': 'header', name: 'Authorization'}
         }
 
 	/**
@@ -596,7 +597,7 @@ class ApiClient {
     hostSettings() {
         return [
             {
-              'url': "https://api.rixl.com",
+              'url': "",
               'description': "No description provided",
             }
       ];

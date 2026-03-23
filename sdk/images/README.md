@@ -113,9 +113,14 @@ ApiKeyAuth.apiKey = "YOUR API KEY"
 //ApiKeyAuth.apiKeyPrefix['X-API-Key'] = "Token"
 
 var api = new RixlApi.ImagesApi()
-var imageId = "imageId_example"; // {String} Image ID
-api.deleteImagesImageId(imageId).then(function() {
-  console.log('API called successfully.');
+var opts = {
+  'limit': 25, // {Number} Maximum number of items to return in a single request. <br> **Default:** `25`
+  'offset': 0, // {Number} Starting point of the result set. <br>To get page 2 with a limit of 25, set `offset` to `25`. <br> **Default:** `0`
+  'sort': "created_at", // {String} Field to sort by (created_at, name, size, updated_at)
+  'order': "desc" // {String} Sort order (asc, desc)
+};
+api.imagesGet(opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
 });
@@ -125,15 +130,15 @@ api.deleteImagesImageId(imageId).then(function() {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.rixl.com*
+All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*RixlApi.ImagesApi* | [**deleteImagesImageId**](docs/ImagesApi.md#deleteImagesImageId) | **DELETE** /images/{imageId} | Delete image
-*RixlApi.ImagesApi* | [**getImages**](docs/ImagesApi.md#getImages) | **GET** /images | List images for a project
-*RixlApi.ImagesApi* | [**getImagesImageId**](docs/ImagesApi.md#getImagesImageId) | **GET** /images/{imageId} | Get image
-*RixlApi.ImagesApi* | [**postImagesUploadComplete**](docs/ImagesApi.md#postImagesUploadComplete) | **POST** /images/upload/complete | Upload: Mark as complete
-*RixlApi.ImagesApi* | [**postImagesUploadInit**](docs/ImagesApi.md#postImagesUploadInit) | **POST** /images/upload/init | Upload: Init
+*RixlApi.ImagesApi* | [**imagesGet**](docs/ImagesApi.md#imagesGet) | **GET** /images | List images for a project
+*RixlApi.ImagesApi* | [**imagesImageIdDelete**](docs/ImagesApi.md#imagesImageIdDelete) | **DELETE** /images/{imageId} | Delete image
+*RixlApi.ImagesApi* | [**imagesImageIdGet**](docs/ImagesApi.md#imagesImageIdGet) | **GET** /images/{imageId} | Get image
+*RixlApi.ImagesApi* | [**imagesUploadCompletePost**](docs/ImagesApi.md#imagesUploadCompletePost) | **POST** /images/upload/complete | Upload: Mark as complete
+*RixlApi.ImagesApi* | [**imagesUploadInitPost**](docs/ImagesApi.md#imagesUploadInitPost) | **POST** /images/upload/init | Upload: Init
 
 
 ## Documentation for Models
@@ -142,13 +147,13 @@ Class | Method | HTTP request | Description
  - [RixlApi.FileStatus](docs/FileStatus.md)
  - [RixlApi.GithubComQeeqezApiInternalErrorsErrorResponse](docs/GithubComQeeqezApiInternalErrorsErrorResponse.md)
  - [RixlApi.Image](docs/Image.md)
+ - [RixlApi.ImagesUploadCompletePostRequest](docs/ImagesUploadCompletePostRequest.md)
+ - [RixlApi.ImagesUploadInitPostRequest](docs/ImagesUploadInitPostRequest.md)
  - [RixlApi.InternalImagesHandlerCompleteRequest](docs/InternalImagesHandlerCompleteRequest.md)
  - [RixlApi.InternalImagesHandlerInitResponse](docs/InternalImagesHandlerInitResponse.md)
  - [RixlApi.InternalImagesHandlerUploadInitRequest](docs/InternalImagesHandlerUploadInitRequest.md)
  - [RixlApi.PaginationPaginatedResponseImage](docs/PaginationPaginatedResponseImage.md)
  - [RixlApi.PaginationPagination](docs/PaginationPagination.md)
- - [RixlApi.PostImagesUploadCompleteRequest](docs/PostImagesUploadCompleteRequest.md)
- - [RixlApi.PostImagesUploadInitRequest](docs/PostImagesUploadInitRequest.md)
 
 
 ## Documentation for Authorization
@@ -160,5 +165,12 @@ Authentication schemes defined for the API:
 
 - **Type**: API key
 - **API key parameter name**: X-API-Key
+- **Location**: HTTP header
+
+### Bearer
+
+
+- **Type**: API key
+- **API key parameter name**: Authorization
 - **Location**: HTTP header
 

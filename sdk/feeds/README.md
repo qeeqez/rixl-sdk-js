@@ -107,12 +107,13 @@ var RixlApi = require('rixl_api');
 
 
 var api = new RixlApi.FeedsApi()
-var feedId = "feedId_example"; // {String} Feed ID
+var feedId = "F4edRI23XL"; // {String} Feed ID
+var creatorId = "C6rtRI23XL"; // {String} Creator ID
 var opts = {
   'limit': 25, // {Number} Maximum number of items to return in a single request. <br> **Default:** `25`
   'offset': 0 // {Number} Starting point of the result set. <br>To get page 2 with a limit of 25, set `offset` to `25`. <br> **Default:** `0`
 };
-api.getFeedsFeedId(feedId, opts).then(function(data) {
+api.feedsFeedIdCreatorsCreatorIdGet(feedId, creatorId, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -123,13 +124,13 @@ api.getFeedsFeedId(feedId, opts).then(function(data) {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.rixl.com*
+All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*RixlApi.FeedsApi* | [**getFeedsFeedId**](docs/FeedsApi.md#getFeedsFeedId) | **GET** /feeds/{feedId} | List posts in a feed
-*RixlApi.FeedsApi* | [**getFeedsFeedIdCreatorsCreatorId**](docs/FeedsApi.md#getFeedsFeedIdCreatorsCreatorId) | **GET** /feeds/{feedId}/creators/{creatorId} | List posts by creator
-*RixlApi.FeedsApi* | [**getFeedsFeedIdPostId**](docs/FeedsApi.md#getFeedsFeedIdPostId) | **GET** /feeds/{feedId}/{postId} | Get a post
+*RixlApi.FeedsApi* | [**feedsFeedIdCreatorsCreatorIdGet**](docs/FeedsApi.md#feedsFeedIdCreatorsCreatorIdGet) | **GET** /feeds/{feedId}/creators/{creatorId} | List posts by creator
+*RixlApi.FeedsApi* | [**feedsFeedIdGet**](docs/FeedsApi.md#feedsFeedIdGet) | **GET** /feeds/{feedId} | List posts in a feed
+*RixlApi.FeedsApi* | [**feedsFeedIdPostIdGet**](docs/FeedsApi.md#feedsFeedIdPostIdGet) | **GET** /feeds/{feedId}/{postId} | Get a post
 
 
 ## Documentation for Models
@@ -156,5 +157,12 @@ Authentication schemes defined for the API:
 
 - **Type**: API key
 - **API key parameter name**: X-API-Key
+- **Location**: HTTP header
+
+### Bearer
+
+
+- **Type**: API key
+- **API key parameter name**: Authorization
 - **Location**: HTTP header
 

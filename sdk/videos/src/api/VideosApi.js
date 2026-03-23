@@ -19,13 +19,13 @@ import GithubComQeeqezApiInternalErrorsErrorResponse from '../model/GithubComQee
 import GithubComQeeqezApiInternalVideosHandlerUploadInitResponse from '../model/GithubComQeeqezApiInternalVideosHandlerUploadInitResponse';
 import InternalVideosHandlerSubtitlesLanguageResponse from '../model/InternalVideosHandlerSubtitlesLanguageResponse';
 import PaginationPaginatedResponseVideo from '../model/PaginationPaginatedResponseVideo';
-import PostVideosUploadCompleteRequest from '../model/PostVideosUploadCompleteRequest';
-import PostVideosUploadInitRequest from '../model/PostVideosUploadInitRequest';
-import PutVideosVideoIdChaptersRequest from '../model/PutVideosVideoIdChaptersRequest';
 import Subtitle from '../model/Subtitle';
 import SubtitleDelete from '../model/SubtitleDelete';
 import UpdateChaptersResponse from '../model/UpdateChaptersResponse';
 import Video from '../model/Video';
+import VideosUploadCompletePostRequest from '../model/VideosUploadCompletePostRequest';
+import VideosUploadInitPostRequest from '../model/VideosUploadInitPostRequest';
+import VideosVideoIdChaptersPutRequest from '../model/VideosVideoIdChaptersPutRequest';
 
 /**
 * Videos service.
@@ -48,418 +48,6 @@ export default class VideosApi {
 
 
     /**
-     * Delete all audio tracks
-     * Remove all additional audio tracks from a video using API key authentication
-     * @param {String} videoId Video ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AudioTrackDelete} and HTTP response
-     */
-    deleteVideosVideoIdAudioTracksWithHttpInfo(videoId) {
-      let postBody = null;
-      // verify the required parameter 'videoId' is set
-      if (videoId === undefined || videoId === null) {
-        throw new Error("Missing the required parameter 'videoId' when calling deleteVideosVideoIdAudioTracks");
-      }
-
-      let pathParams = {
-        'videoId': videoId
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['ApiKeyAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = AudioTrackDelete;
-      return this.apiClient.callApi(
-        '/videos/{videoId}/audio-tracks', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Delete all audio tracks
-     * Remove all additional audio tracks from a video using API key authentication
-     * @param {String} videoId Video ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AudioTrackDelete}
-     */
-    deleteVideosVideoIdAudioTracks(videoId) {
-      return this.deleteVideosVideoIdAudioTracksWithHttpInfo(videoId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Delete audio track by language
-     * Remove an audio track for a specific language using API key authentication
-     * @param {String} videoId Video ID
-     * @param {String} langCode Language Code (BCP 47)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AudioTrackDelete} and HTTP response
-     */
-    deleteVideosVideoIdAudioTracksLangCodeWithHttpInfo(videoId, langCode) {
-      let postBody = null;
-      // verify the required parameter 'videoId' is set
-      if (videoId === undefined || videoId === null) {
-        throw new Error("Missing the required parameter 'videoId' when calling deleteVideosVideoIdAudioTracksLangCode");
-      }
-      // verify the required parameter 'langCode' is set
-      if (langCode === undefined || langCode === null) {
-        throw new Error("Missing the required parameter 'langCode' when calling deleteVideosVideoIdAudioTracksLangCode");
-      }
-
-      let pathParams = {
-        'videoId': videoId,
-        'lang_code': langCode
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['ApiKeyAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = AudioTrackDelete;
-      return this.apiClient.callApi(
-        '/videos/{videoId}/audio-tracks/{lang_code}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Delete audio track by language
-     * Remove an audio track for a specific language using API key authentication
-     * @param {String} videoId Video ID
-     * @param {String} langCode Language Code (BCP 47)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AudioTrackDelete}
-     */
-    deleteVideosVideoIdAudioTracksLangCode(videoId, langCode) {
-      return this.deleteVideosVideoIdAudioTracksLangCodeWithHttpInfo(videoId, langCode)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Delete audio track
-     * Remove an additional audio track from a video using API key authentication
-     * @param {String} videoId Video ID
-     * @param {String} trackId Audio Track ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AudioTrackDelete} and HTTP response
-     */
-    deleteVideosVideoIdAudioTracksTrackIdWithHttpInfo(videoId, trackId) {
-      let postBody = null;
-      // verify the required parameter 'videoId' is set
-      if (videoId === undefined || videoId === null) {
-        throw new Error("Missing the required parameter 'videoId' when calling deleteVideosVideoIdAudioTracksTrackId");
-      }
-      // verify the required parameter 'trackId' is set
-      if (trackId === undefined || trackId === null) {
-        throw new Error("Missing the required parameter 'trackId' when calling deleteVideosVideoIdAudioTracksTrackId");
-      }
-
-      let pathParams = {
-        'videoId': videoId,
-        'trackId': trackId
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['ApiKeyAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = AudioTrackDelete;
-      return this.apiClient.callApi(
-        '/videos/{videoId}/audio-tracks/{trackId}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Delete audio track
-     * Remove an additional audio track from a video using API key authentication
-     * @param {String} videoId Video ID
-     * @param {String} trackId Audio Track ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AudioTrackDelete}
-     */
-    deleteVideosVideoIdAudioTracksTrackId(videoId, trackId) {
-      return this.deleteVideosVideoIdAudioTracksTrackIdWithHttpInfo(videoId, trackId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Delete video chapters
-     * Remove all chapters from a video using API key authentication
-     * @param {String} videoId Video ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UpdateChaptersResponse} and HTTP response
-     */
-    deleteVideosVideoIdChaptersWithHttpInfo(videoId) {
-      let postBody = null;
-      // verify the required parameter 'videoId' is set
-      if (videoId === undefined || videoId === null) {
-        throw new Error("Missing the required parameter 'videoId' when calling deleteVideosVideoIdChapters");
-      }
-
-      let pathParams = {
-        'videoId': videoId
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['ApiKeyAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = UpdateChaptersResponse;
-      return this.apiClient.callApi(
-        '/videos/{videoId}/chapters', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Delete video chapters
-     * Remove all chapters from a video using API key authentication
-     * @param {String} videoId Video ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UpdateChaptersResponse}
-     */
-    deleteVideosVideoIdChapters(videoId) {
-      return this.deleteVideosVideoIdChaptersWithHttpInfo(videoId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Delete video
-     * Delete a video by its ID within a project
-     * @param {String} videoId Video ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
-     */
-    deleteVideosVideoIdDeleteWithHttpInfo(videoId) {
-      let postBody = null;
-      // verify the required parameter 'videoId' is set
-      if (videoId === undefined || videoId === null) {
-        throw new Error("Missing the required parameter 'videoId' when calling deleteVideosVideoIdDelete");
-      }
-
-      let pathParams = {
-        'videoId': videoId
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['ApiKeyAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/videos/{videoId}/delete', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Delete video
-     * Delete a video by its ID within a project
-     * @param {String} videoId Video ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    deleteVideosVideoIdDelete(videoId) {
-      return this.deleteVideosVideoIdDeleteWithHttpInfo(videoId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Delete all subtitles
-     * Remove all subtitles from a video using API key authentication
-     * @param {String} videoId Video ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/SubtitleDelete} and HTTP response
-     */
-    deleteVideosVideoIdSubtitlesWithHttpInfo(videoId) {
-      let postBody = null;
-      // verify the required parameter 'videoId' is set
-      if (videoId === undefined || videoId === null) {
-        throw new Error("Missing the required parameter 'videoId' when calling deleteVideosVideoIdSubtitles");
-      }
-
-      let pathParams = {
-        'videoId': videoId
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['ApiKeyAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = SubtitleDelete;
-      return this.apiClient.callApi(
-        '/videos/{videoId}/subtitles', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Delete all subtitles
-     * Remove all subtitles from a video using API key authentication
-     * @param {String} videoId Video ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SubtitleDelete}
-     */
-    deleteVideosVideoIdSubtitles(videoId) {
-      return this.deleteVideosVideoIdSubtitlesWithHttpInfo(videoId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Delete subtitle by language
-     * Remove a subtitle for a specific language using API key authentication
-     * @param {String} videoId Video ID
-     * @param {String} langCode Language Code (BCP 47)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/SubtitleDelete} and HTTP response
-     */
-    deleteVideosVideoIdSubtitlesLangCodeWithHttpInfo(videoId, langCode) {
-      let postBody = null;
-      // verify the required parameter 'videoId' is set
-      if (videoId === undefined || videoId === null) {
-        throw new Error("Missing the required parameter 'videoId' when calling deleteVideosVideoIdSubtitlesLangCode");
-      }
-      // verify the required parameter 'langCode' is set
-      if (langCode === undefined || langCode === null) {
-        throw new Error("Missing the required parameter 'langCode' when calling deleteVideosVideoIdSubtitlesLangCode");
-      }
-
-      let pathParams = {
-        'videoId': videoId,
-        'lang_code': langCode
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['ApiKeyAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = SubtitleDelete;
-      return this.apiClient.callApi(
-        '/videos/{videoId}/subtitles/{lang_code}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Delete subtitle by language
-     * Remove a subtitle for a specific language using API key authentication
-     * @param {String} videoId Video ID
-     * @param {String} langCode Language Code (BCP 47)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SubtitleDelete}
-     */
-    deleteVideosVideoIdSubtitlesLangCode(videoId, langCode) {
-      return this.deleteVideosVideoIdSubtitlesLangCodeWithHttpInfo(videoId, langCode)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Delete subtitle
-     * Remove a subtitle from a video using API key authentication
-     * @param {String} videoId Video ID
-     * @param {String} subtitleId Subtitle ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/SubtitleDelete} and HTTP response
-     */
-    deleteVideosVideoIdSubtitlesSubtitleIdWithHttpInfo(videoId, subtitleId) {
-      let postBody = null;
-      // verify the required parameter 'videoId' is set
-      if (videoId === undefined || videoId === null) {
-        throw new Error("Missing the required parameter 'videoId' when calling deleteVideosVideoIdSubtitlesSubtitleId");
-      }
-      // verify the required parameter 'subtitleId' is set
-      if (subtitleId === undefined || subtitleId === null) {
-        throw new Error("Missing the required parameter 'subtitleId' when calling deleteVideosVideoIdSubtitlesSubtitleId");
-      }
-
-      let pathParams = {
-        'videoId': videoId,
-        'subtitleId': subtitleId
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['ApiKeyAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = SubtitleDelete;
-      return this.apiClient.callApi(
-        '/videos/{videoId}/subtitles/{subtitleId}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Delete subtitle
-     * Remove a subtitle from a video using API key authentication
-     * @param {String} videoId Video ID
-     * @param {String} subtitleId Subtitle ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SubtitleDelete}
-     */
-    deleteVideosVideoIdSubtitlesSubtitleId(videoId, subtitleId) {
-      return this.deleteVideosVideoIdSubtitlesSubtitleIdWithHttpInfo(videoId, subtitleId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
      * List videos for a project
      * Retrieve all videos for a specific project, with pagination and sorting.
      * @param {Object} opts Optional parameters
@@ -469,7 +57,7 @@ export default class VideosApi {
      * @param {String} [order] Sort order (asc, desc)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PaginationPaginatedResponseVideo} and HTTP response
      */
-    getVideosWithHttpInfo(opts) {
+    videosGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -507,8 +95,8 @@ export default class VideosApi {
      * @param {String} opts.order Sort order (asc, desc)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PaginationPaginatedResponseVideo}
      */
-    getVideos(opts) {
-      return this.getVideosWithHttpInfo(opts)
+    videosGet(opts) {
+      return this.videosGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -520,7 +108,7 @@ export default class VideosApi {
      * Get list of supported languages for subtitles
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InternalVideosHandlerSubtitlesLanguageResponse>} and HTTP response
      */
-    getVideosLanguagesWithHttpInfo() {
+    videosLanguagesGetWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -548,56 +136,8 @@ export default class VideosApi {
      * Get list of supported languages for subtitles
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InternalVideosHandlerSubtitlesLanguageResponse>}
      */
-    getVideosLanguages() {
-      return this.getVideosLanguagesWithHttpInfo()
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Get a video
-     * Retrieve a video by its ID for a specific project.
-     * @param {String} videoId Video ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Video} and HTTP response
-     */
-    getVideosVideoIdWithHttpInfo(videoId) {
-      let postBody = null;
-      // verify the required parameter 'videoId' is set
-      if (videoId === undefined || videoId === null) {
-        throw new Error("Missing the required parameter 'videoId' when calling getVideosVideoId");
-      }
-
-      let pathParams = {
-        'videoId': videoId
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['ApiKeyAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Video;
-      return this.apiClient.callApi(
-        '/videos/{videoId}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Get a video
-     * Retrieve a video by its ID for a specific project.
-     * @param {String} videoId Video ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Video}
-     */
-    getVideosVideoId(videoId) {
-      return this.getVideosVideoIdWithHttpInfo(videoId)
+    videosLanguagesGet() {
+      return this.videosLanguagesGetWithHttpInfo()
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -607,14 +147,14 @@ export default class VideosApi {
     /**
      * Upload: Mark as complete
      * Mark a video upload as complete after successful upload to storage using API key authentication
-     * @param {module:model/PostVideosUploadCompleteRequest} postVideosUploadCompleteRequest Video upload completion request
+     * @param {module:model/VideosUploadCompletePostRequest} videosUploadCompletePostRequest Video upload completion request
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Video} and HTTP response
      */
-    postVideosUploadCompleteWithHttpInfo(postVideosUploadCompleteRequest) {
-      let postBody = postVideosUploadCompleteRequest;
-      // verify the required parameter 'postVideosUploadCompleteRequest' is set
-      if (postVideosUploadCompleteRequest === undefined || postVideosUploadCompleteRequest === null) {
-        throw new Error("Missing the required parameter 'postVideosUploadCompleteRequest' when calling postVideosUploadComplete");
+    videosUploadCompletePostWithHttpInfo(videosUploadCompletePostRequest) {
+      let postBody = videosUploadCompletePostRequest;
+      // verify the required parameter 'videosUploadCompletePostRequest' is set
+      if (videosUploadCompletePostRequest === undefined || videosUploadCompletePostRequest === null) {
+        throw new Error("Missing the required parameter 'videosUploadCompletePostRequest' when calling videosUploadCompletePost");
       }
 
       let pathParams = {
@@ -640,11 +180,11 @@ export default class VideosApi {
     /**
      * Upload: Mark as complete
      * Mark a video upload as complete after successful upload to storage using API key authentication
-     * @param {module:model/PostVideosUploadCompleteRequest} postVideosUploadCompleteRequest Video upload completion request
+     * @param {module:model/VideosUploadCompletePostRequest} videosUploadCompletePostRequest Video upload completion request
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Video}
      */
-    postVideosUploadComplete(postVideosUploadCompleteRequest) {
-      return this.postVideosUploadCompleteWithHttpInfo(postVideosUploadCompleteRequest)
+    videosUploadCompletePost(videosUploadCompletePostRequest) {
+      return this.videosUploadCompletePostWithHttpInfo(videosUploadCompletePostRequest)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -654,14 +194,14 @@ export default class VideosApi {
     /**
      * Upload: Init
      * Initialize a video upload and get presigned URLs for video and poster using API key authentication
-     * @param {module:model/PostVideosUploadInitRequest} postVideosUploadInitRequest Video upload initialization request
+     * @param {module:model/VideosUploadInitPostRequest} videosUploadInitPostRequest Video upload initialization request
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/GithubComQeeqezApiInternalVideosHandlerUploadInitResponse} and HTTP response
      */
-    postVideosUploadInitWithHttpInfo(postVideosUploadInitRequest) {
-      let postBody = postVideosUploadInitRequest;
-      // verify the required parameter 'postVideosUploadInitRequest' is set
-      if (postVideosUploadInitRequest === undefined || postVideosUploadInitRequest === null) {
-        throw new Error("Missing the required parameter 'postVideosUploadInitRequest' when calling postVideosUploadInit");
+    videosUploadInitPostWithHttpInfo(videosUploadInitPostRequest) {
+      let postBody = videosUploadInitPostRequest;
+      // verify the required parameter 'videosUploadInitPostRequest' is set
+      if (videosUploadInitPostRequest === undefined || videosUploadInitPostRequest === null) {
+        throw new Error("Missing the required parameter 'videosUploadInitPostRequest' when calling videosUploadInitPost");
       }
 
       let pathParams = {
@@ -687,11 +227,11 @@ export default class VideosApi {
     /**
      * Upload: Init
      * Initialize a video upload and get presigned URLs for video and poster using API key authentication
-     * @param {module:model/PostVideosUploadInitRequest} postVideosUploadInitRequest Video upload initialization request
+     * @param {module:model/VideosUploadInitPostRequest} videosUploadInitPostRequest Video upload initialization request
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/GithubComQeeqezApiInternalVideosHandlerUploadInitResponse}
      */
-    postVideosUploadInit(postVideosUploadInitRequest) {
-      return this.postVideosUploadInitWithHttpInfo(postVideosUploadInitRequest)
+    videosUploadInitPost(videosUploadInitPostRequest) {
+      return this.videosUploadInitPostWithHttpInfo(videosUploadInitPostRequest)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -699,16 +239,16 @@ export default class VideosApi {
 
 
     /**
-     * Bulk upsert video audio tracks
-     * Replace all audio tracks with the provided ones using API key authentication
+     * Delete all audio tracks
+     * Remove all additional audio tracks from a video using API key authentication
      * @param {String} videoId Video ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/AudioTrack>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AudioTrackDelete} and HTTP response
      */
-    postVideosVideoIdAudioTracksWithHttpInfo(videoId) {
+    videosVideoIdAudioTracksDeleteWithHttpInfo(videoId) {
       let postBody = null;
       // verify the required parameter 'videoId' is set
       if (videoId === undefined || videoId === null) {
-        throw new Error("Missing the required parameter 'videoId' when calling postVideosVideoIdAudioTracks");
+        throw new Error("Missing the required parameter 'videoId' when calling videosVideoIdAudioTracksDelete");
       }
 
       let pathParams = {
@@ -722,24 +262,24 @@ export default class VideosApi {
       };
 
       let authNames = ['ApiKeyAuth'];
-      let contentTypes = ['application/x-www-form-urlencoded', 'multipart/form-data'];
+      let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [AudioTrack];
+      let returnType = AudioTrackDelete;
       return this.apiClient.callApi(
-        '/videos/{videoId}/audio-tracks', 'POST',
+        '/videos/{videoId}/audio-tracks', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Bulk upsert video audio tracks
-     * Replace all audio tracks with the provided ones using API key authentication
+     * Delete all audio tracks
+     * Remove all additional audio tracks from a video using API key authentication
      * @param {String} videoId Video ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/AudioTrack>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AudioTrackDelete}
      */
-    postVideosVideoIdAudioTracks(videoId) {
-      return this.postVideosVideoIdAudioTracksWithHttpInfo(videoId)
+    videosVideoIdAudioTracksDelete(videoId) {
+      return this.videosVideoIdAudioTracksDeleteWithHttpInfo(videoId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -747,20 +287,26 @@ export default class VideosApi {
 
 
     /**
-     * Bulk upsert video subtitles
-     * Replace all subtitles with the provided ones using API key authentication
+     * Delete audio track by language
+     * Remove an audio track for a specific language using API key authentication
      * @param {String} videoId Video ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Subtitle>} and HTTP response
+     * @param {String} langCode Language Code (BCP 47)
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AudioTrackDelete} and HTTP response
      */
-    postVideosVideoIdSubtitlesWithHttpInfo(videoId) {
+    videosVideoIdAudioTracksLangCodeDeleteWithHttpInfo(videoId, langCode) {
       let postBody = null;
       // verify the required parameter 'videoId' is set
       if (videoId === undefined || videoId === null) {
-        throw new Error("Missing the required parameter 'videoId' when calling postVideosVideoIdSubtitles");
+        throw new Error("Missing the required parameter 'videoId' when calling videosVideoIdAudioTracksLangCodeDelete");
+      }
+      // verify the required parameter 'langCode' is set
+      if (langCode === undefined || langCode === null) {
+        throw new Error("Missing the required parameter 'langCode' when calling videosVideoIdAudioTracksLangCodeDelete");
       }
 
       let pathParams = {
-        'videoId': videoId
+        'videoId': videoId,
+        'lang_code': langCode
       };
       let queryParams = {
       };
@@ -770,24 +316,25 @@ export default class VideosApi {
       };
 
       let authNames = ['ApiKeyAuth'];
-      let contentTypes = ['application/x-www-form-urlencoded', 'multipart/form-data'];
+      let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [Subtitle];
+      let returnType = AudioTrackDelete;
       return this.apiClient.callApi(
-        '/videos/{videoId}/subtitles', 'POST',
+        '/videos/{videoId}/audio-tracks/{lang_code}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Bulk upsert video subtitles
-     * Replace all subtitles with the provided ones using API key authentication
+     * Delete audio track by language
+     * Remove an audio track for a specific language using API key authentication
      * @param {String} videoId Video ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Subtitle>}
+     * @param {String} langCode Language Code (BCP 47)
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AudioTrackDelete}
      */
-    postVideosVideoIdSubtitles(videoId) {
-      return this.postVideosVideoIdSubtitlesWithHttpInfo(videoId)
+    videosVideoIdAudioTracksLangCodeDelete(videoId, langCode) {
+      return this.videosVideoIdAudioTracksLangCodeDeleteWithHttpInfo(videoId, langCode)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -801,15 +348,15 @@ export default class VideosApi {
      * @param {String} langCode Language Code (BCP 47)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AudioTrack} and HTTP response
      */
-    putVideosVideoIdAudioTracksLangCodeWithHttpInfo(videoId, langCode) {
+    videosVideoIdAudioTracksLangCodePutWithHttpInfo(videoId, langCode) {
       let postBody = null;
       // verify the required parameter 'videoId' is set
       if (videoId === undefined || videoId === null) {
-        throw new Error("Missing the required parameter 'videoId' when calling putVideosVideoIdAudioTracksLangCode");
+        throw new Error("Missing the required parameter 'videoId' when calling videosVideoIdAudioTracksLangCodePut");
       }
       // verify the required parameter 'langCode' is set
       if (langCode === undefined || langCode === null) {
-        throw new Error("Missing the required parameter 'langCode' when calling putVideosVideoIdAudioTracksLangCode");
+        throw new Error("Missing the required parameter 'langCode' when calling videosVideoIdAudioTracksLangCodePut");
       }
 
       let pathParams = {
@@ -841,8 +388,159 @@ export default class VideosApi {
      * @param {String} langCode Language Code (BCP 47)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AudioTrack}
      */
-    putVideosVideoIdAudioTracksLangCode(videoId, langCode) {
-      return this.putVideosVideoIdAudioTracksLangCodeWithHttpInfo(videoId, langCode)
+    videosVideoIdAudioTracksLangCodePut(videoId, langCode) {
+      return this.videosVideoIdAudioTracksLangCodePutWithHttpInfo(videoId, langCode)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Bulk upsert video audio tracks
+     * Replace all audio tracks with the provided ones using API key authentication
+     * @param {String} videoId Video ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/AudioTrack>} and HTTP response
+     */
+    videosVideoIdAudioTracksPostWithHttpInfo(videoId) {
+      let postBody = null;
+      // verify the required parameter 'videoId' is set
+      if (videoId === undefined || videoId === null) {
+        throw new Error("Missing the required parameter 'videoId' when calling videosVideoIdAudioTracksPost");
+      }
+
+      let pathParams = {
+        'videoId': videoId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['ApiKeyAuth'];
+      let contentTypes = ['application/x-www-form-urlencoded', 'multipart/form-data'];
+      let accepts = ['application/json'];
+      let returnType = [AudioTrack];
+      return this.apiClient.callApi(
+        '/videos/{videoId}/audio-tracks', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Bulk upsert video audio tracks
+     * Replace all audio tracks with the provided ones using API key authentication
+     * @param {String} videoId Video ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/AudioTrack>}
+     */
+    videosVideoIdAudioTracksPost(videoId) {
+      return this.videosVideoIdAudioTracksPostWithHttpInfo(videoId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Delete audio track
+     * Remove an additional audio track from a video using API key authentication
+     * @param {String} videoId Video ID
+     * @param {String} trackId Audio Track ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AudioTrackDelete} and HTTP response
+     */
+    videosVideoIdAudioTracksTrackIdDeleteWithHttpInfo(videoId, trackId) {
+      let postBody = null;
+      // verify the required parameter 'videoId' is set
+      if (videoId === undefined || videoId === null) {
+        throw new Error("Missing the required parameter 'videoId' when calling videosVideoIdAudioTracksTrackIdDelete");
+      }
+      // verify the required parameter 'trackId' is set
+      if (trackId === undefined || trackId === null) {
+        throw new Error("Missing the required parameter 'trackId' when calling videosVideoIdAudioTracksTrackIdDelete");
+      }
+
+      let pathParams = {
+        'videoId': videoId,
+        'trackId': trackId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['ApiKeyAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = AudioTrackDelete;
+      return this.apiClient.callApi(
+        '/videos/{videoId}/audio-tracks/{trackId}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Delete audio track
+     * Remove an additional audio track from a video using API key authentication
+     * @param {String} videoId Video ID
+     * @param {String} trackId Audio Track ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AudioTrackDelete}
+     */
+    videosVideoIdAudioTracksTrackIdDelete(videoId, trackId) {
+      return this.videosVideoIdAudioTracksTrackIdDeleteWithHttpInfo(videoId, trackId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Delete video chapters
+     * Remove all chapters from a video using API key authentication
+     * @param {String} videoId Video ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UpdateChaptersResponse} and HTTP response
+     */
+    videosVideoIdChaptersDeleteWithHttpInfo(videoId) {
+      let postBody = null;
+      // verify the required parameter 'videoId' is set
+      if (videoId === undefined || videoId === null) {
+        throw new Error("Missing the required parameter 'videoId' when calling videosVideoIdChaptersDelete");
+      }
+
+      let pathParams = {
+        'videoId': videoId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['ApiKeyAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = UpdateChaptersResponse;
+      return this.apiClient.callApi(
+        '/videos/{videoId}/chapters', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Delete video chapters
+     * Remove all chapters from a video using API key authentication
+     * @param {String} videoId Video ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UpdateChaptersResponse}
+     */
+    videosVideoIdChaptersDelete(videoId) {
+      return this.videosVideoIdChaptersDeleteWithHttpInfo(videoId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -853,18 +551,18 @@ export default class VideosApi {
      * Update video chapters
      * Replace all chapters for a video (atomic PUT operation) using API key authentication
      * @param {String} videoId Video ID
-     * @param {module:model/PutVideosVideoIdChaptersRequest} putVideosVideoIdChaptersRequest Chapters array
+     * @param {module:model/VideosVideoIdChaptersPutRequest} videosVideoIdChaptersPutRequest Chapters array
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UpdateChaptersResponse} and HTTP response
      */
-    putVideosVideoIdChaptersWithHttpInfo(videoId, putVideosVideoIdChaptersRequest) {
-      let postBody = putVideosVideoIdChaptersRequest;
+    videosVideoIdChaptersPutWithHttpInfo(videoId, videosVideoIdChaptersPutRequest) {
+      let postBody = videosVideoIdChaptersPutRequest;
       // verify the required parameter 'videoId' is set
       if (videoId === undefined || videoId === null) {
-        throw new Error("Missing the required parameter 'videoId' when calling putVideosVideoIdChapters");
+        throw new Error("Missing the required parameter 'videoId' when calling videosVideoIdChaptersPut");
       }
-      // verify the required parameter 'putVideosVideoIdChaptersRequest' is set
-      if (putVideosVideoIdChaptersRequest === undefined || putVideosVideoIdChaptersRequest === null) {
-        throw new Error("Missing the required parameter 'putVideosVideoIdChaptersRequest' when calling putVideosVideoIdChapters");
+      // verify the required parameter 'videosVideoIdChaptersPutRequest' is set
+      if (videosVideoIdChaptersPutRequest === undefined || videosVideoIdChaptersPutRequest === null) {
+        throw new Error("Missing the required parameter 'videosVideoIdChaptersPutRequest' when calling videosVideoIdChaptersPut");
       }
 
       let pathParams = {
@@ -892,11 +590,210 @@ export default class VideosApi {
      * Update video chapters
      * Replace all chapters for a video (atomic PUT operation) using API key authentication
      * @param {String} videoId Video ID
-     * @param {module:model/PutVideosVideoIdChaptersRequest} putVideosVideoIdChaptersRequest Chapters array
+     * @param {module:model/VideosVideoIdChaptersPutRequest} videosVideoIdChaptersPutRequest Chapters array
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UpdateChaptersResponse}
      */
-    putVideosVideoIdChapters(videoId, putVideosVideoIdChaptersRequest) {
-      return this.putVideosVideoIdChaptersWithHttpInfo(videoId, putVideosVideoIdChaptersRequest)
+    videosVideoIdChaptersPut(videoId, videosVideoIdChaptersPutRequest) {
+      return this.videosVideoIdChaptersPutWithHttpInfo(videoId, videosVideoIdChaptersPutRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Delete video
+     * Delete a video by its ID within a project
+     * @param {String} videoId Video ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     */
+    videosVideoIdDeleteDeleteWithHttpInfo(videoId) {
+      let postBody = null;
+      // verify the required parameter 'videoId' is set
+      if (videoId === undefined || videoId === null) {
+        throw new Error("Missing the required parameter 'videoId' when calling videosVideoIdDeleteDelete");
+      }
+
+      let pathParams = {
+        'videoId': videoId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['ApiKeyAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/videos/{videoId}/delete', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Delete video
+     * Delete a video by its ID within a project
+     * @param {String} videoId Video ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    videosVideoIdDeleteDelete(videoId) {
+      return this.videosVideoIdDeleteDeleteWithHttpInfo(videoId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Get a video
+     * Retrieve a video by its ID for a specific project.
+     * @param {String} videoId Video ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Video} and HTTP response
+     */
+    videosVideoIdGetWithHttpInfo(videoId) {
+      let postBody = null;
+      // verify the required parameter 'videoId' is set
+      if (videoId === undefined || videoId === null) {
+        throw new Error("Missing the required parameter 'videoId' when calling videosVideoIdGet");
+      }
+
+      let pathParams = {
+        'videoId': videoId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['ApiKeyAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = Video;
+      return this.apiClient.callApi(
+        '/videos/{videoId}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Get a video
+     * Retrieve a video by its ID for a specific project.
+     * @param {String} videoId Video ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Video}
+     */
+    videosVideoIdGet(videoId) {
+      return this.videosVideoIdGetWithHttpInfo(videoId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Delete all subtitles
+     * Remove all subtitles from a video using API key authentication
+     * @param {String} videoId Video ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/SubtitleDelete} and HTTP response
+     */
+    videosVideoIdSubtitlesDeleteWithHttpInfo(videoId) {
+      let postBody = null;
+      // verify the required parameter 'videoId' is set
+      if (videoId === undefined || videoId === null) {
+        throw new Error("Missing the required parameter 'videoId' when calling videosVideoIdSubtitlesDelete");
+      }
+
+      let pathParams = {
+        'videoId': videoId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['ApiKeyAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = SubtitleDelete;
+      return this.apiClient.callApi(
+        '/videos/{videoId}/subtitles', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Delete all subtitles
+     * Remove all subtitles from a video using API key authentication
+     * @param {String} videoId Video ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SubtitleDelete}
+     */
+    videosVideoIdSubtitlesDelete(videoId) {
+      return this.videosVideoIdSubtitlesDeleteWithHttpInfo(videoId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Delete subtitle by language
+     * Remove a subtitle for a specific language using API key authentication
+     * @param {String} videoId Video ID
+     * @param {String} langCode Language Code (BCP 47)
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/SubtitleDelete} and HTTP response
+     */
+    videosVideoIdSubtitlesLangCodeDeleteWithHttpInfo(videoId, langCode) {
+      let postBody = null;
+      // verify the required parameter 'videoId' is set
+      if (videoId === undefined || videoId === null) {
+        throw new Error("Missing the required parameter 'videoId' when calling videosVideoIdSubtitlesLangCodeDelete");
+      }
+      // verify the required parameter 'langCode' is set
+      if (langCode === undefined || langCode === null) {
+        throw new Error("Missing the required parameter 'langCode' when calling videosVideoIdSubtitlesLangCodeDelete");
+      }
+
+      let pathParams = {
+        'videoId': videoId,
+        'lang_code': langCode
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['ApiKeyAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = SubtitleDelete;
+      return this.apiClient.callApi(
+        '/videos/{videoId}/subtitles/{lang_code}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Delete subtitle by language
+     * Remove a subtitle for a specific language using API key authentication
+     * @param {String} videoId Video ID
+     * @param {String} langCode Language Code (BCP 47)
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SubtitleDelete}
+     */
+    videosVideoIdSubtitlesLangCodeDelete(videoId, langCode) {
+      return this.videosVideoIdSubtitlesLangCodeDeleteWithHttpInfo(videoId, langCode)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -910,15 +807,15 @@ export default class VideosApi {
      * @param {String} langCode Language Code (BCP 47)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Subtitle} and HTTP response
      */
-    putVideosVideoIdSubtitlesLangCodeWithHttpInfo(videoId, langCode) {
+    videosVideoIdSubtitlesLangCodePutWithHttpInfo(videoId, langCode) {
       let postBody = null;
       // verify the required parameter 'videoId' is set
       if (videoId === undefined || videoId === null) {
-        throw new Error("Missing the required parameter 'videoId' when calling putVideosVideoIdSubtitlesLangCode");
+        throw new Error("Missing the required parameter 'videoId' when calling videosVideoIdSubtitlesLangCodePut");
       }
       // verify the required parameter 'langCode' is set
       if (langCode === undefined || langCode === null) {
-        throw new Error("Missing the required parameter 'langCode' when calling putVideosVideoIdSubtitlesLangCode");
+        throw new Error("Missing the required parameter 'langCode' when calling videosVideoIdSubtitlesLangCodePut");
       }
 
       let pathParams = {
@@ -950,8 +847,111 @@ export default class VideosApi {
      * @param {String} langCode Language Code (BCP 47)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Subtitle}
      */
-    putVideosVideoIdSubtitlesLangCode(videoId, langCode) {
-      return this.putVideosVideoIdSubtitlesLangCodeWithHttpInfo(videoId, langCode)
+    videosVideoIdSubtitlesLangCodePut(videoId, langCode) {
+      return this.videosVideoIdSubtitlesLangCodePutWithHttpInfo(videoId, langCode)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Bulk upsert video subtitles
+     * Replace all subtitles with the provided ones using API key authentication
+     * @param {String} videoId Video ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Subtitle>} and HTTP response
+     */
+    videosVideoIdSubtitlesPostWithHttpInfo(videoId) {
+      let postBody = null;
+      // verify the required parameter 'videoId' is set
+      if (videoId === undefined || videoId === null) {
+        throw new Error("Missing the required parameter 'videoId' when calling videosVideoIdSubtitlesPost");
+      }
+
+      let pathParams = {
+        'videoId': videoId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['ApiKeyAuth'];
+      let contentTypes = ['application/x-www-form-urlencoded', 'multipart/form-data'];
+      let accepts = ['application/json'];
+      let returnType = [Subtitle];
+      return this.apiClient.callApi(
+        '/videos/{videoId}/subtitles', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Bulk upsert video subtitles
+     * Replace all subtitles with the provided ones using API key authentication
+     * @param {String} videoId Video ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Subtitle>}
+     */
+    videosVideoIdSubtitlesPost(videoId) {
+      return this.videosVideoIdSubtitlesPostWithHttpInfo(videoId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Delete subtitle
+     * Remove a subtitle from a video using API key authentication
+     * @param {String} videoId Video ID
+     * @param {String} subtitleId Subtitle ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/SubtitleDelete} and HTTP response
+     */
+    videosVideoIdSubtitlesSubtitleIdDeleteWithHttpInfo(videoId, subtitleId) {
+      let postBody = null;
+      // verify the required parameter 'videoId' is set
+      if (videoId === undefined || videoId === null) {
+        throw new Error("Missing the required parameter 'videoId' when calling videosVideoIdSubtitlesSubtitleIdDelete");
+      }
+      // verify the required parameter 'subtitleId' is set
+      if (subtitleId === undefined || subtitleId === null) {
+        throw new Error("Missing the required parameter 'subtitleId' when calling videosVideoIdSubtitlesSubtitleIdDelete");
+      }
+
+      let pathParams = {
+        'videoId': videoId,
+        'subtitleId': subtitleId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['ApiKeyAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = SubtitleDelete;
+      return this.apiClient.callApi(
+        '/videos/{videoId}/subtitles/{subtitleId}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Delete subtitle
+     * Remove a subtitle from a video using API key authentication
+     * @param {String} videoId Video ID
+     * @param {String} subtitleId Subtitle ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SubtitleDelete}
+     */
+    videosVideoIdSubtitlesSubtitleIdDelete(videoId, subtitleId) {
+      return this.videosVideoIdSubtitlesSubtitleIdDeleteWithHttpInfo(videoId, subtitleId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -964,11 +964,11 @@ export default class VideosApi {
      * @param {String} videoId Video ID
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Video} and HTTP response
      */
-    putVideosVideoIdThumbnailWithHttpInfo(videoId) {
+    videosVideoIdThumbnailPutWithHttpInfo(videoId) {
       let postBody = null;
       // verify the required parameter 'videoId' is set
       if (videoId === undefined || videoId === null) {
-        throw new Error("Missing the required parameter 'videoId' when calling putVideosVideoIdThumbnail");
+        throw new Error("Missing the required parameter 'videoId' when calling videosVideoIdThumbnailPut");
       }
 
       let pathParams = {
@@ -998,8 +998,8 @@ export default class VideosApi {
      * @param {String} videoId Video ID
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Video}
      */
-    putVideosVideoIdThumbnail(videoId) {
-      return this.putVideosVideoIdThumbnailWithHttpInfo(videoId)
+    videosVideoIdThumbnailPut(videoId) {
+      return this.videosVideoIdThumbnailPutWithHttpInfo(videoId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

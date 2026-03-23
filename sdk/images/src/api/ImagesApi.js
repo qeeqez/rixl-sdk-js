@@ -15,10 +15,10 @@
 import ApiClient from "../ApiClient";
 import GithubComQeeqezApiInternalErrorsErrorResponse from '../model/GithubComQeeqezApiInternalErrorsErrorResponse';
 import Image from '../model/Image';
+import ImagesUploadCompletePostRequest from '../model/ImagesUploadCompletePostRequest';
+import ImagesUploadInitPostRequest from '../model/ImagesUploadInitPostRequest';
 import InternalImagesHandlerInitResponse from '../model/InternalImagesHandlerInitResponse';
 import PaginationPaginatedResponseImage from '../model/PaginationPaginatedResponseImage';
-import PostImagesUploadCompleteRequest from '../model/PostImagesUploadCompleteRequest';
-import PostImagesUploadInitRequest from '../model/PostImagesUploadInitRequest';
 
 /**
 * Images service.
@@ -41,54 +41,6 @@ export default class ImagesApi {
 
 
     /**
-     * Delete image
-     * delete an image by marking it as deleted
-     * @param {String} imageId Image ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
-     */
-    deleteImagesImageIdWithHttpInfo(imageId) {
-      let postBody = null;
-      // verify the required parameter 'imageId' is set
-      if (imageId === undefined || imageId === null) {
-        throw new Error("Missing the required parameter 'imageId' when calling deleteImagesImageId");
-      }
-
-      let pathParams = {
-        'imageId': imageId
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['ApiKeyAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/images/{imageId}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Delete image
-     * delete an image by marking it as deleted
-     * @param {String} imageId Image ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    deleteImagesImageId(imageId) {
-      return this.deleteImagesImageIdWithHttpInfo(imageId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
      * List images for a project
      * Retrieve all images for a specific project, with pagination and sorting.
      * @param {Object} opts Optional parameters
@@ -98,7 +50,7 @@ export default class ImagesApi {
      * @param {String} [order] Sort order (asc, desc)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PaginationPaginatedResponseImage} and HTTP response
      */
-    getImagesWithHttpInfo(opts) {
+    imagesGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -136,8 +88,56 @@ export default class ImagesApi {
      * @param {String} opts.order Sort order (asc, desc)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PaginationPaginatedResponseImage}
      */
-    getImages(opts) {
-      return this.getImagesWithHttpInfo(opts)
+    imagesGet(opts) {
+      return this.imagesGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Delete image
+     * delete an image by marking it as deleted
+     * @param {String} imageId Image ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     */
+    imagesImageIdDeleteWithHttpInfo(imageId) {
+      let postBody = null;
+      // verify the required parameter 'imageId' is set
+      if (imageId === undefined || imageId === null) {
+        throw new Error("Missing the required parameter 'imageId' when calling imagesImageIdDelete");
+      }
+
+      let pathParams = {
+        'imageId': imageId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['ApiKeyAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/images/{imageId}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Delete image
+     * delete an image by marking it as deleted
+     * @param {String} imageId Image ID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    imagesImageIdDelete(imageId) {
+      return this.imagesImageIdDeleteWithHttpInfo(imageId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -150,11 +150,11 @@ export default class ImagesApi {
      * @param {String} imageId Image ID
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Image} and HTTP response
      */
-    getImagesImageIdWithHttpInfo(imageId) {
+    imagesImageIdGetWithHttpInfo(imageId) {
       let postBody = null;
       // verify the required parameter 'imageId' is set
       if (imageId === undefined || imageId === null) {
-        throw new Error("Missing the required parameter 'imageId' when calling getImagesImageId");
+        throw new Error("Missing the required parameter 'imageId' when calling imagesImageIdGet");
       }
 
       let pathParams = {
@@ -184,8 +184,8 @@ export default class ImagesApi {
      * @param {String} imageId Image ID
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Image}
      */
-    getImagesImageId(imageId) {
-      return this.getImagesImageIdWithHttpInfo(imageId)
+    imagesImageIdGet(imageId) {
+      return this.imagesImageIdGetWithHttpInfo(imageId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -195,14 +195,14 @@ export default class ImagesApi {
     /**
      * Upload: Mark as complete
      * Complete the upload process and create the image record using API key authentication
-     * @param {module:model/PostImagesUploadCompleteRequest} postImagesUploadCompleteRequest Upload completion request
+     * @param {module:model/ImagesUploadCompletePostRequest} imagesUploadCompletePostRequest Upload completion request
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Image} and HTTP response
      */
-    postImagesUploadCompleteWithHttpInfo(postImagesUploadCompleteRequest) {
-      let postBody = postImagesUploadCompleteRequest;
-      // verify the required parameter 'postImagesUploadCompleteRequest' is set
-      if (postImagesUploadCompleteRequest === undefined || postImagesUploadCompleteRequest === null) {
-        throw new Error("Missing the required parameter 'postImagesUploadCompleteRequest' when calling postImagesUploadComplete");
+    imagesUploadCompletePostWithHttpInfo(imagesUploadCompletePostRequest) {
+      let postBody = imagesUploadCompletePostRequest;
+      // verify the required parameter 'imagesUploadCompletePostRequest' is set
+      if (imagesUploadCompletePostRequest === undefined || imagesUploadCompletePostRequest === null) {
+        throw new Error("Missing the required parameter 'imagesUploadCompletePostRequest' when calling imagesUploadCompletePost");
       }
 
       let pathParams = {
@@ -228,11 +228,11 @@ export default class ImagesApi {
     /**
      * Upload: Mark as complete
      * Complete the upload process and create the image record using API key authentication
-     * @param {module:model/PostImagesUploadCompleteRequest} postImagesUploadCompleteRequest Upload completion request
+     * @param {module:model/ImagesUploadCompletePostRequest} imagesUploadCompletePostRequest Upload completion request
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Image}
      */
-    postImagesUploadComplete(postImagesUploadCompleteRequest) {
-      return this.postImagesUploadCompleteWithHttpInfo(postImagesUploadCompleteRequest)
+    imagesUploadCompletePost(imagesUploadCompletePostRequest) {
+      return this.imagesUploadCompletePostWithHttpInfo(imagesUploadCompletePostRequest)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -242,14 +242,14 @@ export default class ImagesApi {
     /**
      * Upload: Init
      * Initialize a presigned URL upload for an image file using API key authentication
-     * @param {module:model/PostImagesUploadInitRequest} postImagesUploadInitRequest Upload initialization request
+     * @param {module:model/ImagesUploadInitPostRequest} imagesUploadInitPostRequest Upload initialization request
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InternalImagesHandlerInitResponse} and HTTP response
      */
-    postImagesUploadInitWithHttpInfo(postImagesUploadInitRequest) {
-      let postBody = postImagesUploadInitRequest;
-      // verify the required parameter 'postImagesUploadInitRequest' is set
-      if (postImagesUploadInitRequest === undefined || postImagesUploadInitRequest === null) {
-        throw new Error("Missing the required parameter 'postImagesUploadInitRequest' when calling postImagesUploadInit");
+    imagesUploadInitPostWithHttpInfo(imagesUploadInitPostRequest) {
+      let postBody = imagesUploadInitPostRequest;
+      // verify the required parameter 'imagesUploadInitPostRequest' is set
+      if (imagesUploadInitPostRequest === undefined || imagesUploadInitPostRequest === null) {
+        throw new Error("Missing the required parameter 'imagesUploadInitPostRequest' when calling imagesUploadInitPost");
       }
 
       let pathParams = {
@@ -275,11 +275,11 @@ export default class ImagesApi {
     /**
      * Upload: Init
      * Initialize a presigned URL upload for an image file using API key authentication
-     * @param {module:model/PostImagesUploadInitRequest} postImagesUploadInitRequest Upload initialization request
+     * @param {module:model/ImagesUploadInitPostRequest} imagesUploadInitPostRequest Upload initialization request
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InternalImagesHandlerInitResponse}
      */
-    postImagesUploadInit(postImagesUploadInitRequest) {
-      return this.postImagesUploadInitWithHttpInfo(postImagesUploadInitRequest)
+    imagesUploadInitPost(imagesUploadInitPostRequest) {
+      return this.imagesUploadInitPostWithHttpInfo(imagesUploadInitPostRequest)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

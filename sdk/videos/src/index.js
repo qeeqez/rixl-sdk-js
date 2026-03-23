@@ -28,15 +28,15 @@ import Image from './model/Image';
 import InternalVideosHandlerSubtitlesLanguageResponse from './model/InternalVideosHandlerSubtitlesLanguageResponse';
 import PaginationPaginatedResponseVideo from './model/PaginationPaginatedResponseVideo';
 import PaginationPagination from './model/PaginationPagination';
-import PostVideosUploadCompleteRequest from './model/PostVideosUploadCompleteRequest';
-import PostVideosUploadInitRequest from './model/PostVideosUploadInitRequest';
-import PutVideosVideoIdChaptersRequest from './model/PutVideosVideoIdChaptersRequest';
 import Subtitle from './model/Subtitle';
 import SubtitleDelete from './model/SubtitleDelete';
 import UpdateChaptersRequest from './model/UpdateChaptersRequest';
 import UpdateChaptersResponse from './model/UpdateChaptersResponse';
 import Video from './model/Video';
 import VideoUploadInitRequest from './model/VideoUploadInitRequest';
+import VideosUploadCompletePostRequest from './model/VideosUploadCompletePostRequest';
+import VideosUploadInitPostRequest from './model/VideosUploadInitPostRequest';
+import VideosVideoIdChaptersPutRequest from './model/VideosVideoIdChaptersPutRequest';
 import VideosApi from './api/VideosApi';
 
 
@@ -169,24 +169,6 @@ export {
     PaginationPagination,
 
     /**
-     * The PostVideosUploadCompleteRequest model constructor.
-     * @property {module:model/PostVideosUploadCompleteRequest}
-     */
-    PostVideosUploadCompleteRequest,
-
-    /**
-     * The PostVideosUploadInitRequest model constructor.
-     * @property {module:model/PostVideosUploadInitRequest}
-     */
-    PostVideosUploadInitRequest,
-
-    /**
-     * The PutVideosVideoIdChaptersRequest model constructor.
-     * @property {module:model/PutVideosVideoIdChaptersRequest}
-     */
-    PutVideosVideoIdChaptersRequest,
-
-    /**
      * The Subtitle model constructor.
      * @property {module:model/Subtitle}
      */
@@ -221,6 +203,24 @@ export {
      * @property {module:model/VideoUploadInitRequest}
      */
     VideoUploadInitRequest,
+
+    /**
+     * The VideosUploadCompletePostRequest model constructor.
+     * @property {module:model/VideosUploadCompletePostRequest}
+     */
+    VideosUploadCompletePostRequest,
+
+    /**
+     * The VideosUploadInitPostRequest model constructor.
+     * @property {module:model/VideosUploadInitPostRequest}
+     */
+    VideosUploadInitPostRequest,
+
+    /**
+     * The VideosVideoIdChaptersPutRequest model constructor.
+     * @property {module:model/VideosVideoIdChaptersPutRequest}
+     */
+    VideosVideoIdChaptersPutRequest,
 
     /**
     * The VideosApi service constructor.

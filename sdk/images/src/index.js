@@ -17,13 +17,13 @@ import File from './model/File';
 import FileStatus from './model/FileStatus';
 import GithubComQeeqezApiInternalErrorsErrorResponse from './model/GithubComQeeqezApiInternalErrorsErrorResponse';
 import Image from './model/Image';
+import ImagesUploadCompletePostRequest from './model/ImagesUploadCompletePostRequest';
+import ImagesUploadInitPostRequest from './model/ImagesUploadInitPostRequest';
 import InternalImagesHandlerCompleteRequest from './model/InternalImagesHandlerCompleteRequest';
 import InternalImagesHandlerInitResponse from './model/InternalImagesHandlerInitResponse';
 import InternalImagesHandlerUploadInitRequest from './model/InternalImagesHandlerUploadInitRequest';
 import PaginationPaginatedResponseImage from './model/PaginationPaginatedResponseImage';
 import PaginationPagination from './model/PaginationPagination';
-import PostImagesUploadCompleteRequest from './model/PostImagesUploadCompleteRequest';
-import PostImagesUploadInitRequest from './model/PostImagesUploadInitRequest';
 import ImagesApi from './api/ImagesApi';
 
 
@@ -90,6 +90,18 @@ export {
     Image,
 
     /**
+     * The ImagesUploadCompletePostRequest model constructor.
+     * @property {module:model/ImagesUploadCompletePostRequest}
+     */
+    ImagesUploadCompletePostRequest,
+
+    /**
+     * The ImagesUploadInitPostRequest model constructor.
+     * @property {module:model/ImagesUploadInitPostRequest}
+     */
+    ImagesUploadInitPostRequest,
+
+    /**
      * The InternalImagesHandlerCompleteRequest model constructor.
      * @property {module:model/InternalImagesHandlerCompleteRequest}
      */
@@ -118,18 +130,6 @@ export {
      * @property {module:model/PaginationPagination}
      */
     PaginationPagination,
-
-    /**
-     * The PostImagesUploadCompleteRequest model constructor.
-     * @property {module:model/PostImagesUploadCompleteRequest}
-     */
-    PostImagesUploadCompleteRequest,
-
-    /**
-     * The PostImagesUploadInitRequest model constructor.
-     * @property {module:model/PostImagesUploadInitRequest}
-     */
-    PostImagesUploadInitRequest,
 
     /**
     * The ImagesApi service constructor.
