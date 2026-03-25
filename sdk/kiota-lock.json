@@ -1,0 +1,34 @@
+{
+  "descriptionHash": "FAFB225E4B45B2D3F8E8A523E04A4B2D8BF7C2DBBD65C0A18CDE9E3524D7D574B30DE4D4A2E6CC2EDA3582659A0704BE4AE4583D553BB4920FAC250252F14711",
+  "descriptionLocation": "../../../../../../../../../var/folders/n3/pgwx76x51ns506z15zkc4hkr0000gn/T/rixl-kiota-spec.XXXXXX.json",
+  "lockFileVersion": "1.0.0",
+  "kiotaVersion": "1.30.0",
+  "clientClassName": "RixlClient",
+  "typeAccessModifier": "Public",
+  "clientNamespaceName": "rixlJsSdk",
+  "language": "TypeScript",
+  "usesBackingStore": false,
+  "excludeBackwardCompatible": true,
+  "includeAdditionalData": true,
+  "disableSSLValidation": false,
+  "serializers": [
+    "Microsoft.Kiota.Serialization.Json.JsonSerializationWriterFactory",
+    "Microsoft.Kiota.Serialization.Text.TextSerializationWriterFactory",
+    "Microsoft.Kiota.Serialization.Form.FormSerializationWriterFactory",
+    "Microsoft.Kiota.Serialization.Multipart.MultipartSerializationWriterFactory"
+  ],
+  "deserializers": [
+    "Microsoft.Kiota.Serialization.Json.JsonParseNodeFactory",
+    "Microsoft.Kiota.Serialization.Text.TextParseNodeFactory",
+    "Microsoft.Kiota.Serialization.Form.FormParseNodeFactory"
+  ],
+  "structuredMimeTypes": [
+    "application/json",
+    "text/plain;q=0.9",
+    "application/x-www-form-urlencoded;q=0.2",
+    "multipart/form-data;q=0.1"
+  ],
+  "includePatterns": [],
+  "excludePatterns": [],
+  "disabledValidationRules": []
+}
