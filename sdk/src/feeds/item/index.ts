@@ -21,7 +21,7 @@ export interface WithFeedItemRequestBuilder extends BaseRequestBuilder<WithFeedI
      */
     get creators(): CreatorsRequestBuilder;
     /**
-     * Gets an item from the rixlJsSdk.feeds.item.item collection
+     * Gets an item from the rixlSdk.feeds.item.item collection
      * @param postId Post ID
      * @returns {WithPostItemRequestBuilder}
      */

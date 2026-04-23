@@ -21,7 +21,7 @@ export interface ImagesRequestBuilder extends BaseRequestBuilder<ImagesRequestBu
      */
     get upload(): UploadRequestBuilder;
     /**
-     * Gets an item from the rixlJsSdk.images.item collection
+     * Gets an item from the rixlSdk.images.item collection
      * @param imageId Image ID
      * @returns {WithImageItemRequestBuilder}
      */

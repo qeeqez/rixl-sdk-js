@@ -1,34 +1,37 @@
 # RIXL JavaScript SDK
 
-The RIXL JavaScript SDK provides a robust, modular, and type-safe interface for the RIXL API. It is designed to be lightweight and easy to integrate into both browser and Node.js environments.
+The RIXL JavaScript SDK provides a typed, ergonomic client for the RIXL API.
+The source is authored in TypeScript and compiled to JavaScript for publication
+as `@rixl/sdk-js`.
 
-## Packages
-
-The SDK is split into standalone service packages:
-
-- **@rixl/sdk-js-feeds**: Interact with user and global feeds.
-- **@rixl/sdk-js-videos**: Manage video content, uploads, and metadata.
-- **@rixl/sdk-js-images**: Handle image assets and transformations.
+The client is generated from the RIXL OpenAPI spec using
+[Microsoft Kiota](https://learn.microsoft.com/openapi/kiota/).
 
 ## Installation
 
-Install the SDK packages via npm or yarn:
-
 ```bash
-npm install @rixl/sdk-js-feeds @rixl/sdk-js-videos @rixl/sdk-js-images
+npm install @rixl/sdk-js
 ```
 
 ## Usage
 
-Each service can be used independently:
+```ts
+import { RixlClient } from "@rixl/sdk-js";
 
-```javascript
-import { FeedsApi } from '@rixl/sdk-js-feeds';
+// Provide a Kiota request adapter (e.g. from @microsoft/kiota-http-fetchlibrary).
+const client = new RixlClient(requestAdapter);
 
-const feeds = new FeedsApi();
-// feeds.getFeed().then(...)
+const feed = await client.feeds.byFeedId("feed_123").get();
+```
+
+## Regenerating
+
+The SDK is regenerated via `sdk-manager/generate.sh`:
+
+```bash
+bash ../sdk-manager/generate.sh rixl-sdk-js
 ```
 
 ## Support
 
-For technical support or issues, please visit our documentation or open a GitHub issue.
+Please report issues via the GitHub issue tracker.

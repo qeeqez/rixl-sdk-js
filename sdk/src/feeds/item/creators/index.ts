@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface CreatorsRequestBuilder extends BaseRequestBuilder<CreatorsRequestBuilder> {
     /**
-     * Gets an item from the rixlJsSdk.feeds.item.creators.item collection
+     * Gets an item from the rixlSdk.feeds.item.creators.item collection
      * @param creatorId Creator ID
      * @returns {WithCreatorItemRequestBuilder}
      */

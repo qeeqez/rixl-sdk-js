@@ -27,7 +27,7 @@ export interface VideosRequestBuilder extends BaseRequestBuilder<VideosRequestBu
      */
     get upload(): UploadRequestBuilder;
     /**
-     * Gets an item from the rixlJsSdk.videos.item collection
+     * Gets an item from the rixlSdk.videos.item collection
      * @param videoId Video ID
      * @returns {WithVideoItemRequestBuilder}
      */

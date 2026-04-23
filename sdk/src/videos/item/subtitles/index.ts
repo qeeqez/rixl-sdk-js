@@ -13,7 +13,7 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface SubtitlesRequestBuilder extends BaseRequestBuilder<SubtitlesRequestBuilder> {
     /**
-     * Gets an item from the rixlJsSdk.videos.item.subtitles.item collection
+     * Gets an item from the rixlSdk.videos.item.subtitles.item collection
      * @param lang_code Language Code (BCP 47)
      * @returns {WithLang_codeItemRequestBuilder}
      */

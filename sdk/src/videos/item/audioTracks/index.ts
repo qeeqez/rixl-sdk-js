@@ -13,7 +13,7 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface AudioTracksRequestBuilder extends BaseRequestBuilder<AudioTracksRequestBuilder> {
     /**
-     * Gets an item from the rixlJsSdk.videos.item.audioTracks.item collection
+     * Gets an item from the rixlSdk.videos.item.audioTracks.item collection
      * @param lang_code Language Code (BCP 47)
      * @returns {WithLang_codeItemRequestBuilder}
      */

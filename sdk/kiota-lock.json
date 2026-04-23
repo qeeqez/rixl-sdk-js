@@ -5,7 +5,7 @@
   "kiotaVersion": "1.30.0",
   "clientClassName": "RixlClient",
   "typeAccessModifier": "Public",
-  "clientNamespaceName": "rixlJsSdk",
+  "clientNamespaceName": "rixlSdk",
   "language": "TypeScript",
   "usesBackingStore": false,
   "excludeBackwardCompatible": true,

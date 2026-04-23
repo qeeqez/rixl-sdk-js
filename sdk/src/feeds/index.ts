@@ -11,7 +11,7 @@ import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type 
  */
 export interface FeedsRequestBuilder extends BaseRequestBuilder<FeedsRequestBuilder> {
     /**
-     * Gets an item from the rixlJsSdk.feeds.item collection
+     * Gets an item from the rixlSdk.feeds.item collection
      * @param feedId Feed ID
      * @returns {WithFeedItemRequestBuilder}
      */
