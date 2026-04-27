@@ -87,12 +87,22 @@ const image = await client.images.byImageId("PS5IMKoFLm").get();
 // Delete
 await client.images.byImageId("PS5IMKoFLm").delete();
 
-// Presigned upload
-import type { UploadInitRequest } from "@rixl/sdk-js";
+// Upload (init → PUT bytes to presigned URL → complete)
+const initRes = await client.images.upload.init.post({
+    name: "photo.jpg",
+    format: "jpeg",
+});
 
-const req: UploadInitRequest = { name: "photo.jpg", format: "jpeg" };
-const upload = await client.images.upload.init.post(req);
-console.log(upload?.presignedUrl);
+await fetch(initRes.presignedUrl, {
+    method: "PUT",
+    body: imageBytes,
+    headers: { "Content-Type": "image/jpeg" },
+});
+
+const image = await client.images.upload.complete.post({
+    imageId: initRes.imageId,
+    attachedToVideo: false,
+});
 ```
 
 ### Videos
@@ -106,6 +116,19 @@ const video = await client.videos.byVideoId("VI9VXQxWXQ").get();
 
 // Subtitle tracks
 const tracks = await client.videos.byVideoId("VI9VXQxWXQ").subtitles.get();
+
+// Upload (init returns presigned URLs for both the video and a poster image)
+const initRes = await client.videos.upload.init.post({
+    fileName: "clip.mp4",
+    imageFormat: "jpeg",
+});
+
+// PUT video bytes to initRes.videoPresignedUrl
+// PUT poster bytes to initRes.posterPresignedUrl
+
+const video = await client.videos.upload.complete.post({
+    videoId: initRes.videoId,
+});
 ```
 
 ## Pagination
@@ -170,24 +193,34 @@ import type {
 
 Fields are optional; use optional chaining (`image?.file?.url`).
 
-## Development
+## Examples
 
-Regenerate from the OpenAPI spec (run from the monorepo root):
+Runnable demos live in [`examples/`](./examples):
 
-```bash
-brew install kiota
-bash sdk-manager/generate.sh rixl-sdk-js
-```
-
-Build the package:
+- `basic/` — list images and fetch one by ID (uses `X-API-Key`).
+- `advanced/` — full image and video upload pipelines (uses `X-API-Key`).
+- `bearer/` — mint a short-lived client JWT via `POST /clientauth/token`, then call with `Authorization: Bearer …`. Use this pattern when the consumer can't safely hold a long-lived API key (browser, mobile).
 
 ```bash
-cd sdk
-npm install
-npm run build
-```
+cd sdk && npm install && npm run build
+cd ../examples && npm install
 
-Generation uses `--clean-output`; do not hand-edit files under `sdk/src/`.
+export RIXL_BASE_URL=http://localhost:8081  # optional
+
+# API key flows
+export RIXL_API_KEY=<key>
+npm run basic
+npm run advanced
+
+# Client JWT flow
+# Mint your client_id and client_secret in the RIXL dashboard
+# (Organization → Client Auth → Create credential), then:
+export RIXL_CLIENT_ID=<copied from the dashboard>
+export RIXL_CLIENT_SECRET=<copied from the dashboard>
+export RIXL_PROJECT_ID=<project ID>
+export RIXL_SUBJECT=user-42
+npm run bearer
+```
 
 ## Support
 
