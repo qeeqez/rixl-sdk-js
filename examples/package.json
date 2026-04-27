@@ -1,0 +1,15 @@
+{
+  "name": "rixl-sdk-js-examples",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "basic": "node basic/index.js",
+    "advanced": "node advanced/index.js",
+    "bearer": "node bearer/index.js"
+  },
+  "dependencies": {
+    "@rixl/sdk-js": "file:../sdk",
+    "@microsoft/kiota-http-fetchlibrary": "1.0.0-preview.100"
+  }
+}
