@@ -44,9 +44,6 @@ export function createRixlClient(requestAdapter: RequestAdapter) {
         serializationWriterFactory.registerDefaultSerializer(MultipartSerializationWriterFactory);
     }
     
-    if (requestAdapter.baseUrl === undefined || requestAdapter.baseUrl === null || requestAdapter.baseUrl === "") {
-        requestAdapter.baseUrl = "https://api.rixl.com";
-    }
     const pathParameters: Record<string, unknown> = {
         "baseurl": requestAdapter.baseUrl,
     };

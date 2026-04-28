@@ -197,7 +197,7 @@
             "$ref": "#/components/schemas/Image"
           },
           "plan_type": {
-            "$ref": "#/components/schemas/github_com_qeeqez_api_db_sqlc.PlanType"
+            "$ref": "#/components/schemas/github_com_rixlhq_api_db_sqlc.PlanType"
           },
           "type": {
             "$ref": "#/components/schemas/PostType"
@@ -207,7 +207,7 @@
             "type": "string"
           },
           "video": {
-            "$ref": "#/components/schemas/github_com_qeeqez_api_internal_videos.VideoResponse"
+            "$ref": "#/components/schemas/github_com_rixlhq_api_internal_videos.VideoResponse"
           }
         },
         "type": "object"
@@ -280,7 +280,7 @@
         "properties": {
           "chapters": {
             "items": {
-              "$ref": "#/components/schemas/github_com_qeeqez_api_internal_videos_types.ChapterInput"
+              "$ref": "#/components/schemas/github_com_rixlhq_api_internal_videos_types.ChapterInput"
             },
             "type": "array",
             "uniqueItems": false
@@ -338,7 +338,7 @@
             "type": "string"
           },
           "plan_type": {
-            "$ref": "#/components/schemas/github_com_qeeqez_api_db_sqlc.PlanType"
+            "$ref": "#/components/schemas/github_com_rixlhq_api_db_sqlc.PlanType"
           },
           "poster": {
             "$ref": "#/components/schemas/Image"
@@ -360,7 +360,7 @@
             "type": "string"
           },
           "video_quality": {
-            "$ref": "#/components/schemas/github_com_qeeqez_api_db_sqlc.VideoQuality"
+            "$ref": "#/components/schemas/github_com_rixlhq_api_db_sqlc.VideoQuality"
           }
         },
         "required": [
@@ -368,7 +368,7 @@
         ],
         "type": "object"
       },
-      "github_com_qeeqez_api_db_sqlc.PlanType": {
+      "github_com_rixlhq_api_db_sqlc.PlanType": {
         "enum": [
           "free",
           "pro",
@@ -384,7 +384,7 @@
           "PlanTypePayAsYouGo"
         ]
       },
-      "github_com_qeeqez_api_db_sqlc.VideoQuality": {
+      "github_com_rixlhq_api_db_sqlc.VideoQuality": {
         "enum": [
           "basic",
           "shorts",
@@ -401,7 +401,7 @@
           "VideoQualityPro"
         ]
       },
-      "github_com_qeeqez_api_internal_errors.ErrorResponse": {
+      "github_com_rixlhq_api_internal_errors.ErrorResponse": {
         "description": "Standard error response returned by the API",
         "properties": {
           "code": {
@@ -422,7 +422,7 @@
         },
         "type": "object"
       },
-      "github_com_qeeqez_api_internal_videos.VideoResponse": {
+      "github_com_rixlhq_api_internal_videos.VideoResponse": {
         "properties": {
           "bitrate": {
             "type": "integer"
@@ -456,7 +456,7 @@
             "type": "string"
           },
           "plan_type": {
-            "$ref": "#/components/schemas/github_com_qeeqez_api_db_sqlc.PlanType"
+            "$ref": "#/components/schemas/github_com_rixlhq_api_db_sqlc.PlanType"
           },
           "poster": {
             "$ref": "#/components/schemas/Image"
@@ -467,7 +467,7 @@
         },
         "type": "object"
       },
-      "github_com_qeeqez_api_internal_videos_handler_upload.CompleteRequest": {
+      "github_com_rixlhq_api_internal_videos_handler_upload.CompleteRequest": {
         "properties": {
           "video_id": {
             "example": "VI9VXQxWXQ",
@@ -476,7 +476,7 @@
         },
         "type": "object"
       },
-      "github_com_qeeqez_api_internal_videos_handler_upload.InitResponse": {
+      "github_com_rixlhq_api_internal_videos_handler_upload.InitResponse": {
         "properties": {
           "poster_id": {
             "example": "PS5IMKoFLm",
@@ -501,7 +501,7 @@
         },
         "type": "object"
       },
-      "github_com_qeeqez_api_internal_videos_types.ChapterInput": {
+      "github_com_rixlhq_api_internal_videos_types.ChapterInput": {
         "properties": {
           "start_time_sec": {
             "type": "number"
@@ -648,6 +648,12 @@
         "in": "header",
         "name": "X-API-Key",
         "type": "apiKey"
+      },
+      "Bearer": {
+        "description": "Type \"Bearer\" followed by a space and JWT token.",
+        "in": "header",
+        "name": "Authorization",
+        "type": "apiKey"
       }
     }
   },
@@ -720,7 +726,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -730,7 +736,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -803,7 +809,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -813,7 +819,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -865,7 +871,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -875,7 +881,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -946,7 +952,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -956,7 +962,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -966,7 +972,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -976,7 +982,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1034,7 +1040,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1044,7 +1050,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1054,7 +1060,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1064,7 +1070,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1074,7 +1080,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1132,7 +1138,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1142,7 +1148,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1152,7 +1158,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1162,7 +1168,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1204,7 +1210,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1214,7 +1220,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1224,7 +1230,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1234,7 +1240,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1244,7 +1250,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1291,7 +1297,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1301,7 +1307,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1311,7 +1317,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1321,7 +1327,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1331,7 +1337,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1408,7 +1414,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1418,7 +1424,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1428,7 +1434,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1438,7 +1444,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1495,7 +1501,7 @@
                     "type": "object"
                   },
                   {
-                    "$ref": "#/components/schemas/github_com_qeeqez_api_internal_videos_handler_upload.CompleteRequest",
+                    "$ref": "#/components/schemas/github_com_rixlhq_api_internal_videos_handler_upload.CompleteRequest",
                     "summary": "request",
                     "description": "Video upload completion request"
                   }
@@ -1521,7 +1527,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1531,7 +1537,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1541,7 +1547,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1551,7 +1557,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1561,7 +1567,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1609,7 +1615,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_videos_handler_upload.InitResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_videos_handler_upload.InitResponse"
                 }
               }
             },
@@ -1619,7 +1625,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1629,7 +1635,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1639,7 +1645,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1649,7 +1655,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1698,7 +1704,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1708,7 +1714,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1718,7 +1724,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1728,7 +1734,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1738,7 +1744,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1959,7 +1965,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1969,7 +1975,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1979,7 +1985,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -1989,7 +1995,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -2056,7 +2062,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -2066,7 +2072,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -2076,7 +2082,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -2086,7 +2092,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -2096,7 +2102,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -2138,7 +2144,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -2148,7 +2154,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -2158,7 +2164,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -2168,7 +2174,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -2178,7 +2184,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -2372,7 +2378,7 @@
     },
     "/videos/{videoId}/thumbnail": {
       "put": {
-        "description": "Update the thumbnail image for an existing video using API key authentication",
+        "description": "Update the thumbnail image for an existing video",
         "parameters": [
           {
             "description": "Video ID",
@@ -2433,7 +2439,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -2443,17 +2449,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
-            "description": "Unauthorized - Invalid API key"
+            "description": "Unauthorized"
           },
           "403": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -2463,7 +2469,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
@@ -2473,17 +2479,16 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/github_com_qeeqez_api_internal_errors.ErrorResponse"
+                  "$ref": "#/components/schemas/github_com_rixlhq_api_internal_errors.ErrorResponse"
                 }
               }
             },
             "description": "Upload or update failed"
-          },
-          "x-order": 6
+          }
         },
         "security": [
           {
-            "ApiKeyAuth": []
+            "Bearer": []
           }
         ],
         "summary": "Update video thumbnail",
@@ -2551,7 +2556,12 @@
   ],
   "servers": [
     {
-      "url": "https://api.rixl.com/"
+      "url": "/"
     }
-  ]
+  ],
+  "host": "api.rixl.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/"
 }

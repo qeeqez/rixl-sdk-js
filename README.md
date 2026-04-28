@@ -223,4 +223,4 @@ npm run auth                                  # works with either credential typ
 
 ## Support
 
-Open an issue at [github.com/qeeqez/rixl-sdk-js](https://github.com/qeeqez/rixl-sdk-js/issues).
+Open an issue at [github.com/rixlhq/sdk-js](https://github.com/rixlhq/sdk-js/issues).
