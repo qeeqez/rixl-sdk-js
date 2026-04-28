@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+  # id-token lets npm record provenance from the GitHub Actions run.
+  id-token: write
+
+jobs:
+  release-please:
+    uses: rixlhq/github-actions/.github/workflows/release.yml@v1.9.5
+    with:
+      config-file: release-please-config.json
+      manifest-file: .release-please-manifest.json
+    secrets: inherit
+
+  publish:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.releases_created == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Build
+        working-directory: sdk
+        run: |
+          npm ci
+          npm run build
+
+      - name: Publish to npm
+        working-directory: sdk
+        run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

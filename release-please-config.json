@@ -1,0 +1,9 @@
+{
+    "$schema": "https://raw.githubusercontent.com/googleapis/release-please-action/v4/schema.json",
+    "packages": {
+        "sdk": {
+            "release-type": "node",
+            "package-name": "@rixl/sdk-js"
+        }
+    }
+}
