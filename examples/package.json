@@ -4,9 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "basic": "node basic/index.js",
-    "advanced": "node advanced/index.js",
-    "bearer": "node bearer/index.js"
+    "auth": "node auth/index.js",
+    "basic:images": "node basic/images/index.js",
+    "basic:videos": "node basic/videos/index.js",
+    "basic:feeds": "node basic/feeds/index.js",
+    "basic:posts": "node basic/posts/index.js",
+    "advanced:images": "node advanced/images/index.js",
+    "advanced:videos": "node advanced/videos/index.js"
   },
   "dependencies": {
     "@rixl/sdk-js": "file:../sdk",
