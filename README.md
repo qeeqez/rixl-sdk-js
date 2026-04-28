@@ -195,31 +195,30 @@ Fields are optional; use optional chaining (`image?.file?.url`).
 
 ## Examples
 
-Runnable demos live in [`examples/`](./examples):
+Self-contained demos live in [`examples/`](./examples). Each file imports the SDK and runs one task — copy any of them into your own project as a starting point.
 
-- `basic/` — list images and fetch one by ID (uses `X-API-Key`).
-- `advanced/` — full image and video upload pipelines (uses `X-API-Key`).
-- `bearer/` — mint a short-lived client JWT via `POST /clientauth/token`, then call with `Authorization: Bearer …`. Use this pattern when the consumer can't safely hold a long-lived API key (browser, mobile).
+| Path | What it shows | Script |
+|---|---|---|
+| `auth/` | both auth flows in one file — picks API key or client JWT from env | `npm run auth` |
+| `basic/images/` | list images, fetch one by `IMAGE_ID` | `npm run basic:images` |
+| `basic/videos/` | list videos, fetch one by `VIDEO_ID` | `npm run basic:videos` |
+| `basic/feeds/` | read a feed — needs `RIXL_FEED_ID` | `npm run basic:feeds` |
+| `basic/posts/` | read one post — needs `RIXL_FEED_ID` and `RIXL_POST_ID` | `npm run basic:posts` |
+| `advanced/images/` | full image upload (init → PUT → complete) | `npm run advanced:images` |
+| `advanced/videos/` | full video upload (video + poster) | `npm run advanced:videos` |
+
+Credentials come from the RIXL dashboard (API key, or Client Auth → Create credential).
 
 ```bash
 cd sdk && npm install && npm run build
 cd ../examples && npm install
 
-export RIXL_BASE_URL=http://localhost:8081  # optional
+export RIXL_API_KEY=<copied from the dashboard>
+export RIXL_BASE_URL=http://localhost:8081   # optional
 
-# API key flows
-export RIXL_API_KEY=<key>
-npm run basic
-npm run advanced
-
-# Client JWT flow
-# Mint your client_id and client_secret in the RIXL dashboard
-# (Organization → Client Auth → Create credential), then:
-export RIXL_CLIENT_ID=<copied from the dashboard>
-export RIXL_CLIENT_SECRET=<copied from the dashboard>
-export RIXL_PROJECT_ID=<project ID>
-export RIXL_SUBJECT=user-42
-npm run bearer
+npm run basic:images
+npm run advanced:videos
+npm run auth                                  # works with either credential type
 ```
 
 ## Support
