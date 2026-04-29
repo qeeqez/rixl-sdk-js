@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/rixlhq/rixl-js/compare/v1.0.1...v1.0.2) (2026-04-29)
+
+
+### Bug Fixes
+
+* align release workflow with videosdk (OIDC & Node 25) ([d01d940](https://github.com/rixlhq/rixl-js/commit/d01d94004d9929f9eee7ba89f0839cd92ebd21f1))
+* switch to bun for building ([34f1bd1](https://github.com/rixlhq/rixl-js/commit/34f1bd16724b4e1636cacfbd2b7e790930fae90c))
+
 ## [1.0.1](https://github.com/rixlhq/rixl-js/compare/v1.0.0...v1.0.1) (2026-04-29)
 
 
