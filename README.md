@@ -21,10 +21,12 @@ The official JavaScript and TypeScript client for the [RIXL](https://rixl.com) A
 - A RIXL API key
 - ESM-only — use `import`, not `require`
 
-## Installation
-
 ```bash
+# Using npm
 npm install @rixl/js @microsoft/kiota-http-fetchlibrary
+
+# Using bun
+bun add @rixl/js @microsoft/kiota-http-fetchlibrary
 ```
 
 ## Quick start
@@ -210,15 +212,15 @@ Self-contained demos live in [`examples/`](./examples). Each file imports the SD
 Credentials come from the RIXL dashboard (API key, or Client Auth → Create credential).
 
 ```bash
+# Using npm
 cd sdk && npm install && npm run build
 cd ../examples && npm install
+npm run auth
 
-export RIXL_API_KEY=<copied from the dashboard>
-export RIXL_BASE_URL=http://localhost:8081   # optional
-
-npm run basic:images
-npm run advanced:videos
-npm run auth                                  # works with either credential type
+# Using bun
+cd sdk && bun install && bun run build
+cd ../examples && bun install
+bun run auth
 ```
 
 ## Support
