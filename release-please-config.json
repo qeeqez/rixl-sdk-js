@@ -3,7 +3,7 @@
     "packages": {
         "sdk": {
             "release-type": "node",
-            "package-name": "@rixl/sdk-js"
+            "package-name": "@rixl/js"
         }
     }
 }

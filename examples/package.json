@@ -1,5 +1,5 @@
 {
-  "name": "rixl-sdk-js-examples",
+  "name": "rixl-js-examples",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -13,7 +13,7 @@
     "advanced:videos": "node advanced/videos/index.js"
   },
   "dependencies": {
-    "@rixl/sdk-js": "file:../sdk",
+    "@rixl/js": "file:../sdk",
     "@microsoft/kiota-http-fetchlibrary": "1.0.0-preview.100"
   }
 }

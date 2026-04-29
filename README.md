@@ -2,8 +2,8 @@
 
 The official JavaScript and TypeScript client for the [RIXL](https://rixl.com) API.
 
-[![npm](https://img.shields.io/npm/v/@rixl/sdk-js.svg)](https://www.npmjs.com/package/@rixl/sdk-js)
-[![downloads](https://img.shields.io/npm/dm/@rixl/sdk-js.svg)](https://www.npmjs.com/package/@rixl/sdk-js)
+[![npm](https://img.shields.io/npm/v/@rixl/js.svg)](https://www.npmjs.com/package/@rixl/js)
+[![downloads](https://img.shields.io/npm/dm/@rixl/js.svg)](https://www.npmjs.com/package/@rixl/js)
 
 [Installation](#installation) • [Quick start](#quick-start) • [Authentication](#authentication) • [Resources](#resources) • [Pagination](#pagination) • [Errors](#errors)
 
@@ -24,13 +24,13 @@ The official JavaScript and TypeScript client for the [RIXL](https://rixl.com) A
 ## Installation
 
 ```bash
-npm install @rixl/sdk-js @microsoft/kiota-http-fetchlibrary
+npm install @rixl/js @microsoft/kiota-http-fetchlibrary
 ```
 
 ## Quick start
 
 ```ts
-import { createRixlClient } from "@rixl/sdk-js";
+import { createRixlClient } from "@rixl/js";
 import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
 import { ApiKeyAuthenticationProvider } from "@microsoft/kiota-abstractions";
 
@@ -157,7 +157,7 @@ while (true) {
 API errors (400, 401, 403, 404, 500) are thrown as `ErrorResponse`:
 
 ```ts
-import { ErrorResponse } from "@rixl/sdk-js";
+import { ErrorResponse } from "@rixl/js";
 
 try {
     const image = await client.images.byImageId("PS5IMKoFLm").get();
@@ -188,7 +188,7 @@ import type {
     PaginatedResponseImage, PaginatedResponseVideo, PaginatedResponsePost,
     UploadInitRequest, VideoUploadInitRequest,
     ErrorResponse,
-} from "@rixl/sdk-js";
+} from "@rixl/js";
 ```
 
 Fields are optional; use optional chaining (`image?.file?.url`).
@@ -223,4 +223,4 @@ npm run auth                                  # works with either credential typ
 
 ## Support
 
-Open an issue at [github.com/rixlhq/sdk-js](https://github.com/rixlhq/sdk-js/issues).
+Open an issue at [github.com/rixlhq/rixl-js](https://github.com/rixlhq/rixl-js/issues).
