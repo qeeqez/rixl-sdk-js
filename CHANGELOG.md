@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/rixlhq/rixl-js/compare/v1.0.0...v1.0.1) (2026-04-29)
+
+
+### Bug Fixes
+
+* upgrade actions to avoid node 20 deprecation ([42febc6](https://github.com/rixlhq/rixl-js/commit/42febc62f9171fcecbdb6eba5ef0751ddf1b4b1b))
+
 ## 1.0.0 (2026-04-29)
 
 
