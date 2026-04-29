@@ -1,6 +1,6 @@
 {
   "name": "@rixl/sdk-js",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Kiota-generated JavaScript SDK for RIXL, compiled from TypeScript output.",
   "type": "module",
   "license": "MIT",
