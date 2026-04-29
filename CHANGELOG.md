@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/rixlhq/rixl-js/compare/v1.0.2...v1.0.3) (2026-04-29)
+
+
+### Bug Fixes
+
+* use NPM_TOKEN secret for publishing ([19c4af8](https://github.com/rixlhq/rixl-js/commit/19c4af8d26ae91ec4403998d6d9b239eb90d62b9))
+
 ## [1.0.2](https://github.com/rixlhq/rixl-js/compare/v1.0.1...v1.0.2) (2026-04-29)
 
 
