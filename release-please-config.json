@@ -6,8 +6,7 @@
         "sdk": {
             "release-type": "node",
             "package-name": "@rixl/js",
-            "include-component-in-tag": false,
-            "skip-github-release": true
+            "include-component-in-tag": false
         }
     }
 }
