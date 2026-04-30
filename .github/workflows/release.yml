@@ -45,8 +45,15 @@ jobs:
           node-version: 25
           registry-url: "https://registry.npmjs.org"
 
-      - name: Publish to npm
+      - name: Publish to npm (skip if version already published)
         working-directory: sdk
-        run: npm publish --access public --provenance
+        run: |
+          name=$(node -p "require('./package.json').name")
+          ver=$(node -p "require('./package.json').version")
+          if npm view "$name@$ver" version >/dev/null 2>&1; then
+            echo "$name@$ver already on registry — skipping"
+            exit 0
+          fi
+          npm publish --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
