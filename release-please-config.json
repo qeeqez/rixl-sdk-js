@@ -1,7 +1,9 @@
 {
     "$schema": "https://raw.githubusercontent.com/googleapis/release-please-action/v4/schema.json",
+    "bump-minor-pre-major": false,
+    "bump-patch-for-minor-pre-major": true,
     "packages": {
-        ".": {
+        "sdk": {
             "release-type": "node",
             "package-name": "@rixl/js",
             "include-component-in-tag": false
