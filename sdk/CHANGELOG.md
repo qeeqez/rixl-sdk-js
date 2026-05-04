@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/rixlhq/rixl-js/compare/v0.2.1...v0.2.2) (2026-05-04)
+
+
+### Features
+
+* package name is "rixl" ([0e4cb34](https://github.com/rixlhq/rixl-js/commit/0e4cb348a840c16099949b4b4f265d3542996fc1))
+
 ## [0.2.1](https://github.com/rixlhq/rixl-js/compare/v0.2.0...v0.2.1) (2026-04-30)
 
 
