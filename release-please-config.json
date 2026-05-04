@@ -5,7 +5,7 @@
     "packages": {
         "sdk": {
             "release-type": "node",
-            "package-name": "@rixl/js",
+            "package-name": "rixl",
             "include-component-in-tag": false
         }
     }

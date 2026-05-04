@@ -1,5 +1,5 @@
 {
-  "name": "@rixl/js",
+  "name": "rixl",
   "version": "0.2.1",
   "description": "JavaScript client for the RIXL API.",
   "type": "module",
