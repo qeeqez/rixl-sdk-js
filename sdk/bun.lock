@@ -1,0 +1,40 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "@rixl/sdk",
+      "dependencies": {
+        "@microsoft/kiota-abstractions": "1.0.0-preview.100",
+        "@microsoft/kiota-serialization-form": "1.0.0-preview.100",
+        "@microsoft/kiota-serialization-json": "1.0.0-preview.100",
+        "@microsoft/kiota-serialization-multipart": "1.0.0-preview.100",
+        "@microsoft/kiota-serialization-text": "1.0.0-preview.100",
+      },
+      "devDependencies": {
+        "typescript": "^6.0.2",
+      },
+    },
+  },
+  "packages": {
+    "@microsoft/kiota-abstractions": ["@microsoft/kiota-abstractions@1.0.0-preview.100", "", { "dependencies": { "@opentelemetry/api": "^1.7.0", "@std-uritemplate/std-uritemplate": "^2.0.0", "tinyduration": "^3.3.0", "tslib": "^2.6.2" } }, "sha512-3s2WYKQ6WLB/0pyDmmv9bigH/3LZ0Mm4ldHskNLBj0U8DYjFzfG729snnEij+hZN0l2XHr37pGBr1MZK8vM7zQ=="],
+
+    "@microsoft/kiota-serialization-form": ["@microsoft/kiota-serialization-form@1.0.0-preview.100", "", { "dependencies": { "@microsoft/kiota-abstractions": "^1.0.0-preview.100", "tslib": "^2.6.2" } }, "sha512-SR/yWBtvKYhN2ARR4wVMFb91XgN32DBmLLQmtemdKgL1YWBxVCNAUP/qHbZhrTX7q4kh7jl/S9yrr1S8ySS7AA=="],
+
+    "@microsoft/kiota-serialization-json": ["@microsoft/kiota-serialization-json@1.0.0-preview.100", "", { "dependencies": { "@microsoft/kiota-abstractions": "^1.0.0-preview.100", "tslib": "^2.6.2" } }, "sha512-4qatf5j0Aeaakdw24jMuIX7W6mf/W2rU9UyAjkIrSjaB7W5n8gsUvhoTcRpPTAFN7pvzQkCbO7Z0paRfdYzhIw=="],
+
+    "@microsoft/kiota-serialization-multipart": ["@microsoft/kiota-serialization-multipart@1.0.0-preview.100", "", { "dependencies": { "@microsoft/kiota-abstractions": "^1.0.0-preview.100", "tslib": "^2.6.2" } }, "sha512-zwWoLZH6+KsAl05Ijd8HpbU+mct5wb0//ZCGdCkQ/UqsAaoe2xYSoKicxQbVGv9VvSTq0as7iVLwqDeqEI9rDw=="],
+
+    "@microsoft/kiota-serialization-text": ["@microsoft/kiota-serialization-text@1.0.0-preview.100", "", { "dependencies": { "@microsoft/kiota-abstractions": "^1.0.0-preview.100", "tslib": "^2.6.2" } }, "sha512-x2Epz0StHLBkVJKeEmwrXSh6SJuxZ72VVBNO53uHUNZ/Y7X8tZuSQR7X74EO69mEi4zAF21X2jbkF9/dhlARog=="],
+
+    "@opentelemetry/api": ["@opentelemetry/api@1.9.1", "", {}, "sha512-gLyJlPHPZYdAk1JENA9LeHejZe1Ti77/pTeFm/nMXmQH/HFZlcS/O2XJB+L8fkbrNSqhdtlvjBVjxwUYanNH5Q=="],
+
+    "@std-uritemplate/std-uritemplate": ["@std-uritemplate/std-uritemplate@2.0.8", "", {}, "sha512-8oj7jKksoTRxjdPkWKX9FyOKDS8ORBm+ZfTSHm0f3eYha8cI0O1d57gyduOIAX7Y2uUukNDNlxlvGb+FFkE7yQ=="],
+
+    "tinyduration": ["tinyduration@3.4.1", "", {}, "sha512-NemFoamVYn7TmtwZKZ3OiliM9fZkr6EWiTM+wKknco6POSy2gS689xx/pXip0JYp40HXpUw6k65CUYHWYUXdaA=="],
+
+    "tslib": ["tslib@2.8.1", "", {}, "sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w=="],
+
+    "typescript": ["typescript@6.0.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw=="],
+  }
+}
