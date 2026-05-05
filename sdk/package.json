@@ -1,6 +1,6 @@
 {
   "name": "@rixl/sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Official TypeScript/JavaScript SDK for the Rixl REST API — typed client for managing images, videos, and feeds.",
   "type": "module",
   "license": "MIT",
