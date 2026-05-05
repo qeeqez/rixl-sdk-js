@@ -1,15 +1,36 @@
 {
-  "name": "@rixl/js",
-  "version": "0.2.1",
-  "description": "JavaScript client for the RIXL API.",
+  "name": "@rixl/sdk",
+  "version": "0.1.0",
+  "description": "Official TypeScript/JavaScript SDK for the Rixl REST API — typed client for managing images, videos, and feeds.",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rixlhq/rixl-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rixlhq/rixl-js/issues"
+  },
+  "homepage": "https://github.com/rixlhq/rixl-js#readme",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "files": [
     "dist",
     "LICENSE"
   ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json"
   },

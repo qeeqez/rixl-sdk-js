@@ -1,13 +1,13 @@
-# @rixl/js
+# @rixl/sdk
 
-JavaScript / TypeScript client for the [RIXL](https://rixl.com) API.
+Official TypeScript / JavaScript SDK for the [Rixl](https://rixl.com) REST API.
 
-[![npm](https://img.shields.io/npm/v/@rixl/js.svg)](https://www.npmjs.com/package/@rixl/js)
+[![npm](https://img.shields.io/npm/v/@rixl/sdk.svg)](https://www.npmjs.com/package/@rixl/sdk)
 
 ## Install
 
 ```bash
-npm install @rixl/js @microsoft/kiota-http-fetchlibrary
+npm install @rixl/sdk @microsoft/kiota-http-fetchlibrary
 ```
 
 Requires Node.js 18+. ESM only — use `import`, not `require`.
@@ -15,7 +15,7 @@ Requires Node.js 18+. ESM only — use `import`, not `require`.
 ## Quick start
 
 ```ts
-import { createRixlClient } from "@rixl/js";
+import { createRixlClient } from "@rixl/sdk";
 import { FetchRequestAdapter } from "@microsoft/kiota-http-fetchlibrary";
 import { ApiKeyAuthenticationProvider } from "@microsoft/kiota-abstractions";
 
@@ -125,7 +125,7 @@ while (true) {
 ## Errors
 
 ```ts
-import { ErrorResponse } from "@rixl/js";
+import { ErrorResponse } from "@rixl/sdk";
 
 try {
     const image = await client.images.byImageId("PS5IMKoFLm").get();
