@@ -101,7 +101,10 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
  * Retrieve posts in a feed, with pagination.
  */
 export const getFeedsByFeedId = <ThrowOnError extends boolean = false>(options: Options<GetFeedsByFeedIdData, ThrowOnError>) =>
-  (options.client ?? client).get<GetFeedsByFeedIdResponses, GetFeedsByFeedIdErrors, ThrowOnError>({url: "/feeds/{feedId}", ...options});
+  (options.client ?? client).get<GetFeedsByFeedIdResponses, GetFeedsByFeedIdErrors, ThrowOnError>({
+    url: "/feeds/{feedId}",
+    ...options,
+  });
 
 /**
  * Get a post
@@ -462,7 +465,10 @@ export const putVideosByVideoIdThumbnail = <ThrowOnError extends boolean = false
  * Get list of supported languages for subtitles
  */
 export const getVideosLanguages = <ThrowOnError extends boolean = false>(options?: Options<GetVideosLanguagesData, ThrowOnError>) =>
-  (options?.client ?? client).get<GetVideosLanguagesResponses, unknown, ThrowOnError>({url: "/videos/languages", ...options});
+  (options?.client ?? client).get<GetVideosLanguagesResponses, unknown, ThrowOnError>({
+    url: "/videos/languages",
+    ...options,
+  });
 
 /**
  * Upload: Mark as complete

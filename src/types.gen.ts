@@ -192,6 +192,9 @@ export type PaginationPaginatedResponseImage = {
    * Data contains the slice of items for the current request.
    */
   data?: Array<Image>;
+  /**
+   * Pagination data for the request.
+   */
   pagination?: PaginationPagination;
 };
 
@@ -200,6 +203,9 @@ export type PaginationPaginatedResponsePost = {
    * Data contains the slice of items for the current request.
    */
   data?: Array<Post>;
+  /**
+   * Pagination data for the request.
+   */
   pagination?: PaginationPagination;
 };
 
@@ -208,12 +214,12 @@ export type PaginationPaginatedResponseVideo = {
    * Data contains the slice of items for the current request.
    */
   data?: Array<Video>;
+  /**
+   * Pagination data for the request.
+   */
   pagination?: PaginationPagination;
 };
 
-/**
- * Pagination data for the request.
- */
 export type PaginationPagination = {
   /**
    * Maximum number of items to return in a single request.
@@ -509,11 +515,7 @@ export type PostImagesUploadCompleteData = {
   /**
    * Upload completion request
    */
-  body:
-    | {
-        [key: string]: unknown;
-      }
-    | InternalImagesHandlerCompleteRequest;
+  body: InternalImagesHandlerCompleteRequest;
   path?: never;
   query?: never;
   url: "/images/upload/complete";
@@ -557,11 +559,7 @@ export type PostImagesUploadInitData = {
   /**
    * Upload initialization request
    */
-  body:
-    | {
-        [key: string]: unknown;
-      }
-    | InternalImagesHandlerUploadInitRequest;
+  body: InternalImagesHandlerUploadInitRequest;
   path?: never;
   query?: never;
   url: "/images/upload/init";
@@ -892,11 +890,7 @@ export type PutVideosByVideoIdChaptersData = {
   /**
    * Chapters array
    */
-  body:
-    | {
-        [key: string]: unknown;
-      }
-    | UpdateChaptersRequest;
+  body: UpdateChaptersRequest;
   path: {
     /**
      * Video ID
@@ -1206,11 +1200,7 @@ export type PostVideosUploadCompleteData = {
   /**
    * Video upload completion request
    */
-  body:
-    | {
-        [key: string]: unknown;
-      }
-    | GithubComRixlhqApiInternalVideosHandlerUploadCompleteRequest;
+  body: GithubComRixlhqApiInternalVideosHandlerUploadCompleteRequest;
   path?: never;
   query?: never;
   url: "/videos/upload/complete";
@@ -1254,11 +1244,7 @@ export type PostVideosUploadInitData = {
   /**
    * Video upload initialization request
    */
-  body:
-    | {
-        [key: string]: unknown;
-      }
-    | VideoUploadInitRequest;
+  body: VideoUploadInitRequest;
   path?: never;
   query?: never;
   url: "/videos/upload/init";

@@ -7,11 +7,9 @@ export default defineConfig({
   },
   pack: {
     exports: true,
-    dts: {
-      oxc: true,
-    },
+    dts: true,
     format: "esm",
-    minify: process.env.NODE_ENV === "production",
+    minify: false,
     platform: "browser",
     sourcemap: true,
     target: "es2022",
@@ -33,7 +31,10 @@ export default defineConfig({
     heyApiPlugin({
       config: {
         input: "https://raw.githubusercontent.com/rixlhq/openapi/refs/heads/main/openapi.yaml",
-        output: "src",
+        output: {
+          path: "src",
+          postProcess: ["oxfmt", "oxlint"],
+        },
       },
     }),
   ],
