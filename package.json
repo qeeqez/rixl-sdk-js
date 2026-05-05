@@ -2,8 +2,16 @@
   "name": "@rixl/sdk",
   "version": "0.1.1",
   "description": "Official TypeScript/JavaScript SDK for the Rixl REST API — typed client for managing images, videos, and feeds.",
-  "type": "module",
+  "keywords": [
+    "rixl",
+    "sdk",
+    "media",
+    "video",
+    "web"
+  ],
+  "homepage": "https://github.com/rixlhq/rixl-js",
   "license": "MIT",
+  "author": "Rixl Inc.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rixlhq/rixl-js.git"
@@ -11,25 +19,25 @@
   "bugs": {
     "url": "https://github.com/rixlhq/rixl-js/issues"
   },
-  "homepage": "https://github.com/rixlhq/rixl-js#readme",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
   "files": [
     "dist",
     "LICENSE"
   ],
-  "engines": {
-    "node": ">=18"
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
   },
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org/"
+    "exports": {
+      ".": "./dist/index.js",
+      "./package.json": "./package.json"
+    }
+  },
+  "engines": {
+    "node": ">=18"
   },
   "devDependencies": {
     "@types/node": "^25.6.0",
