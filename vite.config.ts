@@ -31,10 +31,7 @@ export default defineConfig({
     heyApiPlugin({
       config: {
         input: "https://raw.githubusercontent.com/rixlhq/openapi/refs/heads/main/openapi.yaml",
-        output: {
-          path: "src",
-          postProcess: ["oxfmt", "oxlint"],
-        },
+        output: "src",
       },
     }),
   ],
