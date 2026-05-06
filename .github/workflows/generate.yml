@@ -3,6 +3,7 @@ name: Generate SDK
 on:
   repository_dispatch:
     types: [regenerate-sdk]
+  workflow_dispatch: {}
 
 permissions:
   contents: write
