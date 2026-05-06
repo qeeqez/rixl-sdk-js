@@ -8,9 +8,12 @@ Published on npm as [`@rixl/sdk`](https://www.npmjs.com/package/@rixl/sdk).
 
 ## Install
 
-| npm               | pnpm               | bun               | vite plus        |
-| ----------------- | ------------------ | ----------------- | ---------------- |
-| `npm i @rixl/sdk` | `pnpm i @rixl/sdk` | `bun i @rixl/sdk` | `vp i @rixl/sdk` |
+| **Tool**  | **Command**        |
+| --------- | ------------------ |
+| npm       | `npm i @rixl/sdk`  |
+| pnpm      | `pnpm i @rixl/sdk` |
+| bun       | `bun i @rixl/sdk`  |
+| vite plus | `vp i @rixl/sdk`   |
 
 Requires Node.js 18+. ESM only.
 
@@ -193,34 +196,10 @@ console.log(video.id);
 
 This repository uses [Vite+](https://viteplus.dev/guide/) as the unified toolchain and package manager wrapper, with Bun underneath.
 
-Install dependencies:
-
 ```bash
-vp install
-```
-
-Regenerate config after dependency or config changes:
-
-```bash
-vp config
-```
-
-Build the library:
-
-```bash
-vp pack
-```
-
-Run formatting, linting, and type checks:
-
-```bash
-vp check
-```
-
-Run tests:
-
-```bash
-vp test
+vp install # Install dependencies
+vp pack    # Build the library
+vp check   # Run formatting, linting, and type checks
 ```
 
 ## Issues
