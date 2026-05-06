@@ -1,147 +1,226 @@
 # @rixl/sdk
 
-Official TypeScript / JavaScript SDK for the [Rixl](https://rixl.com) REST API — typed client for managing images, videos, and feeds.
+Official TypeScript / JavaScript SDK for the [Rixl](https://rixl.com) REST API.
+
+Published on npm as [`@rixl/sdk`](https://www.npmjs.com/package/@rixl/sdk).
 
 [![npm](https://img.shields.io/npm/v/@rixl/sdk.svg)](https://www.npmjs.com/package/@rixl/sdk)
 
 ## Install
 
-```bash
-npm install @rixl/sdk @microsoft/kiota-http-fetchlibrary
-```
+| npm               | pnpm               | bun               | vite plus        |
+| ----------------- | ------------------ | ----------------- | ---------------- |
+| `npm i @rixl/sdk` | `pnpm i @rixl/sdk` | `bun i @rixl/sdk` | `vp i @rixl/sdk` |
 
-Requires Node.js 18+. ESM only — use `import`, not `require`.
+Requires Node.js 18+. ESM only.
 
-## Quick start
-
-```ts
-import {createRixlClient} from "@rixl/sdk";
-import {FetchRequestAdapter} from "@microsoft/kiota-http-fetchlibrary";
-import {ApiKeyAuthenticationProvider} from "@microsoft/kiota-abstractions";
-
-const auth = new ApiKeyAuthenticationProvider("YOUR_RIXL_API_KEY", "X-API-Key", "header");
-const adapter = new FetchRequestAdapter(auth);
-const client = createRixlClient(adapter);
-
-const image = await client.images.byImageId("PS5IMKoFLm").get();
-console.log(image?.id, image?.width, image?.height);
-```
-
-Default base URL: `https://api.rixl.com`. Override with `adapter.baseUrl = "..."`.
-
-## Authentication
-
-API key:
+## Quick Start
 
 ```ts
-import {ApiKeyAuthenticationProvider} from "@microsoft/kiota-abstractions";
+import {createClient, getImages} from "@rixl/sdk";
 
-const auth = new ApiKeyAuthenticationProvider("YOUR_RIXL_API_KEY", "X-API-Key", "header");
+const client = createClient({
+  baseUrl: "https://api.rixl.com",
+  auth: process.env.RIXL_API_KEY,
+  responseStyle: "data",
+});
+
+const page = await getImages({
+  client,
+  query: {limit: 10},
+});
+
+console.log(page.data?.map((image) => image.id));
 ```
 
-Bearer token: implement `AccessTokenProvider`, pass to `new BaseBearerTokenAuthenticationProvider(tokenProvider)`.
+`auth` can be either a string or a function, so you can plug in API keys, bearer tokens, or runtime token refresh logic.
 
-## Feeds
+## Feed API
+
+Fetch a feed and read posts:
 
 ```ts
-const posts = await client.feeds.byFeedId("FD4y3QB38S").get();
-for (const post of posts?.data ?? []) {
-  console.log(post.id);
+import {createClient, getFeedsByFeedId} from "@rixl/sdk";
+
+const client = createClient({
+  baseUrl: "https://api.rixl.com",
+  auth: process.env.RIXL_API_KEY,
+  responseStyle: "data",
+});
+
+const feed = await getFeedsByFeedId({
+  client,
+  path: {feedId: "FD4y3QB38S"},
+  query: {limit: 20, offset: 0},
+});
+
+for (const post of feed.data ?? []) {
+  console.log(post.id, post.type);
 }
 ```
 
-## Images
+## Image API
+
+List images and fetch one by ID:
 
 ```ts
-const page = await client.images.get();
-const image = await client.images.byImageId("PS5IMKoFLm").get();
-await client.images.byImageId("PS5IMKoFLm").delete();
-```
+import {createClient, getImages, getImagesByImageId} from "@rixl/sdk";
 
-Upload (init → PUT bytes → complete):
-
-```ts
-const initRes = await client.images.upload.init.post({
-  name: "photo.jpg",
-  format: "jpeg",
+const client = createClient({
+  baseUrl: "https://api.rixl.com",
+  auth: process.env.RIXL_API_KEY,
+  responseStyle: "data",
 });
 
-await fetch(initRes.presignedUrl, {
+const page = await getImages({
+  client,
+  query: {limit: 25, offset: 0},
+});
+
+const image = await getImagesByImageId({
+  client,
+  path: {imageId: "PS5IMKoFLm"},
+});
+
+console.log(page.data?.length, image.id, image.width, image.height);
+```
+
+Initialize an upload, PUT the bytes to storage, then complete the upload:
+
+```ts
+import {createClient, postImagesUploadComplete, postImagesUploadInit} from "@rixl/sdk";
+
+const client = createClient({
+  baseUrl: "https://api.rixl.com",
+  auth: process.env.RIXL_API_KEY,
+  responseStyle: "data",
+});
+
+const init = await postImagesUploadInit({
+  client,
+  body: {
+    name: "photo.jpg",
+    format: "jpeg",
+  },
+});
+
+await fetch(init.presigned_url!, {
   method: "PUT",
   body: imageBytes,
   headers: {"Content-Type": "image/jpeg"},
 });
 
-const image = await client.images.upload.complete.post({
-  imageId: initRes.imageId,
-  attachedToVideo: false,
+const image = await postImagesUploadComplete({
+  client,
+  body: {
+    image_id: init.image_id,
+    attached_to_video: false,
+  },
 });
+
+console.log(image.id);
 ```
 
-## Videos
+## Video API
+
+List videos and fetch one by ID:
 
 ```ts
-const videos = await client.videos.get();
-const video = await client.videos.byVideoId("VI9VXQxWXQ").get();
-const tracks = await client.videos.byVideoId("VI9VXQxWXQ").subtitles.get();
-```
+import {createClient, getVideos, getVideosByVideoId} from "@rixl/sdk";
 
-Upload returns presigned URLs for both the video and a poster image:
-
-```ts
-const initRes = await client.videos.upload.init.post({
-  fileName: "clip.mp4",
-  imageFormat: "jpeg",
+const client = createClient({
+  baseUrl: "https://api.rixl.com",
+  auth: process.env.RIXL_API_KEY,
+  responseStyle: "data",
 });
-// PUT bytes to initRes.videoPresignedUrl and initRes.posterPresignedUrl
 
-const video = await client.videos.upload.complete.post({
-  videoId: initRes.videoId,
+const page = await getVideos({
+  client,
+  query: {limit: 25, offset: 0},
 });
+
+const video = await getVideosByVideoId({
+  client,
+  path: {videoId: "VI9VXQxWXQ"},
+});
+
+console.log(page.data?.length, video.id, video.duration);
 ```
 
-## Pagination
-
-List endpoints take `limit`, `offset`, `sort`, `order`:
+Video uploads follow the same pattern, but `init` returns both video and poster upload URLs:
 
 ```ts
-let offset = 0;
-const limit = 50;
+import {createClient, postVideosUploadComplete, postVideosUploadInit} from "@rixl/sdk";
 
-while (true) {
-  const page = await client.images.get({
-    queryParameters: {limit, offset, sort: "created_at", order: "desc"},
-  });
-  const total = page?.pagination?.total ?? 0;
-  offset += limit;
-  if (offset >= total) break;
-}
+const client = createClient({
+  baseUrl: "https://api.rixl.com",
+  auth: process.env.RIXL_API_KEY,
+  responseStyle: "data",
+});
+
+const init = await postVideosUploadInit({
+  client,
+  body: {
+    file_name: "clip.mp4",
+    image_format: "jpeg",
+  },
+});
+
+await Promise.all([
+  fetch(init.video_presigned_url!, {
+    method: "PUT",
+    body: videoBytes,
+    headers: {"Content-Type": "video/mp4"},
+  }),
+  fetch(init.poster_presigned_url!, {
+    method: "PUT",
+    body: posterBytes,
+    headers: {"Content-Type": "image/jpeg"},
+  }),
+]);
+
+const video = await postVideosUploadComplete({
+  client,
+  body: {
+    video_id: init.video_id,
+  },
+});
+
+console.log(video.id);
 ```
 
-## Errors
+## Development
 
-```ts
-import {ErrorResponse} from "@rixl/sdk";
+This repository uses [Vite+](https://viteplus.dev/guide/) as the unified toolchain and package manager wrapper, with Bun underneath.
 
-try {
-  const image = await client.images.byImageId("PS5IMKoFLm").get();
-} catch (err) {
-  if (err instanceof ErrorResponse) {
-    console.error(`HTTP ${err.code}: ${err.errorEscaped}`);
-  }
-  throw err;
-}
-```
-
-## Examples
-
-Runnable demos in [examples/](./examples):
+Install dependencies:
 
 ```bash
-cd examples && npm install
-export RIXL_API_KEY=<key>
-npm run basic:images
-npm run advanced:videos
+vp install
+```
+
+Regenerate config after dependency or config changes:
+
+```bash
+vp config
+```
+
+Build the library:
+
+```bash
+vp pack
+```
+
+Run formatting, linting, and type checks:
+
+```bash
+vp check
+```
+
+Run tests:
+
+```bash
+vp test
 ```
 
 ## Issues
