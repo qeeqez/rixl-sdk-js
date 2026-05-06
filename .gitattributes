@@ -1,8 +1,25 @@
-**/* linguist-generated
-*.md linguist-documentation
+*                 text=auto
 
-.gitattributes text
-.gitattributes export-ignore
+*.lock            linguist-generated=true
 
-.gitignore text
-.gitignore export-ignore
+*.bash            text eol=lf
+*.bat             text eol=crlf
+*.cmd             text eol=crlf
+
+# These files are binary and should be left untouched
+# (binary is a macro for -text -diff)
+*.class         binary
+*.dll           binary
+*.ear           binary
+*.jar           binary
+*.so            binary
+*.war           binary
+
+# Archives
+*.7z              binary
+*.gz              binary
+*.jar             binary
+*.rar             binary
+*.tar             binary
+*.zip             binary
+*.zip             binary

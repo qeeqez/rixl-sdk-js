@@ -1,3 +1,15 @@
+.env
+.prettierrc
+
+# Package managers
+pnpm-workspace.yaml
+pnpm-lock.yaml
+bun.lockb
+
+# Cloudflare
+.wrangler
+.dev.vars*
+
 # Logs
 logs
 *.log
@@ -6,12 +18,13 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-.pnpm-debug.log*
 
 node_modules
 dist
 dist-ssr
 *.local
+*.tsbuildinfo
+.tanstack
 .npmrc
 coverage
 
@@ -26,14 +39,13 @@ coverage
 *.sln
 *.sw?
 
-# stryker
+# Sentry Config File
+.env.sentry-build-plugin
+
+# stryker temp files
 .stryker-tmp
-.stryker-cache
 
-# playwright ct
-test-results
+# Playwright
 playwright-report
-playwright
-
-# agents
-.agents/settings.local.json
+playwright/.cache
+test-results
