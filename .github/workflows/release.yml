@@ -34,9 +34,7 @@ jobs:
         with:
           cache: "true"
           run-install: "true"
-      - run: vp pack
-      - run: vp publish
-      - run: npm publish ./dist --access public
+      - run: vp ci:release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
