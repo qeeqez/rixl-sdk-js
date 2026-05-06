@@ -18,7 +18,7 @@ jobs:
         with:
           cache: "true"
           run-install: "true"
-      - run: vp pack
+      - run: vp run pack
       - uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "feat(sdk): regenerate based on latest OpenAPI spec"

@@ -198,7 +198,7 @@ This repository uses [Vite+](https://viteplus.dev/guide/) as the unified toolcha
 
 ```bash
 vp install # Install dependencies
-vp pack    # Build the library
+vp run pack    # Build the library
 vp check   # Run formatting, linting, and type checks
 ```
 
