@@ -721,7 +721,20 @@ export type PostVideosByVideoIdAudioTracksData = {
   /**
    * files | Comma-separated language codes | Comma-separated labels
    */
-  body: Array<string> | string;
+  body: {
+    /**
+     * files
+     */
+    files: Array<string>;
+    /**
+     * Comma-separated labels
+     */
+    labels: string;
+    /**
+     * Comma-separated language codes
+     */
+    language_codes: string;
+  };
   path: {
     /**
      * Video ID
@@ -740,61 +753,6 @@ export type PostVideosByVideoIdAudioTracksResponses = {
 };
 
 export type PostVideosByVideoIdAudioTracksResponse = PostVideosByVideoIdAudioTracksResponses[keyof PostVideosByVideoIdAudioTracksResponses];
-
-export type DeleteVideosByVideoIdAudioTracksByLangCodeData = {
-  body?: never;
-  path: {
-    /**
-     * Video ID
-     */
-    videoId: string;
-    /**
-     * Language Code (BCP 47)
-     */
-    lang_code: string;
-  };
-  query?: never;
-  url: "/videos/{videoId}/audio-tracks/{lang_code}";
-};
-
-export type DeleteVideosByVideoIdAudioTracksByLangCodeResponses = {
-  /**
-   * OK
-   */
-  200: AudioTrackDelete;
-};
-
-export type DeleteVideosByVideoIdAudioTracksByLangCodeResponse =
-  DeleteVideosByVideoIdAudioTracksByLangCodeResponses[keyof DeleteVideosByVideoIdAudioTracksByLangCodeResponses];
-
-export type PutVideosByVideoIdAudioTracksByLangCodeData = {
-  /**
-   * file | Label (e.g. English)
-   */
-  body?: Blob | File | string;
-  path: {
-    /**
-     * Video ID
-     */
-    videoId: string;
-    /**
-     * Language Code (BCP 47)
-     */
-    lang_code: string;
-  };
-  query?: never;
-  url: "/videos/{videoId}/audio-tracks/{lang_code}";
-};
-
-export type PutVideosByVideoIdAudioTracksByLangCodeResponses = {
-  /**
-   * OK
-   */
-  200: AudioTrack;
-};
-
-export type PutVideosByVideoIdAudioTracksByLangCodeResponse =
-  PutVideosByVideoIdAudioTracksByLangCodeResponses[keyof PutVideosByVideoIdAudioTracksByLangCodeResponses];
 
 export type DeleteVideosByVideoIdAudioTracksByTrackIdData = {
   body?: never;
@@ -843,6 +801,70 @@ export type DeleteVideosByVideoIdAudioTracksByTrackIdResponses = {
 
 export type DeleteVideosByVideoIdAudioTracksByTrackIdResponse =
   DeleteVideosByVideoIdAudioTracksByTrackIdResponses[keyof DeleteVideosByVideoIdAudioTracksByTrackIdResponses];
+
+export type DeleteVideosByVideoIdAudioTracksLanguageByLangCodeData = {
+  body?: never;
+  path: {
+    /**
+     * Video ID
+     */
+    videoId: string;
+    /**
+     * Language Code (BCP 47)
+     */
+    lang_code: string;
+  };
+  query?: never;
+  url: "/videos/{videoId}/audio-tracks/language/{lang_code}";
+};
+
+export type DeleteVideosByVideoIdAudioTracksLanguageByLangCodeResponses = {
+  /**
+   * OK
+   */
+  200: AudioTrackDelete;
+};
+
+export type DeleteVideosByVideoIdAudioTracksLanguageByLangCodeResponse =
+  DeleteVideosByVideoIdAudioTracksLanguageByLangCodeResponses[keyof DeleteVideosByVideoIdAudioTracksLanguageByLangCodeResponses];
+
+export type PutVideosByVideoIdAudioTracksLanguageByLangCodeData = {
+  /**
+   * file | Label (e.g. English)
+   */
+  body: {
+    /**
+     * file
+     */
+    file: Blob | File;
+    /**
+     * Label (e.g. English)
+     */
+    label?: string;
+  };
+  path: {
+    /**
+     * Video ID
+     */
+    videoId: string;
+    /**
+     * Language Code (BCP 47)
+     */
+    lang_code: string;
+  };
+  query?: never;
+  url: "/videos/{videoId}/audio-tracks/language/{lang_code}";
+};
+
+export type PutVideosByVideoIdAudioTracksLanguageByLangCodeResponses = {
+  /**
+   * OK
+   */
+  200: AudioTrack;
+};
+
+export type PutVideosByVideoIdAudioTracksLanguageByLangCodeResponse =
+  PutVideosByVideoIdAudioTracksLanguageByLangCodeResponses[keyof PutVideosByVideoIdAudioTracksLanguageByLangCodeResponses];
 
 export type DeleteVideosByVideoIdChaptersData = {
   body?: never;
@@ -1006,7 +1028,20 @@ export type PostVideosByVideoIdSubtitlesData = {
   /**
    * files | Comma-separated language codes | Comma-separated labels
    */
-  body: Array<string> | string;
+  body: {
+    /**
+     * files
+     */
+    files: Array<string>;
+    /**
+     * Comma-separated labels
+     */
+    labels: string;
+    /**
+     * Comma-separated language codes
+     */
+    language_codes: string;
+  };
   path: {
     /**
      * Video ID
@@ -1025,61 +1060,6 @@ export type PostVideosByVideoIdSubtitlesResponses = {
 };
 
 export type PostVideosByVideoIdSubtitlesResponse = PostVideosByVideoIdSubtitlesResponses[keyof PostVideosByVideoIdSubtitlesResponses];
-
-export type DeleteVideosByVideoIdSubtitlesByLangCodeData = {
-  body?: never;
-  path: {
-    /**
-     * Video ID
-     */
-    videoId: string;
-    /**
-     * Language Code (BCP 47)
-     */
-    lang_code: string;
-  };
-  query?: never;
-  url: "/videos/{videoId}/subtitles/{lang_code}";
-};
-
-export type DeleteVideosByVideoIdSubtitlesByLangCodeResponses = {
-  /**
-   * OK
-   */
-  200: SubtitleDelete;
-};
-
-export type DeleteVideosByVideoIdSubtitlesByLangCodeResponse =
-  DeleteVideosByVideoIdSubtitlesByLangCodeResponses[keyof DeleteVideosByVideoIdSubtitlesByLangCodeResponses];
-
-export type PutVideosByVideoIdSubtitlesByLangCodeData = {
-  /**
-   * file | Label (e.g. English)
-   */
-  body?: Blob | File | string;
-  path: {
-    /**
-     * Video ID
-     */
-    videoId: string;
-    /**
-     * Language Code (BCP 47)
-     */
-    lang_code: string;
-  };
-  query?: never;
-  url: "/videos/{videoId}/subtitles/{lang_code}";
-};
-
-export type PutVideosByVideoIdSubtitlesByLangCodeResponses = {
-  /**
-   * OK
-   */
-  200: Subtitle;
-};
-
-export type PutVideosByVideoIdSubtitlesByLangCodeResponse =
-  PutVideosByVideoIdSubtitlesByLangCodeResponses[keyof PutVideosByVideoIdSubtitlesByLangCodeResponses];
 
 export type DeleteVideosByVideoIdSubtitlesBySubtitleIdData = {
   body?: never;
@@ -1129,13 +1109,80 @@ export type DeleteVideosByVideoIdSubtitlesBySubtitleIdResponses = {
 export type DeleteVideosByVideoIdSubtitlesBySubtitleIdResponse =
   DeleteVideosByVideoIdSubtitlesBySubtitleIdResponses[keyof DeleteVideosByVideoIdSubtitlesBySubtitleIdResponses];
 
+export type DeleteVideosByVideoIdSubtitlesLanguageByLangCodeData = {
+  body?: never;
+  path: {
+    /**
+     * Video ID
+     */
+    videoId: string;
+    /**
+     * Language Code (BCP 47)
+     */
+    lang_code: string;
+  };
+  query?: never;
+  url: "/videos/{videoId}/subtitles/language/{lang_code}";
+};
+
+export type DeleteVideosByVideoIdSubtitlesLanguageByLangCodeResponses = {
+  /**
+   * OK
+   */
+  200: SubtitleDelete;
+};
+
+export type DeleteVideosByVideoIdSubtitlesLanguageByLangCodeResponse =
+  DeleteVideosByVideoIdSubtitlesLanguageByLangCodeResponses[keyof DeleteVideosByVideoIdSubtitlesLanguageByLangCodeResponses];
+
+export type PutVideosByVideoIdSubtitlesLanguageByLangCodeData = {
+  /**
+   * file | Label (e.g. English)
+   */
+  body: {
+    /**
+     * file
+     */
+    file: Blob | File;
+    /**
+     * Label (e.g. English)
+     */
+    label?: string;
+  };
+  path: {
+    /**
+     * Video ID
+     */
+    videoId: string;
+    /**
+     * Language Code (BCP 47)
+     */
+    lang_code: string;
+  };
+  query?: never;
+  url: "/videos/{videoId}/subtitles/language/{lang_code}";
+};
+
+export type PutVideosByVideoIdSubtitlesLanguageByLangCodeResponses = {
+  /**
+   * OK
+   */
+  200: Subtitle;
+};
+
+export type PutVideosByVideoIdSubtitlesLanguageByLangCodeResponse =
+  PutVideosByVideoIdSubtitlesLanguageByLangCodeResponses[keyof PutVideosByVideoIdSubtitlesLanguageByLangCodeResponses];
+
 export type PutVideosByVideoIdThumbnailData = {
   /**
-   * thumbnail
-   *
    * file
    */
-  body: Blob | File;
+  body: {
+    /**
+     * file
+     */
+    thumbnail: Blob | File;
+  };
   path: {
     /**
      * Video ID
@@ -1152,7 +1199,7 @@ export type PutVideosByVideoIdThumbnailErrors = {
    */
   400: GithubComRixlhqApiInternalErrorsErrorResponse;
   /**
-   * Unauthorized
+   * Unauthorized - Invalid API key
    */
   401: GithubComRixlhqApiInternalErrorsErrorResponse;
   /**
