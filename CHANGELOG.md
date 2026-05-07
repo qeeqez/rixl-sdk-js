@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/rixlhq/rixl-js/compare/v0.4.0...v0.4.1) (2026-05-07)
+
+
+### Bug Fixes
+
+* **sdk:** release public createClient export ([86233bc](https://github.com/rixlhq/rixl-js/commit/86233bc89700cfcbf8ef1fb2e0b0e2755c1d260a))
+
 ## [0.4.0](https://github.com/rixlhq/rixl-js/compare/v0.3.0...v0.4.0) (2026-05-07)
 
 
