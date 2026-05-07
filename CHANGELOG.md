@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0](https://github.com/rixlhq/rixl-js/compare/v0.3.0...v0.4.0) (2026-05-07)
+
+
+### Features
+
+* **sdk:** regenerate based on latest OpenAPI spec ([b7060b5](https://github.com/rixlhq/rixl-js/commit/b7060b5ea50f93eb86be7b9fa0a7289aec79c53a))
+
+
+### Bug Fixes
+
+* minimal supported node version is Node 22 LTS release ([f4341eb](https://github.com/rixlhq/rixl-js/commit/f4341eb1db1b0c151a1a348239dbe5918703b47c))
+
 ## [0.3.0](https://github.com/rixlhq/rixl-js/compare/v0.2.2...v0.3.0) (2026-05-06)
 
 ### Features
