@@ -44,9 +44,12 @@ Without this flag the destructive code paths throw a clear error and exit.
 ```bash
 bun examples/01-client-setup.ts
 bun examples/02-public-feeds.ts
+bun examples/03-image-management.ts
 ```
 
 `02-public-feeds.ts` requires `RIXL_FEED_ID`, `RIXL_POST_ID`, and `RIXL_CREATOR_ID`. It does not need `RIXL_API_KEY` — public feed endpoints are unauthenticated.
+
+`03-image-management.ts` requires `RIXL_API_KEY` and `RIXL_IMAGE_ID`. To exercise the delete path, also set `RIXL_DELETE_IMAGE_ID` and `RIXL_RUN_DESTRUCTIVE=1`.
 
 ## Typecheck
 
