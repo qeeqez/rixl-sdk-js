@@ -48,6 +48,7 @@ bun examples/03-image-management.ts
 bun examples/04-image-upload.ts
 bun examples/05-video-management.ts
 bun examples/06-video-upload.ts
+bun examples/07-video-chapters.ts
 ```
 
 `02-public-feeds.ts` requires `RIXL_FEED_ID`, `RIXL_POST_ID`, and `RIXL_CREATOR_ID`. It does not need `RIXL_API_KEY` — public feed endpoints are unauthenticated.
