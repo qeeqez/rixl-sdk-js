@@ -19,20 +19,23 @@ const audioFilePath = requiredEnv("RIXL_AUDIO_FILE", "Set it to a path to an aud
 const langCode = requiredEnv("RIXL_AUDIO_LANGUAGE_CODE", "Set it to a BCP 47 language code, e.g. en-US.");
 
 // 1. Bulk-add one or more audio tracks via multipart upload.
+//    Pass `files` as `File[]` — that is what the server accepts and what
+//    the SDK serializes correctly at runtime.
 //
-//    NOTE: the OpenAPI spec for this endpoint declares the multipart
-//    `files` field as `Array<string>`, which doesn't match what the
-//    runtime actually accepts (Blob/File). We pass real File objects
-//    and cast at the call site so the workaround is visible to anyone
-//    reading the example.
-//    TODO(rixl-js): remove this cast once the OpenAPI spec is fixed.
+//    The @ts-expect-error below is temporary. The upstream OpenAPI spec
+//    incorrectly types the multipart `files` field as Array<string>, so
+//    the SDK inherits that typing. Once the spec is fixed and the SDK
+//    is regenerated, this line will fail typecheck (no error to
+//    suppress) — that is the signal to remove it.
+//    Tracking: rixlhq/api — bulk multipart `files` typed as Array<string>.
 const audioFile = await fileFromPath(audioFilePath);
 
 const created = await postVideosByVideoIdAudioTracks({
   client,
   path: {videoId},
   body: {
-    files: [audioFile] as unknown as Array<string>,
+    // @ts-expect-error spec types `files` as Array<string>; runtime accepts File[].
+    files: [audioFile],
     language_codes: langCode,
     labels: `Audio (${langCode})`,
   },
