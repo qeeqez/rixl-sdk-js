@@ -31,7 +31,7 @@
   },
   "scripts": {
     "pack": "vp pack && vp fmt ./src",
-    "prepare": "vp config",
+    "prepare": "vp config && vp fmt ./src",
     "ci:release": "vp pack && npm publish --access public"
   },
   "devDependencies": {
@@ -46,7 +46,7 @@
     "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "packageManager": "bun@1.3.13"
 }
