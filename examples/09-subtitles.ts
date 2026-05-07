@@ -36,18 +36,21 @@ if (supported.length > 0 && !supported.some((lang) => lang.code === langCode)) {
 }
 
 // 2. Bulk-add one or more subtitle files via multipart upload.
+//    Same shape as bulk audio tracks — pass `files` as `File[]`.
 //
-//    Same OpenAPI typing bug as the audio-tracks endpoint: `files` is
-//    declared as `Array<string>` but the runtime accepts Blob/File. We
-//    cast at the call site so the workaround is visible.
-//    TODO(rixl-js): remove this cast once the OpenAPI spec is fixed.
+//    Same temporary @ts-expect-error: upstream OpenAPI spec types the
+//    multipart `files` field as Array<string>. Once the spec is fixed
+//    and the SDK regenerated, this line will fail typecheck and should
+//    be removed.
+//    Tracking: rixlhq/api — bulk multipart `files` typed as Array<string>.
 const subtitleFile = await fileFromPath(subtitleFilePath);
 
 const created = await postVideosByVideoIdSubtitles({
   client,
   path: {videoId},
   body: {
-    files: [subtitleFile] as unknown as Array<string>,
+    // @ts-expect-error spec types `files` as Array<string>; runtime accepts File[].
+    files: [subtitleFile],
     language_codes: langCode,
     labels: `Subtitles (${langCode})`,
   },
