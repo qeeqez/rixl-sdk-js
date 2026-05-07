@@ -43,7 +43,10 @@ Without this flag the destructive code paths throw a clear error and exit.
 
 ```bash
 bun examples/01-client-setup.ts
+bun examples/02-public-feeds.ts
 ```
+
+`02-public-feeds.ts` requires `RIXL_FEED_ID`, `RIXL_POST_ID`, and `RIXL_CREATOR_ID`. It does not need `RIXL_API_KEY` — public feed endpoints are unauthenticated.
 
 ## Typecheck
 
