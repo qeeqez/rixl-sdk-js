@@ -1,6 +1,6 @@
 # Rixl SDK examples
 
-Runnable TypeScript examples for `@rixl/sdk`, the Rixl API SDK generated with [Hey API](https://heyapi.dev/).
+Runnable TypeScript examples for `@rixl/sdk`.
 
 Each example is a small, self-contained script. The client is constructed inline and the Hey API `{ data, error, response }` result tuple is handled inline — copy any example into your own project and it will work with minimal edits.
 
@@ -47,6 +47,7 @@ bun examples/02-public-feeds.ts
 bun examples/03-image-management.ts
 bun examples/04-image-upload.ts
 bun examples/05-video-management.ts
+bun examples/06-video-upload.ts
 ```
 
 `02-public-feeds.ts` requires `RIXL_FEED_ID`, `RIXL_POST_ID`, and `RIXL_CREATOR_ID`. It does not need `RIXL_API_KEY` — public feed endpoints are unauthenticated.
