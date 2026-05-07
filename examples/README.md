@@ -46,6 +46,7 @@ bun examples/01-client-setup.ts
 bun examples/02-public-feeds.ts
 bun examples/03-image-management.ts
 bun examples/04-image-upload.ts
+bun examples/05-video-management.ts
 ```
 
 `02-public-feeds.ts` requires `RIXL_FEED_ID`, `RIXL_POST_ID`, and `RIXL_CREATOR_ID`. It does not need `RIXL_API_KEY` — public feed endpoints are unauthenticated.
@@ -53,6 +54,8 @@ bun examples/04-image-upload.ts
 `03-image-management.ts` requires `RIXL_API_KEY` and `RIXL_IMAGE_ID`. To exercise the delete path, also set `RIXL_DELETE_IMAGE_ID` and `RIXL_RUN_DESTRUCTIVE=1`.
 
 `04-image-upload.ts` requires `RIXL_API_KEY` and `RIXL_IMAGE_FILE` (a path to a local image). Optionally set `RIXL_IMAGE_FORMAT` to override the format inferred from the file extension.
+
+`05-video-management.ts` requires `RIXL_API_KEY` and `RIXL_VIDEO_ID`. Optionally set `RIXL_THUMBNAIL_FILE` to update the thumbnail. To exercise the delete path, set `RIXL_DELETE_VIDEO_ID` and `RIXL_RUN_DESTRUCTIVE=1`.
 
 ## Typecheck
 
