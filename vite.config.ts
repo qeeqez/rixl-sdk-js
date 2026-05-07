@@ -6,6 +6,7 @@ export default defineConfig({
     "*": "vp check --fix",
   },
   pack: {
+    entry: {index: "index.ts"},
     exports: true,
     dts: true,
     format: "esm",
