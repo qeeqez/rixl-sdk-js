@@ -27,12 +27,22 @@ export default defineConfig({
     bracketSameLine: false,
     endOfLine: "lf",
   },
-  lint: {options: {typeAware: true, typeCheck: true}},
+  lint: {
+    options: {typeAware: true, typeCheck: true},
+    ignorePatterns: ["src/**/*.gen.ts", "src/client/**", "src/core/**"],
+  },
   plugins: [
     heyApiPlugin({
       config: {
-        input: "https://raw.githubusercontent.com/rixlhq/openapi/refs/heads/main/openapi.yaml",
+        input: process.env.RIXL_SPEC_PATH ?? "https://raw.githubusercontent.com/rixlhq/openapi/refs/heads/main/openapi.yaml",
         output: "src",
+        plugins: [
+          "@hey-api/client-fetch",
+          {
+            name: "@hey-api/sdk",
+            operations: {strategy: "byTags"},
+          },
+        ],
       },
     }),
   ],

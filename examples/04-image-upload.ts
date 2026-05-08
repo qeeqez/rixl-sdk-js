@@ -1,20 +1,19 @@
 import {readFile} from "node:fs/promises";
 import {basename, extname} from "node:path";
 
-import {createClient, postImagesUploadComplete, postImagesUploadInit} from "@rixl/sdk";
+import {createClient, Images} from "@rixl/sdk";
 
 import {optionalEnv, requiredEnv} from "./shared";
 
 const client = createClient({
   auth: requiredEnv("RIXL_API_KEY"),
-  baseUrl: optionalEnv("RIXL_BASE_URL") ?? "https://api.rixl.com/",
 });
 
 const filePath = requiredEnv("RIXL_IMAGE_FILE", "Set it to a path to an image file on disk.");
 const format = optionalEnv("RIXL_IMAGE_FORMAT") ?? (extname(filePath).replace(/^\./, "").toLowerCase() || "png");
 
 // 1. Ask the API for a presigned URL to upload to.
-const init = await postImagesUploadInit({
+const init = await Images.uploadInit({
   client,
   body: {
     name: basename(filePath),
@@ -54,7 +53,7 @@ if (!upload.ok) {
 console.log(`Uploaded ${fileBytes.byteLength} bytes to presigned URL.`);
 
 // 3. Tell the API the upload finished so it can finalize the image record.
-const complete = await postImagesUploadComplete({
+const complete = await Images.uploadComplete({
   client,
   body: {image_id: imageId},
 });

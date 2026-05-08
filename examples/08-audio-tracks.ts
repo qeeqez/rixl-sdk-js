@@ -1,17 +1,9 @@
-import {
-  createClient,
-  deleteVideosByVideoIdAudioTracks,
-  deleteVideosByVideoIdAudioTracksByTrackId,
-  deleteVideosByVideoIdAudioTracksLanguageByLangCode,
-  postVideosByVideoIdAudioTracks,
-  putVideosByVideoIdAudioTracksLanguageByLangCode,
-} from "@rixl/sdk";
+import {createClient, Videos} from "@rixl/sdk";
 
 import {assertDestructiveEnabled, fileFromPath, optionalEnv, requiredEnv} from "./shared";
 
 const client = createClient({
   auth: requiredEnv("RIXL_API_KEY"),
-  baseUrl: optionalEnv("RIXL_BASE_URL") ?? "https://api.rixl.com/",
 });
 
 const videoId = requiredEnv("RIXL_VIDEO_ID", "Set it to a video ID to attach audio tracks to.");
@@ -30,11 +22,10 @@ const langCode = requiredEnv("RIXL_AUDIO_LANGUAGE_CODE", "Set it to a BCP 47 lan
 //    Tracking: rixlhq/api — bulk multipart `files` typed as Array<string>.
 const audioFile = await fileFromPath(audioFilePath);
 
-const created = await postVideosByVideoIdAudioTracks({
+const created = await Videos.replaceAudioTracks({
   client,
   path: {videoId},
   body: {
-    // @ts-expect-error spec types `files` as Array<string>; runtime accepts File[].
     files: [audioFile],
     language_codes: langCode,
     labels: `Audio (${langCode})`,
@@ -54,7 +45,7 @@ for (const track of tracks) {
 
 // 2. Replace an existing audio track for a language. This endpoint takes
 //    a single file in the body — note the field name is `file`, not `files`.
-const replaced = await putVideosByVideoIdAudioTracksLanguageByLangCode({
+const replaced = await Videos.updateAudioTrackByLanguage({
   client,
   path: {videoId, lang_code: langCode},
   body: {
@@ -78,7 +69,7 @@ if (!trackId) {
 } else {
   assertDestructiveEnabled(`Deleting audio track ${trackId}`);
 
-  const deleted = await deleteVideosByVideoIdAudioTracksByTrackId({
+  const deleted = await Videos.deleteAudioTrack({
     client,
     path: {videoId, trackId},
   });
@@ -97,7 +88,7 @@ if (optionalEnv("RIXL_RUN_DESTRUCTIVE") !== "1") {
 } else {
   assertDestructiveEnabled(`Deleting all ${langCode} audio tracks on video ${videoId}`);
 
-  const deletedLang = await deleteVideosByVideoIdAudioTracksLanguageByLangCode({
+  const deletedLang = await Videos.deleteAudioTrackByLanguage({
     client,
     path: {videoId, lang_code: langCode},
   });
@@ -112,7 +103,7 @@ if (optionalEnv("RIXL_RUN_DESTRUCTIVE") !== "1") {
   // 5. Destructive: delete every audio track on the video.
   assertDestructiveEnabled(`Deleting all audio tracks on video ${videoId}`);
 
-  const deletedAll = await deleteVideosByVideoIdAudioTracks({
+  const deletedAll = await Videos.deleteAudioTracks({
     client,
     path: {videoId},
   });

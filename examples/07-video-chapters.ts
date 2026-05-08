@@ -1,10 +1,9 @@
-import {createClient, deleteVideosByVideoIdChapters, putVideosByVideoIdChapters} from "@rixl/sdk";
+import {createClient, Videos} from "@rixl/sdk";
 
 import {assertDestructiveEnabled, optionalEnv, requiredEnv} from "./shared";
 
 const client = createClient({
   auth: requiredEnv("RIXL_API_KEY"),
-  baseUrl: optionalEnv("RIXL_BASE_URL") ?? "https://api.rixl.com/",
 });
 
 const videoId = requiredEnv("RIXL_VIDEO_ID", "Set it to a video ID to manage chapters for.");
@@ -12,7 +11,7 @@ const videoId = requiredEnv("RIXL_VIDEO_ID", "Set it to a video ID to manage cha
 // 1. Replace the chapter list. The body shape (`UpdateChaptersRequest`)
 //    is generated from the OpenAPI spec — `chapters` is an array of
 //    `{ start_time_sec, title }` markers.
-const updated = await putVideosByVideoIdChapters({
+const updated = await Videos.updateChapters({
   client,
   path: {videoId},
   body: {
@@ -41,7 +40,7 @@ if (optionalEnv("RIXL_RUN_DESTRUCTIVE") !== "1") {
 } else {
   assertDestructiveEnabled(`Clearing chapters on video ${videoId}`);
 
-  const cleared = await deleteVideosByVideoIdChapters({
+  const cleared = await Videos.deleteChapters({
     client,
     path: {videoId},
   });
