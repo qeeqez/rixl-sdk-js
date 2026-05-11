@@ -31,6 +31,7 @@
   },
   "scripts": {
     "examples:check": "tsc --noEmit -p examples/tsconfig.json",
+    "generate:orval": "orval",
     "pack": "vp pack && vp fmt ./src",
     "prepare": "vp config && vp fmt ./src",
     "ci:release": "vp pack && npm publish --access public"
@@ -38,6 +39,7 @@
   "devDependencies": {
     "@hey-api/vite-plugin": "0.3.1",
     "@types/node": "^25.6.0",
+    "orval": "^8.9.1",
     "typescript": "^6.0.3",
     "vite": "npm:@voidzero-dev/vite-plus-core@latest",
     "vite-plus": "0.1.20"
