@@ -27,7 +27,12 @@ export default defineConfig({
     bracketSameLine: false,
     endOfLine: "lf",
   },
-  lint: {options: {typeAware: true, typeCheck: true}},
+  lint: {
+    options: {typeAware: true, typeCheck: true},
+    // Generated output is not subject to hand-written source rules.
+    // src-orval/ is the parallel Orval experiment output (see orval.config.ts).
+    ignorePatterns: ["src-orval/**"],
+  },
   plugins: [
     heyApiPlugin({
       config: {
