@@ -2,7 +2,7 @@ import {readFile} from "node:fs/promises";
 import {basename, extname} from "node:path";
 
 import type {GithubComRixlhqApiDbSqlcVideoQuality} from "@rixl/sdk";
-import {createClient, postVideosUploadComplete, postVideosUploadInit} from "@rixl/sdk";
+import {createClient, Videos} from "@rixl/sdk";
 
 import {optionalEnv, requiredEnv} from "./shared";
 
@@ -10,7 +10,6 @@ const VIDEO_QUALITIES = ["basic", "shorts", "pro"] as const satisfies ReadonlyAr
 
 const client = createClient({
   auth: requiredEnv("RIXL_API_KEY"),
-  baseUrl: optionalEnv("RIXL_BASE_URL") ?? "https://api.rixl.com/",
 });
 
 const videoFile = requiredEnv("RIXL_VIDEO_FILE", "Set it to a path to a local video file.");
@@ -30,7 +29,7 @@ if (rawQuality) {
 const posterFormat = extname(posterFile).replace(/^\./, "").toLowerCase() || undefined;
 
 // 1. Ask the API for presigned URLs for both the video and its poster image.
-const init = await postVideosUploadInit({
+const init = await Videos.uploadInit({
   client,
   body: {
     file_name: basename(videoFile),
@@ -75,7 +74,7 @@ if (!posterUpload.ok) {
 console.log(`Uploaded video (${videoBytes.byteLength} bytes) and poster (${posterBytes.byteLength} bytes).`);
 
 // 3. Tell the API the upload finished so it can finalize the video record.
-const complete = await postVideosUploadComplete({
+const complete = await Videos.uploadComplete({
   client,
   body: {video_id: videoId},
 });

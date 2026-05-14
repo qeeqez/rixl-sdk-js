@@ -235,7 +235,7 @@ export type PaginationPagination = {
   total?: number;
 };
 
-export type GetFeedsByFeedIdData = {
+export type ListData = {
   body?: never;
   path: {
     /**
@@ -256,7 +256,7 @@ export type GetFeedsByFeedIdData = {
   url: "/feeds/{feedId}";
 };
 
-export type GetFeedsByFeedIdErrors = {
+export type ListErrors = {
   /**
    * Invalid feed ID or query parameters
    */
@@ -267,18 +267,18 @@ export type GetFeedsByFeedIdErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type GetFeedsByFeedIdError = GetFeedsByFeedIdErrors[keyof GetFeedsByFeedIdErrors];
+export type ListError = ListErrors[keyof ListErrors];
 
-export type GetFeedsByFeedIdResponses = {
+export type ListResponses = {
   /**
    * OK
    */
   200: PaginationPaginatedResponsePost;
 };
 
-export type GetFeedsByFeedIdResponse = GetFeedsByFeedIdResponses[keyof GetFeedsByFeedIdResponses];
+export type ListResponse = ListResponses[keyof ListResponses];
 
-export type GetFeedsByFeedIdByPostIdData = {
+export type GetData = {
   body?: never;
   path: {
     /**
@@ -294,7 +294,7 @@ export type GetFeedsByFeedIdByPostIdData = {
   url: "/feeds/{feedId}/{postId}";
 };
 
-export type GetFeedsByFeedIdByPostIdErrors = {
+export type GetErrors = {
   /**
    * Bad Request
    */
@@ -305,18 +305,18 @@ export type GetFeedsByFeedIdByPostIdErrors = {
   404: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type GetFeedsByFeedIdByPostIdError = GetFeedsByFeedIdByPostIdErrors[keyof GetFeedsByFeedIdByPostIdErrors];
+export type GetError = GetErrors[keyof GetErrors];
 
-export type GetFeedsByFeedIdByPostIdResponses = {
+export type GetResponses = {
   /**
    * OK
    */
   200: Post;
 };
 
-export type GetFeedsByFeedIdByPostIdResponse = GetFeedsByFeedIdByPostIdResponses[keyof GetFeedsByFeedIdByPostIdResponses];
+export type GetResponse = GetResponses[keyof GetResponses];
 
-export type GetFeedsByFeedIdCreatorsByCreatorIdData = {
+export type ListByCreatorData = {
   body?: never;
   path: {
     /**
@@ -341,7 +341,7 @@ export type GetFeedsByFeedIdCreatorsByCreatorIdData = {
   url: "/feeds/{feedId}/creators/{creatorId}";
 };
 
-export type GetFeedsByFeedIdCreatorsByCreatorIdErrors = {
+export type ListByCreatorErrors = {
   /**
    * Invalid feed ID, creator ID, or query parameters
    */
@@ -352,20 +352,18 @@ export type GetFeedsByFeedIdCreatorsByCreatorIdErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type GetFeedsByFeedIdCreatorsByCreatorIdError =
-  GetFeedsByFeedIdCreatorsByCreatorIdErrors[keyof GetFeedsByFeedIdCreatorsByCreatorIdErrors];
+export type ListByCreatorError = ListByCreatorErrors[keyof ListByCreatorErrors];
 
-export type GetFeedsByFeedIdCreatorsByCreatorIdResponses = {
+export type ListByCreatorResponses = {
   /**
    * OK
    */
   200: PaginationPaginatedResponsePost;
 };
 
-export type GetFeedsByFeedIdCreatorsByCreatorIdResponse =
-  GetFeedsByFeedIdCreatorsByCreatorIdResponses[keyof GetFeedsByFeedIdCreatorsByCreatorIdResponses];
+export type ListByCreatorResponse = ListByCreatorResponses[keyof ListByCreatorResponses];
 
-export type GetImagesData = {
+export type List2Data = {
   body?: never;
   path?: never;
   query?: {
@@ -389,7 +387,7 @@ export type GetImagesData = {
   url: "/images";
 };
 
-export type GetImagesErrors = {
+export type List2Errors = {
   /**
    * Invalid query parameters
    */
@@ -408,18 +406,18 @@ export type GetImagesErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type GetImagesError = GetImagesErrors[keyof GetImagesErrors];
+export type List2Error = List2Errors[keyof List2Errors];
 
-export type GetImagesResponses = {
+export type List2Responses = {
   /**
    * OK
    */
   200: PaginationPaginatedResponseImage;
 };
 
-export type GetImagesResponse = GetImagesResponses[keyof GetImagesResponses];
+export type List2Response = List2Responses[keyof List2Responses];
 
-export type DeleteImagesByImageIdData = {
+export type DeleteData = {
   body?: never;
   path: {
     /**
@@ -431,7 +429,7 @@ export type DeleteImagesByImageIdData = {
   url: "/images/{imageId}";
 };
 
-export type DeleteImagesByImageIdErrors = {
+export type DeleteErrors = {
   /**
    * Invalid project ID or image ID
    */
@@ -454,18 +452,18 @@ export type DeleteImagesByImageIdErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type DeleteImagesByImageIdError = DeleteImagesByImageIdErrors[keyof DeleteImagesByImageIdErrors];
+export type DeleteError = DeleteErrors[keyof DeleteErrors];
 
-export type DeleteImagesByImageIdResponses = {
+export type DeleteResponses = {
   /**
    * Image deleted successfully
    */
   204: void;
 };
 
-export type DeleteImagesByImageIdResponse = DeleteImagesByImageIdResponses[keyof DeleteImagesByImageIdResponses];
+export type DeleteResponse = DeleteResponses[keyof DeleteResponses];
 
-export type GetImagesByImageIdData = {
+export type Get2Data = {
   body?: never;
   path: {
     /**
@@ -477,7 +475,7 @@ export type GetImagesByImageIdData = {
   url: "/images/{imageId}";
 };
 
-export type GetImagesByImageIdErrors = {
+export type Get2Errors = {
   /**
    * Invalid image ID
    */
@@ -500,18 +498,18 @@ export type GetImagesByImageIdErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type GetImagesByImageIdError = GetImagesByImageIdErrors[keyof GetImagesByImageIdErrors];
+export type Get2Error = Get2Errors[keyof Get2Errors];
 
-export type GetImagesByImageIdResponses = {
+export type Get2Responses = {
   /**
    * OK
    */
   200: Image;
 };
 
-export type GetImagesByImageIdResponse = GetImagesByImageIdResponses[keyof GetImagesByImageIdResponses];
+export type Get2Response = Get2Responses[keyof Get2Responses];
 
-export type PostImagesUploadCompleteData = {
+export type UploadCompleteData = {
   /**
    * Upload completion request
    */
@@ -521,7 +519,7 @@ export type PostImagesUploadCompleteData = {
   url: "/images/upload/complete";
 };
 
-export type PostImagesUploadCompleteErrors = {
+export type UploadCompleteErrors = {
   /**
    * Invalid request body
    */
@@ -544,18 +542,18 @@ export type PostImagesUploadCompleteErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type PostImagesUploadCompleteError = PostImagesUploadCompleteErrors[keyof PostImagesUploadCompleteErrors];
+export type UploadCompleteError = UploadCompleteErrors[keyof UploadCompleteErrors];
 
-export type PostImagesUploadCompleteResponses = {
+export type UploadCompleteResponses = {
   /**
    * OK
    */
   200: Image;
 };
 
-export type PostImagesUploadCompleteResponse = PostImagesUploadCompleteResponses[keyof PostImagesUploadCompleteResponses];
+export type UploadCompleteResponse = UploadCompleteResponses[keyof UploadCompleteResponses];
 
-export type PostImagesUploadInitData = {
+export type UploadInitData = {
   /**
    * Upload initialization request
    */
@@ -565,7 +563,7 @@ export type PostImagesUploadInitData = {
   url: "/images/upload/init";
 };
 
-export type PostImagesUploadInitErrors = {
+export type UploadInitErrors = {
   /**
    * Invalid request body
    */
@@ -584,18 +582,18 @@ export type PostImagesUploadInitErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type PostImagesUploadInitError = PostImagesUploadInitErrors[keyof PostImagesUploadInitErrors];
+export type UploadInitError = UploadInitErrors[keyof UploadInitErrors];
 
-export type PostImagesUploadInitResponses = {
+export type UploadInitResponses = {
   /**
    * OK
    */
   200: InternalImagesHandlerInitResponse;
 };
 
-export type PostImagesUploadInitResponse = PostImagesUploadInitResponses[keyof PostImagesUploadInitResponses];
+export type UploadInitResponse = UploadInitResponses[keyof UploadInitResponses];
 
-export type GetVideosData = {
+export type List3Data = {
   body?: never;
   path?: never;
   query?: {
@@ -619,7 +617,7 @@ export type GetVideosData = {
   url: "/videos";
 };
 
-export type GetVideosErrors = {
+export type List3Errors = {
   /**
    * Invalid query parameters
    */
@@ -638,18 +636,18 @@ export type GetVideosErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type GetVideosError = GetVideosErrors[keyof GetVideosErrors];
+export type List3Error = List3Errors[keyof List3Errors];
 
-export type GetVideosResponses = {
+export type List3Responses = {
   /**
    * OK
    */
   200: PaginationPaginatedResponseVideo;
 };
 
-export type GetVideosResponse = GetVideosResponses[keyof GetVideosResponses];
+export type List3Response = List3Responses[keyof List3Responses];
 
-export type GetVideosByVideoIdData = {
+export type Get3Data = {
   body?: never;
   path: {
     /**
@@ -661,7 +659,7 @@ export type GetVideosByVideoIdData = {
   url: "/videos/{videoId}";
 };
 
-export type GetVideosByVideoIdErrors = {
+export type Get3Errors = {
   /**
    * Invalid video ID
    */
@@ -684,18 +682,18 @@ export type GetVideosByVideoIdErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type GetVideosByVideoIdError = GetVideosByVideoIdErrors[keyof GetVideosByVideoIdErrors];
+export type Get3Error = Get3Errors[keyof Get3Errors];
 
-export type GetVideosByVideoIdResponses = {
+export type Get3Responses = {
   /**
    * OK
    */
   200: Video;
 };
 
-export type GetVideosByVideoIdResponse = GetVideosByVideoIdResponses[keyof GetVideosByVideoIdResponses];
+export type Get3Response = Get3Responses[keyof Get3Responses];
 
-export type DeleteVideosByVideoIdAudioTracksData = {
+export type DeleteAudioTracksData = {
   body?: never;
   path: {
     /**
@@ -707,25 +705,24 @@ export type DeleteVideosByVideoIdAudioTracksData = {
   url: "/videos/{videoId}/audio-tracks";
 };
 
-export type DeleteVideosByVideoIdAudioTracksResponses = {
+export type DeleteAudioTracksResponses = {
   /**
    * OK
    */
   200: AudioTrackDelete;
 };
 
-export type DeleteVideosByVideoIdAudioTracksResponse =
-  DeleteVideosByVideoIdAudioTracksResponses[keyof DeleteVideosByVideoIdAudioTracksResponses];
+export type DeleteAudioTracksResponse = DeleteAudioTracksResponses[keyof DeleteAudioTracksResponses];
 
-export type PostVideosByVideoIdAudioTracksData = {
+export type ReplaceAudioTracksData = {
   /**
-   * files | Comma-separated language codes | Comma-separated labels
+   * Audio files (.mp3, .opus, .flac, .wav, .ac3, .m4a, .aac) | Comma-separated language codes | Comma-separated labels
    */
   body: {
     /**
-     * files
+     * Audio files (.mp3, .opus, .flac, .wav, .ac3, .m4a, .aac)
      */
-    files: Array<string>;
+    files: Array<Blob | File>;
     /**
      * Comma-separated labels
      */
@@ -745,16 +742,16 @@ export type PostVideosByVideoIdAudioTracksData = {
   url: "/videos/{videoId}/audio-tracks";
 };
 
-export type PostVideosByVideoIdAudioTracksResponses = {
+export type ReplaceAudioTracksResponses = {
   /**
    * OK
    */
   200: Array<AudioTrack>;
 };
 
-export type PostVideosByVideoIdAudioTracksResponse = PostVideosByVideoIdAudioTracksResponses[keyof PostVideosByVideoIdAudioTracksResponses];
+export type ReplaceAudioTracksResponse = ReplaceAudioTracksResponses[keyof ReplaceAudioTracksResponses];
 
-export type DeleteVideosByVideoIdAudioTracksByTrackIdData = {
+export type DeleteAudioTrackData = {
   body?: never;
   path: {
     /**
@@ -770,7 +767,7 @@ export type DeleteVideosByVideoIdAudioTracksByTrackIdData = {
   url: "/videos/{videoId}/audio-tracks/{trackId}";
 };
 
-export type DeleteVideosByVideoIdAudioTracksByTrackIdErrors = {
+export type DeleteAudioTrackErrors = {
   /**
    * Unauthorized
    */
@@ -789,20 +786,18 @@ export type DeleteVideosByVideoIdAudioTracksByTrackIdErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type DeleteVideosByVideoIdAudioTracksByTrackIdError =
-  DeleteVideosByVideoIdAudioTracksByTrackIdErrors[keyof DeleteVideosByVideoIdAudioTracksByTrackIdErrors];
+export type DeleteAudioTrackError = DeleteAudioTrackErrors[keyof DeleteAudioTrackErrors];
 
-export type DeleteVideosByVideoIdAudioTracksByTrackIdResponses = {
+export type DeleteAudioTrackResponses = {
   /**
    * OK
    */
   200: AudioTrackDelete;
 };
 
-export type DeleteVideosByVideoIdAudioTracksByTrackIdResponse =
-  DeleteVideosByVideoIdAudioTracksByTrackIdResponses[keyof DeleteVideosByVideoIdAudioTracksByTrackIdResponses];
+export type DeleteAudioTrackResponse = DeleteAudioTrackResponses[keyof DeleteAudioTrackResponses];
 
-export type DeleteVideosByVideoIdAudioTracksLanguageByLangCodeData = {
+export type DeleteAudioTrackByLanguageData = {
   body?: never;
   path: {
     /**
@@ -818,23 +813,22 @@ export type DeleteVideosByVideoIdAudioTracksLanguageByLangCodeData = {
   url: "/videos/{videoId}/audio-tracks/language/{lang_code}";
 };
 
-export type DeleteVideosByVideoIdAudioTracksLanguageByLangCodeResponses = {
+export type DeleteAudioTrackByLanguageResponses = {
   /**
    * OK
    */
   200: AudioTrackDelete;
 };
 
-export type DeleteVideosByVideoIdAudioTracksLanguageByLangCodeResponse =
-  DeleteVideosByVideoIdAudioTracksLanguageByLangCodeResponses[keyof DeleteVideosByVideoIdAudioTracksLanguageByLangCodeResponses];
+export type DeleteAudioTrackByLanguageResponse = DeleteAudioTrackByLanguageResponses[keyof DeleteAudioTrackByLanguageResponses];
 
-export type PutVideosByVideoIdAudioTracksLanguageByLangCodeData = {
+export type UpdateAudioTrackByLanguageData = {
   /**
-   * file | Label (e.g. English)
+   * Audio file (.mp3, .opus, .flac, .wav, .ac3, .m4a, .aac) | Label (e.g. English)
    */
   body: {
     /**
-     * file
+     * Audio file (.mp3, .opus, .flac, .wav, .ac3, .m4a, .aac)
      */
     file: Blob | File;
     /**
@@ -856,17 +850,16 @@ export type PutVideosByVideoIdAudioTracksLanguageByLangCodeData = {
   url: "/videos/{videoId}/audio-tracks/language/{lang_code}";
 };
 
-export type PutVideosByVideoIdAudioTracksLanguageByLangCodeResponses = {
+export type UpdateAudioTrackByLanguageResponses = {
   /**
    * OK
    */
   200: AudioTrack;
 };
 
-export type PutVideosByVideoIdAudioTracksLanguageByLangCodeResponse =
-  PutVideosByVideoIdAudioTracksLanguageByLangCodeResponses[keyof PutVideosByVideoIdAudioTracksLanguageByLangCodeResponses];
+export type UpdateAudioTrackByLanguageResponse = UpdateAudioTrackByLanguageResponses[keyof UpdateAudioTrackByLanguageResponses];
 
-export type DeleteVideosByVideoIdChaptersData = {
+export type DeleteChaptersData = {
   body?: never;
   path: {
     /**
@@ -878,7 +871,7 @@ export type DeleteVideosByVideoIdChaptersData = {
   url: "/videos/{videoId}/chapters";
 };
 
-export type DeleteVideosByVideoIdChaptersErrors = {
+export type DeleteChaptersErrors = {
   /**
    * Unauthorized - Invalid API key
    */
@@ -897,18 +890,18 @@ export type DeleteVideosByVideoIdChaptersErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type DeleteVideosByVideoIdChaptersError = DeleteVideosByVideoIdChaptersErrors[keyof DeleteVideosByVideoIdChaptersErrors];
+export type DeleteChaptersError = DeleteChaptersErrors[keyof DeleteChaptersErrors];
 
-export type DeleteVideosByVideoIdChaptersResponses = {
+export type DeleteChaptersResponses = {
   /**
    * OK
    */
   200: UpdateChaptersResponse;
 };
 
-export type DeleteVideosByVideoIdChaptersResponse = DeleteVideosByVideoIdChaptersResponses[keyof DeleteVideosByVideoIdChaptersResponses];
+export type DeleteChaptersResponse = DeleteChaptersResponses[keyof DeleteChaptersResponses];
 
-export type PutVideosByVideoIdChaptersData = {
+export type UpdateChaptersData = {
   /**
    * Chapters array
    */
@@ -923,7 +916,7 @@ export type PutVideosByVideoIdChaptersData = {
   url: "/videos/{videoId}/chapters";
 };
 
-export type PutVideosByVideoIdChaptersErrors = {
+export type UpdateChaptersErrors = {
   /**
    * Invalid request body or video duration not available
    */
@@ -946,18 +939,18 @@ export type PutVideosByVideoIdChaptersErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type PutVideosByVideoIdChaptersError = PutVideosByVideoIdChaptersErrors[keyof PutVideosByVideoIdChaptersErrors];
+export type UpdateChaptersError = UpdateChaptersErrors[keyof UpdateChaptersErrors];
 
-export type PutVideosByVideoIdChaptersResponses = {
+export type UpdateChaptersResponses = {
   /**
    * OK
    */
   200: UpdateChaptersResponse;
 };
 
-export type PutVideosByVideoIdChaptersResponse = PutVideosByVideoIdChaptersResponses[keyof PutVideosByVideoIdChaptersResponses];
+export type UpdateChaptersResponse2 = UpdateChaptersResponses[keyof UpdateChaptersResponses];
 
-export type DeleteVideosByVideoIdDeleteData = {
+export type Delete2Data = {
   body?: never;
   path: {
     /**
@@ -969,7 +962,7 @@ export type DeleteVideosByVideoIdDeleteData = {
   url: "/videos/{videoId}/delete";
 };
 
-export type DeleteVideosByVideoIdDeleteErrors = {
+export type Delete2Errors = {
   /**
    * Invalid project ID or video ID
    */
@@ -992,18 +985,18 @@ export type DeleteVideosByVideoIdDeleteErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type DeleteVideosByVideoIdDeleteError = DeleteVideosByVideoIdDeleteErrors[keyof DeleteVideosByVideoIdDeleteErrors];
+export type Delete2Error = Delete2Errors[keyof Delete2Errors];
 
-export type DeleteVideosByVideoIdDeleteResponses = {
+export type Delete2Responses = {
   /**
    * Video deleted successfully
    */
   204: void;
 };
 
-export type DeleteVideosByVideoIdDeleteResponse = DeleteVideosByVideoIdDeleteResponses[keyof DeleteVideosByVideoIdDeleteResponses];
+export type Delete2Response = Delete2Responses[keyof Delete2Responses];
 
-export type DeleteVideosByVideoIdSubtitlesData = {
+export type DeleteSubtitlesData = {
   body?: never;
   path: {
     /**
@@ -1015,24 +1008,24 @@ export type DeleteVideosByVideoIdSubtitlesData = {
   url: "/videos/{videoId}/subtitles";
 };
 
-export type DeleteVideosByVideoIdSubtitlesResponses = {
+export type DeleteSubtitlesResponses = {
   /**
    * OK
    */
   200: SubtitleDelete;
 };
 
-export type DeleteVideosByVideoIdSubtitlesResponse = DeleteVideosByVideoIdSubtitlesResponses[keyof DeleteVideosByVideoIdSubtitlesResponses];
+export type DeleteSubtitlesResponse = DeleteSubtitlesResponses[keyof DeleteSubtitlesResponses];
 
-export type PostVideosByVideoIdSubtitlesData = {
+export type ReplaceSubtitlesData = {
   /**
-   * files | Comma-separated language codes | Comma-separated labels
+   * Subtitle files (.srt or .vtt) | Comma-separated language codes | Comma-separated labels
    */
   body: {
     /**
-     * files
+     * Subtitle files (.srt or .vtt)
      */
-    files: Array<string>;
+    files: Array<Blob | File>;
     /**
      * Comma-separated labels
      */
@@ -1052,16 +1045,16 @@ export type PostVideosByVideoIdSubtitlesData = {
   url: "/videos/{videoId}/subtitles";
 };
 
-export type PostVideosByVideoIdSubtitlesResponses = {
+export type ReplaceSubtitlesResponses = {
   /**
    * OK
    */
   200: Array<Subtitle>;
 };
 
-export type PostVideosByVideoIdSubtitlesResponse = PostVideosByVideoIdSubtitlesResponses[keyof PostVideosByVideoIdSubtitlesResponses];
+export type ReplaceSubtitlesResponse = ReplaceSubtitlesResponses[keyof ReplaceSubtitlesResponses];
 
-export type DeleteVideosByVideoIdSubtitlesBySubtitleIdData = {
+export type DeleteSubtitleData = {
   body?: never;
   path: {
     /**
@@ -1077,7 +1070,7 @@ export type DeleteVideosByVideoIdSubtitlesBySubtitleIdData = {
   url: "/videos/{videoId}/subtitles/{subtitleId}";
 };
 
-export type DeleteVideosByVideoIdSubtitlesBySubtitleIdErrors = {
+export type DeleteSubtitleErrors = {
   /**
    * Unauthorized
    */
@@ -1096,20 +1089,18 @@ export type DeleteVideosByVideoIdSubtitlesBySubtitleIdErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type DeleteVideosByVideoIdSubtitlesBySubtitleIdError =
-  DeleteVideosByVideoIdSubtitlesBySubtitleIdErrors[keyof DeleteVideosByVideoIdSubtitlesBySubtitleIdErrors];
+export type DeleteSubtitleError = DeleteSubtitleErrors[keyof DeleteSubtitleErrors];
 
-export type DeleteVideosByVideoIdSubtitlesBySubtitleIdResponses = {
+export type DeleteSubtitleResponses = {
   /**
    * OK
    */
   200: SubtitleDelete;
 };
 
-export type DeleteVideosByVideoIdSubtitlesBySubtitleIdResponse =
-  DeleteVideosByVideoIdSubtitlesBySubtitleIdResponses[keyof DeleteVideosByVideoIdSubtitlesBySubtitleIdResponses];
+export type DeleteSubtitleResponse = DeleteSubtitleResponses[keyof DeleteSubtitleResponses];
 
-export type DeleteVideosByVideoIdSubtitlesLanguageByLangCodeData = {
+export type DeleteSubtitleByLanguageData = {
   body?: never;
   path: {
     /**
@@ -1125,23 +1116,22 @@ export type DeleteVideosByVideoIdSubtitlesLanguageByLangCodeData = {
   url: "/videos/{videoId}/subtitles/language/{lang_code}";
 };
 
-export type DeleteVideosByVideoIdSubtitlesLanguageByLangCodeResponses = {
+export type DeleteSubtitleByLanguageResponses = {
   /**
    * OK
    */
   200: SubtitleDelete;
 };
 
-export type DeleteVideosByVideoIdSubtitlesLanguageByLangCodeResponse =
-  DeleteVideosByVideoIdSubtitlesLanguageByLangCodeResponses[keyof DeleteVideosByVideoIdSubtitlesLanguageByLangCodeResponses];
+export type DeleteSubtitleByLanguageResponse = DeleteSubtitleByLanguageResponses[keyof DeleteSubtitleByLanguageResponses];
 
-export type PutVideosByVideoIdSubtitlesLanguageByLangCodeData = {
+export type UpdateSubtitleByLanguageData = {
   /**
-   * file | Label (e.g. English)
+   * Subtitle file (.srt or .vtt) | Label (e.g. English)
    */
   body: {
     /**
-     * file
+     * Subtitle file (.srt or .vtt)
      */
     file: Blob | File;
     /**
@@ -1163,23 +1153,22 @@ export type PutVideosByVideoIdSubtitlesLanguageByLangCodeData = {
   url: "/videos/{videoId}/subtitles/language/{lang_code}";
 };
 
-export type PutVideosByVideoIdSubtitlesLanguageByLangCodeResponses = {
+export type UpdateSubtitleByLanguageResponses = {
   /**
    * OK
    */
   200: Subtitle;
 };
 
-export type PutVideosByVideoIdSubtitlesLanguageByLangCodeResponse =
-  PutVideosByVideoIdSubtitlesLanguageByLangCodeResponses[keyof PutVideosByVideoIdSubtitlesLanguageByLangCodeResponses];
+export type UpdateSubtitleByLanguageResponse = UpdateSubtitleByLanguageResponses[keyof UpdateSubtitleByLanguageResponses];
 
-export type PutVideosByVideoIdThumbnailData = {
+export type UpdateThumbnailData = {
   /**
-   * file
+   * Thumbnail image file (max 5MB, image*)
    */
   body: {
     /**
-     * file
+     * Thumbnail image file (max 5MB, image*)
      */
     thumbnail: Blob | File;
   };
@@ -1193,7 +1182,7 @@ export type PutVideosByVideoIdThumbnailData = {
   url: "/videos/{videoId}/thumbnail";
 };
 
-export type PutVideosByVideoIdThumbnailErrors = {
+export type UpdateThumbnailErrors = {
   /**
    * Invalid file or request
    */
@@ -1216,34 +1205,34 @@ export type PutVideosByVideoIdThumbnailErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type PutVideosByVideoIdThumbnailError = PutVideosByVideoIdThumbnailErrors[keyof PutVideosByVideoIdThumbnailErrors];
+export type UpdateThumbnailError = UpdateThumbnailErrors[keyof UpdateThumbnailErrors];
 
-export type PutVideosByVideoIdThumbnailResponses = {
+export type UpdateThumbnailResponses = {
   /**
    * Video with updated thumbnail
    */
   200: Video;
 };
 
-export type PutVideosByVideoIdThumbnailResponse = PutVideosByVideoIdThumbnailResponses[keyof PutVideosByVideoIdThumbnailResponses];
+export type UpdateThumbnailResponse = UpdateThumbnailResponses[keyof UpdateThumbnailResponses];
 
-export type GetVideosLanguagesData = {
+export type ListLanguagesData = {
   body?: never;
   path?: never;
   query?: never;
   url: "/videos/languages";
 };
 
-export type GetVideosLanguagesResponses = {
+export type ListLanguagesResponses = {
   /**
    * OK
    */
   200: Array<InternalVideosHandlerSubtitlesLanguageResponse>;
 };
 
-export type GetVideosLanguagesResponse = GetVideosLanguagesResponses[keyof GetVideosLanguagesResponses];
+export type ListLanguagesResponse = ListLanguagesResponses[keyof ListLanguagesResponses];
 
-export type PostVideosUploadCompleteData = {
+export type UploadComplete2Data = {
   /**
    * Video upload completion request
    */
@@ -1253,7 +1242,7 @@ export type PostVideosUploadCompleteData = {
   url: "/videos/upload/complete";
 };
 
-export type PostVideosUploadCompleteErrors = {
+export type UploadComplete2Errors = {
   /**
    * Invalid request body
    */
@@ -1276,18 +1265,18 @@ export type PostVideosUploadCompleteErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type PostVideosUploadCompleteError = PostVideosUploadCompleteErrors[keyof PostVideosUploadCompleteErrors];
+export type UploadComplete2Error = UploadComplete2Errors[keyof UploadComplete2Errors];
 
-export type PostVideosUploadCompleteResponses = {
+export type UploadComplete2Responses = {
   /**
    * OK
    */
   200: Video;
 };
 
-export type PostVideosUploadCompleteResponse = PostVideosUploadCompleteResponses[keyof PostVideosUploadCompleteResponses];
+export type UploadComplete2Response = UploadComplete2Responses[keyof UploadComplete2Responses];
 
-export type PostVideosUploadInitData = {
+export type UploadInit2Data = {
   /**
    * Video upload initialization request
    */
@@ -1297,7 +1286,7 @@ export type PostVideosUploadInitData = {
   url: "/videos/upload/init";
 };
 
-export type PostVideosUploadInitErrors = {
+export type UploadInit2Errors = {
   /**
    * Invalid request body
    */
@@ -1316,13 +1305,13 @@ export type PostVideosUploadInitErrors = {
   500: GithubComRixlhqApiInternalErrorsErrorResponse;
 };
 
-export type PostVideosUploadInitError = PostVideosUploadInitErrors[keyof PostVideosUploadInitErrors];
+export type UploadInit2Error = UploadInit2Errors[keyof UploadInit2Errors];
 
-export type PostVideosUploadInitResponses = {
+export type UploadInit2Responses = {
   /**
    * OK
    */
   200: GithubComRixlhqApiInternalVideosHandlerUploadInitResponse;
 };
 
-export type PostVideosUploadInitResponse = PostVideosUploadInitResponses[keyof PostVideosUploadInitResponses];
+export type UploadInit2Response = UploadInit2Responses[keyof UploadInit2Responses];

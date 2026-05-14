@@ -1,0 +1,14 @@
+{
+  "ignorePatterns": ["**/*.gen.ts"],
+  "overrides": [
+    {
+      "files": ["**/*.gen.ts"],
+      "rules": {
+        "typescript-eslint/no-misused-spread": "off",
+        "typescript-eslint/no-redundant-type-constituents": "off",
+        "no-floating-promises": "off",
+        "typescript-eslint/no-floating-promises": "off"
+      }
+    }
+  ]
+}

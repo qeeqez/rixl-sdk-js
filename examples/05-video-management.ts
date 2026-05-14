@@ -1,14 +1,13 @@
-import {createClient, deleteVideosByVideoIdDelete, getVideos, getVideosByVideoId, putVideosByVideoIdThumbnail} from "@rixl/sdk";
+import {createClient, Videos} from "@rixl/sdk";
 
 import {assertDestructiveEnabled, fileFromPath, optionalEnv, requiredEnv} from "./shared";
 
 const client = createClient({
   auth: requiredEnv("RIXL_API_KEY"),
-  baseUrl: optionalEnv("RIXL_BASE_URL") ?? "https://api.rixl.com/",
 });
 
 // 1. List videos.
-const list = await getVideos({
+const list = await Videos.list({
   client,
   query: {limit: 10, offset: 0, sort: "created_at", order: "desc"},
 });
@@ -27,7 +26,7 @@ for (const video of videos) {
 // 2. Fetch a single video by ID.
 const videoId = requiredEnv("RIXL_VIDEO_ID", "Set it to an existing video ID.");
 
-const detail = await getVideosByVideoId({
+const detail = await Videos.get({
   client,
   path: {videoId},
 });
@@ -51,7 +50,7 @@ if (!thumbnailFile) {
 } else {
   const thumbnail = await fileFromPath(thumbnailFile);
 
-  const updated = await putVideosByVideoIdThumbnail({
+  const updated = await Videos.updateThumbnail({
     client,
     path: {videoId},
     body: {thumbnail},
@@ -73,7 +72,7 @@ if (!deleteVideoId) {
 } else {
   assertDestructiveEnabled(`Deleting video ${deleteVideoId}`);
 
-  const deleted = await deleteVideosByVideoIdDelete({
+  const deleted = await Videos.delete({
     client,
     path: {videoId: deleteVideoId},
   });

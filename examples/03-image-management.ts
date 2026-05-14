@@ -1,14 +1,13 @@
-import {createClient, deleteImagesByImageId, getImages, getImagesByImageId} from "@rixl/sdk";
+import {createClient, Images} from "@rixl/sdk";
 
 import {assertDestructiveEnabled, optionalEnv, requiredEnv} from "./shared";
 
 const client = createClient({
   auth: requiredEnv("RIXL_API_KEY"),
-  baseUrl: optionalEnv("RIXL_BASE_URL") ?? "https://api.rixl.com/",
 });
 
 // 1. List images, sorted newest-first.
-const list = await getImages({
+const list = await Images.list({
   client,
   query: {limit: 10, offset: 0, sort: "created_at", order: "desc"},
 });
@@ -27,7 +26,7 @@ for (const image of images) {
 // 2. Fetch a single image by ID.
 const imageId = requiredEnv("RIXL_IMAGE_ID", "Set it to an existing image ID.");
 
-const detail = await getImagesByImageId({
+const detail = await Images.get({
   client,
   path: {imageId},
 });
@@ -49,7 +48,7 @@ if (!deleteImageId) {
 } else {
   assertDestructiveEnabled(`Deleting image ${deleteImageId}`);
 
-  const deleted = await deleteImagesByImageId({
+  const deleted = await Images.delete({
     client,
     path: {imageId: deleteImageId},
   });

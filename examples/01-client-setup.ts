@@ -1,13 +1,12 @@
-import {createClient, getImages} from "@rixl/sdk";
+import {createClient, Images} from "@rixl/sdk";
 
-import {optionalEnv, requiredEnv} from "./shared";
+import {requiredEnv} from "./shared";
 
 const client = createClient({
   auth: requiredEnv("RIXL_API_KEY", "Set it to a Rixl API key before running this example."),
-  baseUrl: optionalEnv("RIXL_BASE_URL") ?? "https://api.rixl.com/",
 });
 
-const {data, error, response} = await getImages({
+const {data, error, response} = await Images.list({
   client,
   query: {limit: 1, offset: 0},
 });
