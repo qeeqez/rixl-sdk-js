@@ -3,78 +3,78 @@
 import {type Client, formDataBodySerializer, type Options as Options2, type TDataShape} from "./client";
 import {client} from "./client.gen";
 import type {
-  DeleteImagesByImageIdData,
-  DeleteImagesByImageIdErrors,
-  DeleteImagesByImageIdResponses,
-  DeleteVideosByVideoIdAudioTracksByTrackIdData,
-  DeleteVideosByVideoIdAudioTracksByTrackIdErrors,
-  DeleteVideosByVideoIdAudioTracksByTrackIdResponses,
-  DeleteVideosByVideoIdAudioTracksData,
-  DeleteVideosByVideoIdAudioTracksLanguageByLangCodeData,
-  DeleteVideosByVideoIdAudioTracksLanguageByLangCodeResponses,
-  DeleteVideosByVideoIdAudioTracksResponses,
-  DeleteVideosByVideoIdChaptersData,
-  DeleteVideosByVideoIdChaptersErrors,
-  DeleteVideosByVideoIdChaptersResponses,
-  DeleteVideosByVideoIdDeleteData,
-  DeleteVideosByVideoIdDeleteErrors,
-  DeleteVideosByVideoIdDeleteResponses,
-  DeleteVideosByVideoIdSubtitlesBySubtitleIdData,
-  DeleteVideosByVideoIdSubtitlesBySubtitleIdErrors,
-  DeleteVideosByVideoIdSubtitlesBySubtitleIdResponses,
-  DeleteVideosByVideoIdSubtitlesData,
-  DeleteVideosByVideoIdSubtitlesLanguageByLangCodeData,
-  DeleteVideosByVideoIdSubtitlesLanguageByLangCodeResponses,
-  DeleteVideosByVideoIdSubtitlesResponses,
-  GetFeedsByFeedIdByPostIdData,
-  GetFeedsByFeedIdByPostIdErrors,
-  GetFeedsByFeedIdByPostIdResponses,
-  GetFeedsByFeedIdCreatorsByCreatorIdData,
-  GetFeedsByFeedIdCreatorsByCreatorIdErrors,
-  GetFeedsByFeedIdCreatorsByCreatorIdResponses,
-  GetFeedsByFeedIdData,
-  GetFeedsByFeedIdErrors,
-  GetFeedsByFeedIdResponses,
-  GetImagesByImageIdData,
-  GetImagesByImageIdErrors,
-  GetImagesByImageIdResponses,
-  GetImagesData,
-  GetImagesErrors,
-  GetImagesResponses,
-  GetVideosByVideoIdData,
-  GetVideosByVideoIdErrors,
-  GetVideosByVideoIdResponses,
-  GetVideosData,
-  GetVideosErrors,
-  GetVideosLanguagesData,
-  GetVideosLanguagesResponses,
-  GetVideosResponses,
-  PostImagesUploadCompleteData,
-  PostImagesUploadCompleteErrors,
-  PostImagesUploadCompleteResponses,
-  PostImagesUploadInitData,
-  PostImagesUploadInitErrors,
-  PostImagesUploadInitResponses,
-  PostVideosByVideoIdAudioTracksData,
-  PostVideosByVideoIdAudioTracksResponses,
-  PostVideosByVideoIdSubtitlesData,
-  PostVideosByVideoIdSubtitlesResponses,
-  PostVideosUploadCompleteData,
-  PostVideosUploadCompleteErrors,
-  PostVideosUploadCompleteResponses,
-  PostVideosUploadInitData,
-  PostVideosUploadInitErrors,
-  PostVideosUploadInitResponses,
-  PutVideosByVideoIdAudioTracksLanguageByLangCodeData,
-  PutVideosByVideoIdAudioTracksLanguageByLangCodeResponses,
-  PutVideosByVideoIdChaptersData,
-  PutVideosByVideoIdChaptersErrors,
-  PutVideosByVideoIdChaptersResponses,
-  PutVideosByVideoIdSubtitlesLanguageByLangCodeData,
-  PutVideosByVideoIdSubtitlesLanguageByLangCodeResponses,
-  PutVideosByVideoIdThumbnailData,
-  PutVideosByVideoIdThumbnailErrors,
-  PutVideosByVideoIdThumbnailResponses,
+  Delete2Data,
+  Delete2Errors,
+  Delete2Responses,
+  DeleteAudioTrackByLanguageData,
+  DeleteAudioTrackByLanguageResponses,
+  DeleteAudioTrackData,
+  DeleteAudioTrackErrors,
+  DeleteAudioTrackResponses,
+  DeleteAudioTracksData,
+  DeleteAudioTracksResponses,
+  DeleteChaptersData,
+  DeleteChaptersErrors,
+  DeleteChaptersResponses,
+  DeleteData,
+  DeleteErrors,
+  DeleteResponses,
+  DeleteSubtitleByLanguageData,
+  DeleteSubtitleByLanguageResponses,
+  DeleteSubtitleData,
+  DeleteSubtitleErrors,
+  DeleteSubtitleResponses,
+  DeleteSubtitlesData,
+  DeleteSubtitlesResponses,
+  Get2Data,
+  Get2Errors,
+  Get2Responses,
+  Get3Data,
+  Get3Errors,
+  Get3Responses,
+  GetData,
+  GetErrors,
+  GetResponses,
+  List2Data,
+  List2Errors,
+  List2Responses,
+  List3Data,
+  List3Errors,
+  List3Responses,
+  ListByCreatorData,
+  ListByCreatorErrors,
+  ListByCreatorResponses,
+  ListData,
+  ListErrors,
+  ListLanguagesData,
+  ListLanguagesResponses,
+  ListResponses,
+  ReplaceAudioTracksData,
+  ReplaceAudioTracksResponses,
+  ReplaceSubtitlesData,
+  ReplaceSubtitlesResponses,
+  UpdateAudioTrackByLanguageData,
+  UpdateAudioTrackByLanguageResponses,
+  UpdateChaptersData,
+  UpdateChaptersErrors,
+  UpdateChaptersResponses,
+  UpdateSubtitleByLanguageData,
+  UpdateSubtitleByLanguageResponses,
+  UpdateThumbnailData,
+  UpdateThumbnailErrors,
+  UpdateThumbnailResponses,
+  UploadComplete2Data,
+  UploadComplete2Errors,
+  UploadComplete2Responses,
+  UploadCompleteData,
+  UploadCompleteErrors,
+  UploadCompleteResponses,
+  UploadInit2Data,
+  UploadInit2Errors,
+  UploadInit2Responses,
+  UploadInitData,
+  UploadInitErrors,
+  UploadInitResponses,
 } from "./types.gen";
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<
@@ -100,31 +100,24 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
  *
  * Retrieve posts in a feed, with pagination.
  */
-export const getFeedsByFeedId = <ThrowOnError extends boolean = false>(options: Options<GetFeedsByFeedIdData, ThrowOnError>) =>
-  (options.client ?? client).get<GetFeedsByFeedIdResponses, GetFeedsByFeedIdErrors, ThrowOnError>({url: "/feeds/{feedId}", ...options});
+export const list = <ThrowOnError extends boolean = false>(options: Options<ListData, ThrowOnError>) =>
+  (options.client ?? client).get<ListResponses, ListErrors, ThrowOnError>({url: "/feeds/{feedId}", ...options});
 
 /**
  * Get a post
  *
  * Retrieve a post from feed by its ID
  */
-export const getFeedsByFeedIdByPostId = <ThrowOnError extends boolean = false>(
-  options: Options<GetFeedsByFeedIdByPostIdData, ThrowOnError>
-) =>
-  (options.client ?? client).get<GetFeedsByFeedIdByPostIdResponses, GetFeedsByFeedIdByPostIdErrors, ThrowOnError>({
-    url: "/feeds/{feedId}/{postId}",
-    ...options,
-  });
+export const get = <ThrowOnError extends boolean = false>(options: Options<GetData, ThrowOnError>) =>
+  (options.client ?? client).get<GetResponses, GetErrors, ThrowOnError>({url: "/feeds/{feedId}/{postId}", ...options});
 
 /**
  * List posts by creator
  *
  * Retrieve posts in a feed by a specific creator, with pagination.
  */
-export const getFeedsByFeedIdCreatorsByCreatorId = <ThrowOnError extends boolean = false>(
-  options: Options<GetFeedsByFeedIdCreatorsByCreatorIdData, ThrowOnError>
-) =>
-  (options.client ?? client).get<GetFeedsByFeedIdCreatorsByCreatorIdResponses, GetFeedsByFeedIdCreatorsByCreatorIdErrors, ThrowOnError>({
+export const listByCreator = <ThrowOnError extends boolean = false>(options: Options<ListByCreatorData, ThrowOnError>) =>
+  (options.client ?? client).get<ListByCreatorResponses, ListByCreatorErrors, ThrowOnError>({
     url: "/feeds/{feedId}/creators/{creatorId}",
     ...options,
   });
@@ -134,8 +127,8 @@ export const getFeedsByFeedIdCreatorsByCreatorId = <ThrowOnError extends boolean
  *
  * Retrieve all images for a specific project, with pagination and sorting.
  */
-export const getImages = <ThrowOnError extends boolean = false>(options?: Options<GetImagesData, ThrowOnError>) =>
-  (options?.client ?? client).get<GetImagesResponses, GetImagesErrors, ThrowOnError>({
+export const list2 = <ThrowOnError extends boolean = false>(options?: Options<List2Data, ThrowOnError>) =>
+  (options?.client ?? client).get<List2Responses, List2Errors, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/images",
     ...options,
@@ -146,8 +139,8 @@ export const getImages = <ThrowOnError extends boolean = false>(options?: Option
  *
  * delete an image by marking it as deleted
  */
-export const deleteImagesByImageId = <ThrowOnError extends boolean = false>(options: Options<DeleteImagesByImageIdData, ThrowOnError>) =>
-  (options.client ?? client).delete<DeleteImagesByImageIdResponses, DeleteImagesByImageIdErrors, ThrowOnError>({
+export const delete_ = <ThrowOnError extends boolean = false>(options: Options<DeleteData, ThrowOnError>) =>
+  (options.client ?? client).delete<DeleteResponses, DeleteErrors, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/images/{imageId}",
     ...options,
@@ -158,8 +151,8 @@ export const deleteImagesByImageId = <ThrowOnError extends boolean = false>(opti
  *
  * Retrieve an image by its ID for a specific project.
  */
-export const getImagesByImageId = <ThrowOnError extends boolean = false>(options: Options<GetImagesByImageIdData, ThrowOnError>) =>
-  (options.client ?? client).get<GetImagesByImageIdResponses, GetImagesByImageIdErrors, ThrowOnError>({
+export const get2 = <ThrowOnError extends boolean = false>(options: Options<Get2Data, ThrowOnError>) =>
+  (options.client ?? client).get<Get2Responses, Get2Errors, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/images/{imageId}",
     ...options,
@@ -170,10 +163,8 @@ export const getImagesByImageId = <ThrowOnError extends boolean = false>(options
  *
  * Complete the upload process and create the image record using API key authentication
  */
-export const postImagesUploadComplete = <ThrowOnError extends boolean = false>(
-  options: Options<PostImagesUploadCompleteData, ThrowOnError>
-) =>
-  (options.client ?? client).post<PostImagesUploadCompleteResponses, PostImagesUploadCompleteErrors, ThrowOnError>({
+export const uploadComplete = <ThrowOnError extends boolean = false>(options: Options<UploadCompleteData, ThrowOnError>) =>
+  (options.client ?? client).post<UploadCompleteResponses, UploadCompleteErrors, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/images/upload/complete",
     ...options,
@@ -188,8 +179,8 @@ export const postImagesUploadComplete = <ThrowOnError extends boolean = false>(
  *
  * Initialize a presigned URL upload for an image file using API key authentication
  */
-export const postImagesUploadInit = <ThrowOnError extends boolean = false>(options: Options<PostImagesUploadInitData, ThrowOnError>) =>
-  (options.client ?? client).post<PostImagesUploadInitResponses, PostImagesUploadInitErrors, ThrowOnError>({
+export const uploadInit = <ThrowOnError extends boolean = false>(options: Options<UploadInitData, ThrowOnError>) =>
+  (options.client ?? client).post<UploadInitResponses, UploadInitErrors, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/images/upload/init",
     ...options,
@@ -204,8 +195,8 @@ export const postImagesUploadInit = <ThrowOnError extends boolean = false>(optio
  *
  * Retrieve all videos for a specific project, with pagination and sorting.
  */
-export const getVideos = <ThrowOnError extends boolean = false>(options?: Options<GetVideosData, ThrowOnError>) =>
-  (options?.client ?? client).get<GetVideosResponses, GetVideosErrors, ThrowOnError>({
+export const list3 = <ThrowOnError extends boolean = false>(options?: Options<List3Data, ThrowOnError>) =>
+  (options?.client ?? client).get<List3Responses, List3Errors, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos",
     ...options,
@@ -216,8 +207,8 @@ export const getVideos = <ThrowOnError extends boolean = false>(options?: Option
  *
  * Retrieve a video by its ID for a specific project.
  */
-export const getVideosByVideoId = <ThrowOnError extends boolean = false>(options: Options<GetVideosByVideoIdData, ThrowOnError>) =>
-  (options.client ?? client).get<GetVideosByVideoIdResponses, GetVideosByVideoIdErrors, ThrowOnError>({
+export const get3 = <ThrowOnError extends boolean = false>(options: Options<Get3Data, ThrowOnError>) =>
+  (options.client ?? client).get<Get3Responses, Get3Errors, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/{videoId}",
     ...options,
@@ -228,10 +219,8 @@ export const getVideosByVideoId = <ThrowOnError extends boolean = false>(options
  *
  * Remove all additional audio tracks from a video using API key authentication
  */
-export const deleteVideosByVideoIdAudioTracks = <ThrowOnError extends boolean = false>(
-  options: Options<DeleteVideosByVideoIdAudioTracksData, ThrowOnError>
-) =>
-  (options.client ?? client).delete<DeleteVideosByVideoIdAudioTracksResponses, unknown, ThrowOnError>({
+export const deleteAudioTracks = <ThrowOnError extends boolean = false>(options: Options<DeleteAudioTracksData, ThrowOnError>) =>
+  (options.client ?? client).delete<DeleteAudioTracksResponses, unknown, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/{videoId}/audio-tracks",
     ...options,
@@ -242,10 +231,8 @@ export const deleteVideosByVideoIdAudioTracks = <ThrowOnError extends boolean = 
  *
  * Replace all audio tracks with the provided ones using API key authentication
  */
-export const postVideosByVideoIdAudioTracks = <ThrowOnError extends boolean = false>(
-  options: Options<PostVideosByVideoIdAudioTracksData, ThrowOnError>
-) =>
-  (options.client ?? client).post<PostVideosByVideoIdAudioTracksResponses, unknown, ThrowOnError>({
+export const replaceAudioTracks = <ThrowOnError extends boolean = false>(options: Options<ReplaceAudioTracksData, ThrowOnError>) =>
+  (options.client ?? client).post<ReplaceAudioTracksResponses, unknown, ThrowOnError>({
     ...formDataBodySerializer,
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/{videoId}/audio-tracks",
@@ -261,14 +248,8 @@ export const postVideosByVideoIdAudioTracks = <ThrowOnError extends boolean = fa
  *
  * Remove an additional audio track from a video using API key authentication
  */
-export const deleteVideosByVideoIdAudioTracksByTrackId = <ThrowOnError extends boolean = false>(
-  options: Options<DeleteVideosByVideoIdAudioTracksByTrackIdData, ThrowOnError>
-) =>
-  (options.client ?? client).delete<
-    DeleteVideosByVideoIdAudioTracksByTrackIdResponses,
-    DeleteVideosByVideoIdAudioTracksByTrackIdErrors,
-    ThrowOnError
-  >({
+export const deleteAudioTrack = <ThrowOnError extends boolean = false>(options: Options<DeleteAudioTrackData, ThrowOnError>) =>
+  (options.client ?? client).delete<DeleteAudioTrackResponses, DeleteAudioTrackErrors, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/{videoId}/audio-tracks/{trackId}",
     ...options,
@@ -279,10 +260,10 @@ export const deleteVideosByVideoIdAudioTracksByTrackId = <ThrowOnError extends b
  *
  * Remove an audio track for a specific language using API key authentication
  */
-export const deleteVideosByVideoIdAudioTracksLanguageByLangCode = <ThrowOnError extends boolean = false>(
-  options: Options<DeleteVideosByVideoIdAudioTracksLanguageByLangCodeData, ThrowOnError>
+export const deleteAudioTrackByLanguage = <ThrowOnError extends boolean = false>(
+  options: Options<DeleteAudioTrackByLanguageData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteVideosByVideoIdAudioTracksLanguageByLangCodeResponses, unknown, ThrowOnError>({
+  (options.client ?? client).delete<DeleteAudioTrackByLanguageResponses, unknown, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/{videoId}/audio-tracks/language/{lang_code}",
     ...options,
@@ -293,10 +274,10 @@ export const deleteVideosByVideoIdAudioTracksLanguageByLangCode = <ThrowOnError 
  *
  * Add or replace an audio track for a specific language using API key authentication
  */
-export const putVideosByVideoIdAudioTracksLanguageByLangCode = <ThrowOnError extends boolean = false>(
-  options: Options<PutVideosByVideoIdAudioTracksLanguageByLangCodeData, ThrowOnError>
+export const updateAudioTrackByLanguage = <ThrowOnError extends boolean = false>(
+  options: Options<UpdateAudioTrackByLanguageData, ThrowOnError>
 ) =>
-  (options.client ?? client).put<PutVideosByVideoIdAudioTracksLanguageByLangCodeResponses, unknown, ThrowOnError>({
+  (options.client ?? client).put<UpdateAudioTrackByLanguageResponses, unknown, ThrowOnError>({
     ...formDataBodySerializer,
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/{videoId}/audio-tracks/language/{lang_code}",
@@ -312,10 +293,8 @@ export const putVideosByVideoIdAudioTracksLanguageByLangCode = <ThrowOnError ext
  *
  * Remove all chapters from a video using API key authentication
  */
-export const deleteVideosByVideoIdChapters = <ThrowOnError extends boolean = false>(
-  options: Options<DeleteVideosByVideoIdChaptersData, ThrowOnError>
-) =>
-  (options.client ?? client).delete<DeleteVideosByVideoIdChaptersResponses, DeleteVideosByVideoIdChaptersErrors, ThrowOnError>({
+export const deleteChapters = <ThrowOnError extends boolean = false>(options: Options<DeleteChaptersData, ThrowOnError>) =>
+  (options.client ?? client).delete<DeleteChaptersResponses, DeleteChaptersErrors, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/{videoId}/chapters",
     ...options,
@@ -326,10 +305,8 @@ export const deleteVideosByVideoIdChapters = <ThrowOnError extends boolean = fal
  *
  * Replace all chapters for a video (atomic PUT operation) using API key authentication
  */
-export const putVideosByVideoIdChapters = <ThrowOnError extends boolean = false>(
-  options: Options<PutVideosByVideoIdChaptersData, ThrowOnError>
-) =>
-  (options.client ?? client).put<PutVideosByVideoIdChaptersResponses, PutVideosByVideoIdChaptersErrors, ThrowOnError>({
+export const updateChapters = <ThrowOnError extends boolean = false>(options: Options<UpdateChaptersData, ThrowOnError>) =>
+  (options.client ?? client).put<UpdateChaptersResponses, UpdateChaptersErrors, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/{videoId}/chapters",
     ...options,
@@ -344,10 +321,8 @@ export const putVideosByVideoIdChapters = <ThrowOnError extends boolean = false>
  *
  * Delete a video by its ID within a project
  */
-export const deleteVideosByVideoIdDelete = <ThrowOnError extends boolean = false>(
-  options: Options<DeleteVideosByVideoIdDeleteData, ThrowOnError>
-) =>
-  (options.client ?? client).delete<DeleteVideosByVideoIdDeleteResponses, DeleteVideosByVideoIdDeleteErrors, ThrowOnError>({
+export const delete2 = <ThrowOnError extends boolean = false>(options: Options<Delete2Data, ThrowOnError>) =>
+  (options.client ?? client).delete<Delete2Responses, Delete2Errors, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/{videoId}/delete",
     ...options,
@@ -358,10 +333,8 @@ export const deleteVideosByVideoIdDelete = <ThrowOnError extends boolean = false
  *
  * Remove all subtitles from a video using API key authentication
  */
-export const deleteVideosByVideoIdSubtitles = <ThrowOnError extends boolean = false>(
-  options: Options<DeleteVideosByVideoIdSubtitlesData, ThrowOnError>
-) =>
-  (options.client ?? client).delete<DeleteVideosByVideoIdSubtitlesResponses, unknown, ThrowOnError>({
+export const deleteSubtitles = <ThrowOnError extends boolean = false>(options: Options<DeleteSubtitlesData, ThrowOnError>) =>
+  (options.client ?? client).delete<DeleteSubtitlesResponses, unknown, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/{videoId}/subtitles",
     ...options,
@@ -372,10 +345,8 @@ export const deleteVideosByVideoIdSubtitles = <ThrowOnError extends boolean = fa
  *
  * Replace all subtitles with the provided ones using API key authentication
  */
-export const postVideosByVideoIdSubtitles = <ThrowOnError extends boolean = false>(
-  options: Options<PostVideosByVideoIdSubtitlesData, ThrowOnError>
-) =>
-  (options.client ?? client).post<PostVideosByVideoIdSubtitlesResponses, unknown, ThrowOnError>({
+export const replaceSubtitles = <ThrowOnError extends boolean = false>(options: Options<ReplaceSubtitlesData, ThrowOnError>) =>
+  (options.client ?? client).post<ReplaceSubtitlesResponses, unknown, ThrowOnError>({
     ...formDataBodySerializer,
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/{videoId}/subtitles",
@@ -391,14 +362,8 @@ export const postVideosByVideoIdSubtitles = <ThrowOnError extends boolean = fals
  *
  * Remove a subtitle from a video using API key authentication
  */
-export const deleteVideosByVideoIdSubtitlesBySubtitleId = <ThrowOnError extends boolean = false>(
-  options: Options<DeleteVideosByVideoIdSubtitlesBySubtitleIdData, ThrowOnError>
-) =>
-  (options.client ?? client).delete<
-    DeleteVideosByVideoIdSubtitlesBySubtitleIdResponses,
-    DeleteVideosByVideoIdSubtitlesBySubtitleIdErrors,
-    ThrowOnError
-  >({
+export const deleteSubtitle = <ThrowOnError extends boolean = false>(options: Options<DeleteSubtitleData, ThrowOnError>) =>
+  (options.client ?? client).delete<DeleteSubtitleResponses, DeleteSubtitleErrors, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/{videoId}/subtitles/{subtitleId}",
     ...options,
@@ -409,10 +374,10 @@ export const deleteVideosByVideoIdSubtitlesBySubtitleId = <ThrowOnError extends 
  *
  * Remove a subtitle for a specific language using API key authentication
  */
-export const deleteVideosByVideoIdSubtitlesLanguageByLangCode = <ThrowOnError extends boolean = false>(
-  options: Options<DeleteVideosByVideoIdSubtitlesLanguageByLangCodeData, ThrowOnError>
+export const deleteSubtitleByLanguage = <ThrowOnError extends boolean = false>(
+  options: Options<DeleteSubtitleByLanguageData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteVideosByVideoIdSubtitlesLanguageByLangCodeResponses, unknown, ThrowOnError>({
+  (options.client ?? client).delete<DeleteSubtitleByLanguageResponses, unknown, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/{videoId}/subtitles/language/{lang_code}",
     ...options,
@@ -423,10 +388,10 @@ export const deleteVideosByVideoIdSubtitlesLanguageByLangCode = <ThrowOnError ex
  *
  * Add or replace a subtitle for a specific language using API key authentication
  */
-export const putVideosByVideoIdSubtitlesLanguageByLangCode = <ThrowOnError extends boolean = false>(
-  options: Options<PutVideosByVideoIdSubtitlesLanguageByLangCodeData, ThrowOnError>
+export const updateSubtitleByLanguage = <ThrowOnError extends boolean = false>(
+  options: Options<UpdateSubtitleByLanguageData, ThrowOnError>
 ) =>
-  (options.client ?? client).put<PutVideosByVideoIdSubtitlesLanguageByLangCodeResponses, unknown, ThrowOnError>({
+  (options.client ?? client).put<UpdateSubtitleByLanguageResponses, unknown, ThrowOnError>({
     ...formDataBodySerializer,
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/{videoId}/subtitles/language/{lang_code}",
@@ -442,10 +407,8 @@ export const putVideosByVideoIdSubtitlesLanguageByLangCode = <ThrowOnError exten
  *
  * Update the thumbnail image for an existing video using API key authentication
  */
-export const putVideosByVideoIdThumbnail = <ThrowOnError extends boolean = false>(
-  options: Options<PutVideosByVideoIdThumbnailData, ThrowOnError>
-) =>
-  (options.client ?? client).put<PutVideosByVideoIdThumbnailResponses, PutVideosByVideoIdThumbnailErrors, ThrowOnError>({
+export const updateThumbnail = <ThrowOnError extends boolean = false>(options: Options<UpdateThumbnailData, ThrowOnError>) =>
+  (options.client ?? client).put<UpdateThumbnailResponses, UpdateThumbnailErrors, ThrowOnError>({
     ...formDataBodySerializer,
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/{videoId}/thumbnail",
@@ -461,18 +424,16 @@ export const putVideosByVideoIdThumbnail = <ThrowOnError extends boolean = false
  *
  * Get list of supported languages for subtitles
  */
-export const getVideosLanguages = <ThrowOnError extends boolean = false>(options?: Options<GetVideosLanguagesData, ThrowOnError>) =>
-  (options?.client ?? client).get<GetVideosLanguagesResponses, unknown, ThrowOnError>({url: "/videos/languages", ...options});
+export const listLanguages = <ThrowOnError extends boolean = false>(options?: Options<ListLanguagesData, ThrowOnError>) =>
+  (options?.client ?? client).get<ListLanguagesResponses, unknown, ThrowOnError>({url: "/videos/languages", ...options});
 
 /**
  * Upload: Mark as complete
  *
  * Mark a video upload as complete after successful upload to storage using API key authentication
  */
-export const postVideosUploadComplete = <ThrowOnError extends boolean = false>(
-  options: Options<PostVideosUploadCompleteData, ThrowOnError>
-) =>
-  (options.client ?? client).post<PostVideosUploadCompleteResponses, PostVideosUploadCompleteErrors, ThrowOnError>({
+export const uploadComplete2 = <ThrowOnError extends boolean = false>(options: Options<UploadComplete2Data, ThrowOnError>) =>
+  (options.client ?? client).post<UploadComplete2Responses, UploadComplete2Errors, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/upload/complete",
     ...options,
@@ -487,8 +448,8 @@ export const postVideosUploadComplete = <ThrowOnError extends boolean = false>(
  *
  * Initialize a video upload and get presigned URLs for video and poster using API key authentication
  */
-export const postVideosUploadInit = <ThrowOnError extends boolean = false>(options: Options<PostVideosUploadInitData, ThrowOnError>) =>
-  (options.client ?? client).post<PostVideosUploadInitResponses, PostVideosUploadInitErrors, ThrowOnError>({
+export const uploadInit2 = <ThrowOnError extends boolean = false>(options: Options<UploadInit2Data, ThrowOnError>) =>
+  (options.client ?? client).post<UploadInit2Responses, UploadInit2Errors, ThrowOnError>({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/videos/upload/init",
     ...options,
