@@ -1,4 +1,5 @@
-export {createClient} from "./src/client";
+export { createClient } from "./src/client";
+export { client } from "./src/client.gen";
 export * from "./src/types.gen";
 
 // Public SDK surface — curated. Internal-only operations are intentionally

@@ -32,7 +32,6 @@
   "scripts": {
     "examples:check": "tsc --noEmit -p examples/tsconfig.json",
     "pack": "vp pack && vp fmt ./src",
-    "prepare": "vp config && vp fmt ./src",
     "ci:release": "vp pack && npm publish --access public"
   },
   "devDependencies": {

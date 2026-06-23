@@ -11,10 +11,27 @@
     "build": "bun run --filter=@rixlhq/auth-lib-js build && bun run --filter=@rixlhq/auth-lib-react build",
     "build:prod": "bun run --filter=@rixlhq/auth-lib-js build:prod && bun run --filter=@rixlhq/auth-lib-react build:prod",
     "clean": "bun run --filter='*' clean",
-    "test": "vitest"
+    "lint": "oxlint --max-warnings=0",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "ci:full": "bun ci:prepublish && bun ci:publish",
+    "ci:prepublish": "rm -f bun.lock && bun install --lockfile-only",
+    "ci:publish": "bun run build:prod && for dir in packages/*; do (cd \"$dir\" && bun publish); done",
+    "prepare": "lefthook install"
   },
   "devDependencies": {
-    "vite-plus": "0.1.24"
+    "@types/node": "^26.0.0",
+    "@vitest/coverage-v8": "^4.1.9",
+    "@vitest/ui": "^4.1.9",
+    "jsdom": "^29.1.1",
+    "lefthook": "^2.1.9",
+    "oxfmt": "^0.55.0",
+    "oxlint": "^1.70.0",
+    "rimraf": "^6.1.3",
+    "vitest": "^4.1.9"
   },
   "engines": {
     "node": ">=22"
