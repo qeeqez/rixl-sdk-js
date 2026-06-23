@@ -1,9 +1,4 @@
-/**
- * User management tests
- * Tests: updateFullName, updateUsername, OTP functions
- */
-
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import {
   updateFullName,
   updateUsername,
@@ -12,229 +7,235 @@ import {
   verifyUserOTP,
   deleteUserOTP,
 } from "../user";
+import { setupAuthTest, cleanupAuthMocks } from "./utils/auth-test-helpers";
 
-vi.mock("../utils/nameUpdates", () => ({
-  updateEntityField: vi.fn(),
-}));
+const mockPatchAuthV1UsersCurrentName = vi.fn();
+const mockPatchAuthV1UsersCurrentUsername = vi.fn();
+const mockGetAuthV1UsersCurrentTotpStatus = vi.fn();
+const mockPostAuthV1UsersCurrentTotpSetup = vi.fn();
+const mockPostAuthV1UsersCurrentTotpVerify = vi.fn();
+const mockDeleteAuthV1UsersCurrentTotpDelete = vi.fn();
 
-vi.mock("../utils/otpOperations", () => ({
-  performOTPOperation: vi.fn(),
+vi.mock("@rixl/sdk", () => ({
+  patchAuthV1UsersCurrentName: (...args: unknown[]) => mockPatchAuthV1UsersCurrentName(...args),
+  patchAuthV1UsersCurrentUsername: (...args: unknown[]) =>
+    mockPatchAuthV1UsersCurrentUsername(...args),
+  getAuthV1UsersCurrentTotpStatus: (...args: unknown[]) =>
+    mockGetAuthV1UsersCurrentTotpStatus(...args),
+  postAuthV1UsersCurrentTotpSetup: (...args: unknown[]) =>
+    mockPostAuthV1UsersCurrentTotpSetup(...args),
+  postAuthV1UsersCurrentTotpVerify: (...args: unknown[]) =>
+    mockPostAuthV1UsersCurrentTotpVerify(...args),
+  deleteAuthV1UsersCurrentTotpDelete: (...args: unknown[]) =>
+    mockDeleteAuthV1UsersCurrentTotpDelete(...args),
 }));
 
 describe("User Management", () => {
-  let mockUpdateEntityField: any;
-  let mockPerformOTPOperation: any;
+  let mocks: ReturnType<typeof setupAuthTest>;
 
-  beforeEach(async () => {
-    vi.clearAllMocks();
-    const nameUpdatesModule = await import("../utils/nameUpdates");
-    const otpOperationsModule = await import("../utils/otpOperations");
-    mockUpdateEntityField = nameUpdatesModule.updateEntityField;
-    mockPerformOTPOperation = otpOperationsModule.performOTPOperation;
+  beforeEach(() => {
+    mocks = setupAuthTest();
+    mockPatchAuthV1UsersCurrentName.mockReset();
+    mockPatchAuthV1UsersCurrentUsername.mockReset();
+    mockGetAuthV1UsersCurrentTotpStatus.mockReset();
+    mockPostAuthV1UsersCurrentTotpSetup.mockReset();
+    mockPostAuthV1UsersCurrentTotpVerify.mockReset();
+    mockDeleteAuthV1UsersCurrentTotpDelete.mockReset();
+  });
+
+  afterEach(() => {
+    cleanupAuthMocks(mocks);
   });
 
   describe("updateFullName", () => {
-    it("should call updateEntityField with correct parameters", async () => {
-      mockUpdateEntityField.mockResolvedValue(undefined);
+    it("should update name successfully", async () => {
+      mockPatchAuthV1UsersCurrentName.mockResolvedValue({
+        data: { first_name: "John", last_name: "Doe" },
+      });
 
       await updateFullName("John Doe");
 
-      expect(mockUpdateEntityField).toHaveBeenCalledWith({
-        value: "John Doe",
-        type: "name",
-        endpoint: "users/current/name",
-        handleTokenRefresh: true,
+      expect(mockPatchAuthV1UsersCurrentName).toHaveBeenCalledWith({
+        body: { full_name: "John Doe" },
+        throwOnError: true,
       });
     });
 
-    it("should handle token refresh", async () => {
-      mockUpdateEntityField.mockResolvedValue(undefined);
+    it("should handle token refresh when tokens returned", async () => {
+      mockPatchAuthV1UsersCurrentName.mockResolvedValue({
+        data: {
+          access_token: "new-token",
+          refresh_token: "new-refresh",
+          expires_in: 3600,
+        },
+      });
 
       await updateFullName("Jane Smith");
 
-      expect(mockUpdateEntityField).toHaveBeenCalledWith(
-        expect.objectContaining({
-          handleTokenRefresh: true,
-        }),
-      );
+      expect(mocks.setTokensSpy).toHaveBeenCalledWith("new-token", "new-refresh", 3600);
     });
 
-    it("should pass through errors", async () => {
-      const error = new Error("Name update failed");
-      mockUpdateEntityField.mockRejectedValue(error);
+    it("should validate name format", async () => {
+      await expect(updateFullName("")).rejects.toThrow();
+    });
 
-      await expect(updateFullName("Test User")).rejects.toThrow("Name update failed");
+    it("should throw error for rate limiting", async () => {
+      mockPatchAuthV1UsersCurrentName.mockRejectedValue({
+        error: "too_many_requests",
+        code: 429,
+      });
+
+      await expect(updateFullName("Valid Name")).rejects.toThrow();
     });
   });
 
   describe("updateUsername", () => {
-    it("should call updateEntityField with correct parameters", async () => {
-      mockUpdateEntityField.mockResolvedValue(undefined);
+    it("should update username successfully", async () => {
+      mockPatchAuthV1UsersCurrentUsername.mockResolvedValue({
+        data: { username: "newusername" },
+      });
 
       await updateUsername("newusername");
 
-      expect(mockUpdateEntityField).toHaveBeenCalledWith({
-        value: "newusername",
-        type: "username",
-        endpoint: "users/current/username",
-        handleTokenRefresh: true,
+      expect(mockPatchAuthV1UsersCurrentUsername).toHaveBeenCalledWith({
+        body: { username: "newusername" },
+        throwOnError: true,
       });
     });
 
-    it("should handle token refresh", async () => {
-      mockUpdateEntityField.mockResolvedValue(undefined);
+    it("should handle token refresh when tokens returned", async () => {
+      mockPatchAuthV1UsersCurrentUsername.mockResolvedValue({
+        data: {
+          access_token: "new-token",
+          refresh_token: "new-refresh",
+          expires_in: 3600,
+        },
+      });
 
       await updateUsername("another_user");
 
-      expect(mockUpdateEntityField).toHaveBeenCalledWith(
-        expect.objectContaining({
-          handleTokenRefresh: true,
-        }),
-      );
+      expect(mocks.setTokensSpy).toHaveBeenCalledWith("new-token", "new-refresh", 3600);
     });
 
-    it("should pass through errors", async () => {
-      const error = new Error("Username already exists");
-      mockUpdateEntityField.mockRejectedValue(error);
+    it("should validate username format", async () => {
+      await expect(updateUsername("ab")).rejects.toThrow();
+    });
 
-      await expect(updateUsername("duplicate")).rejects.toThrow("Username already exists");
+    it("should throw error for conflict", async () => {
+      mockPatchAuthV1UsersCurrentUsername.mockRejectedValue({
+        error: "conflict",
+        code: 409,
+      });
+
+      await expect(updateUsername("taken_user")).rejects.toThrow();
     });
   });
 
   describe("getOTPStatus", () => {
-    it("should call performOTPOperation with correct parameters", async () => {
-      const mockStatus = {
-        is_setup: true,
-        created_at: "2024-01-01",
-        message: "OTP is enabled",
-      };
-      mockPerformOTPOperation.mockResolvedValue(mockStatus);
-
-      const result = await getOTPStatus();
-
-      expect(result).toEqual(mockStatus);
-      expect(mockPerformOTPOperation).toHaveBeenCalledWith({
-        endpoint: "users/current/totp/status",
-        method: "GET",
-        handleNoOTP: expect.any(Function),
-      });
-    });
-
-    it("should handle disabled OTP status", async () => {
-      const mockStatus = {
-        is_setup: false,
-        created_at: "",
-        message: "OTP not enabled",
-      };
-      mockPerformOTPOperation.mockResolvedValue(mockStatus);
-
-      const result = await getOTPStatus();
-
-      expect(result.is_setup).toBe(false);
-    });
-
-    it("should handle handleNoOTP callback", async () => {
-      mockPerformOTPOperation.mockImplementation(async (config: any) => {
-        return config.handleNoOTP("OTP not configured");
+    it("should return OTP status", async () => {
+      mockGetAuthV1UsersCurrentTotpStatus.mockResolvedValue({
+        data: {
+          is_setup: true,
+          created_at: "2024-01-01",
+          message: "OTP is enabled",
+        },
       });
 
       const result = await getOTPStatus();
 
       expect(result).toEqual({
-        is_setup: false,
-        message: "OTP not configured",
-        created_at: undefined,
+        is_setup: true,
+        created_at: "2024-01-01",
+        message: "OTP is enabled",
       });
+      expect(mockGetAuthV1UsersCurrentTotpStatus).toHaveBeenCalledWith({
+        throwOnError: true,
+      });
+    });
+
+    it("should handle disabled OTP status", async () => {
+      mockGetAuthV1UsersCurrentTotpStatus.mockResolvedValue({
+        data: {
+          is_setup: false,
+          message: "OTP not enabled",
+        },
+      });
+
+      const result = await getOTPStatus();
+
+      expect(result.is_setup).toBe(false);
     });
   });
 
   describe("setupUserOTP", () => {
-    it("should call performOTPOperation with correct parameters", async () => {
-      const mockSetup = {
-        qrCodeUrl: "data:image/png;base64,abc123",
-        secret: "JBSWY3DPEHPK3PXP",
-      };
-      mockPerformOTPOperation.mockResolvedValue(mockSetup);
-
-      const result = await setupUserOTP();
-
-      expect(result).toEqual(mockSetup);
-      expect(mockPerformOTPOperation).toHaveBeenCalledWith({
-        endpoint: "users/current/totp/setup",
-        method: "POST",
-      });
-    });
-
     it("should return QR code and secret", async () => {
-      const mockSetup = {
-        qrCodeUrl: "https://example.com/qr.png",
-        secret: "TESTSECRET123",
-      };
-      mockPerformOTPOperation.mockResolvedValue(mockSetup);
+      mockPostAuthV1UsersCurrentTotpSetup.mockResolvedValue({
+        data: {
+          qr_code_url: "https://example.com/qr.png",
+          secret: "JBSWY3DPEHPK3PXP",
+        },
+      });
 
       const result = await setupUserOTP();
 
-      expect(result.qrCodeUrl).toBe("https://example.com/qr.png");
-      expect(result.secret).toBe("TESTSECRET123");
+      expect(result).toEqual({
+        qrCodeUrl: "https://example.com/qr.png",
+        secret: "JBSWY3DPEHPK3PXP",
+      });
+      expect(mockPostAuthV1UsersCurrentTotpSetup).toHaveBeenCalledWith({
+        throwOnError: true,
+      });
     });
   });
 
   describe("verifyUserOTP", () => {
-    it("should call performOTPOperation with correct parameters", async () => {
-      mockPerformOTPOperation.mockResolvedValue(undefined);
+    it("should verify OTP and set tokens", async () => {
+      mockPostAuthV1UsersCurrentTotpVerify.mockResolvedValue({
+        data: {
+          access_token: "new-token",
+          refresh_token: "new-refresh",
+          expires_in: 3600,
+        },
+      });
 
       await verifyUserOTP("123456");
 
-      expect(mockPerformOTPOperation).toHaveBeenCalledWith({
-        endpoint: "users/current/totp/verify",
-        method: "POST",
+      expect(mockPostAuthV1UsersCurrentTotpVerify).toHaveBeenCalledWith({
         body: { code: "123456" },
-        handleTokenRefresh: true,
+        throwOnError: true,
       });
-    });
-
-    it("should handle token refresh", async () => {
-      mockPerformOTPOperation.mockResolvedValue(undefined);
-
-      await verifyUserOTP("654321");
-
-      expect(mockPerformOTPOperation).toHaveBeenCalledWith(
-        expect.objectContaining({
-          handleTokenRefresh: true,
-        }),
-      );
+      expect(mocks.setTokensSpy).toHaveBeenCalledWith("new-token", "new-refresh", 3600);
     });
 
     it("should validate OTP code format", async () => {
-      mockPerformOTPOperation.mockResolvedValue(undefined);
-
       await expect(verifyUserOTP("")).rejects.toThrow();
+    });
+
+    it("should reject non-numeric codes", async () => {
+      await expect(verifyUserOTP("abcdef")).rejects.toThrow();
     });
   });
 
   describe("deleteUserOTP", () => {
-    it("should call performOTPOperation with correct parameters", async () => {
-      mockPerformOTPOperation.mockResolvedValue(undefined);
+    it("should delete OTP successfully", async () => {
+      mockDeleteAuthV1UsersCurrentTotpDelete.mockResolvedValue({
+        data: { message: "OTP deleted" },
+      });
 
-      await deleteUserOTP();
+      await expect(deleteUserOTP()).resolves.toBeUndefined();
 
-      expect(mockPerformOTPOperation).toHaveBeenCalledWith({
-        endpoint: "users/current/totp/delete",
-        method: "DELETE",
+      expect(mockDeleteAuthV1UsersCurrentTotpDelete).toHaveBeenCalledWith({
+        throwOnError: true,
       });
     });
 
-    it("should complete successfully", async () => {
-      mockPerformOTPOperation.mockResolvedValue(undefined);
+    it("should throw error for unauthorized", async () => {
+      mockDeleteAuthV1UsersCurrentTotpDelete.mockRejectedValue({
+        error: "unauthorized",
+        code: 401,
+      });
 
-      await expect(deleteUserOTP()).resolves.toBeUndefined();
-    });
-
-    it("should pass through errors", async () => {
-      const error = new Error("Failed to delete OTP");
-      mockPerformOTPOperation.mockRejectedValue(error);
-
-      await expect(deleteUserOTP()).rejects.toThrow("Failed to delete OTP");
+      await expect(deleteUserOTP()).rejects.toThrow();
     });
   });
 });

@@ -1,7 +1,17 @@
-import { updateEntityField } from "./utils/nameUpdates";
-import { performOTPOperation } from "./utils/otpOperations";
+import {
+  patchAuthV1UsersCurrentName,
+  patchAuthV1UsersCurrentUsername,
+  getAuthV1UsersCurrentTotpStatus,
+  postAuthV1UsersCurrentTotpSetup,
+  postAuthV1UsersCurrentTotpVerify,
+  deleteAuthV1UsersCurrentTotpDelete,
+} from "@rixl/sdk";
+import { setTokens } from "./authStore";
 import { validateInput } from "./validation/base";
+import { UpdateNameSchema, UpdateUsernameSchema } from "./validation/user";
 import { VerifyOTPCodeSchema } from "./validation/auth";
+import { apiCall } from "./api/utils";
+import { HTTP_STATUS } from "./constants";
 
 export interface OTPSetup {
   qrCodeUrl: string;
@@ -20,89 +30,138 @@ export interface OTPVerification {
   expires_in?: number;
 }
 
-/**
- * Updates the current user's full name
- * @param fullName The new full name (1-30 characters)
- * @returns A promise that resolves when the name is updated
- * @throws Error if the name is invalid or can't be changed yet (once per 7 days)
- */
 export const updateFullName = async (fullName: string): Promise<void> => {
-  return updateEntityField({
-    value: fullName,
-    type: "name",
-    endpoint: "users/current/name",
-    handleTokenRefresh: true,
-  });
+  return apiCall(
+    async () => {
+      const validatedInput = validateInput(UpdateNameSchema, { full_name: fullName });
+      const { data } = await patchAuthV1UsersCurrentName({
+        body: validatedInput,
+        throwOnError: true,
+      });
+
+      if (data && "access_token" in data) {
+        const tokenData = data as unknown as {
+          access_token: string;
+          refresh_token: string;
+          expires_in: number;
+        };
+        if (tokenData.access_token && tokenData.refresh_token && tokenData.expires_in) {
+          setTokens(tokenData.access_token, tokenData.refresh_token, tokenData.expires_in);
+        }
+      }
+    },
+    {
+      [HTTP_STATUS.TOO_MANY_REQUESTS]: () =>
+        new Error("Name can only be changed once every 7 days."),
+      [HTTP_STATUS.UNAUTHORIZED]: () => new Error("User is not authorized to update name"),
+      [HTTP_STATUS.FORBIDDEN]: () => new Error("Only owners and admins can update name"),
+    },
+  );
 };
 
-/**
- * Updates the current user's username
- * @param username The new username (4-24 characters, only letters, numbers, underscores, and periods)
- * @returns A promise that resolves when the username is updated
- * @throws Error if the username is invalid, not unique, or can't be changed yet (once per 30 days)
- */
 export const updateUsername = async (username: string): Promise<void> => {
-  return updateEntityField({
-    value: username,
-    type: "username",
-    endpoint: "users/current/username",
-    handleTokenRefresh: true,
-  });
+  return apiCall(
+    async () => {
+      const validatedInput = validateInput(UpdateUsernameSchema, { username });
+      const { data } = await patchAuthV1UsersCurrentUsername({
+        body: validatedInput,
+        throwOnError: true,
+      });
+
+      if (data && "access_token" in data) {
+        const tokenData = data as unknown as {
+          access_token: string;
+          refresh_token: string;
+          expires_in: number;
+        };
+        if (tokenData.access_token && tokenData.refresh_token && tokenData.expires_in) {
+          setTokens(tokenData.access_token, tokenData.refresh_token, tokenData.expires_in);
+        }
+      }
+    },
+    {
+      [HTTP_STATUS.TOO_MANY_REQUESTS]: () =>
+        new Error("Username can only be changed once every 30 days."),
+      [HTTP_STATUS.CONFLICT]: () => new Error("Username is not unique. Choose another one!"),
+      [HTTP_STATUS.UNAUTHORIZED]: () => new Error("User is not authorized to update username"),
+      [HTTP_STATUS.FORBIDDEN]: () => new Error("Only owners and admins can update username"),
+    },
+  );
 };
 
-/**
- * Get user otp status
- * @returns A promise that resolves to the OTP status object
- * @throws Error if the OTP status can't be retrieved
- */
 export const getOTPStatus = async (): Promise<OTPStatusResponse> => {
-  return performOTPOperation<OTPStatusResponse>({
-    endpoint: "users/current/totp/status",
-    method: "GET",
-    handleNoOTP: (message) => ({
-      is_setup: false,
-      message,
-      created_at: undefined,
-    }),
-  });
+  return apiCall(
+    async () => {
+      const { data } = await getAuthV1UsersCurrentTotpStatus({
+        throwOnError: true,
+      });
+
+      return {
+        is_setup: data.is_setup ?? false,
+        created_at: data.created_at,
+        message: data.message,
+      };
+    },
+    {
+      [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid request format"),
+      [HTTP_STATUS.UNAUTHORIZED]: () =>
+        new Error("Token is missing or invalid; user is not authenticated."),
+      [HTTP_STATUS.NOT_FOUND]: () => new Error("User record does not exist."),
+    },
+  );
 };
 
-/**
- * Setup user otp
- * @returns A promise that resolves to the OTP setup data (QR code link and secret)
- * @throws Error if the OTP QR code can't be retrieved
- */
 export const setupUserOTP = async (): Promise<OTPSetup> => {
-  return performOTPOperation<OTPSetup>({
-    endpoint: "users/current/totp/setup",
-    method: "POST",
-  });
+  return apiCall(
+    async () => {
+      const { data } = await postAuthV1UsersCurrentTotpSetup({
+        throwOnError: true,
+      });
+
+      return {
+        qrCodeUrl: data.qr_code_url || "",
+        secret: data.secret || "",
+      };
+    },
+    {
+      [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid request format"),
+      [HTTP_STATUS.UNAUTHORIZED]: () =>
+        new Error("Token is missing or invalid; user is not authenticated."),
+    },
+  );
 };
 
-/**
- * Verify user OTP code
- * @param code The OTP code to verify
- * @returns A promise that resolves when the code is verified
- * @throws Error if the code can't be verified
- */
 export const verifyUserOTP = async (code: string): Promise<void> => {
-  const validatedBody = validateInput(VerifyOTPCodeSchema, { code });
-  await performOTPOperation<void>({
-    endpoint: "users/current/totp/verify",
-    method: "POST",
-    body: validatedBody,
-    handleTokenRefresh: true,
-  });
+  return apiCall(
+    async () => {
+      const validatedBody = validateInput(VerifyOTPCodeSchema, { code });
+      const { data } = await postAuthV1UsersCurrentTotpVerify({
+        body: validatedBody,
+        throwOnError: true,
+      });
+
+      if (data.access_token && data.refresh_token && data.expires_in) {
+        setTokens(data.access_token, data.refresh_token, data.expires_in);
+      }
+    },
+    {
+      [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid request format"),
+      [HTTP_STATUS.UNAUTHORIZED]: () =>
+        new Error("Token is missing or invalid; user is not authenticated."),
+    },
+  );
 };
 
-/**
- * Delete user OTP setup
- * @returns A promise that resolves when the OTP setup is deleted
- * @throws Error if the OTP setup can't be deleted
- */
 export const deleteUserOTP = async (): Promise<void> => {
-  await performOTPOperation<void>({
-    endpoint: "users/current/totp/delete",
-    method: "DELETE",
-  });
+  return apiCall(
+    async () => {
+      await deleteAuthV1UsersCurrentTotpDelete({
+        throwOnError: true,
+      });
+    },
+    {
+      [HTTP_STATUS.UNAUTHORIZED]: () =>
+        new Error("Token is missing or invalid; user is not authenticated."),
+    },
+  );
 };
