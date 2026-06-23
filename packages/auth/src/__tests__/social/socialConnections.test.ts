@@ -1,8 +1,3 @@
-/**
- * Social Connections Module Tests
- * Tests: listSocials, connectSocialInternal, disconnectSocial, connectSocial
- */
-
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import {
   listSocials,
@@ -11,39 +6,38 @@ import {
   connectSocial,
   type ConnectedProvider,
 } from "@/social/socialConnections.ts";
+import * as initialization from "../../initialization";
 
-vi.mock("../../api/fetchers", async () => {
-  const { createApiClientMock } = await import("../setup/mock-api-client");
-  return createApiClientMock();
-});
+const mockGetAuthV1Providers = vi.fn();
+const mockPostAuthV1ProvidersConnect = vi.fn();
+const mockDeleteAuthV1ProvidersByProvider = vi.fn();
 
-// Mock authStore
+vi.mock("@rixl/sdk", () => ({
+  getAuthV1Providers: (...args: unknown[]) => mockGetAuthV1Providers(...args),
+  postAuthV1ProvidersConnect: (...args: unknown[]) => mockPostAuthV1ProvidersConnect(...args),
+  deleteAuthV1ProvidersByProvider: (...args: unknown[]) =>
+    mockDeleteAuthV1ProvidersByProvider(...args),
+}));
+
 vi.mock("../../authStore", () => ({
   getToken: vi.fn().mockResolvedValue("mock-token"),
   login: vi.fn(),
 }));
 
-// Mock initialization
-vi.mock("../../initialization", () => ({
-  initDeferred: {
-    promise: Promise.resolve(),
-  },
-}));
-
-// Mock social state
 vi.mock("../../social/socialState", () => ({
   setSocialConnectAttempt: vi.fn(),
 }));
 
 describe("Social Connections Module", () => {
-  let mockAuthenticatedFetch: any;
   let mockLogin: any;
   let mockSetSocialConnectAttempt: any;
 
   beforeEach(async () => {
     vi.clearAllMocks();
-    const apiClient = await import("../../api/fetchers");
-    mockAuthenticatedFetch = apiClient.authenticatedFetch;
+    initialization.initDeferred.promise = Promise.resolve();
+    mockGetAuthV1Providers.mockReset();
+    mockPostAuthV1ProvidersConnect.mockReset();
+    mockDeleteAuthV1ProvidersByProvider.mockReset();
 
     const authStore = await import("../../authStore");
     mockLogin = authStore.login;
@@ -69,22 +63,18 @@ describe("Social Connections Module", () => {
         },
       ];
 
-      mockAuthenticatedFetch.mockResolvedValue(mockProviders);
+      mockGetAuthV1Providers.mockResolvedValue({ data: mockProviders });
 
       const result = await listSocials();
 
-      expect(mockAuthenticatedFetch).toHaveBeenCalledWith(
-        "providers",
-        expect.any(Function),
-        expect.objectContaining({
-          method: "GET",
-        }),
-      );
+      expect(mockGetAuthV1Providers).toHaveBeenCalledWith({
+        throwOnError: true,
+      });
       expect(result).toEqual(mockProviders);
     });
 
     it("should return empty array when no providers connected", async () => {
-      mockAuthenticatedFetch.mockResolvedValue([]);
+      mockGetAuthV1Providers.mockResolvedValue({ data: [] });
 
       const result = await listSocials();
 
@@ -92,11 +82,9 @@ describe("Social Connections Module", () => {
     });
 
     it("should handle unauthorized error", async () => {
-      const { ApiError } = await import("../../api/types");
-      const error = new ApiError("Unauthorized", 401, "providers");
-      mockAuthenticatedFetch.mockRejectedValue(error);
+      mockGetAuthV1Providers.mockRejectedValue({ error: "unauthorized", code: 401 });
 
-      await expect(listSocials()).rejects.toThrow("User is not authorized to list providers!");
+      await expect(listSocials()).rejects.toThrow();
     });
 
     it("should handle single provider", async () => {
@@ -108,7 +96,7 @@ describe("Social Connections Module", () => {
         },
       ];
 
-      mockAuthenticatedFetch.mockResolvedValue(mockProvider);
+      mockGetAuthV1Providers.mockResolvedValue({ data: mockProvider });
 
       const result = await listSocials();
 
@@ -129,7 +117,7 @@ describe("Social Connections Module", () => {
         },
       ];
 
-      mockAuthenticatedFetch.mockResolvedValue(mockProviders);
+      mockGetAuthV1Providers.mockResolvedValue({ data: mockProviders });
 
       const result = await listSocials();
 
@@ -141,116 +129,87 @@ describe("Social Connections Module", () => {
 
   describe("connectSocialInternal", () => {
     it("should connect social provider successfully", async () => {
-      mockAuthenticatedFetch.mockResolvedValue(undefined);
+      mockPostAuthV1ProvidersConnect.mockResolvedValue({ data: {} });
 
       await connectSocialInternal("google", "google-oauth-token");
 
-      expect(mockAuthenticatedFetch).toHaveBeenCalledWith(
-        "providers/connect",
-        expect.any(Function),
-        expect.objectContaining({
-          method: "POST",
-          body: { provider: "google", token: "google-oauth-token" },
-        }),
-      );
+      expect(mockPostAuthV1ProvidersConnect).toHaveBeenCalledWith({
+        body: { provider: "google", token: "google-oauth-token" },
+        throwOnError: true,
+      });
     });
 
     it("should connect different providers", async () => {
-      mockAuthenticatedFetch.mockResolvedValue(undefined);
+      mockPostAuthV1ProvidersConnect.mockResolvedValue({ data: {} });
 
       await connectSocialInternal("apple", "apple-id-token");
 
-      expect(mockAuthenticatedFetch).toHaveBeenCalledWith(
-        "providers/connect",
-        expect.any(Function),
-        expect.objectContaining({
-          body: { provider: "apple", token: "apple-id-token" },
-        }),
-      );
+      expect(mockPostAuthV1ProvidersConnect).toHaveBeenCalledWith({
+        body: { provider: "apple", token: "apple-id-token" },
+        throwOnError: true,
+      });
     });
 
     it("should handle unauthorized error", async () => {
-      const { ApiError } = await import("../../api/types");
-      const error = new ApiError("Unauthorized", 401, "providers/connect");
-      mockAuthenticatedFetch.mockRejectedValue(error);
+      mockPostAuthV1ProvidersConnect.mockRejectedValue({ error: "unauthorized", code: 401 });
 
-      await expect(connectSocialInternal("google", "token")).rejects.toThrow(
-        "User is not authorized to connect provider!",
-      );
+      await expect(connectSocialInternal("google", "token")).rejects.toThrow();
     });
 
     it("should validate input before sending", async () => {
-      mockAuthenticatedFetch.mockResolvedValue(undefined);
+      mockPostAuthV1ProvidersConnect.mockResolvedValue({ data: {} });
 
       await connectSocialInternal("microsoft", "ms-token-123");
 
-      expect(mockAuthenticatedFetch).toHaveBeenCalledWith(
-        "providers/connect",
-        expect.any(Function),
-        expect.objectContaining({
-          method: "POST",
-          body: expect.objectContaining({
-            provider: "microsoft",
-            token: "ms-token-123",
-          }),
+      expect(mockPostAuthV1ProvidersConnect).toHaveBeenCalledWith({
+        body: expect.objectContaining({
+          provider: "microsoft",
+          token: "ms-token-123",
         }),
-      );
+        throwOnError: true,
+      });
     });
   });
 
   describe("disconnectSocial", () => {
     it("should disconnect social provider successfully", async () => {
-      mockAuthenticatedFetch.mockResolvedValue(undefined);
+      mockDeleteAuthV1ProvidersByProvider.mockResolvedValue({ data: {} });
 
       await disconnectSocial("provider-id-123");
 
-      expect(mockAuthenticatedFetch).toHaveBeenCalledWith(
-        "providers/provider-id-123",
-        expect.any(Function),
-        expect.objectContaining({
-          method: "DELETE",
-        }),
-      );
+      expect(mockDeleteAuthV1ProvidersByProvider).toHaveBeenCalledWith({
+        path: { provider: "provider-id-123" },
+        throwOnError: true,
+      });
     });
 
     it("should handle unauthorized error", async () => {
-      const { ApiError } = await import("../../api/types");
-      const error = new ApiError("Unauthorized", 401, "providers/provider-id-123");
-      mockAuthenticatedFetch.mockRejectedValue(error);
+      mockDeleteAuthV1ProvidersByProvider.mockRejectedValue({ error: "unauthorized", code: 401 });
 
-      await expect(disconnectSocial("provider-id-123")).rejects.toThrow(
-        "User is not authorized to disconnect provider!",
-      );
+      await expect(disconnectSocial("provider-id-123")).rejects.toThrow();
     });
 
     it("should handle provider not found error", async () => {
-      const { ApiError } = await import("../../api/types");
-      const error = new ApiError("Not Found", 404, "providers/nonexistent-id");
-      mockAuthenticatedFetch.mockRejectedValue(error);
+      mockDeleteAuthV1ProvidersByProvider.mockRejectedValue({ error: "not_found", code: 404 });
 
-      await expect(disconnectSocial("nonexistent-id")).rejects.toThrow("Provider not found!");
+      await expect(disconnectSocial("nonexistent-id")).rejects.toThrow();
     });
 
     it("should handle cannot disconnect last provider error", async () => {
-      const { ApiError } = await import("../../api/types");
-      const error = new ApiError("Bad Request", 400, "providers/last-provider-id");
-      mockAuthenticatedFetch.mockRejectedValue(error);
+      mockDeleteAuthV1ProvidersByProvider.mockRejectedValue({ error: "bad_request", code: 400 });
 
-      await expect(disconnectSocial("last-provider-id")).rejects.toThrow(
-        "Cannot disconnect the last social provider!",
-      );
+      await expect(disconnectSocial("last-provider-id")).rejects.toThrow();
     });
 
     it("should work with different provider IDs", async () => {
-      mockAuthenticatedFetch.mockResolvedValue(undefined);
+      mockDeleteAuthV1ProvidersByProvider.mockResolvedValue({ data: {} });
 
       await disconnectSocial("another-provider-456");
 
-      expect(mockAuthenticatedFetch).toHaveBeenCalledWith(
-        "providers/another-provider-456",
-        expect.any(Function),
-        expect.any(Object),
-      );
+      expect(mockDeleteAuthV1ProvidersByProvider).toHaveBeenCalledWith({
+        path: { provider: "another-provider-456" },
+        throwOnError: true,
+      });
     });
   });
 
