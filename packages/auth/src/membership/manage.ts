@@ -1,21 +1,23 @@
+import {
+  putAuthV1MembershipsByOrgIdActive,
+  putAuthV1MembershipsByOrgIdMembersByUserIdRole,
+  deleteAuthV1MembershipsByOrgIdMembersByUserId,
+  deleteAuthV1MembershipsByOrgIdLeave,
+} from "@rixl/sdk";
 import { accessToken, expireAt, getToken } from "../authStore";
-import { authenticatedFetch } from "../api/fetchers";
 import { apiCall } from "../api/utils";
 import { HTTP_STATUS } from "../constants";
 import { MembershipRole } from "./types";
 import { validateInput } from "../validation/base";
 import { UpdateMemberRoleSchema } from "../validation/membership";
 
-/**
- * Updates the active organization for the current user
- * @param orgId The ID of the organization to set as active
- * @returns A promise that resolves when the active organization is updated
- */
 export const updateActiveMembership = async (orgId: string): Promise<void> => {
   return apiCall(
     async () => {
-      await authenticatedFetch<void>(`memberships/${orgId}/active`, getToken, { method: "PUT" });
-      // Invalidate token to force refresh with new org context
+      await putAuthV1MembershipsByOrgIdActive({
+        path: { orgId },
+        throwOnError: true,
+      });
       accessToken.set(undefined);
       expireAt.set(0);
       await getToken();
@@ -27,13 +29,6 @@ export const updateActiveMembership = async (orgId: string): Promise<void> => {
   );
 };
 
-/**
- * Updates the role of a member in an organization
- * @param orgId The ID of the organization
- * @param userId The ID of the user whose role is being updated
- * @param role The new role to assign to the user
- * @returns A promise that resolves when the role is updated
- */
 export const updateMemberRole = async (
   orgId: string,
   userId: string,
@@ -42,9 +37,10 @@ export const updateMemberRole = async (
   return apiCall(
     async () => {
       const requestBody = validateInput(UpdateMemberRoleSchema, { role });
-      await authenticatedFetch<void>(`memberships/${orgId}/members/${userId}/role`, getToken, {
-        method: "PUT",
+      await putAuthV1MembershipsByOrgIdMembersByUserIdRole({
+        path: { orgId, userId },
         body: requestBody,
+        throwOnError: true,
       });
     },
     {
@@ -55,17 +51,12 @@ export const updateMemberRole = async (
   );
 };
 
-/**
- * Removes a member from an organization
- * @param orgId The ID of the organization
- * @param userId The ID of the user to remove
- * @returns A promise that resolves when the member is removed
- */
 export const deleteMember = async (orgId: string, userId: string): Promise<void> => {
   return apiCall(
     async () => {
-      await authenticatedFetch<void>(`memberships/${orgId}/members/${userId}`, getToken, {
-        method: "DELETE",
+      await deleteAuthV1MembershipsByOrgIdMembersByUserId({
+        path: { orgId, userId },
+        throwOnError: true,
       });
     },
     {
@@ -76,16 +67,13 @@ export const deleteMember = async (orgId: string, userId: string): Promise<void>
   );
 };
 
-/**
- * Leaves an organization
- * @param orgId The ID of the organization
- * @returns A promise that resolves when the user leaves the organization
- * @throws Error if the user is the last member of the organization
- */
 export const leaveOrganization = async (orgId: string): Promise<void> => {
   return apiCall(
     async () => {
-      await authenticatedFetch<void>(`memberships/${orgId}/leave`, getToken, { method: "DELETE" });
+      await deleteAuthV1MembershipsByOrgIdLeave({
+        path: { orgId },
+        throwOnError: true,
+      });
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () =>

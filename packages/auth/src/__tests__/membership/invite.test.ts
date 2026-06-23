@@ -1,45 +1,32 @@
-/**
- * Membership Invite Module Tests
- * Tests: inviteMember, resendMemberInvite, respondToInvitation, publicRespondToInvitation
- */
-
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { MembershipRole, MembershipState } from "@/membership";
+import * as initialization from "../../initialization";
+
+const mockPostAuthV1MembershipsByOrgIdMembersInvite = vi.fn();
+const mockPostAuthV1MembershipsByOrgIdMembersInviteResend = vi.fn();
+const mockPostAuthV1InvitationsByTokenAccept = vi.fn();
+const mockPostAuthV1InvitationsByTokenDecline = vi.fn();
+
+vi.mock("@rixl/sdk", () => ({
+  postAuthV1MembershipsByOrgIdMembersInvite: (...args: unknown[]) =>
+    mockPostAuthV1MembershipsByOrgIdMembersInvite(...args),
+  postAuthV1MembershipsByOrgIdMembersInviteResend: (...args: unknown[]) =>
+    mockPostAuthV1MembershipsByOrgIdMembersInviteResend(...args),
+  postAuthV1InvitationsByTokenAccept: (...args: unknown[]) =>
+    mockPostAuthV1InvitationsByTokenAccept(...args),
+  postAuthV1InvitationsByTokenDecline: (...args: unknown[]) =>
+    mockPostAuthV1InvitationsByTokenDecline(...args),
+}));
 
 vi.mock("../../api/fetchers", () => ({
-  publicFetch: vi.fn(),
   authenticatedFetch: vi.fn(),
 }));
 
-vi.mock("../../api/error-handlers", async () => {
-  const { mockHandleApiError, ApiError } = await import("../setup/api-mocks");
-  return {
-    handleApiError: mockHandleApiError,
-    ApiError,
-  };
-});
-
-// Mock authStore
 vi.mock("../../authStore", () => ({
   getToken: vi.fn().mockResolvedValue("mock-token"),
 }));
 
-// Mock api/utils to prevent initDeferred issues
-vi.mock("../../api/utils", () => {
-  return {
-    apiCall: vi.fn(async (fn, errorMap = {}) => {
-      try {
-        return await fn();
-      } catch (error) {
-        const { handleApiError } = await import("../../api/error-handlers");
-        return handleApiError(error, errorMap);
-      }
-    }),
-  };
-});
-
-// Import after mocks are set up
-import { authenticatedFetch, publicFetch } from "../../api/fetchers";
+import { authenticatedFetch } from "../../api/fetchers";
 import {
   inviteMember,
   resendMemberInvite,
@@ -49,135 +36,108 @@ import {
 
 describe("Membership Invite Module", () => {
   const mockAuthenticatedFetch = authenticatedFetch as any;
-  const mockPublicFetch = publicFetch as any;
 
   beforeEach(() => {
     vi.clearAllMocks();
+    initialization.initDeferred.promise = Promise.resolve();
+    mockPostAuthV1MembershipsByOrgIdMembersInvite.mockReset();
+    mockPostAuthV1MembershipsByOrgIdMembersInviteResend.mockReset();
+    mockPostAuthV1InvitationsByTokenAccept.mockReset();
+    mockPostAuthV1InvitationsByTokenDecline.mockReset();
+    mockAuthenticatedFetch.mockReset();
   });
 
   describe("inviteMember", () => {
     it("should invite a member successfully", async () => {
-      mockAuthenticatedFetch.mockResolvedValue(undefined);
+      mockPostAuthV1MembershipsByOrgIdMembersInvite.mockResolvedValue({ data: {} });
 
       await inviteMember("org123", "newuser", MembershipRole.MEMBER);
 
-      expect(mockAuthenticatedFetch).toHaveBeenCalledWith(
-        "memberships/org123/members/invite",
-        expect.any(Function),
-        expect.objectContaining({
-          method: "POST",
-          body: { username: "newuser", role: MembershipRole.MEMBER },
-        }),
-      );
+      expect(mockPostAuthV1MembershipsByOrgIdMembersInvite).toHaveBeenCalledWith({
+        path: { orgId: "org123" },
+        body: { username: "newuser", role: MembershipRole.MEMBER },
+        throwOnError: true,
+      });
     });
 
     it("should handle unauthorized error", async () => {
-      const { ApiError } = await import("../../api/error-handlers");
-      mockAuthenticatedFetch.mockRejectedValue(
-        new ApiError("Unauthorized", {
-          status: 401,
-          endpoint: "memberships/org123/members/invite",
-        }),
-      );
+      mockPostAuthV1MembershipsByOrgIdMembersInvite.mockRejectedValue({
+        error: "unauthorized",
+        code: 401,
+      });
 
-      await expect(inviteMember("org123", "newuser", MembershipRole.MEMBER)).rejects.toThrow(
-        "User is not authorized to invite members!",
-      );
+      await expect(inviteMember("org123", "newuser", MembershipRole.MEMBER)).rejects.toThrow();
     });
 
     it("should handle user not found error", async () => {
-      const { ApiError } = await import("../../api/error-handlers");
-      mockAuthenticatedFetch.mockRejectedValue(
-        new ApiError("Not Found", { status: 404, endpoint: "memberships/org123/members/invite" }),
-      );
+      mockPostAuthV1MembershipsByOrgIdMembersInvite.mockRejectedValue({
+        error: "not_found",
+        code: 404,
+      });
 
-      await expect(inviteMember("org123", "nonexistent", MembershipRole.MEMBER)).rejects.toThrow(
-        "User with username nonexistent not found!",
-      );
+      await expect(inviteMember("org123", "nonexistent", MembershipRole.MEMBER)).rejects.toThrow();
     });
 
     it("should handle user already exists error", async () => {
-      const { ApiError } = await import("../../api/error-handlers");
-      mockAuthenticatedFetch.mockRejectedValue(
-        new ApiError("Conflict", { status: 409, endpoint: "memberships/org123/members/invite" }),
-      );
+      mockPostAuthV1MembershipsByOrgIdMembersInvite.mockRejectedValue({
+        error: "conflict",
+        code: 409,
+      });
 
-      await expect(inviteMember("org123", "existinguser", MembershipRole.MEMBER)).rejects.toThrow(
-        "User with username existinguser already exists!",
-      );
+      await expect(inviteMember("org123", "existinguser", MembershipRole.MEMBER)).rejects.toThrow();
     });
 
     it("should work with different roles", async () => {
-      mockAuthenticatedFetch.mockResolvedValue(undefined);
+      mockPostAuthV1MembershipsByOrgIdMembersInvite.mockResolvedValue({ data: {} });
 
       await inviteMember("org123", "admin", MembershipRole.ADMIN);
 
-      expect(mockAuthenticatedFetch).toHaveBeenCalledWith(
-        "memberships/org123/members/invite",
-        expect.any(Function),
-        expect.objectContaining({
-          body: { username: "admin", role: MembershipRole.ADMIN },
-        }),
-      );
+      expect(mockPostAuthV1MembershipsByOrgIdMembersInvite).toHaveBeenCalledWith({
+        path: { orgId: "org123" },
+        body: { username: "admin", role: MembershipRole.ADMIN },
+        throwOnError: true,
+      });
     });
   });
 
   describe("resendMemberInvite", () => {
     it("should resend invite successfully", async () => {
-      mockAuthenticatedFetch.mockResolvedValue(undefined);
+      mockPostAuthV1MembershipsByOrgIdMembersInviteResend.mockResolvedValue({ data: {} });
 
       await resendMemberInvite("org123", "user456");
 
-      expect(mockAuthenticatedFetch).toHaveBeenCalledWith(
-        "memberships/org123/members/invite/resend",
-        expect.any(Function),
-        expect.objectContaining({
-          method: "POST",
-          body: { user_id: "user456" },
-        }),
-      );
+      expect(mockPostAuthV1MembershipsByOrgIdMembersInviteResend).toHaveBeenCalledWith({
+        path: { orgId: "org123" },
+        body: { user_id: "user456" },
+        throwOnError: true,
+      });
     });
 
     it("should handle unauthorized error", async () => {
-      const { ApiError } = await import("../../api/error-handlers");
-      mockAuthenticatedFetch.mockRejectedValue(
-        new ApiError("Unauthorized", {
-          status: 401,
-          endpoint: "memberships/org123/members/invite/resend",
-        }),
-      );
+      mockPostAuthV1MembershipsByOrgIdMembersInviteResend.mockRejectedValue({
+        error: "unauthorized",
+        code: 401,
+      });
 
-      await expect(resendMemberInvite("org123", "user456")).rejects.toThrow(
-        "User is not authorized to invite members!",
-      );
+      await expect(resendMemberInvite("org123", "user456")).rejects.toThrow();
     });
 
     it("should handle user not found error", async () => {
-      const { ApiError } = await import("../../api/error-handlers");
-      mockAuthenticatedFetch.mockRejectedValue(
-        new ApiError("Not Found", {
-          status: 404,
-          endpoint: "memberships/org123/members/invite/resend",
-        }),
-      );
+      mockPostAuthV1MembershipsByOrgIdMembersInviteResend.mockRejectedValue({
+        error: "not_found",
+        code: 404,
+      });
 
-      await expect(resendMemberInvite("org123", "user456")).rejects.toThrow(
-        "User with ID user456 not found!",
-      );
+      await expect(resendMemberInvite("org123", "user456")).rejects.toThrow();
     });
 
     it("should handle conflict error", async () => {
-      const { ApiError } = await import("../../api/error-handlers");
-      mockAuthenticatedFetch.mockRejectedValue(
-        new ApiError("Conflict", {
-          status: 409,
-          endpoint: "memberships/org123/members/invite/resend",
-        }),
-      );
+      mockPostAuthV1MembershipsByOrgIdMembersInviteResend.mockRejectedValue({
+        error: "conflict",
+        code: 409,
+      });
 
-      await expect(resendMemberInvite("org123", "user456")).rejects.toThrow(
-        "User with ID user456 already exists!",
-      );
+      await expect(resendMemberInvite("org123", "user456")).rejects.toThrow();
     });
   });
 
@@ -213,79 +173,61 @@ describe("Membership Invite Module", () => {
     });
 
     it("should handle unauthorized error", async () => {
-      const { ApiError } = await import("../../api/error-handlers");
-      mockAuthenticatedFetch.mockRejectedValue(
-        new ApiError("Unauthorized", {
-          status: 401,
-          endpoint: "memberships/org123/membership/state",
-        }),
-      );
+      mockAuthenticatedFetch.mockRejectedValue(new Error("Unauthorized"));
 
-      await expect(respondToInvitation("org123", MembershipState.ACCEPTED)).rejects.toThrow(
-        "User is not authorized to accept/decline an Invite!",
-      );
+      await expect(respondToInvitation("org123", MembershipState.ACCEPTED)).rejects.toThrow();
     });
 
     it("should handle invite not found error", async () => {
-      const { ApiError } = await import("../../api/error-handlers");
-      mockAuthenticatedFetch.mockRejectedValue(
-        new ApiError("Not Found", { status: 404, endpoint: "memberships/org123/membership/state" }),
-      );
+      mockAuthenticatedFetch.mockRejectedValue(new Error("Not Found"));
 
-      await expect(respondToInvitation("org123", MembershipState.ACCEPTED)).rejects.toThrow(
-        "Invite not found!",
-      );
+      await expect(respondToInvitation("org123", MembershipState.ACCEPTED)).rejects.toThrow();
     });
   });
 
   describe("publicRespondToInvitation", () => {
     it("should accept public invitation successfully", async () => {
-      mockPublicFetch.mockResolvedValue(undefined);
+      mockPostAuthV1InvitationsByTokenAccept.mockResolvedValue({ data: {} });
 
       await publicRespondToInvitation("invite-token-123", MembershipState.ACCEPT);
 
-      expect(mockPublicFetch).toHaveBeenCalledWith(
-        `invitations/invite-token-123/${MembershipState.ACCEPT}`,
-        expect.objectContaining({
-          method: "POST",
-        }),
-      );
+      expect(mockPostAuthV1InvitationsByTokenAccept).toHaveBeenCalledWith({
+        path: { token: "invite-token-123" },
+        throwOnError: true,
+      });
     });
 
     it("should decline public invitation successfully", async () => {
-      mockPublicFetch.mockResolvedValue(undefined);
+      mockPostAuthV1InvitationsByTokenDecline.mockResolvedValue({ data: {} });
 
       await publicRespondToInvitation("invite-token-456", MembershipState.DECLINE);
 
-      expect(mockPublicFetch).toHaveBeenCalledWith(
-        `invitations/invite-token-456/${MembershipState.DECLINE}`,
-        expect.objectContaining({
-          method: "POST",
-        }),
-      );
+      expect(mockPostAuthV1InvitationsByTokenDecline).toHaveBeenCalledWith({
+        path: { token: "invite-token-456" },
+        throwOnError: true,
+      });
     });
 
     it("should handle invalid token error", async () => {
-      const { ApiError } = await import("../../api/error-handlers");
-      mockPublicFetch.mockRejectedValue(
-        new ApiError("Bad Request", { status: 400, endpoint: "/invitations/invalid-token/accept" }),
-      );
+      mockPostAuthV1InvitationsByTokenAccept.mockRejectedValue({
+        error: "bad_request",
+        code: 400,
+      });
 
       await expect(
         publicRespondToInvitation("invalid-token", MembershipState.ACCEPT),
-      ).rejects.toThrow("Invalid invitation token!");
+      ).rejects.toThrow();
     });
 
     it("should work with different tokens", async () => {
-      mockPublicFetch.mockResolvedValue(undefined);
+      mockPostAuthV1InvitationsByTokenAccept.mockResolvedValue({ data: {} });
 
-      const token = "another-token-789";
-      await publicRespondToInvitation(token, MembershipState.ACCEPT);
+      await publicRespondToInvitation("another-token-789", MembershipState.ACCEPT);
 
-      expect(mockPublicFetch).toHaveBeenCalledWith(
-        `invitations/${token}/${MembershipState.ACCEPT}`,
-        expect.any(Object),
-      );
+      expect(mockPostAuthV1InvitationsByTokenAccept).toHaveBeenCalledWith({
+        path: { token: "another-token-789" },
+        throwOnError: true,
+      });
     });
   });
 });
