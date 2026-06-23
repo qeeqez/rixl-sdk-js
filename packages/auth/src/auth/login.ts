@@ -1,23 +1,13 @@
+import { postAuthV1Login, postAuthV1VerifyTotp } from "@rixl/sdk";
 import { setTokens } from "../authStore";
-import { TokenResponse } from "../types";
 import { EmailAuthRequestSchema, LoginOTPVerifyRequestSchema } from "../validation/auth";
 import { validateInput } from "../validation/base";
-import { publicFetch } from "../api/fetchers";
 import { ApiError } from "../api/error-handlers";
 import { apiCall } from "../api/utils";
 import { HTTP_STATUS } from "../constants";
 import { LoginErrorResponse, OTPVerificationResponse } from "./types";
+import type { Authv1LoginResponse, ErrorsErrorResponse } from "@rixl/sdk";
 
-/**
- * Logs in a user with email and password
- * @param email User's email address
- * @param password User's password
- * @returns A promise that resolves to:
- *   - void if login is successful
- *   - OTPVerificationResponse if 2FA is required
- *   - LoginErrorResponse if email not verified (403) or provider conflict (409)
- * @throws Error if login fails (incorrect credentials, etc.)
- */
 export const loginWithEmail = async (
   email: string,
   password: string,
@@ -26,30 +16,14 @@ export const loginWithEmail = async (
     async () => {
       const validatedInput = validateInput(EmailAuthRequestSchema, { email, password });
       try {
-        const data = await publicFetch<OTPVerificationResponse & Partial<TokenResponse>>(
-          "auth/login",
-          {
-            method: "POST",
-            body: validatedInput,
-          },
-        );
+        const { data } = await postAuthV1Login({
+          body: validatedInput,
+          throwOnError: true,
+        });
 
-        // Update tokens from response for successful login
-        if (data.access_token && data.refresh_token && data.expires_in) {
-          setTokens(data.access_token, data.refresh_token, data.expires_in);
-          return;
-        }
-
-        // Return OTP verification response if 2FA is required
-        return data as OTPVerificationResponse;
+        return handleLoginResponse(data, email);
       } catch (error) {
-        if (error instanceof ApiError) {
-          const handled = await handleLoginApiError(error, validatedInput, email);
-          if (handled !== undefined) {
-            return handled;
-          }
-        }
-        throw error;
+        return handleLoginError(error, email);
       }
     },
     {
@@ -59,23 +33,15 @@ export const loginWithEmail = async (
   );
 };
 
-/**
- * Logs in a user after verifying OTP code and sessionID
- * @param code Code from User Authenticator app
- * @param session_id User's sessionID from login
- * @returns A promise that resolves when login is successful
- * @throws Error if login fails (incorrect credentials, etc.)
- */
 export const verifyTOTPForLogin = async (code: string, session_id: string): Promise<void> => {
   return apiCall(
     async () => {
       const validatedInput = validateInput(LoginOTPVerifyRequestSchema, { code, session_id });
-      const data = await publicFetch<TokenResponse>("verify-totp", {
-        method: "POST",
+      const { data } = await postAuthV1VerifyTotp({
         body: validatedInput,
+        throwOnError: true,
       });
 
-      // Update tokens from response
       if (data.access_token && data.refresh_token && data.expires_in) {
         setTokens(data.access_token, data.refresh_token, data.expires_in);
       }
@@ -88,49 +54,57 @@ export const verifyTOTPForLogin = async (code: string, session_id: string): Prom
   );
 };
 
-type EmailAuthRequest = {
-  email: string;
-  password: string;
-};
-
-const buildEmailNotVerifiedResponse = (
-  errorData: { error?: string; error_description?: string; email?: string } | undefined,
-  fallbackEmail: string,
-): LoginErrorResponse | undefined => {
-  if (errorData?.error !== "email_not_verified") {
-    return undefined;
-  }
-
-  return {
-    error_code: "email_not_verified",
-    message: errorData.error_description || "Email not verified",
-    email: errorData.email || fallbackEmail,
-  };
-};
-
-const handleLoginApiError = async (
-  error: ApiError,
-  validatedInput: EmailAuthRequest,
+function handleLoginResponse(
+  data: Authv1LoginResponse,
   email: string,
-): Promise<OTPVerificationResponse | LoginErrorResponse | undefined> => {
-  switch (error.status) {
-    case HTTP_STATUS.ACCEPTED:
-      return await publicFetch<OTPVerificationResponse>("auth/login", {
-        method: "POST",
-        body: validatedInput,
-      });
-    case HTTP_STATUS.FORBIDDEN:
-      return buildEmailNotVerifiedResponse(
-        error.data as { error?: string; error_description?: string; email?: string } | undefined,
-        email,
-      );
-    case HTTP_STATUS.CONFLICT:
+): void | OTPVerificationResponse | LoginErrorResponse {
+  switch (data.status) {
+    case "ok":
+      if (data.tokens?.access_token && data.tokens.refresh_token && data.tokens.expires_in) {
+        setTokens(data.tokens.access_token, data.tokens.refresh_token, data.tokens.expires_in);
+      }
+      return;
+    case "otp_required":
       return {
-        error_code: "provider_conflict",
-        message: error.message || "Email registered with different provider",
-        email,
+        message: "OTP verification required",
+        session_id: data.session_id!,
+        totp_required: true,
+      };
+    case "email_not_verified":
+      return {
+        error_code: "email_not_verified",
+        message: "Email not verified",
+        email: data.email || email,
       };
     default:
-      return undefined;
+      return;
   }
-};
+}
+
+function handleLoginError(
+  error: unknown,
+  email: string,
+): OTPVerificationResponse | LoginErrorResponse | never {
+  if (isErrorResponse(error)) {
+    if (error.error === "email_not_verified") {
+      return {
+        error_code: "email_not_verified",
+        message: error.details || "Email not verified",
+        email,
+      };
+    }
+    if (error.error === "provider_conflict") {
+      return {
+        error_code: "provider_conflict",
+        message: error.details || "Email registered with different provider",
+        email,
+      };
+    }
+    throw new ApiError(error.error || "Login failed", error.code || 500, "/auth/v1/login", error);
+  }
+  throw error;
+}
+
+function isErrorResponse(error: unknown): error is ErrorsErrorResponse & { code: number } {
+  return typeof error === "object" && error !== null && "error" in error;
+}

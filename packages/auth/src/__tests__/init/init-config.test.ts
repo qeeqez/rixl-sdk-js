@@ -45,6 +45,10 @@ vi.mock("../../api/client-core", () => ({
   setTokenRefreshFunction: vi.fn(),
 }));
 
+vi.mock("../../api/sdk-client", () => ({
+  configureSdkClient: vi.fn(),
+}));
+
 describe("initClient - Basic Configuration", () => {
   let mockApiURL: any;
   let mockSetTokenRefreshFunction: any;

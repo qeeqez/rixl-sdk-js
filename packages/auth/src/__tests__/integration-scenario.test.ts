@@ -1,8 +1,8 @@
 /**
  * Integration Scenario Test
  *
- * Demonstrates that the library now works correctly with real-world usage patterns
- * after migrating from `prefixUrl` to Ky v2 `prefix`
+ * Verifies that initClient correctly configures the SDK client baseUrl
+ * and that auth functions construct correct request URLs.
  */
 
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
@@ -14,24 +14,28 @@ describe("Integration Scenario - Dashboard Usage", () => {
   let originalFetch: typeof global.fetch;
 
   beforeEach(() => {
-    // Save original fetch
     originalFetch = global.fetch;
 
-    // Mock successful responses
     const mockResponse = {
       ok: true,
       status: 200,
       statusText: "OK",
       text: async () =>
         JSON.stringify({
+          status: "ok",
+          tokens: {
+            access_token: "mock_access_token",
+            refresh_token: "mock_refresh_token",
+            expires_in: 3600,
+          },
+        }),
+      json: async () => ({
+        status: "ok",
+        tokens: {
           access_token: "mock_access_token",
           refresh_token: "mock_refresh_token",
           expires_in: 3600,
-        }),
-      json: async () => ({
-        access_token: "mock_access_token",
-        refresh_token: "mock_refresh_token",
-        expires_in: 3600,
+        },
       }),
       blob: async () => new Blob(),
       arrayBuffer: async () => new ArrayBuffer(0),
@@ -45,40 +49,47 @@ describe("Integration Scenario - Dashboard Usage", () => {
   });
 
   afterEach(() => {
-    // Restore original fetch
     global.fetch = originalFetch;
     vi.clearAllMocks();
   });
 
   it("should work with dashboard configuration (VITE_AUTH_API_URL)", async () => {
-    // Simulate dashboard initialization
-    // This is exactly what happens in frontend/dashboard/src/main.tsx line 36-37
     initClient({
-      apiUrl: "http://localhost:8081", // VITE_AUTH_API_URL value
+      apiUrl: "http://localhost:8081",
     });
 
-    // Give init time to complete
     await new Promise((resolve) => setTimeout(resolve, 10));
 
-    // This should now work without throwing the Ky v2 prefixUrl migration error
     try {
       await loginWithEmail("test@example.com", "Password123!");
     } catch {
-      // Ignore other errors, we're only checking if the request URL is constructed correctly
+      // Ignore errors — we only check the request URL
     }
 
-    // Verify fetch was called with correct URL (no double slash, no missing path)
     expect(global.fetch).toHaveBeenCalled();
     const fetchCall = (global.fetch as any).mock.calls[0];
     const request = fetchCall[0];
 
-    // Should be: http://localhost:8081/auth/login
-    // NOT: http://localhost:8081//auth/login (double slash from prefix + leading slash)
-    // NOT: http://localhost:8081 (missing path)
-    expect(request.url).toBe("http://localhost:8081/auth/login");
+    expect(request.url).toBe("http://localhost:8081/auth/v1/login");
   });
 
   it("should work with registration endpoints", async () => {
+    const registerResponse = {
+      ok: true,
+      status: 200,
+      statusText: "OK",
+      text: async () =>
+        JSON.stringify({ verification_id: "verify-123", message: "Registration successful" }),
+      json: async () => ({ verification_id: "verify-123", message: "Registration successful" }),
+      blob: async () => new Blob(),
+      arrayBuffer: async () => new ArrayBuffer(0),
+      clone: function () {
+        return this;
+      },
+      headers: new Headers({ "content-type": "application/json" }),
+    };
+    global.fetch = vi.fn().mockResolvedValue(registerResponse) as any;
+
     initClient({
       apiUrl: "http://localhost:8081",
     });
@@ -88,25 +99,53 @@ describe("Integration Scenario - Dashboard Usage", () => {
     try {
       await registerWithEmail("newuser@example.com", "Password123!");
     } catch {
-      // Ignore other errors, we're only checking if the request URL is constructed correctly
+      // Ignore errors — we only check the request URL
     }
 
+    expect(global.fetch).toHaveBeenCalled();
     const fetchCall = (global.fetch as any).mock.calls[0];
     const request = fetchCall[0];
-    expect(request.url).toBe("http://localhost:8081/auth/register");
+    expect(request.url).toBe("http://localhost:8081/auth/v1/register");
   });
 
   it("should work with different API URL formats", async () => {
-    // Test various URL formats users might provide
     const apiUrls = [
       "http://localhost:8081",
-      "http://localhost:8081/", // with trailing slash
+      "http://localhost:8081/",
       "https://api.example.com",
       "https://api.example.com/",
     ];
 
     for (const apiUrl of apiUrls) {
       vi.clearAllMocks();
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        statusText: "OK",
+        text: async () =>
+          JSON.stringify({
+            status: "ok",
+            tokens: {
+              access_token: "mock_access_token",
+              refresh_token: "mock_refresh_token",
+              expires_in: 3600,
+            },
+          }),
+        json: async () => ({
+          status: "ok",
+          tokens: {
+            access_token: "mock_access_token",
+            refresh_token: "mock_refresh_token",
+            expires_in: 3600,
+          },
+        }),
+        blob: async () => new Blob(),
+        arrayBuffer: async () => new ArrayBuffer(0),
+        clone: function () {
+          return this;
+        },
+        headers: new Headers({ "content-type": "application/json" }),
+      }) as any;
 
       initClient({ apiUrl });
       await new Promise((resolve) => setTimeout(resolve, 10));
@@ -116,33 +155,25 @@ describe("Integration Scenario - Dashboard Usage", () => {
       const fetchCall = (global.fetch as any).mock.calls[0];
       const request = fetchCall[0];
 
-      // Should always construct valid URL
-      expect(request.url).toMatch(/^https?:\/\/[^/]+\/auth\/login$/);
-      expect(request.url).not.toContain("//auth"); // No double slash
+      expect(request.url).toMatch(/^https?:\/\/[^/]+\/auth\/v1\/login$/);
+      expect(request.url).not.toContain("//auth");
     }
   });
 
-  it("documents the bug that was fixed", () => {
+  it("documents the migration from ky to @rixl/sdk", () => {
     /**
-     * BEFORE THE FIX:
+     * BEFORE (ky-based):
+     *   initClient({ apiUrl: "http://localhost:8081" })
+     *   publicFetch("auth/login", { method: "POST", body: {...} })
+     *   → http://localhost:8081/auth/login
      *
-     * User sets: VITE_AUTH_API_URL=http://localhost:8081
-     * Dashboard calls: initClient({ apiUrl: "http://localhost:8081" })
-     * Library creates: ky.create({ prefixUrl: "http://localhost:8081" })
-     * Library calls: publicFetch("/auth/login", ...)
+     * AFTER (@rixl/sdk-based):
+     *   initClient({ apiUrl: "http://localhost:8081" })
+     *   postAuthV1Login({ body: {...}, throwOnError: true })
+     *   → http://localhost:8081/auth/v1/login
      *
-     * Result in ky v1: `input` must not begin with a slash when using `prefixUrl`
-     * Result in ky v2: `prefixUrl` option has been renamed `prefix`
-     *
-     * AFTER THE FIX:
-     *
-     * User sets: VITE_AUTH_API_URL=http://localhost:8081
-     * Dashboard calls: initClient({ apiUrl: "http://localhost:8081" })
-     * Library creates: ky.create({ prefix: "http://localhost:8081" })
-     * Library calls: publicFetch("auth/login", ...)  // No leading slash!
-     *
-     * Result: Success! ✅
-     * URL: http://localhost:8081/auth/login
+     * The SDK client gets baseUrl from apiURL nanostore subscription.
+     * Auth token is injected via request interceptor.
      */
     expect(true).toBe(true);
   });

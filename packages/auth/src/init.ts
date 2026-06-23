@@ -13,6 +13,7 @@ import type { LoginErrorCode } from "@/auth";
 import { apiURL } from "./api-url";
 import { refreshTokens } from "./api/refresh-tokens";
 import { initDeferred } from "./initialization";
+import { configureSdkClient } from "./api/sdk-client";
 import {
   GoogleProviderConfig,
   TelegramProviderConfig,
@@ -69,6 +70,7 @@ export const initClient = async (config: AuthClientConfig): Promise<string | und
 const initConfig = async (config: AuthClientConfig) => {
   // Set the API URL
   apiURL.set(config.apiUrl);
+  configureSdkClient();
   setLoginRedirectUrl(config.loginRedirectUrl);
 
   // Initialize the token refresh function for ky client

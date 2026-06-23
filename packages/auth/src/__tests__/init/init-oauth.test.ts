@@ -42,6 +42,10 @@ vi.mock("../../api/client-core", () => ({
   setTokenRefreshFunction: vi.fn(),
 }));
 
+vi.mock("../../api/sdk-client", () => ({
+  configureSdkClient: vi.fn(),
+}));
+
 describe("initClient - OAuth Callback Handling", () => {
   let mockDetectProvider: any;
   let mockGetProviderToken: any;

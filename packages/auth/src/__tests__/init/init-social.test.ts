@@ -33,6 +33,10 @@ vi.mock("../../api/client-core", () => ({
   setTokenRefreshFunction: vi.fn(),
 }));
 
+vi.mock("../../api/sdk-client", () => ({
+  configureSdkClient: vi.fn(),
+}));
+
 describe("initClient - Social Connection Flow", () => {
   let mockDetectProvider: any;
   let mockGetProviderToken: any;

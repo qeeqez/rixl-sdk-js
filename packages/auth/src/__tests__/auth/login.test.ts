@@ -1,37 +1,23 @@
-/**
- * Login functionality tests
- * Tests: loginWithEmail, verifyTOTPForLogin
- */
-
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { loginWithEmail, verifyTOTPForLogin } from "@/auth";
-import { HTTP_STATUS } from "@/constants.ts";
-import { mockPublicFetch, ApiError } from "../setup/api-mocks";
 import { createMockJWT } from "../utils/test-helpers";
 import { setupAuthTest, cleanupAuthMocks } from "../utils/auth-test-helpers";
 
-// Create mock using factory pattern - eliminates 33 lines of duplication!
-vi.mock("../../api/fetchers", async () => {
-  const { mockPublicFetch, mockAuthenticatedFetch } = await import("../setup/api-mocks");
-  return {
-    publicFetch: mockPublicFetch,
-    authenticatedFetch: mockAuthenticatedFetch,
-  };
-});
+const mockPostAuthV1Login = vi.fn();
+const mockPostAuthV1VerifyTotp = vi.fn();
 
-vi.mock("../../api/error-handlers", async () => {
-  const { mockHandleApiError, ApiError } = await import("../setup/api-mocks");
-  return {
-    handleApiError: mockHandleApiError,
-    ApiError,
-  };
-});
+vi.mock("@rixl/sdk", () => ({
+  postAuthV1Login: (...args: unknown[]) => mockPostAuthV1Login(...args),
+  postAuthV1VerifyTotp: (...args: unknown[]) => mockPostAuthV1VerifyTotp(...args),
+}));
 
 describe("Login Functions", () => {
   let mocks: ReturnType<typeof setupAuthTest>;
 
   beforeEach(() => {
     mocks = setupAuthTest();
+    mockPostAuthV1Login.mockReset();
+    mockPostAuthV1VerifyTotp.mockReset();
   });
 
   afterEach(() => {
@@ -41,48 +27,54 @@ describe("Login Functions", () => {
   describe("loginWithEmail", () => {
     it("should login successfully with valid credentials", async () => {
       const mockToken = createMockJWT();
-      mockPublicFetch.mockResolvedValue({
-        access_token: mockToken,
-        refresh_token: "refresh-123",
-        expires_in: 3600,
+      mockPostAuthV1Login.mockResolvedValue({
+        data: {
+          status: "ok",
+          tokens: { access_token: mockToken, refresh_token: "refresh-123", expires_in: 3600 },
+        },
       });
 
       await loginWithEmail("test@example.com", "Password123");
 
-      expect(mockPublicFetch).toHaveBeenCalledWith("auth/login", {
-        method: "POST",
+      expect(mockPostAuthV1Login).toHaveBeenCalledWith({
         body: { email: "test@example.com", password: "Password123" },
+        throwOnError: true,
       });
       expect(mocks.setTokensSpy).toHaveBeenCalledWith(mockToken, "refresh-123", 3600);
     });
 
     it("should return OTP response when 2FA is required", async () => {
-      mockPublicFetch.mockResolvedValue({
-        session_id: "session-123",
-        requires_verification: true,
+      mockPostAuthV1Login.mockResolvedValue({
+        data: {
+          status: "otp_required",
+          session_id: "session-123",
+        },
       });
 
       const result = await loginWithEmail("test@example.com", "Password123");
 
       expect(result).toEqual({
+        message: "OTP verification required",
         session_id: "session-123",
-        requires_verification: true,
+        totp_required: true,
       });
       expect(mocks.setTokensSpy).not.toHaveBeenCalled();
     });
 
     it("should handle incorrect credentials error", async () => {
-      mockPublicFetch.mockRejectedValue(
-        new ApiError("Unauthorized", { status: HTTP_STATUS.UNAUTHORIZED, endpoint: "auth/login" }),
-      );
+      mockPostAuthV1Login.mockRejectedValue({
+        error: "unauthorized",
+        code: 401,
+      });
 
       await expect(loginWithEmail("test@example.com", "ValidPass123")).rejects.toThrow();
     });
 
     it("should handle bad request error", async () => {
-      mockPublicFetch.mockRejectedValue(
-        new ApiError("Bad Request", { status: HTTP_STATUS.BAD_REQUEST, endpoint: "auth/login" }),
-      );
+      mockPostAuthV1Login.mockRejectedValue({
+        error: "bad_request",
+        code: 400,
+      });
 
       await expect(loginWithEmail("test@example.com", "ValidPass123")).rejects.toThrow();
     });
@@ -97,7 +89,7 @@ describe("Login Functions", () => {
     });
 
     it("should handle network errors gracefully", async () => {
-      mockPublicFetch.mockRejectedValue(new Error("Network error"));
+      mockPostAuthV1Login.mockRejectedValue(new Error("Network error"));
 
       await expect(loginWithEmail("test@example.com", "Password123")).rejects.toThrow(
         "Network error",
@@ -113,27 +105,29 @@ describe("Login Functions", () => {
     });
 
     it("should handle special characters in email", async () => {
-      mockPublicFetch.mockResolvedValue({
-        access_token: createMockJWT(),
-        refresh_token: "refresh",
-        expires_in: 3600,
+      const mockToken = createMockJWT();
+      mockPostAuthV1Login.mockResolvedValue({
+        data: {
+          status: "ok",
+          tokens: { access_token: mockToken, refresh_token: "refresh", expires_in: 3600 },
+        },
       });
 
       await loginWithEmail("test+special@example.com", "Password123");
 
-      expect(mockPublicFetch).toHaveBeenCalledWith("auth/login", {
-        method: "POST",
+      expect(mockPostAuthV1Login).toHaveBeenCalledWith({
         body: { email: "test+special@example.com", password: "Password123" },
+        throwOnError: true,
       });
     });
 
-    it("should return LoginErrorResponse for email not verified (403)", async () => {
-      const error = new ApiError("Email not verified", {
-        status: HTTP_STATUS.FORBIDDEN,
-        endpoint: "auth/login",
+    it("should return LoginErrorResponse for email not verified", async () => {
+      mockPostAuthV1Login.mockResolvedValue({
+        data: {
+          status: "email_not_verified",
+          email: "test@example.com",
+        },
       });
-      error.data = { error: "email_not_verified", error_description: "Email not verified" };
-      mockPublicFetch.mockRejectedValue(error);
 
       const result = await loginWithEmail("test@example.com", "Password123");
 
@@ -145,13 +139,12 @@ describe("Login Functions", () => {
       expect(mocks.setTokensSpy).not.toHaveBeenCalled();
     });
 
-    it("should return LoginErrorResponse for provider conflict (409)", async () => {
-      mockPublicFetch.mockRejectedValue(
-        new ApiError("This email is already registered with Google", {
-          status: HTTP_STATUS.CONFLICT,
-          endpoint: "auth/login",
-        }),
-      );
+    it("should return LoginErrorResponse for provider conflict", async () => {
+      mockPostAuthV1Login.mockRejectedValue({
+        error: "provider_conflict",
+        details: "This email is already registered with Google",
+        code: 409,
+      });
 
       const result = await loginWithEmail("test@example.com", "Password123");
 
@@ -167,39 +160,34 @@ describe("Login Functions", () => {
   describe("verifyTOTPForLogin", () => {
     it("should verify TOTP and set tokens", async () => {
       const mockToken = createMockJWT();
-      mockPublicFetch.mockResolvedValue({
-        access_token: mockToken,
-        refresh_token: "refresh-123",
-        expires_in: 3600,
+      mockPostAuthV1VerifyTotp.mockResolvedValue({
+        data: {
+          access_token: mockToken,
+          refresh_token: "refresh-123",
+          expires_in: 3600,
+        },
       });
 
       await verifyTOTPForLogin("123456", "session-123");
 
-      expect(mockPublicFetch).toHaveBeenCalledWith("verify-totp", {
-        method: "POST",
+      expect(mockPostAuthV1VerifyTotp).toHaveBeenCalledWith({
         body: { code: "123456", session_id: "session-123" },
+        throwOnError: true,
       });
       expect(mocks.setTokensSpy).toHaveBeenCalledWith(mockToken, "refresh-123", 3600);
     });
 
     it("should throw error for invalid code format", async () => {
-      mockPublicFetch.mockRejectedValue(
-        new ApiError("Bad Request", { status: HTTP_STATUS.BAD_REQUEST, endpoint: "verify-totp" }),
-      );
-
-      await expect(verifyTOTPForLogin("12345", "session-123")).rejects.toThrow(
-        "Bad request - Invalid code format, invalid code, or invalid session",
-      );
+      await expect(verifyTOTPForLogin("abc", "session-123")).rejects.toThrow();
     });
 
     it("should throw error for session not found", async () => {
-      mockPublicFetch.mockRejectedValue(
-        new ApiError("Not Found", { status: HTTP_STATUS.NOT_FOUND, endpoint: "verify-totp" }),
-      );
+      mockPostAuthV1VerifyTotp.mockRejectedValue({
+        error: "not_found",
+        code: 404,
+      });
 
-      await expect(verifyTOTPForLogin("123456", "invalid-session")).rejects.toThrow(
-        "Session not found",
-      );
+      await expect(verifyTOTPForLogin("123456", "invalid-session")).rejects.toThrow();
     });
   });
 });

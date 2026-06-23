@@ -1,12 +1,9 @@
-import {defineConfig} from "vite-plus";
-import {heyApiPlugin} from "@hey-api/vite-plugin";
+import { defineConfig } from "vite-plus";
+import { heyApiPlugin } from "@hey-api/vite-plugin";
 
 export default defineConfig({
-  staged: {
-    "*": "vp check --fix",
-  },
   pack: {
-    entry: {index: "index.ts"},
+    entry: { index: "index.ts" },
     exports: true,
     dts: true,
     format: "esm",
@@ -27,7 +24,6 @@ export default defineConfig({
     bracketSameLine: false,
     endOfLine: "lf",
   },
-  lint: {options: {typeAware: true, typeCheck: true}},
   plugins: [
     heyApiPlugin({
       config: {

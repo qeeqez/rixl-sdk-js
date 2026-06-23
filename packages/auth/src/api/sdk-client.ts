@@ -2,10 +2,13 @@ import { client } from "@rixl/sdk";
 import { apiURL } from "../api-url";
 import { getToken } from "../authStore";
 
+let configured = false;
+
 export function configureSdkClient(): void {
-  client.setConfig({
-    baseUrl: apiURL.get(),
-  });
+  if (configured) return;
+  configured = true;
+
+  client.setConfig({ baseUrl: apiURL.get() });
 
   apiURL.subscribe((url) => {
     client.setConfig({ baseUrl: url });

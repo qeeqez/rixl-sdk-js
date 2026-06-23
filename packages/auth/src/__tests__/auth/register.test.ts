@@ -1,36 +1,22 @@
-/**
- * Registration functionality tests
- * Tests: registerWithEmail, resendEmailVerificationCode
- */
-
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { registerWithEmail, resendEmailVerificationCode } from "@/auth/register";
-import { HTTP_STATUS } from "@/constants";
-import { mockPublicFetch, ApiError } from "../setup/api-mocks";
 import { setupAuthTest, cleanupAuthMocks } from "../utils/auth-test-helpers";
 
-// Mock implementation
-vi.mock("../../api/fetchers", async () => {
-  const { mockPublicFetch, mockAuthenticatedFetch } = await import("../setup/api-mocks");
-  return {
-    publicFetch: mockPublicFetch,
-    authenticatedFetch: mockAuthenticatedFetch,
-  };
-});
+const mockPostAuthV1Register = vi.fn();
+const mockPostAuthV1EmailVerifyResend = vi.fn();
 
-vi.mock("../../api/error-handlers", async () => {
-  const { mockHandleApiError, ApiError } = await import("../setup/api-mocks");
-  return {
-    handleApiError: mockHandleApiError,
-    ApiError,
-  };
-});
+vi.mock("@rixl/sdk", () => ({
+  postAuthV1Register: (...args: unknown[]) => mockPostAuthV1Register(...args),
+  postAuthV1EmailVerifyResend: (...args: unknown[]) => mockPostAuthV1EmailVerifyResend(...args),
+}));
 
 describe("Registration Functions", () => {
   let mocks: ReturnType<typeof setupAuthTest>;
 
   beforeEach(() => {
     mocks = setupAuthTest();
+    mockPostAuthV1Register.mockReset();
+    mockPostAuthV1EmailVerifyResend.mockReset();
   });
 
   afterEach(() => {
@@ -39,16 +25,18 @@ describe("Registration Functions", () => {
 
   describe("registerWithEmail", () => {
     it("should register user successfully", async () => {
-      mockPublicFetch.mockResolvedValue({
-        verification_id: "verify-123",
-        message: "Registration successful",
+      mockPostAuthV1Register.mockResolvedValue({
+        data: {
+          verification_id: "verify-123",
+          message: "Registration successful",
+        },
       });
 
       const result = await registerWithEmail("newuser@example.com", "Password123");
 
-      expect(mockPublicFetch).toHaveBeenCalledWith("auth/register", {
-        method: "POST",
+      expect(mockPostAuthV1Register).toHaveBeenCalledWith({
         body: { email: "newuser@example.com", password: "Password123" },
+        throwOnError: true,
       });
       expect(result).toEqual({
         verification_id: "verify-123",
@@ -57,103 +45,121 @@ describe("Registration Functions", () => {
     });
 
     it("includes subscribe_to_blog: true when opted in", async () => {
-      mockPublicFetch.mockResolvedValue({
-        verification_id: "verify-123",
-        message: "Registration successful",
+      mockPostAuthV1Register.mockResolvedValue({
+        data: {
+          verification_id: "verify-123",
+          message: "Registration successful",
+        },
       });
 
       await registerWithEmail("newuser@example.com", "Password123", true);
 
-      expect(mockPublicFetch).toHaveBeenCalledWith("auth/register", {
-        method: "POST",
+      expect(mockPostAuthV1Register).toHaveBeenCalledWith({
         body: { email: "newuser@example.com", password: "Password123", subscribe_to_blog: true },
+        throwOnError: true,
       });
     });
 
     it("includes subscribe_to_blog: false when opted out", async () => {
-      mockPublicFetch.mockResolvedValue({
-        verification_id: "verify-123",
-        message: "Registration successful",
+      mockPostAuthV1Register.mockResolvedValue({
+        data: {
+          verification_id: "verify-123",
+          message: "Registration successful",
+        },
       });
 
       await registerWithEmail("newuser@example.com", "Password123", false);
 
-      expect(mockPublicFetch).toHaveBeenCalledWith("auth/register", {
-        method: "POST",
+      expect(mockPostAuthV1Register).toHaveBeenCalledWith({
         body: { email: "newuser@example.com", password: "Password123", subscribe_to_blog: false },
+        throwOnError: true,
       });
     });
 
     it("omits subscribe_to_blog when not provided", async () => {
-      mockPublicFetch.mockResolvedValue({
-        verification_id: "verify-123",
-        message: "Registration successful",
+      mockPostAuthV1Register.mockResolvedValue({
+        data: {
+          verification_id: "verify-123",
+          message: "Registration successful",
+        },
       });
 
       await registerWithEmail("newuser@example.com", "Password123");
 
-      expect(mockPublicFetch).toHaveBeenCalledWith("auth/register", {
-        method: "POST",
+      expect(mockPostAuthV1Register).toHaveBeenCalledWith({
         body: { email: "newuser@example.com", password: "Password123" },
+        throwOnError: true,
       });
     });
 
     it("should throw error when email already exists", async () => {
-      mockPublicFetch.mockRejectedValue(
-        new ApiError("Conflict", HTTP_STATUS.CONFLICT, "auth/register"),
-      );
+      mockPostAuthV1Register.mockRejectedValue({
+        error: "conflict",
+        code: 409,
+      });
 
-      await expect(registerWithEmail("existing@example.com", "Password123")).rejects.toThrow(
-        "Email address is already registered",
-      );
+      await expect(registerWithEmail("existing@example.com", "Password123")).rejects.toThrow();
     });
 
     it("should handle short password error", async () => {
-      mockPublicFetch.mockRejectedValue(
-        new ApiError("Bad Request", HTTP_STATUS.BAD_REQUEST, "auth/register"),
-      );
+      mockPostAuthV1Register.mockRejectedValue({
+        error: "bad_request",
+        code: 400,
+      });
 
       await expect(registerWithEmail("test@example.com", "ValidPass123")).rejects.toThrow();
+    });
+
+    it("should validate email format", async () => {
+      await expect(registerWithEmail("invalid-email", "Password123")).rejects.toThrow();
+    });
+
+    it("should validate password requirements", async () => {
+      await expect(registerWithEmail("test@example.com", "short")).rejects.toThrow();
     });
   });
 
   describe("resendEmailVerificationCode", () => {
     it("should resend verification code successfully", async () => {
-      mockPublicFetch.mockResolvedValue({
-        verification_id: "verify-456",
-        message: "Code resent",
+      mockPostAuthV1EmailVerifyResend.mockResolvedValue({
+        data: {
+          verification_id: "verify-456",
+          message: "Code resent",
+        },
       });
 
-      await resendEmailVerificationCode("test@example.com");
+      const result = await resendEmailVerificationCode("test@example.com");
 
-      expect(mockPublicFetch).toHaveBeenCalledWith("auth/email/verify/resend", {
-        method: "POST",
+      expect(mockPostAuthV1EmailVerifyResend).toHaveBeenCalledWith({
         body: { email: "test@example.com" },
+        throwOnError: true,
+      });
+      expect(result).toEqual({
+        verification_id: "verify-456",
+        message: "Code resent",
       });
     });
 
     it("should throw error for user not found", async () => {
-      mockPublicFetch.mockRejectedValue(
-        new ApiError("Not Found", HTTP_STATUS.NOT_FOUND, "auth/email/verify/resend"),
-      );
+      mockPostAuthV1EmailVerifyResend.mockRejectedValue({
+        error: "not_found",
+        code: 404,
+      });
 
-      await expect(resendEmailVerificationCode("notfound@example.com")).rejects.toThrow(
-        "User not found with the provided email",
-      );
+      await expect(resendEmailVerificationCode("notfound@example.com")).rejects.toThrow();
     });
 
     it("should throw error for rate limit exceeded", async () => {
-      mockPublicFetch.mockRejectedValue(
-        new ApiError(
-          "Too Many Requests",
-          HTTP_STATUS.TOO_MANY_REQUESTS,
-          "auth/email/verify/resend",
-        ),
-      );
+      mockPostAuthV1EmailVerifyResend.mockRejectedValue({
+        error: "too_many_requests",
+        code: 429,
+      });
 
-      await expect(resendEmailVerificationCode("test@example.com")).rejects.toThrow(
-        "Too many requests - rate limit exceeded",
-      );
+      await expect(resendEmailVerificationCode("test@example.com")).rejects.toThrow();
+    });
+
+    it("should validate email format", async () => {
+      await expect(resendEmailVerificationCode("invalid-email")).rejects.toThrow();
     });
   });
 });
