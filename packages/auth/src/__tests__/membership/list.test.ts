@@ -1,33 +1,37 @@
-/**
- * Membership List Module Tests
- * Tests: listActiveMemberships, listPendingMemberships, listOrganizationMembers
- */
-
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import {
   listActiveMemberships,
   listPendingMemberships,
   listOrganizationMembers,
+  MembershipRole,
+  MembershipState,
 } from "@/membership";
-import { Membership, Member, MembershipRole, MembershipState } from "@/membership";
+import { setupAuthTest, cleanupAuthMocks } from "../utils/auth-test-helpers";
+import type { Membership, Member } from "@/membership";
 
-// Mock pagination-utils
-vi.mock("../../pagination-utils", () => ({
-  fetchPaginatedData: vi.fn(),
-}));
+const mockGetAuthV1MembershipsActive = vi.fn();
+const mockGetAuthV1MembershipsPending = vi.fn();
+const mockGetAuthV1MembershipsByOrgIdMembers = vi.fn();
 
-// Mock authStore
-vi.mock("../../authStore", () => ({
-  getToken: vi.fn().mockResolvedValue("mock-token"),
+vi.mock("@rixl/sdk", () => ({
+  getAuthV1MembershipsActive: (...args: unknown[]) => mockGetAuthV1MembershipsActive(...args),
+  getAuthV1MembershipsPending: (...args: unknown[]) => mockGetAuthV1MembershipsPending(...args),
+  getAuthV1MembershipsByOrgIdMembers: (...args: unknown[]) =>
+    mockGetAuthV1MembershipsByOrgIdMembers(...args),
 }));
 
 describe("Membership List Module", () => {
-  let mockFetchPaginatedData: any;
+  let mocks: ReturnType<typeof setupAuthTest>;
 
-  beforeEach(async () => {
-    vi.clearAllMocks();
-    const paginationUtils = await import("../../pagination-utils");
-    mockFetchPaginatedData = paginationUtils.fetchPaginatedData;
+  beforeEach(() => {
+    mocks = setupAuthTest();
+    mockGetAuthV1MembershipsActive.mockReset();
+    mockGetAuthV1MembershipsPending.mockReset();
+    mockGetAuthV1MembershipsByOrgIdMembers.mockReset();
+  });
+
+  afterEach(() => {
+    cleanupAuthMocks(mocks);
   });
 
   describe("listActiveMemberships", () => {
@@ -44,16 +48,16 @@ describe("Membership List Module", () => {
         },
       ];
 
-      mockFetchPaginatedData.mockResolvedValue(mockMemberships);
+      mockGetAuthV1MembershipsActive.mockResolvedValue({
+        data: { memberships: mockMemberships },
+      });
 
       const result = await listActiveMemberships();
 
-      expect(mockFetchPaginatedData).toHaveBeenCalledWith(
-        "memberships/active",
-        expect.any(Function),
-        undefined,
-        "User is not authorized to list memberships!",
-      );
+      expect(mockGetAuthV1MembershipsActive).toHaveBeenCalledWith({
+        query: undefined,
+        throwOnError: true,
+      });
       expect(result).toEqual(mockMemberships);
     });
 
@@ -70,22 +74,24 @@ describe("Membership List Module", () => {
         },
       ];
 
-      mockFetchPaginatedData.mockResolvedValue(mockMemberships);
+      mockGetAuthV1MembershipsActive.mockResolvedValue({
+        data: { memberships: mockMemberships },
+      });
 
       const paginationParams = { limit: 10, offset: 0 };
       const result = await listActiveMemberships(paginationParams);
 
-      expect(mockFetchPaginatedData).toHaveBeenCalledWith(
-        "memberships/active",
-        expect.any(Function),
-        paginationParams,
-        "User is not authorized to list memberships!",
-      );
+      expect(mockGetAuthV1MembershipsActive).toHaveBeenCalledWith({
+        query: paginationParams,
+        throwOnError: true,
+      });
       expect(result).toEqual(mockMemberships);
     });
 
     it("should return empty array when no memberships", async () => {
-      mockFetchPaginatedData.mockResolvedValue([]);
+      mockGetAuthV1MembershipsActive.mockResolvedValue({
+        data: { memberships: [] },
+      });
 
       const result = await listActiveMemberships();
 
@@ -114,7 +120,9 @@ describe("Membership List Module", () => {
         },
       ];
 
-      mockFetchPaginatedData.mockResolvedValue(mockMemberships);
+      mockGetAuthV1MembershipsActive.mockResolvedValue({
+        data: { memberships: mockMemberships },
+      });
 
       const result = await listActiveMemberships();
 
@@ -137,16 +145,16 @@ describe("Membership List Module", () => {
         },
       ];
 
-      mockFetchPaginatedData.mockResolvedValue(mockMemberships);
+      mockGetAuthV1MembershipsPending.mockResolvedValue({
+        data: { memberships: mockMemberships },
+      });
 
       const result = await listPendingMemberships();
 
-      expect(mockFetchPaginatedData).toHaveBeenCalledWith(
-        "memberships/pending",
-        expect.any(Function),
-        undefined,
-        "User is not authorized to list memberships!",
-      );
+      expect(mockGetAuthV1MembershipsPending).toHaveBeenCalledWith({
+        query: undefined,
+        throwOnError: true,
+      });
       expect(result).toEqual(mockMemberships);
     });
 
@@ -163,22 +171,24 @@ describe("Membership List Module", () => {
         },
       ];
 
-      mockFetchPaginatedData.mockResolvedValue(mockMemberships);
+      mockGetAuthV1MembershipsPending.mockResolvedValue({
+        data: { memberships: mockMemberships },
+      });
 
       const paginationParams = { limit: 5, offset: 10 };
       const result = await listPendingMemberships(paginationParams);
 
-      expect(mockFetchPaginatedData).toHaveBeenCalledWith(
-        "memberships/pending",
-        expect.any(Function),
-        paginationParams,
-        "User is not authorized to list memberships!",
-      );
+      expect(mockGetAuthV1MembershipsPending).toHaveBeenCalledWith({
+        query: paginationParams,
+        throwOnError: true,
+      });
       expect(result).toEqual(mockMemberships);
     });
 
     it("should return empty array when no pending memberships", async () => {
-      mockFetchPaginatedData.mockResolvedValue([]);
+      mockGetAuthV1MembershipsPending.mockResolvedValue({
+        data: { memberships: [] },
+      });
 
       const result = await listPendingMemberships();
 
@@ -198,21 +208,22 @@ describe("Membership List Module", () => {
           image_url: "https://example.com/john.jpg",
           role: MembershipRole.ADMIN,
           state: MembershipState.ACCEPTED,
-          created_at: new Date().toISOString(),
-          joined_at: new Date().toISOString(),
+          created_at: "2024-01-01T00:00:00Z",
+          joined_at: "2024-01-01T00:00:00Z",
         },
       ];
 
-      mockFetchPaginatedData.mockResolvedValue(mockMembers);
+      mockGetAuthV1MembershipsByOrgIdMembers.mockResolvedValue({
+        data: { members: mockMembers },
+      });
 
       const result = await listOrganizationMembers("org123");
 
-      expect(mockFetchPaginatedData).toHaveBeenCalledWith(
-        "memberships/org123/members",
-        expect.any(Function),
-        undefined,
-        "User is not authorized to list organization members!",
-      );
+      expect(mockGetAuthV1MembershipsByOrgIdMembers).toHaveBeenCalledWith({
+        path: { orgId: "org123" },
+        query: undefined,
+        throwOnError: true,
+      });
       expect(result).toEqual(mockMembers);
     });
 
@@ -227,27 +238,30 @@ describe("Membership List Module", () => {
           image_url: "https://example.com/jane.jpg",
           role: MembershipRole.MEMBER,
           state: MembershipState.ACCEPTED,
-          created_at: new Date().toISOString(),
-          joined_at: new Date().toISOString(),
+          created_at: "2024-01-01T00:00:00Z",
+          joined_at: "2024-01-01T00:00:00Z",
         },
       ];
 
-      mockFetchPaginatedData.mockResolvedValue(mockMembers);
+      mockGetAuthV1MembershipsByOrgIdMembers.mockResolvedValue({
+        data: { members: mockMembers },
+      });
 
       const paginationParams = { limit: 20, offset: 0 };
       const result = await listOrganizationMembers("org456", paginationParams);
 
-      expect(mockFetchPaginatedData).toHaveBeenCalledWith(
-        "memberships/org456/members",
-        expect.any(Function),
-        paginationParams,
-        "User is not authorized to list organization members!",
-      );
+      expect(mockGetAuthV1MembershipsByOrgIdMembers).toHaveBeenCalledWith({
+        path: { orgId: "org456" },
+        query: paginationParams,
+        throwOnError: true,
+      });
       expect(result).toEqual(mockMembers);
     });
 
     it("should return empty array when no members", async () => {
-      mockFetchPaginatedData.mockResolvedValue([]);
+      mockGetAuthV1MembershipsByOrgIdMembers.mockResolvedValue({
+        data: { members: [] },
+      });
 
       const result = await listOrganizationMembers("org999");
 
@@ -265,8 +279,8 @@ describe("Membership List Module", () => {
           image_url: "",
           role: MembershipRole.ADMIN,
           state: MembershipState.ACCEPTED,
-          created_at: new Date().toISOString(),
-          joined_at: new Date().toISOString(),
+          created_at: "2024-01-01T00:00:00Z",
+          joined_at: "2024-01-01T00:00:00Z",
         },
         {
           org_id: "org123",
@@ -277,28 +291,18 @@ describe("Membership List Module", () => {
           image_url: "",
           role: MembershipRole.MEMBER,
           state: MembershipState.ACCEPTED,
-          created_at: new Date().toISOString(),
-          joined_at: new Date().toISOString(),
-        },
-        {
-          org_id: "org123",
-          user_id: "user3",
-          username: "pending_user",
-          first_name: "Pending",
-          last_name: "User",
-          image_url: "",
-          role: MembershipRole.MEMBER,
-          state: MembershipState.PENDING,
-          created_at: new Date().toISOString(),
-          joined_at: new Date().toISOString(),
+          created_at: "2024-01-01T00:00:00Z",
+          joined_at: "2024-01-01T00:00:00Z",
         },
       ];
 
-      mockFetchPaginatedData.mockResolvedValue(mockMembers);
+      mockGetAuthV1MembershipsByOrgIdMembers.mockResolvedValue({
+        data: { members: mockMembers },
+      });
 
       const result = await listOrganizationMembers("org123");
 
-      expect(result).toHaveLength(3);
+      expect(result).toHaveLength(2);
       expect(result).toEqual(mockMembers);
     });
   });
