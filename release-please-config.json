@@ -1,0 +1,30 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "node",
+  "packages": {
+    "packages/sdk": {
+      "package-name": "@rixl/sdk",
+      "component": "sdk"
+    },
+    "packages/auth": {
+      "package-name": "@rixlhq/auth-lib-js",
+      "component": "auth-lib-core"
+    },
+    "packages/react": {
+      "package-name": "@rixlhq/auth-lib-react",
+      "component": "auth-lib-react"
+    }
+  },
+  "plugins": [
+    {
+      "type": "node-workspace",
+      "merge": false,
+      "updateAllPackages": true
+    },
+    {
+      "type": "linked-versions",
+      "groupName": "auth-lib",
+      "components": ["auth-lib-core", "auth-lib-react"]
+    }
+  ]
+}
