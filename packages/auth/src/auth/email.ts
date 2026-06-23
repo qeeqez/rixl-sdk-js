@@ -1,10 +1,15 @@
-import { getToken, setTokens, limitedAccessToken } from "../authStore";
+import {
+  putAuthV1UsersCurrentEmailsChange,
+  postAuthV1UsersCurrentEmails,
+  postAuthV1EmailVerify,
+  getAuthV1UsersCurrentEmailsStatus,
+} from "@rixl/sdk";
+import { setTokens } from "../authStore";
 import {
   ChangeEmailRequestSchema,
   ResendEmailRequestSchema,
   verifyEmailChangeRequestSchema,
 } from "../validation/auth";
-import { authenticatedFetch, publicFetch } from "../api/fetchers";
 import { validateInput } from "../validation/base";
 import { apiCall } from "../api/utils";
 import { HTTP_STATUS } from "../constants";
@@ -15,10 +20,17 @@ export const initiateEmailChange = async (email: string): Promise<void | Registr
   return apiCall(
     async () => {
       const validatedInput = validateInput(ChangeEmailRequestSchema, { new_email: email });
-      return await authenticatedFetch<RegistrationResponse>("auth/email/change", getToken, {
-        method: "POST",
+      const { data } = await putAuthV1UsersCurrentEmailsChange({
         body: validatedInput,
+        throwOnError: true,
       });
+
+      if (data.verification_id) {
+        return {
+          message: data.message || "Verification code sent",
+          verification_id: data.verification_id,
+        };
+      }
     },
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid email or email already in use"),
@@ -29,36 +41,21 @@ export const initiateEmailChange = async (email: string): Promise<void | Registr
   );
 };
 
-/**
- * Adds an email address to a user account in limited access state.
- *
- * Call this when `requiresAction` is `"add_email"` (e.g., Telegram users who authenticated
- * without an email). Uses the `limitedAccessToken` for authentication; falls back to
- * public endpoint for legacy/unauthenticated flows.
- *
- * @param email Email address to add
- * @returns A promise that resolves with verification_id when email is added
- * @throws Error if email is invalid, already in use, rate limited, or unauthorized
- */
 export const addEmail = async (email: string): Promise<void | RegistrationResponse> => {
   return apiCall(
     async () => {
       const validatedInput = validateInput(ResendEmailRequestSchema, { email });
-
-      // Use limitedAccessToken for Telegram users who are authenticated but need to add email
-      const token = limitedAccessToken.get();
-      if (token) {
-        return await authenticatedFetch<RegistrationResponse>("auth/email/add", async () => token, {
-          method: "POST",
-          body: validatedInput,
-        });
-      }
-
-      // Fallback to public endpoint (legacy flow or unauthenticated)
-      return await publicFetch<RegistrationResponse>("auth/email/add", {
-        method: "POST",
+      const { data } = await postAuthV1UsersCurrentEmails({
         body: validatedInput,
+        throwOnError: true,
       });
+
+      if (data.verification_id) {
+        return {
+          message: data.message || "Verification code sent",
+          verification_id: data.verification_id,
+        };
+      }
     },
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid email address"),
@@ -99,19 +96,28 @@ export const verifyEmailWithCode = async (
     async () => {
       const payload = normalizeVerifyEmailArgs(args);
 
-      const validatedInput = validateInput(verifyEmailChangeRequestSchema, payload);
-      const data = await publicFetch<VerifyEmailResponse>("auth/email/verify", {
-        method: "POST",
-        body: validatedInput,
+      validateInput(verifyEmailChangeRequestSchema, payload);
+      const { data } = await postAuthV1EmailVerify({
+        body: { code: payload.code, verification_id: payload.verification_id },
+        throwOnError: true,
       });
 
-      // Set tokens if returned (for login after email verification)
-      // Note: setTokens automatically clears limited access state
       if (data.tokens?.access_token && data.tokens?.refresh_token && data.tokens?.expires_in) {
         setTokens(data.tokens.access_token, data.tokens.refresh_token, data.tokens.expires_in);
       }
 
-      return data;
+      return {
+        email: data.email || "",
+        message: data.message || "Email verified",
+        verified: data.verified || false,
+        tokens: data.tokens
+          ? {
+              access_token: data.tokens.access_token!,
+              refresh_token: data.tokens.refresh_token!,
+              expires_in: data.tokens.expires_in!,
+            }
+          : undefined,
+      };
     },
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid code or verification ID"),
@@ -122,9 +128,15 @@ export const verifyEmailWithCode = async (
 export const getEmailVerificationStatus = async (): Promise<void | VerifyStatusResponse> => {
   return apiCall(
     async () => {
-      return await authenticatedFetch<VerifyStatusResponse>("auth/email/status", getToken, {
-        method: "GET",
+      const { data } = await getAuthV1UsersCurrentEmailsStatus({
+        throwOnError: true,
       });
+
+      return {
+        email: data.email || "",
+        has_email: String(data.has_email ?? false),
+        verified: data.verified || false,
+      };
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Unauthorized - invalid or missing token"),

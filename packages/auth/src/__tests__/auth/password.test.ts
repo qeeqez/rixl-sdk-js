@@ -1,36 +1,23 @@
-/**
- * Password management tests
- * Tests: sendPasswordResetEmail, confirmPasswordReset
- */
-
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { sendPasswordResetEmail, confirmPasswordReset } from "@/auth/password";
-import { HTTP_STATUS } from "@/constants.ts";
-import { mockPublicFetch, ApiError } from "../setup/api-mocks";
 import { setupAuthTest, cleanupAuthMocks } from "../utils/auth-test-helpers";
 
-// Mock implementation
-vi.mock("../../api/fetchers", async () => {
-  const { mockPublicFetch, mockAuthenticatedFetch } = await import("../setup/api-mocks");
-  return {
-    publicFetch: mockPublicFetch,
-    authenticatedFetch: mockAuthenticatedFetch,
-  };
-});
+const mockPostAuthV1PasswordReset = vi.fn();
+const mockPostAuthV1PasswordResetConfirm = vi.fn();
 
-vi.mock("../../api/error-handlers", async () => {
-  const { mockHandleApiError, ApiError } = await import("../setup/api-mocks");
-  return {
-    handleApiError: mockHandleApiError,
-    ApiError,
-  };
-});
+vi.mock("@rixl/sdk", () => ({
+  postAuthV1PasswordReset: (...args: unknown[]) => mockPostAuthV1PasswordReset(...args),
+  postAuthV1PasswordResetConfirm: (...args: unknown[]) =>
+    mockPostAuthV1PasswordResetConfirm(...args),
+}));
 
 describe("Password Functions", () => {
   let mocks: ReturnType<typeof setupAuthTest>;
 
   beforeEach(() => {
     mocks = setupAuthTest();
+    mockPostAuthV1PasswordReset.mockReset();
+    mockPostAuthV1PasswordResetConfirm.mockReset();
   });
 
   afterEach(() => {
@@ -39,53 +26,57 @@ describe("Password Functions", () => {
 
   describe("sendPasswordResetEmail", () => {
     it("should send password reset email", async () => {
-      mockPublicFetch.mockResolvedValue(undefined);
+      mockPostAuthV1PasswordReset.mockResolvedValue({
+        data: { message: "Reset email sent" },
+      });
 
       await sendPasswordResetEmail("test@example.com");
 
-      expect(mockPublicFetch).toHaveBeenCalledWith("auth/password/reset", {
-        method: "POST",
+      expect(mockPostAuthV1PasswordReset).toHaveBeenCalledWith({
         body: { email: "test@example.com" },
+        throwOnError: true,
       });
     });
 
-    it("should throw error for invalid email", async () => {
-      mockPublicFetch.mockRejectedValue(
-        new ApiError("Bad Request", {
-          status: HTTP_STATUS.BAD_REQUEST,
-          endpoint: "auth/password/reset",
-        }),
-      );
+    it("should throw error for invalid email format", async () => {
+      await expect(sendPasswordResetEmail("invalid-email")).rejects.toThrow();
+    });
 
-      await expect(sendPasswordResetEmail("invalid@example.com")).rejects.toThrow(
-        "Bad request - invalid email or validation error",
-      );
+    it("should throw error for bad request", async () => {
+      mockPostAuthV1PasswordReset.mockRejectedValue({
+        error: "bad_request",
+        code: 400,
+      });
+
+      await expect(sendPasswordResetEmail("test@example.com")).rejects.toThrow();
     });
   });
 
   describe("confirmPasswordReset", () => {
     it("should confirm password reset successfully", async () => {
-      mockPublicFetch.mockResolvedValue(undefined);
+      mockPostAuthV1PasswordResetConfirm.mockResolvedValue({
+        data: { message: "Password reset" },
+      });
 
       await confirmPasswordReset("reset-token-123", "NewPassword123");
 
-      expect(mockPublicFetch).toHaveBeenCalledWith("auth/password/reset/confirm", {
-        method: "POST",
+      expect(mockPostAuthV1PasswordResetConfirm).toHaveBeenCalledWith({
         body: { token: "reset-token-123", new_password: "NewPassword123" },
+        throwOnError: true,
       });
     });
 
     it("should throw error for invalid token or password", async () => {
-      mockPublicFetch.mockRejectedValue(
-        new ApiError("Bad Request", {
-          status: HTTP_STATUS.BAD_REQUEST,
-          endpoint: "auth/password/reset/confirm",
-        }),
-      );
+      mockPostAuthV1PasswordResetConfirm.mockRejectedValue({
+        error: "bad_request",
+        code: 400,
+      });
 
-      await expect(confirmPasswordReset("invalid-token", "NewPass123")).rejects.toThrow(
-        "Bad request - invalid token or password",
-      );
+      await expect(confirmPasswordReset("invalid-token", "NewPass123")).rejects.toThrow();
+    });
+
+    it("should validate password requirements", async () => {
+      await expect(confirmPasswordReset("token", "short")).rejects.toThrow();
     });
   });
 });

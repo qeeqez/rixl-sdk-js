@@ -1,6 +1,6 @@
+import { postAuthV1PasswordReset, postAuthV1PasswordResetConfirm } from "@rixl/sdk";
 import { ResendEmailRequestSchema, ResetPasswordRequestSchema } from "../validation/auth";
 import { validateInput } from "../validation/base";
-import { publicFetch } from "../api/fetchers";
 import { apiCall } from "../api/utils";
 import { HTTP_STATUS } from "../constants";
 
@@ -8,9 +8,9 @@ export const sendPasswordResetEmail = async (email: string): Promise<void> => {
   return apiCall(
     async () => {
       const validatedInput = validateInput(ResendEmailRequestSchema, { email });
-      await publicFetch<void>("auth/password/reset", {
-        method: "POST",
+      await postAuthV1PasswordReset({
         body: validatedInput,
+        throwOnError: true,
       });
     },
     {
@@ -26,9 +26,9 @@ export const confirmPasswordReset = async (token: string, password: string): Pro
         token: token,
         new_password: password,
       });
-      await publicFetch<void>("auth/password/reset/confirm", {
-        method: "POST",
+      await postAuthV1PasswordResetConfirm({
         body: validatedInput,
+        throwOnError: true,
       });
     },
     {
