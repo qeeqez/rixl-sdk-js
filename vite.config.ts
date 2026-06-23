@@ -31,7 +31,7 @@ export default defineConfig({
   plugins: [
     heyApiPlugin({
       config: {
-        input: "https://raw.githubusercontent.com/rixlhq/openapi/refs/heads/main/openapi.yaml",
+        input: "./swagger.yaml",
         output: "src",
       },
     }),
