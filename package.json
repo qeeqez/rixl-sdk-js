@@ -2,10 +2,20 @@
   "name": "rixl-sdk-monorepo",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "workspaces": [
     "packages/*"
   ],
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --parallel --filter=@rixlhq/auth-lib-js --filter=@rixlhq/auth-lib-react dev",
+    "build": "bun run --filter=@rixlhq/auth-lib-js build && bun run --filter=@rixlhq/auth-lib-react build",
+    "build:prod": "bun run --filter=@rixlhq/auth-lib-js build:prod && bun run --filter=@rixlhq/auth-lib-react build:prod",
+    "clean": "bun run --filter='*' clean",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "vite-plus": "0.1.24"
+  },
   "engines": {
     "node": ">=22"
   },

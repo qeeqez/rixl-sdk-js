@@ -1,0 +1,38 @@
+import { ResendEmailRequestSchema, ResetPasswordRequestSchema } from "../validation/auth";
+import { validateInput } from "../validation/base";
+import { publicFetch } from "../api/fetchers";
+import { apiCall } from "../api/utils";
+import { HTTP_STATUS } from "../constants";
+
+export const sendPasswordResetEmail = async (email: string): Promise<void> => {
+  return apiCall(
+    async () => {
+      const validatedInput = validateInput(ResendEmailRequestSchema, { email });
+      await publicFetch<void>("auth/password/reset", {
+        method: "POST",
+        body: validatedInput,
+      });
+    },
+    {
+      [HTTP_STATUS.BAD_REQUEST]: () => new Error("Bad request - invalid email or validation error"),
+    },
+  );
+};
+
+export const confirmPasswordReset = async (token: string, password: string): Promise<void> => {
+  return apiCall(
+    async () => {
+      const validatedInput = validateInput(ResetPasswordRequestSchema, {
+        token: token,
+        new_password: password,
+      });
+      await publicFetch<void>("auth/password/reset/confirm", {
+        method: "POST",
+        body: validatedInput,
+      });
+    },
+    {
+      [HTTP_STATUS.BAD_REQUEST]: () => new Error("Bad request - invalid token or password"),
+    },
+  );
+};
