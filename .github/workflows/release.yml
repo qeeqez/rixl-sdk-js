@@ -1,39 +1,75 @@
-name: Release
+name: Build and Release
 
 on:
+  workflow_dispatch:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
 
 permissions:
   contents: write
-  pull-requests: write
-  id-token: write # Required for NPMJS OIDC
-  packages: write
 
 jobs:
-  release-please:
+  build-release:
     runs-on: ubuntu-latest
-    outputs:
-      releases_created: ${{ steps.release.outputs.releases_created }}
-      tag_name: ${{ steps.release.outputs.tag_name }}
-    steps:
-      - uses: actions/checkout@v6
-      - uses: googleapis/release-please-action@v5
-        id: release
-        with:
-          release-type: node
+    permissions:
+      contents: write
+      pull-requests: write
+      packages: write
+      id-token: write
 
-  publish:
-    needs: release-please
-    if: ${{ needs.release-please.outputs.releases_created == 'true' }}
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: voidzero-dev/setup-vp@v1
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Set up vite-plus
+        uses: voidzero-dev/setup-vp@v1
         with:
           cache: "true"
-          run-install: "true"
-      - run: vp run ci:release
+          run-install: "false"
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build SDK
+        run: cd packages/sdk && bun run pack
+
+      - name: Build packages
+        run: bun run build:prod
+
+      - name: Run tests with coverage
+        run: bun run test:coverage --run
+
+      - name: Report coverage to PR
+        if: github.event_name == 'pull_request'
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          json-summary-path: ./coverage/coverage-summary.json
+          json-final-path: ./coverage/coverage-final.json
+          vite-config-path: ./vitest.config.ts
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Release Please
+        id: release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: googleapis/release-please-action@v5
+        with:
+          token: ${{ secrets.BUILD_GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+      - name: Publish SDK to npm
+        if: ${{ steps.release.outputs['packages/sdk--release_created'] == 'true' }}
+        run: cd packages/sdk && vp pack && npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish auth/react to GitHub Packages
+        if: ${{ steps.release.outputs['packages/auth--release_created'] == 'true' }}
+        run: bun ci:full
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

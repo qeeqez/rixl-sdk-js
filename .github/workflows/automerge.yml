@@ -1,0 +1,19 @@
+name: Automerge Release PR
+
+on:
+  pull_request:
+    types: [labeled, opened, reopened, synchronize]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  automerge:
+    if: "contains(github.event.pull_request.labels.*.name, 'autorelease: pending')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-merge
+        env:
+          GH_TOKEN: ${{ secrets.BUILD_GITHUB_TOKEN }}
+        run: gh pr merge --auto --squash "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}"
