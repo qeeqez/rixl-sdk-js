@@ -61,18 +61,14 @@ describe("User Management", () => {
       });
     });
 
-    it("should handle token refresh when tokens returned", async () => {
+    it("should not attempt token refresh (response has no tokens)", async () => {
       mockPatchAuthV1UsersCurrentName.mockResolvedValue({
-        data: {
-          access_token: "new-token",
-          refresh_token: "new-refresh",
-          expires_in: 3600,
-        },
+        data: { first_name: "Jane", last_name: "Smith" },
       });
 
       await updateFullName("Jane Smith");
 
-      expect(mocks.setTokensSpy).toHaveBeenCalledWith("new-token", "new-refresh", 3600);
+      expect(mocks.setTokensSpy).not.toHaveBeenCalled();
     });
 
     it("should validate name format", async () => {
@@ -103,18 +99,14 @@ describe("User Management", () => {
       });
     });
 
-    it("should handle token refresh when tokens returned", async () => {
+    it("should not attempt token refresh (response has no tokens)", async () => {
       mockPatchAuthV1UsersCurrentUsername.mockResolvedValue({
-        data: {
-          access_token: "new-token",
-          refresh_token: "new-refresh",
-          expires_in: 3600,
-        },
+        data: { username: "another_user" },
       });
 
       await updateUsername("another_user");
 
-      expect(mocks.setTokensSpy).toHaveBeenCalledWith("new-token", "new-refresh", 3600);
+      expect(mocks.setTokensSpy).not.toHaveBeenCalled();
     });
 
     it("should validate username format", async () => {

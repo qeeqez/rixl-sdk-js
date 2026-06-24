@@ -37,6 +37,7 @@ export {
   updateMemberRole,
   deleteMember,
   MembershipRole,
+  type AssignableRole,
   MembershipState,
   respondToInvitation,
   resendMemberInvite,

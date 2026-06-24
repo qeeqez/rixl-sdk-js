@@ -63,7 +63,7 @@ describe("Social Connections Module", () => {
         },
       ];
 
-      mockGetAuthV1Providers.mockResolvedValue({ data: mockProviders });
+      mockGetAuthV1Providers.mockResolvedValue({ data: { providers: mockProviders } });
 
       const result = await listSocials();
 
@@ -74,7 +74,7 @@ describe("Social Connections Module", () => {
     });
 
     it("should return empty array when no providers connected", async () => {
-      mockGetAuthV1Providers.mockResolvedValue({ data: [] });
+      mockGetAuthV1Providers.mockResolvedValue({ data: { providers: [] } });
 
       const result = await listSocials();
 
@@ -96,7 +96,7 @@ describe("Social Connections Module", () => {
         },
       ];
 
-      mockGetAuthV1Providers.mockResolvedValue({ data: mockProvider });
+      mockGetAuthV1Providers.mockResolvedValue({ data: { providers: mockProvider } });
 
       const result = await listSocials();
 
@@ -117,7 +117,7 @@ describe("Social Connections Module", () => {
         },
       ];
 
-      mockGetAuthV1Providers.mockResolvedValue({ data: mockProviders });
+      mockGetAuthV1Providers.mockResolvedValue({ data: { providers: mockProviders } });
 
       const result = await listSocials();
 

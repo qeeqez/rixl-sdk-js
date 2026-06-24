@@ -17,11 +17,11 @@ export const PublicInviteResponseSchema = v.object({
  */
 export const InviteMemberSchema = v.object({
   username: UsernameSchema,
-  role: v.union([v.literal("owner"), v.literal("admin"), v.literal("member")]),
+  role: v.union([v.literal("admin"), v.literal("member")]),
 });
 
 export const UpdateMemberRoleSchema = v.object({
-  role: v.union([v.literal("owner"), v.literal("admin"), v.literal("member")]),
+  role: v.union([v.literal("admin"), v.literal("member")]),
 });
 
 export const ResendInviteSchema = v.object({

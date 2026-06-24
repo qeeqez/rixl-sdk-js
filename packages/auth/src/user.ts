@@ -34,21 +34,10 @@ export const updateFullName = async (fullName: string): Promise<void> => {
   return apiCall(
     async () => {
       const validatedInput = validateInput(UpdateNameSchema, { full_name: fullName });
-      const { data } = await patchAuthV1UsersCurrentName({
+      await patchAuthV1UsersCurrentName({
         body: validatedInput,
         throwOnError: true,
       });
-
-      if (data && "access_token" in data) {
-        const tokenData = data as unknown as {
-          access_token: string;
-          refresh_token: string;
-          expires_in: number;
-        };
-        if (tokenData.access_token && tokenData.refresh_token && tokenData.expires_in) {
-          setTokens(tokenData.access_token, tokenData.refresh_token, tokenData.expires_in);
-        }
-      }
     },
     {
       [HTTP_STATUS.TOO_MANY_REQUESTS]: () =>
@@ -63,21 +52,10 @@ export const updateUsername = async (username: string): Promise<void> => {
   return apiCall(
     async () => {
       const validatedInput = validateInput(UpdateUsernameSchema, { username });
-      const { data } = await patchAuthV1UsersCurrentUsername({
+      await patchAuthV1UsersCurrentUsername({
         body: validatedInput,
         throwOnError: true,
       });
-
-      if (data && "access_token" in data) {
-        const tokenData = data as unknown as {
-          access_token: string;
-          refresh_token: string;
-          expires_in: number;
-        };
-        if (tokenData.access_token && tokenData.refresh_token && tokenData.expires_in) {
-          setTokens(tokenData.access_token, tokenData.refresh_token, tokenData.expires_in);
-        }
-      }
     },
     {
       [HTTP_STATUS.TOO_MANY_REQUESTS]: () =>

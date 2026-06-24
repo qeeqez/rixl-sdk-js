@@ -27,7 +27,7 @@ export const listSocials = async (): Promise<ConnectedProvider[]> => {
       const { data } = await getAuthV1Providers({
         throwOnError: true,
       });
-      return (data ?? []) as unknown as ConnectedProvider[];
+      return (data.providers ?? []) as unknown as ConnectedProvider[];
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("User is not authorized to list providers!"),

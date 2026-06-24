@@ -8,7 +8,7 @@ import { getToken } from "../authStore";
 import { authenticatedFetch } from "../api/fetchers";
 import { apiCall } from "../api/utils";
 import { HTTP_STATUS } from "../constants";
-import { MembershipRole, MembershipState } from "./types";
+import { AssignableRole, MembershipState } from "./types";
 import { validateInput } from "../validation/base";
 import {
   AcceptDeclineMembershipSchema,
@@ -20,7 +20,7 @@ import {
 export const inviteMember = async (
   orgId: string,
   username: string,
-  role: MembershipRole,
+  role: AssignableRole,
 ): Promise<void> => {
   return apiCall(
     async () => {

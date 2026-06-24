@@ -5,6 +5,8 @@ export enum MembershipRole {
   MEMBER = "member",
 }
 
+export type AssignableRole = MembershipRole.ADMIN | MembershipRole.MEMBER;
+
 export enum MembershipState {
   ACCEPTED = "accepted",
   PENDING = "pending",
@@ -41,7 +43,7 @@ export interface Member extends Common {
 // Invite member request
 export interface InviteMemberRequest {
   username: string;
-  role: MembershipRole;
+  role: AssignableRole;
 }
 
 // Resend Invite member request
@@ -51,5 +53,5 @@ export interface ResendInviteMemberRequest {
 
 // Update member role request
 export interface UpdateMemberRoleRequest {
-  role: MembershipRole;
+  role: AssignableRole;
 }

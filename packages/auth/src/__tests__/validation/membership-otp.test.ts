@@ -13,13 +13,13 @@ describe("InviteMemberSchema", () => {
     testValidInputs(InviteMemberSchema, [
       { username: "newmember", role: "member" },
       { username: "adminuser", role: "admin" },
-      { username: "owneruser", role: "owner" },
     ]);
   });
 
   it("should reject invalid inputs", () => {
     testInvalidInputs(InviteMemberSchema, [
       { username: "testuser", role: "invalid" }, // invalid role
+      { username: "testuser", role: "owner" }, // owner not assignable
       { username: "ab", role: "member" }, // username too short
     ]);
   });
@@ -27,15 +27,15 @@ describe("InviteMemberSchema", () => {
 
 describe("UpdateMemberRoleSchema", () => {
   it("should accept valid role", () => {
-    testValidInputs(UpdateMemberRoleSchema, [
-      { role: "admin" },
-      { role: "member" },
-      { role: "owner" },
-    ]);
+    testValidInputs(UpdateMemberRoleSchema, [{ role: "admin" }, { role: "member" }]);
   });
 
   it("should reject invalid role", () => {
-    testInvalidInputs(UpdateMemberRoleSchema, [{ role: "superuser" }, { role: "invalid" }]);
+    testInvalidInputs(UpdateMemberRoleSchema, [
+      { role: "superuser" },
+      { role: "invalid" },
+      { role: "owner" },
+    ]);
   });
 });
 

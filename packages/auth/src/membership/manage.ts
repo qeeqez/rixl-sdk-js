@@ -7,7 +7,7 @@ import {
 import { accessToken, expireAt, getToken } from "../authStore";
 import { apiCall } from "../api/utils";
 import { HTTP_STATUS } from "../constants";
-import { MembershipRole } from "./types";
+import { AssignableRole } from "./types";
 import { validateInput } from "../validation/base";
 import { UpdateMemberRoleSchema } from "../validation/membership";
 
@@ -32,7 +32,7 @@ export const updateActiveMembership = async (orgId: string): Promise<void> => {
 export const updateMemberRole = async (
   orgId: string,
   userId: string,
-  role: MembershipRole,
+  role: AssignableRole,
 ): Promise<void> => {
   return apiCall(
     async () => {
