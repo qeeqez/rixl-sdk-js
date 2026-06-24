@@ -1,6 +1,6 @@
-export { createClient } from "./src/client";
-export { client } from "./src/client.gen";
-export * from "./src/types.gen";
+export { createClient } from "./src/generated/client";
+export { client } from "./src/generated/client.gen";
+export * from "./src/generated/types.gen";
 
 // Public SDK surface — curated. Internal-only operations are intentionally
 // omitted from @rixl/sdk: the 3 billing cron jobs, the Stripe webhook
@@ -166,4 +166,4 @@ export {
   rotateApiKeyByKeyid,
   updateCustomDomainByProjectid,
   updateFeed,
-} from "./src/sdk.gen";
+} from "./src/generated/sdk.gen";

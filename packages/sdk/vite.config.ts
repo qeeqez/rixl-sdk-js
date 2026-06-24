@@ -28,7 +28,7 @@ export default defineConfig({
     heyApiPlugin({
       config: {
         input: "./swagger.yaml",
-        output: "src",
+        output: "src/generated",
       },
     }),
   ],
