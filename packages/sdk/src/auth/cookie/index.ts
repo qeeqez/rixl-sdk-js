@@ -1,5 +1,5 @@
-import { deleteCookie, getAllCookiesStartWith, setCookie } from "./util";
-import { GLOBAL_PREFIX, COOKIE_EXPIRY_DAYS } from "../constants";
+import {deleteCookie, getAllCookiesStartWith, setCookie} from "./util";
+import {GLOBAL_PREFIX, COOKIE_EXPIRY_DAYS} from "../constants";
 
 export const initVals: Partial<Record<string, string>> = getAllCookiesStartWith(GLOBAL_PREFIX);
 

@@ -1,4 +1,4 @@
-import { atom, type WritableAtom } from "nanostores";
+import {atom, type WritableAtom} from "nanostores";
 
 /**
  * Global API base URL store

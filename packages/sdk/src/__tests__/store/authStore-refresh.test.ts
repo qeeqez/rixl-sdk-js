@@ -3,9 +3,9 @@
  * Tests: getToken with refresh logic
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import { createMockJWT } from "../utils/test-helpers";
-import { createProvidersMock, createCookieMock } from "../setup/authstore-mock-factory";
+import {describe, it, expect, beforeEach, vi, afterEach} from "vitest";
+import {createMockJWT} from "../utils/test-helpers";
+import {createProvidersMock, createCookieMock} from "../setup/authstore-mock-factory";
 
 // Setup mocks BEFORE importing the modules that depend on them
 vi.mock("../../auth/api/refresh-tokens", () => ({
@@ -18,16 +18,8 @@ vi.mock("../../auth/cookie", () => createCookieMock());
 import * as api from "../../auth/api/refresh-tokens";
 import * as providers from "@/providers";
 import * as initialization from "@/initialization";
-import {
-  accessToken,
-  refreshToken,
-  expireAt,
-  setTokens,
-  removeTokens,
-  getToken,
-  resetTokenPromise,
-} from "@/authStore.ts";
-import { user } from "@/userStore.ts";
+import {accessToken, refreshToken, expireAt, setTokens, removeTokens, getToken, resetTokenPromise} from "@/authStore.ts";
+import {user} from "@/userStore.ts";
 
 describe("AuthStore - Token Refresh", () => {
   const mockRefreshTokens = api.refreshTokens as any;
@@ -61,7 +53,7 @@ describe("AuthStore - Token Refresh", () => {
 
     it("should refresh token when expired", async () => {
       const oldToken = createMockJWT();
-      const newToken = createMockJWT({ id: "new-user" });
+      const newToken = createMockJWT({id: "new-user"});
 
       // Set expired token
       accessToken.set(oldToken);
@@ -93,7 +85,7 @@ describe("AuthStore - Token Refresh", () => {
     });
 
     it("should decode and set user when returning token", async () => {
-      const mockToken = createMockJWT({ username: "decoded-user" });
+      const mockToken = createMockJWT({username: "decoded-user"});
       setTokens(mockToken, "refresh", 3600);
 
       await getToken();

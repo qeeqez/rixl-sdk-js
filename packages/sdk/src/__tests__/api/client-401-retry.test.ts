@@ -3,8 +3,8 @@
  * Tests: Token refresh mutex, 401 handling, and retry logic
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import { setTokenRefreshFunction } from "../../auth/api/client-core";
+import {describe, it, expect, beforeEach, vi, afterEach} from "vitest";
+import {setTokenRefreshFunction} from "../../auth/api/client-core";
 
 describe("API Client - 401 Retry and Token Refresh", () => {
   beforeEach(() => {

@@ -1,13 +1,13 @@
-import { postAuthV1PasswordReset, postAuthV1PasswordResetConfirm } from "../../generated/sdk.gen";
-import { ResendEmailRequestSchema, ResetPasswordRequestSchema } from "../validation/auth";
-import { validateInput } from "../validation/base";
-import { apiCall } from "../api/utils";
-import { HTTP_STATUS } from "../constants";
+import {postAuthV1PasswordReset, postAuthV1PasswordResetConfirm} from "../../generated/sdk.gen";
+import {ResendEmailRequestSchema, ResetPasswordRequestSchema} from "../validation/auth";
+import {validateInput} from "../validation/base";
+import {apiCall} from "../api/utils";
+import {HTTP_STATUS} from "../constants";
 
 export const sendPasswordResetEmail = async (email: string): Promise<void> => {
   return apiCall(
     async () => {
-      const validatedInput = validateInput(ResendEmailRequestSchema, { email });
+      const validatedInput = validateInput(ResendEmailRequestSchema, {email});
       await postAuthV1PasswordReset({
         body: validatedInput,
         throwOnError: true,
@@ -15,7 +15,7 @@ export const sendPasswordResetEmail = async (email: string): Promise<void> => {
     },
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Bad request - invalid email or validation error"),
-    },
+    }
   );
 };
 
@@ -33,6 +33,6 @@ export const confirmPasswordReset = async (token: string, password: string): Pro
     },
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Bad request - invalid token or password"),
-    },
+    }
   );
 };

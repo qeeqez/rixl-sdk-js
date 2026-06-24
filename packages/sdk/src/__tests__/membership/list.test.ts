@@ -1,13 +1,7 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import {
-  listActiveMemberships,
-  listPendingMemberships,
-  listOrganizationMembers,
-  MembershipRole,
-  MembershipState,
-} from "@/membership";
-import { setupAuthTest, cleanupAuthMocks } from "../utils/auth-test-helpers";
-import type { Membership, Member } from "@/membership";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
+import {listActiveMemberships, listPendingMemberships, listOrganizationMembers, MembershipRole, MembershipState} from "@/membership";
+import {setupAuthTest, cleanupAuthMocks} from "../utils/auth-test-helpers";
+import type {Membership, Member} from "@/membership";
 
 const mockGetAuthV1MembershipsActive = vi.fn();
 const mockGetAuthV1MembershipsPending = vi.fn();
@@ -16,8 +10,7 @@ const mockGetAuthV1MembershipsByOrgIdMembers = vi.fn();
 vi.mock("../../generated/sdk.gen", () => ({
   getAuthV1MembershipsActive: (...args: unknown[]) => mockGetAuthV1MembershipsActive(...args),
   getAuthV1MembershipsPending: (...args: unknown[]) => mockGetAuthV1MembershipsPending(...args),
-  getAuthV1MembershipsByOrgIdMembers: (...args: unknown[]) =>
-    mockGetAuthV1MembershipsByOrgIdMembers(...args),
+  getAuthV1MembershipsByOrgIdMembers: (...args: unknown[]) => mockGetAuthV1MembershipsByOrgIdMembers(...args),
 }));
 
 describe("Membership List Module", () => {
@@ -49,7 +42,7 @@ describe("Membership List Module", () => {
       ];
 
       mockGetAuthV1MembershipsActive.mockResolvedValue({
-        data: { memberships: mockMemberships },
+        data: {memberships: mockMemberships},
       });
 
       const result = await listActiveMemberships();
@@ -75,10 +68,10 @@ describe("Membership List Module", () => {
       ];
 
       mockGetAuthV1MembershipsActive.mockResolvedValue({
-        data: { memberships: mockMemberships },
+        data: {memberships: mockMemberships},
       });
 
-      const paginationParams = { limit: 10, offset: 0 };
+      const paginationParams = {limit: 10, offset: 0};
       const result = await listActiveMemberships(paginationParams);
 
       expect(mockGetAuthV1MembershipsActive).toHaveBeenCalledWith({
@@ -90,7 +83,7 @@ describe("Membership List Module", () => {
 
     it("should return empty array when no memberships", async () => {
       mockGetAuthV1MembershipsActive.mockResolvedValue({
-        data: { memberships: [] },
+        data: {memberships: []},
       });
 
       const result = await listActiveMemberships();
@@ -121,7 +114,7 @@ describe("Membership List Module", () => {
       ];
 
       mockGetAuthV1MembershipsActive.mockResolvedValue({
-        data: { memberships: mockMemberships },
+        data: {memberships: mockMemberships},
       });
 
       const result = await listActiveMemberships();
@@ -146,7 +139,7 @@ describe("Membership List Module", () => {
       ];
 
       mockGetAuthV1MembershipsPending.mockResolvedValue({
-        data: { memberships: mockMemberships },
+        data: {memberships: mockMemberships},
       });
 
       const result = await listPendingMemberships();
@@ -172,10 +165,10 @@ describe("Membership List Module", () => {
       ];
 
       mockGetAuthV1MembershipsPending.mockResolvedValue({
-        data: { memberships: mockMemberships },
+        data: {memberships: mockMemberships},
       });
 
-      const paginationParams = { limit: 5, offset: 10 };
+      const paginationParams = {limit: 5, offset: 10};
       const result = await listPendingMemberships(paginationParams);
 
       expect(mockGetAuthV1MembershipsPending).toHaveBeenCalledWith({
@@ -187,7 +180,7 @@ describe("Membership List Module", () => {
 
     it("should return empty array when no pending memberships", async () => {
       mockGetAuthV1MembershipsPending.mockResolvedValue({
-        data: { memberships: [] },
+        data: {memberships: []},
       });
 
       const result = await listPendingMemberships();
@@ -214,13 +207,13 @@ describe("Membership List Module", () => {
       ];
 
       mockGetAuthV1MembershipsByOrgIdMembers.mockResolvedValue({
-        data: { members: mockMembers },
+        data: {members: mockMembers},
       });
 
       const result = await listOrganizationMembers("org123");
 
       expect(mockGetAuthV1MembershipsByOrgIdMembers).toHaveBeenCalledWith({
-        path: { orgId: "org123" },
+        path: {orgId: "org123"},
         query: undefined,
         throwOnError: true,
       });
@@ -244,14 +237,14 @@ describe("Membership List Module", () => {
       ];
 
       mockGetAuthV1MembershipsByOrgIdMembers.mockResolvedValue({
-        data: { members: mockMembers },
+        data: {members: mockMembers},
       });
 
-      const paginationParams = { limit: 20, offset: 0 };
+      const paginationParams = {limit: 20, offset: 0};
       const result = await listOrganizationMembers("org456", paginationParams);
 
       expect(mockGetAuthV1MembershipsByOrgIdMembers).toHaveBeenCalledWith({
-        path: { orgId: "org456" },
+        path: {orgId: "org456"},
         query: paginationParams,
         throwOnError: true,
       });
@@ -260,7 +253,7 @@ describe("Membership List Module", () => {
 
     it("should return empty array when no members", async () => {
       mockGetAuthV1MembershipsByOrgIdMembers.mockResolvedValue({
-        data: { members: [] },
+        data: {members: []},
       });
 
       const result = await listOrganizationMembers("org999");
@@ -297,7 +290,7 @@ describe("Membership List Module", () => {
       ];
 
       mockGetAuthV1MembershipsByOrgIdMembers.mockResolvedValue({
-        data: { members: mockMembers },
+        data: {members: mockMembers},
       });
 
       const result = await listOrganizationMembers("org123");

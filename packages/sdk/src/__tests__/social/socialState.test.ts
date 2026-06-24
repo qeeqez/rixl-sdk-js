@@ -4,12 +4,8 @@
  * @vitest-environment jsdom
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
-import {
-  setSocialConnectAttempt,
-  hasSocialConnectAttempt,
-  clearSocialConnectAttempt,
-} from "@/social/socialState.ts";
+import {describe, it, expect, beforeEach} from "vitest";
+import {setSocialConnectAttempt, hasSocialConnectAttempt, clearSocialConnectAttempt} from "@/social/socialState.ts";
 
 describe("Social State Management", () => {
   beforeEach(() => {

@@ -3,8 +3,8 @@
  * Tests: Edge cases in JWT parsing
  */
 
-import { describe, it, expect } from "vitest";
-import { decodeToken, decodeAndSetUser, isTokenExpired } from "@/utils/jwt.ts";
+import {describe, it, expect} from "vitest";
+import {decodeToken, decodeAndSetUser, isTokenExpired} from "@/utils/jwt.ts";
 
 describe("JWT Utils - Coverage", () => {
   describe("decodeToken edge cases", () => {

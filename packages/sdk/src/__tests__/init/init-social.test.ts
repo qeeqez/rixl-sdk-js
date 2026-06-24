@@ -1,18 +1,18 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { initClient, type AuthClientConfig } from "../../auth/init";
+import {describe, it, expect, beforeEach, vi} from "vitest";
+import {initClient, type AuthClientConfig} from "../../auth/init";
 
 // Mock implementation
 vi.mock("../../auth/api", () => ({
-  apiURL: { set: vi.fn(), get: vi.fn() },
+  apiURL: {set: vi.fn(), get: vi.fn()},
 }));
 
 vi.mock("../../auth/authStore", () => ({
   getToken: vi.fn().mockResolvedValue("mock-access-token"),
-  refreshToken: { get: vi.fn() },
+  refreshToken: {get: vi.fn()},
 }));
 
 vi.mock("../../auth/initialization", () => ({
-  initDeferred: { promise: Promise.resolve(), resolve: vi.fn() },
+  initDeferred: {promise: Promise.resolve(), resolve: vi.fn()},
 }));
 
 vi.mock("../../auth/providers", () => ({
@@ -64,7 +64,7 @@ describe("initClient - Social Connection Flow", () => {
   });
 
   it("should handle social connection attempt", async () => {
-    const config: AuthClientConfig = { apiUrl: "https://api.example.com" };
+    const config: AuthClientConfig = {apiUrl: "https://api.example.com"};
 
     mockDetectProvider.mockReturnValue("google");
     mockGetProviderToken.mockReturnValue("oauth-token");
@@ -80,7 +80,7 @@ describe("initClient - Social Connection Flow", () => {
   });
 
   it("should clear social attempt flag even if connection fails", async () => {
-    const config: AuthClientConfig = { apiUrl: "https://api.example.com" };
+    const config: AuthClientConfig = {apiUrl: "https://api.example.com"};
 
     mockDetectProvider.mockReturnValue("apple");
     mockGetProviderToken.mockReturnValue("apple-token");

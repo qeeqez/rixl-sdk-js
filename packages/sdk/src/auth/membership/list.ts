@@ -1,19 +1,13 @@
-import {
-  getAuthV1MembershipsActive,
-  getAuthV1MembershipsPending,
-  getAuthV1MembershipsByOrgIdMembers,
-} from "../../generated/sdk.gen";
-import { apiCall } from "../api/utils";
-import { HTTP_STATUS } from "../constants";
-import type { PaginationParams } from "../pagination-utils";
-import type { Membership, Member } from "./types";
+import {getAuthV1MembershipsActive, getAuthV1MembershipsPending, getAuthV1MembershipsByOrgIdMembers} from "../../generated/sdk.gen";
+import {apiCall} from "../api/utils";
+import {HTTP_STATUS} from "../constants";
+import type {PaginationParams} from "../pagination-utils";
+import type {Membership, Member} from "./types";
 
-export const listActiveMemberships = async (
-  paginationParams?: PaginationParams,
-): Promise<Membership[]> => {
+export const listActiveMemberships = async (paginationParams?: PaginationParams): Promise<Membership[]> => {
   return apiCall(
     async () => {
-      const { data } = await getAuthV1MembershipsActive({
+      const {data} = await getAuthV1MembershipsActive({
         query: paginationParams,
         throwOnError: true,
       });
@@ -22,16 +16,14 @@ export const listActiveMemberships = async (
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("User is not authorized to list memberships!"),
-    },
+    }
   );
 };
 
-export const listPendingMemberships = async (
-  paginationParams?: PaginationParams,
-): Promise<Membership[]> => {
+export const listPendingMemberships = async (paginationParams?: PaginationParams): Promise<Membership[]> => {
   return apiCall(
     async () => {
-      const { data } = await getAuthV1MembershipsPending({
+      const {data} = await getAuthV1MembershipsPending({
         query: paginationParams,
         throwOnError: true,
       });
@@ -40,18 +32,15 @@ export const listPendingMemberships = async (
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("User is not authorized to list memberships!"),
-    },
+    }
   );
 };
 
-export const listOrganizationMembers = async (
-  orgId: string,
-  paginationParams?: PaginationParams,
-): Promise<Member[]> => {
+export const listOrganizationMembers = async (orgId: string, paginationParams?: PaginationParams): Promise<Member[]> => {
   return apiCall(
     async () => {
-      const { data } = await getAuthV1MembershipsByOrgIdMembers({
-        path: { orgId },
+      const {data} = await getAuthV1MembershipsByOrgIdMembers({
+        path: {orgId},
         query: paginationParams,
         throwOnError: true,
       });
@@ -59,8 +48,7 @@ export const listOrganizationMembers = async (
       return (data.members || []) as unknown as Member[];
     },
     {
-      [HTTP_STATUS.UNAUTHORIZED]: () =>
-        new Error("User is not authorized to list organization members!"),
-    },
+      [HTTP_STATUS.UNAUTHORIZED]: () => new Error("User is not authorized to list organization members!"),
+    }
   );
 };

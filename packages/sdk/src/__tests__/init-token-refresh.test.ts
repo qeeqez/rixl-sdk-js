@@ -3,9 +3,9 @@
  * Tests: Lines 57-62 in init.ts - Token refresh with existing token
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import {describe, it, expect, beforeEach, vi} from "vitest";
 import * as authStoreModule from "../auth/authStore";
-import { AuthProvider } from "@/providers";
+import {AuthProvider} from "@/providers";
 import * as apiModule from "../auth/api/refresh-tokens";
 
 /**
@@ -47,7 +47,7 @@ describe("Init - Token Refresh Path Coverage", () => {
       const mockNewToken = "new-access-token";
       vi.spyOn(authStoreModule, "getToken").mockResolvedValue(mockNewToken);
 
-      const { setTokenRefreshFunction } = await import("../auth/api/client-core");
+      const {setTokenRefreshFunction} = await import("../auth/api/client-core");
       const tokenRefreshFn = createTokenRefreshFn();
       setTokenRefreshFunction(tokenRefreshFn);
 
@@ -71,7 +71,7 @@ describe("Init - Token Refresh Path Coverage", () => {
         expires_in: 3600,
       });
 
-      const { setTokenRefreshFunction } = await import("../auth/api/client-core");
+      const {setTokenRefreshFunction} = await import("../auth/api/client-core");
       const tokenRefreshFn = createTokenRefreshFn();
       setTokenRefreshFunction(tokenRefreshFn);
 
@@ -96,7 +96,7 @@ describe("Init - Token Refresh Path Coverage", () => {
       });
       vi.spyOn(authStoreModule, "getToken").mockResolvedValue("access-token");
 
-      const { setTokenRefreshFunction } = await import("../auth/api/client-core");
+      const {setTokenRefreshFunction} = await import("../auth/api/client-core");
       const tokenRefreshFn = createTokenRefreshFn();
       setTokenRefreshFunction(tokenRefreshFn);
 
@@ -119,7 +119,7 @@ describe("Init - Token Refresh Path Coverage", () => {
       });
       vi.spyOn(authStoreModule, "getToken").mockResolvedValue("token");
 
-      const { setTokenRefreshFunction } = await import("../auth/api/client-core");
+      const {setTokenRefreshFunction} = await import("../auth/api/client-core");
       const tokenRefreshFn = createTokenRefreshFn();
       setTokenRefreshFunction(tokenRefreshFn);
 
@@ -151,7 +151,7 @@ describe("Init - Token Refresh Path Coverage", () => {
         return "new-token";
       });
 
-      const { setTokenRefreshFunction } = await import("../auth/api/client-core");
+      const {setTokenRefreshFunction} = await import("../auth/api/client-core");
       const tokenRefreshFn = createTokenRefreshFn();
       setTokenRefreshFunction(tokenRefreshFn);
 
@@ -167,7 +167,7 @@ describe("Init - Token Refresh Path Coverage", () => {
       const refreshError = new Error("Refresh failed");
       vi.spyOn(apiModule, "refreshTokens").mockRejectedValue(refreshError);
 
-      const { setTokenRefreshFunction } = await import("../auth/api/client-core");
+      const {setTokenRefreshFunction} = await import("../auth/api/client-core");
       const tokenRefreshFn = createTokenRefreshFn();
       setTokenRefreshFunction(tokenRefreshFn);
 
@@ -190,7 +190,7 @@ describe("Init - Token Refresh Path Coverage", () => {
         undefined, // getToken might return undefined
       ];
 
-      const { setTokenRefreshFunction } = await import("../auth/api/client-core");
+      const {setTokenRefreshFunction} = await import("../auth/api/client-core");
       const tokenRefreshFn = createTokenRefreshFn();
       setTokenRefreshFunction(tokenRefreshFn);
 
@@ -211,7 +211,7 @@ describe("Init - Token Refresh Path Coverage", () => {
         expires_in: 3600,
       });
 
-      const { setTokenRefreshFunction } = await import("../auth/api/client-core");
+      const {setTokenRefreshFunction} = await import("../auth/api/client-core");
       const tokenRefreshFn = createTokenRefreshFn();
       setTokenRefreshFunction(tokenRefreshFn);
 

@@ -1,13 +1,6 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import {
-  updateFullName,
-  updateUsername,
-  getOTPStatus,
-  setupUserOTP,
-  verifyUserOTP,
-  deleteUserOTP,
-} from "../auth/user";
-import { setupAuthTest, cleanupAuthMocks } from "./utils/auth-test-helpers";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
+import {updateFullName, updateUsername, getOTPStatus, setupUserOTP, verifyUserOTP, deleteUserOTP} from "../auth/user";
+import {setupAuthTest, cleanupAuthMocks} from "./utils/auth-test-helpers";
 
 const mockPatchAuthV1UsersCurrentName = vi.fn();
 const mockPatchAuthV1UsersCurrentUsername = vi.fn();
@@ -18,16 +11,11 @@ const mockDeleteAuthV1UsersCurrentTotpDelete = vi.fn();
 
 vi.mock("../generated/sdk.gen", () => ({
   patchAuthV1UsersCurrentName: (...args: unknown[]) => mockPatchAuthV1UsersCurrentName(...args),
-  patchAuthV1UsersCurrentUsername: (...args: unknown[]) =>
-    mockPatchAuthV1UsersCurrentUsername(...args),
-  getAuthV1UsersCurrentTotpStatus: (...args: unknown[]) =>
-    mockGetAuthV1UsersCurrentTotpStatus(...args),
-  postAuthV1UsersCurrentTotpSetup: (...args: unknown[]) =>
-    mockPostAuthV1UsersCurrentTotpSetup(...args),
-  postAuthV1UsersCurrentTotpVerify: (...args: unknown[]) =>
-    mockPostAuthV1UsersCurrentTotpVerify(...args),
-  deleteAuthV1UsersCurrentTotpDelete: (...args: unknown[]) =>
-    mockDeleteAuthV1UsersCurrentTotpDelete(...args),
+  patchAuthV1UsersCurrentUsername: (...args: unknown[]) => mockPatchAuthV1UsersCurrentUsername(...args),
+  getAuthV1UsersCurrentTotpStatus: (...args: unknown[]) => mockGetAuthV1UsersCurrentTotpStatus(...args),
+  postAuthV1UsersCurrentTotpSetup: (...args: unknown[]) => mockPostAuthV1UsersCurrentTotpSetup(...args),
+  postAuthV1UsersCurrentTotpVerify: (...args: unknown[]) => mockPostAuthV1UsersCurrentTotpVerify(...args),
+  deleteAuthV1UsersCurrentTotpDelete: (...args: unknown[]) => mockDeleteAuthV1UsersCurrentTotpDelete(...args),
 }));
 
 describe("User Management", () => {
@@ -50,20 +38,20 @@ describe("User Management", () => {
   describe("updateFullName", () => {
     it("should update name successfully", async () => {
       mockPatchAuthV1UsersCurrentName.mockResolvedValue({
-        data: { first_name: "John", last_name: "Doe" },
+        data: {first_name: "John", last_name: "Doe"},
       });
 
       await updateFullName("John Doe");
 
       expect(mockPatchAuthV1UsersCurrentName).toHaveBeenCalledWith({
-        body: { full_name: "John Doe" },
+        body: {full_name: "John Doe"},
         throwOnError: true,
       });
     });
 
     it("should not attempt token refresh (response has no tokens)", async () => {
       mockPatchAuthV1UsersCurrentName.mockResolvedValue({
-        data: { first_name: "Jane", last_name: "Smith" },
+        data: {first_name: "Jane", last_name: "Smith"},
       });
 
       await updateFullName("Jane Smith");
@@ -88,20 +76,20 @@ describe("User Management", () => {
   describe("updateUsername", () => {
     it("should update username successfully", async () => {
       mockPatchAuthV1UsersCurrentUsername.mockResolvedValue({
-        data: { username: "newusername" },
+        data: {username: "newusername"},
       });
 
       await updateUsername("newusername");
 
       expect(mockPatchAuthV1UsersCurrentUsername).toHaveBeenCalledWith({
-        body: { username: "newusername" },
+        body: {username: "newusername"},
         throwOnError: true,
       });
     });
 
     it("should not attempt token refresh (response has no tokens)", async () => {
       mockPatchAuthV1UsersCurrentUsername.mockResolvedValue({
-        data: { username: "another_user" },
+        data: {username: "another_user"},
       });
 
       await updateUsername("another_user");
@@ -193,7 +181,7 @@ describe("User Management", () => {
       await verifyUserOTP("123456");
 
       expect(mockPostAuthV1UsersCurrentTotpVerify).toHaveBeenCalledWith({
-        body: { code: "123456" },
+        body: {code: "123456"},
         throwOnError: true,
       });
       expect(mocks.setTokensSpy).toHaveBeenCalledWith("new-token", "new-refresh", 3600);
@@ -211,7 +199,7 @@ describe("User Management", () => {
   describe("deleteUserOTP", () => {
     it("should delete OTP successfully", async () => {
       mockDeleteAuthV1UsersCurrentTotpDelete.mockResolvedValue({
-        data: { message: "OTP deleted" },
+        data: {message: "OTP deleted"},
       });
 
       await expect(deleteUserOTP()).resolves.toBeUndefined();

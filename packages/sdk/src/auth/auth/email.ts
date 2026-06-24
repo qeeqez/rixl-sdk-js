@@ -4,23 +4,19 @@ import {
   postAuthV1EmailVerify,
   getAuthV1UsersCurrentEmailsStatus,
 } from "../../generated/sdk.gen";
-import { setTokens } from "../authStore";
-import {
-  ChangeEmailRequestSchema,
-  ResendEmailRequestSchema,
-  verifyEmailChangeRequestSchema,
-} from "../validation/auth";
-import { validateInput } from "../validation/base";
-import { apiCall } from "../api/utils";
-import { HTTP_STATUS } from "../constants";
-import type { RegistrationResponse, VerifyEmailResponse, VerifyStatusResponse } from "./types";
-import type { EmailVerificationType } from "../types";
+import {setTokens} from "../authStore";
+import {ChangeEmailRequestSchema, ResendEmailRequestSchema, verifyEmailChangeRequestSchema} from "../validation/auth";
+import {validateInput} from "../validation/base";
+import {apiCall} from "../api/utils";
+import {HTTP_STATUS} from "../constants";
+import type {RegistrationResponse, VerifyEmailResponse, VerifyStatusResponse} from "./types";
+import type {EmailVerificationType} from "../types";
 
 export const initiateEmailChange = async (email: string): Promise<void | RegistrationResponse> => {
   return apiCall(
     async () => {
-      const validatedInput = validateInput(ChangeEmailRequestSchema, { new_email: email });
-      const { data } = await putAuthV1UsersCurrentEmailsChange({
+      const validatedInput = validateInput(ChangeEmailRequestSchema, {new_email: email});
+      const {data} = await putAuthV1UsersCurrentEmailsChange({
         body: validatedInput,
         throwOnError: true,
       });
@@ -35,17 +31,16 @@ export const initiateEmailChange = async (email: string): Promise<void | Registr
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid email or email already in use"),
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Unauthorized - invalid or missing token"),
-      [HTTP_STATUS.TOO_MANY_REQUESTS]: () =>
-        new Error("Too many requests - please try again later"),
-    },
+      [HTTP_STATUS.TOO_MANY_REQUESTS]: () => new Error("Too many requests - please try again later"),
+    }
   );
 };
 
 export const addEmail = async (email: string): Promise<void | RegistrationResponse> => {
   return apiCall(
     async () => {
-      const validatedInput = validateInput(ResendEmailRequestSchema, { email });
-      const { data } = await postAuthV1UsersCurrentEmails({
+      const validatedInput = validateInput(ResendEmailRequestSchema, {email});
+      const {data} = await postAuthV1UsersCurrentEmails({
         body: validatedInput,
         throwOnError: true,
       });
@@ -61,9 +56,8 @@ export const addEmail = async (email: string): Promise<void | RegistrationRespon
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid email address"),
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Session expired - please login again"),
       [HTTP_STATUS.CONFLICT]: () => new Error("Email address is already in use"),
-      [HTTP_STATUS.TOO_MANY_REQUESTS]: () =>
-        new Error("Too many requests - please try again later"),
-    },
+      [HTTP_STATUS.TOO_MANY_REQUESTS]: () => new Error("Too many requests - please try again later"),
+    }
   );
 };
 
@@ -75,18 +69,18 @@ export interface VerifyEmailWithCodeParams {
 }
 
 const normalizeVerifyEmailArgs = (
-  args: [VerifyEmailWithCodeParams] | [string, EmailVerificationType, string, string],
+  args: [VerifyEmailWithCodeParams] | [string, EmailVerificationType, string, string]
 ): VerifyEmailWithCodeParams => {
   if (isLegacyVerifyEmailArgs(args)) {
     const [code, type, verification_id, new_email] = args;
-    return { code, type, verification_id, new_email };
+    return {code, type, verification_id, new_email};
   }
 
   return args[0];
 };
 
 const isLegacyVerifyEmailArgs = (
-  args: [VerifyEmailWithCodeParams] | [string, EmailVerificationType, string, string],
+  args: [VerifyEmailWithCodeParams] | [string, EmailVerificationType, string, string]
 ): args is [string, EmailVerificationType, string, string] => typeof args[0] === "string";
 
 export const verifyEmailWithCode = async (
@@ -97,8 +91,8 @@ export const verifyEmailWithCode = async (
       const payload = normalizeVerifyEmailArgs(args);
 
       validateInput(verifyEmailChangeRequestSchema, payload);
-      const { data } = await postAuthV1EmailVerify({
-        body: { code: payload.code, verification_id: payload.verification_id },
+      const {data} = await postAuthV1EmailVerify({
+        body: {code: payload.code, verification_id: payload.verification_id},
         throwOnError: true,
       });
 
@@ -121,14 +115,14 @@ export const verifyEmailWithCode = async (
     },
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid code or verification ID"),
-    },
+    }
   );
 };
 
 export const getEmailVerificationStatus = async (): Promise<void | VerifyStatusResponse> => {
   return apiCall(
     async () => {
-      const { data } = await getAuthV1UsersCurrentEmailsStatus({
+      const {data} = await getAuthV1UsersCurrentEmailsStatus({
         throwOnError: true,
       });
 
@@ -140,6 +134,6 @@ export const getEmailVerificationStatus = async (): Promise<void | VerifyStatusR
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Unauthorized - invalid or missing token"),
-    },
+    }
   );
 };

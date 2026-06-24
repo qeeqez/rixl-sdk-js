@@ -1,4 +1,4 @@
-import { STATE_STORAGE_KEY_PREFIX } from "./constants";
+import {STATE_STORAGE_KEY_PREFIX} from "./constants";
 
 const storagePath = (provider: string) => STATE_STORAGE_KEY_PREFIX + provider;
 

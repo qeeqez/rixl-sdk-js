@@ -1,11 +1,5 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import {
-  listSocials,
-  connectSocialInternal,
-  disconnectSocial,
-  connectSocial,
-  type ConnectedProvider,
-} from "@/social/socialConnections.ts";
+import {describe, it, expect, beforeEach, vi} from "vitest";
+import {listSocials, connectSocialInternal, disconnectSocial, connectSocial, type ConnectedProvider} from "@/social/socialConnections.ts";
 import * as initialization from "../../auth/initialization";
 
 const mockGetAuthV1Providers = vi.fn();
@@ -15,8 +9,7 @@ const mockDeleteAuthV1ProvidersByProvider = vi.fn();
 vi.mock("../../generated/sdk.gen", () => ({
   getAuthV1Providers: (...args: unknown[]) => mockGetAuthV1Providers(...args),
   postAuthV1ProvidersConnect: (...args: unknown[]) => mockPostAuthV1ProvidersConnect(...args),
-  deleteAuthV1ProvidersByProvider: (...args: unknown[]) =>
-    mockDeleteAuthV1ProvidersByProvider(...args),
+  deleteAuthV1ProvidersByProvider: (...args: unknown[]) => mockDeleteAuthV1ProvidersByProvider(...args),
 }));
 
 vi.mock("../../auth/authStore", () => ({
@@ -63,7 +56,7 @@ describe("Social Connections Module", () => {
         },
       ];
 
-      mockGetAuthV1Providers.mockResolvedValue({ data: { providers: mockProviders } });
+      mockGetAuthV1Providers.mockResolvedValue({data: {providers: mockProviders}});
 
       const result = await listSocials();
 
@@ -74,7 +67,7 @@ describe("Social Connections Module", () => {
     });
 
     it("should return empty array when no providers connected", async () => {
-      mockGetAuthV1Providers.mockResolvedValue({ data: { providers: [] } });
+      mockGetAuthV1Providers.mockResolvedValue({data: {providers: []}});
 
       const result = await listSocials();
 
@@ -82,7 +75,7 @@ describe("Social Connections Module", () => {
     });
 
     it("should handle unauthorized error", async () => {
-      mockGetAuthV1Providers.mockRejectedValue({ error: "unauthorized", code: 401 });
+      mockGetAuthV1Providers.mockRejectedValue({error: "unauthorized", code: 401});
 
       await expect(listSocials()).rejects.toThrow();
     });
@@ -96,7 +89,7 @@ describe("Social Connections Module", () => {
         },
       ];
 
-      mockGetAuthV1Providers.mockResolvedValue({ data: { providers: mockProvider } });
+      mockGetAuthV1Providers.mockResolvedValue({data: {providers: mockProvider}});
 
       const result = await listSocials();
 
@@ -117,7 +110,7 @@ describe("Social Connections Module", () => {
         },
       ];
 
-      mockGetAuthV1Providers.mockResolvedValue({ data: { providers: mockProviders } });
+      mockGetAuthV1Providers.mockResolvedValue({data: {providers: mockProviders}});
 
       const result = await listSocials();
 
@@ -129,35 +122,35 @@ describe("Social Connections Module", () => {
 
   describe("connectSocialInternal", () => {
     it("should connect social provider successfully", async () => {
-      mockPostAuthV1ProvidersConnect.mockResolvedValue({ data: {} });
+      mockPostAuthV1ProvidersConnect.mockResolvedValue({data: {}});
 
       await connectSocialInternal("google", "google-oauth-token");
 
       expect(mockPostAuthV1ProvidersConnect).toHaveBeenCalledWith({
-        body: { provider: "google", token: "google-oauth-token" },
+        body: {provider: "google", token: "google-oauth-token"},
         throwOnError: true,
       });
     });
 
     it("should connect different providers", async () => {
-      mockPostAuthV1ProvidersConnect.mockResolvedValue({ data: {} });
+      mockPostAuthV1ProvidersConnect.mockResolvedValue({data: {}});
 
       await connectSocialInternal("apple", "apple-id-token");
 
       expect(mockPostAuthV1ProvidersConnect).toHaveBeenCalledWith({
-        body: { provider: "apple", token: "apple-id-token" },
+        body: {provider: "apple", token: "apple-id-token"},
         throwOnError: true,
       });
     });
 
     it("should handle unauthorized error", async () => {
-      mockPostAuthV1ProvidersConnect.mockRejectedValue({ error: "unauthorized", code: 401 });
+      mockPostAuthV1ProvidersConnect.mockRejectedValue({error: "unauthorized", code: 401});
 
       await expect(connectSocialInternal("google", "token")).rejects.toThrow();
     });
 
     it("should validate input before sending", async () => {
-      mockPostAuthV1ProvidersConnect.mockResolvedValue({ data: {} });
+      mockPostAuthV1ProvidersConnect.mockResolvedValue({data: {}});
 
       await connectSocialInternal("microsoft", "ms-token-123");
 
@@ -173,41 +166,41 @@ describe("Social Connections Module", () => {
 
   describe("disconnectSocial", () => {
     it("should disconnect social provider successfully", async () => {
-      mockDeleteAuthV1ProvidersByProvider.mockResolvedValue({ data: {} });
+      mockDeleteAuthV1ProvidersByProvider.mockResolvedValue({data: {}});
 
       await disconnectSocial("provider-id-123");
 
       expect(mockDeleteAuthV1ProvidersByProvider).toHaveBeenCalledWith({
-        path: { provider: "provider-id-123" },
+        path: {provider: "provider-id-123"},
         throwOnError: true,
       });
     });
 
     it("should handle unauthorized error", async () => {
-      mockDeleteAuthV1ProvidersByProvider.mockRejectedValue({ error: "unauthorized", code: 401 });
+      mockDeleteAuthV1ProvidersByProvider.mockRejectedValue({error: "unauthorized", code: 401});
 
       await expect(disconnectSocial("provider-id-123")).rejects.toThrow();
     });
 
     it("should handle provider not found error", async () => {
-      mockDeleteAuthV1ProvidersByProvider.mockRejectedValue({ error: "not_found", code: 404 });
+      mockDeleteAuthV1ProvidersByProvider.mockRejectedValue({error: "not_found", code: 404});
 
       await expect(disconnectSocial("nonexistent-id")).rejects.toThrow();
     });
 
     it("should handle cannot disconnect last provider error", async () => {
-      mockDeleteAuthV1ProvidersByProvider.mockRejectedValue({ error: "bad_request", code: 400 });
+      mockDeleteAuthV1ProvidersByProvider.mockRejectedValue({error: "bad_request", code: 400});
 
       await expect(disconnectSocial("last-provider-id")).rejects.toThrow();
     });
 
     it("should work with different provider IDs", async () => {
-      mockDeleteAuthV1ProvidersByProvider.mockResolvedValue({ data: {} });
+      mockDeleteAuthV1ProvidersByProvider.mockResolvedValue({data: {}});
 
       await disconnectSocial("another-provider-456");
 
       expect(mockDeleteAuthV1ProvidersByProvider).toHaveBeenCalledWith({
-        path: { provider: "another-provider-456" },
+        path: {provider: "another-provider-456"},
         throwOnError: true,
       });
     });

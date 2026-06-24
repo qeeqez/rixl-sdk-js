@@ -12,20 +12,16 @@ export {
   clearLimitedAccessState,
 } from "./authStore";
 
-export { user } from "./userStore";
+export {user} from "./userStore";
 
 // Type exports
-export type { User, TokenResponse, LimitedScopeTokenResponse, RequiresAction } from "./types";
+export type {User, TokenResponse, LimitedScopeTokenResponse, RequiresAction} from "./types";
 
 // Initialization exports
-export { initClient, type AuthClientConfig } from "./init";
+export {initClient, type AuthClientConfig} from "./init";
 
 // Provider exports
-export {
-  type GoogleProviderConfig,
-  type AppleProviderConfig,
-  type TelegramProviderConfig,
-} from "./providers";
+export {type GoogleProviderConfig, type AppleProviderConfig, type TelegramProviderConfig} from "./providers";
 
 export {
   leaveOrganization,
@@ -59,15 +55,9 @@ export {
   type OTPSetup,
   type OTPStatusResponse,
 } from "./user";
-export { updateOrgName, updateOrgUsername } from "./organization";
+export {updateOrgName, updateOrgUsername} from "./organization";
 
-export {
-  listSocials,
-  connectSocial,
-  disconnectSocial,
-  type ConnectedProvider,
-  type ProviderType,
-} from "./social/socialConnections";
+export {listSocials, connectSocial, disconnectSocial, type ConnectedProvider, type ProviderType} from "./social/socialConnections";
 
 export {
   registerWithEmail,
@@ -103,9 +93,4 @@ export {
   type AutoJoinSetting,
 } from "./domain";
 
-export {
-  getBlogSubscriptionStatus,
-  subscribeToBlog,
-  unsubscribeFromBlog,
-  type BlogSubscriptionStatus,
-} from "./blog";
+export {getBlogSubscriptionStatus, subscribeToBlog, unsubscribeFromBlog, type BlogSubscriptionStatus} from "./blog";

@@ -1,4 +1,4 @@
-import type { HttpMethod } from "../types";
+import type {HttpMethod} from "../types";
 
 /**
  * Configuration for API requests

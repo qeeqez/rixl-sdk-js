@@ -1,6 +1,6 @@
-import { urlParams } from "../url";
-import { validateOAuthState } from "../state";
-import { AuthProvider } from "./types";
+import {urlParams} from "../url";
+import {validateOAuthState} from "../state";
+import {AuthProvider} from "./types";
 
 /**
  * Extracts the provider identifier from a state parameter
@@ -54,11 +54,7 @@ export function getProviderToken(provider: AuthProvider): string | undefined {
   }
 
   // For OAuth providers (Google, Apple, Microsoft), the token is in the 'id_token' parameter
-  if (
-    provider === AuthProvider.GOOGLE ||
-    provider === AuthProvider.APPLE ||
-    provider === AuthProvider.MICROSOFT
-  ) {
+  if (provider === AuthProvider.GOOGLE || provider === AuthProvider.APPLE || provider === AuthProvider.MICROSOFT) {
     return urlParams.get("id_token") || undefined;
   }
 

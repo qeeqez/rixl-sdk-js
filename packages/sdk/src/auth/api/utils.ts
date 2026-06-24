@@ -1,5 +1,5 @@
-import { initDeferred } from "../initialization";
-import { handleApiError } from "./error-handlers";
+import {initDeferred} from "../initialization";
+import {handleApiError} from "./error-handlers";
 
 /**
  * Generic helper for API calls to handle initialization and error handling
@@ -7,10 +7,7 @@ import { handleApiError } from "./error-handlers";
  * @param errorMap A map of status codes to error functions
  * @returns The result of the function execution
  */
-export const apiCall = async <T>(
-  fn: () => Promise<T>,
-  errorMap: Record<number, () => Error> = {},
-): Promise<T> => {
+export const apiCall = async <T>(fn: () => Promise<T>, errorMap: Record<number, () => Error> = {}): Promise<T> => {
   await initDeferred.promise;
 
   try {

@@ -3,8 +3,8 @@
  * Tests: appleConfig, appleAuthUrl, updateAppleAuthUrl
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { appleConfig, appleAuthUrl, updateAppleAuthUrl } from "@/providers";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
+import {appleConfig, appleAuthUrl, updateAppleAuthUrl} from "@/providers";
 
 // Mock state module
 vi.mock("../../auth/state", () => ({
@@ -44,22 +44,22 @@ describe("Apple Provider", () => {
     });
 
     it("should accept valid configuration", () => {
-      const config = { clientId: "com.example.app" };
+      const config = {clientId: "com.example.app"};
       appleConfig.set(config);
       expect(appleConfig.get()).toEqual(config);
     });
 
     it("should accept configuration with custom scope", () => {
-      const config = { clientId: "com.example.app", scope: "name email" };
+      const config = {clientId: "com.example.app", scope: "name email"};
       appleConfig.set(config);
       expect(appleConfig.get()).toEqual(config);
     });
 
     it("should allow configuration updates", () => {
-      appleConfig.set({ clientId: "old.bundle.id" });
+      appleConfig.set({clientId: "old.bundle.id"});
       expect(appleConfig.get()?.clientId).toBe("old.bundle.id");
 
-      appleConfig.set({ clientId: "new.bundle.id" });
+      appleConfig.set({clientId: "new.bundle.id"});
       expect(appleConfig.get()?.clientId).toBe("new.bundle.id");
     });
   });
@@ -75,7 +75,7 @@ describe("Apple Provider", () => {
     });
 
     it("should generate auth URL when config is set", () => {
-      appleConfig.set({ clientId: "com.example.app" });
+      appleConfig.set({clientId: "com.example.app"});
       updateAppleAuthUrl();
 
       const authUrl = appleAuthUrl.get();
@@ -85,7 +85,7 @@ describe("Apple Provider", () => {
     });
 
     it("should include Apple default scope (openid)", () => {
-      appleConfig.set({ clientId: "com.example.app" });
+      appleConfig.set({clientId: "com.example.app"});
       updateAppleAuthUrl();
 
       const authUrl = appleAuthUrl.get();
@@ -93,7 +93,7 @@ describe("Apple Provider", () => {
     });
 
     it("should include custom scope when provided", () => {
-      appleConfig.set({ clientId: "com.example.app", scope: "name email" });
+      appleConfig.set({clientId: "com.example.app", scope: "name email"});
       updateAppleAuthUrl();
 
       const authUrl = appleAuthUrl.get();
@@ -102,7 +102,7 @@ describe("Apple Provider", () => {
     });
 
     it("should use hybrid response type (code id_token)", () => {
-      appleConfig.set({ clientId: "com.example.app" });
+      appleConfig.set({clientId: "com.example.app"});
       updateAppleAuthUrl();
 
       const authUrl = appleAuthUrl.get();
@@ -110,7 +110,7 @@ describe("Apple Provider", () => {
     });
 
     it("should include nonce for id_token", () => {
-      appleConfig.set({ clientId: "com.example.app" });
+      appleConfig.set({clientId: "com.example.app"});
       updateAppleAuthUrl();
 
       const authUrl = appleAuthUrl.get();
@@ -118,7 +118,7 @@ describe("Apple Provider", () => {
     });
 
     it("should use fragment response mode", () => {
-      appleConfig.set({ clientId: "com.example.app" });
+      appleConfig.set({clientId: "com.example.app"});
       updateAppleAuthUrl();
 
       const authUrl = appleAuthUrl.get();
@@ -126,7 +126,7 @@ describe("Apple Provider", () => {
     });
 
     it("should include state parameter", () => {
-      appleConfig.set({ clientId: "com.example.app" });
+      appleConfig.set({clientId: "com.example.app"});
       updateAppleAuthUrl();
 
       const authUrl = appleAuthUrl.get();
@@ -134,7 +134,7 @@ describe("Apple Provider", () => {
     });
 
     it("should include redirect_uri", () => {
-      appleConfig.set({ clientId: "com.example.app" });
+      appleConfig.set({clientId: "com.example.app"});
       updateAppleAuthUrl();
 
       const authUrl = appleAuthUrl.get();
@@ -148,16 +148,14 @@ describe("Apple Provider", () => {
 
       updateAppleAuthUrl();
 
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        "Apple provider not configured. Check initClient method.",
-      );
+      expect(consoleWarnSpy).toHaveBeenCalledWith("Apple provider not configured. Check initClient method.");
       expect(appleAuthUrl.get()).toBeNull();
 
       consoleWarnSpy.mockRestore();
     });
 
     it("should update URL when called multiple times", () => {
-      appleConfig.set({ clientId: "com.example.app" });
+      appleConfig.set({clientId: "com.example.app"});
 
       updateAppleAuthUrl();
       const firstUrl = appleAuthUrl.get();
@@ -171,11 +169,11 @@ describe("Apple Provider", () => {
     });
 
     it("should update URL after config changes", () => {
-      appleConfig.set({ clientId: "com.old.app" });
+      appleConfig.set({clientId: "com.old.app"});
       updateAppleAuthUrl();
       const oldUrl = appleAuthUrl.get();
 
-      appleConfig.set({ clientId: "com.new.app" });
+      appleConfig.set({clientId: "com.new.app"});
       updateAppleAuthUrl();
       const newUrl = appleAuthUrl.get();
 

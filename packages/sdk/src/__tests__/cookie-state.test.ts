@@ -3,9 +3,9 @@
  * Tests: cookie utilities, OAuth state management
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
-import { getAllCookiesStartWith, setCookie, deleteCookie } from "../auth/cookie/util";
-import { validateOAuthState, getOauthState } from "../auth/state";
+import {describe, it, expect, beforeEach} from "vitest";
+import {getAllCookiesStartWith, setCookie, deleteCookie} from "../auth/cookie/util";
+import {validateOAuthState, getOauthState} from "../auth/state";
 
 describe("Cookie Utilities", () => {
   // Note: In jsdom, document.cookie is not fully implemented
@@ -34,28 +34,28 @@ describe("Cookie Utilities", () => {
     });
 
     it("should not throw with path option", () => {
-      expect(() => setCookie("testCookie", "testValue", { path: "/test" })).not.toThrow();
+      expect(() => setCookie("testCookie", "testValue", {path: "/test"})).not.toThrow();
     });
 
     it("should not throw with expiration in days", () => {
-      expect(() => setCookie("testCookie", "testValue", { expires: 7 })).not.toThrow();
+      expect(() => setCookie("testCookie", "testValue", {expires: 7})).not.toThrow();
     });
 
     it("should not throw with Date expiration", () => {
       const futureDate = new Date(Date.now() + 86400000);
-      expect(() => setCookie("testCookie", "testValue", { expires: futureDate })).not.toThrow();
+      expect(() => setCookie("testCookie", "testValue", {expires: futureDate})).not.toThrow();
     });
 
     it("should not throw with domain option", () => {
-      expect(() => setCookie("testCookie", "testValue", { domain: "example.com" })).not.toThrow();
+      expect(() => setCookie("testCookie", "testValue", {domain: "example.com"})).not.toThrow();
     });
 
     it("should not throw with secure option", () => {
-      expect(() => setCookie("testCookie", "testValue", { secure: true })).not.toThrow();
+      expect(() => setCookie("testCookie", "testValue", {secure: true})).not.toThrow();
     });
 
     it("should not throw with sameSite option", () => {
-      expect(() => setCookie("testCookie", "testValue", { sameSite: "strict" })).not.toThrow();
+      expect(() => setCookie("testCookie", "testValue", {sameSite: "strict"})).not.toThrow();
     });
 
     it("should handle all options together", () => {
@@ -66,7 +66,7 @@ describe("Cookie Utilities", () => {
           domain: "example.com",
           secure: true,
           sameSite: "lax",
-        }),
+        })
       ).not.toThrow();
     });
 

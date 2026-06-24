@@ -3,8 +3,8 @@
  * Tests: googleConfig, googleAuthUrl, updateGoogleAuthUrl
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { googleConfig, googleAuthUrl, updateGoogleAuthUrl } from "@/providers/google";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
+import {googleConfig, googleAuthUrl, updateGoogleAuthUrl} from "@/providers/google";
 
 // Mock state module
 vi.mock("../../auth/state", () => ({
@@ -44,22 +44,22 @@ describe("Google Provider", () => {
     });
 
     it("should accept valid configuration", () => {
-      const config = { clientId: "google-client-id-123" };
+      const config = {clientId: "google-client-id-123"};
       googleConfig.set(config);
       expect(googleConfig.get()).toEqual(config);
     });
 
     it("should accept configuration with custom scope", () => {
-      const config = { clientId: "client-id", scope: "profile" };
+      const config = {clientId: "client-id", scope: "profile"};
       googleConfig.set(config);
       expect(googleConfig.get()).toEqual(config);
     });
 
     it("should allow updating configuration", () => {
-      googleConfig.set({ clientId: "old-id" });
+      googleConfig.set({clientId: "old-id"});
       expect(googleConfig.get()?.clientId).toBe("old-id");
 
-      googleConfig.set({ clientId: "new-id" });
+      googleConfig.set({clientId: "new-id"});
       expect(googleConfig.get()?.clientId).toBe("new-id");
     });
   });
@@ -75,7 +75,7 @@ describe("Google Provider", () => {
     });
 
     it("should generate auth URL when config is set", () => {
-      googleConfig.set({ clientId: "test-client-id" });
+      googleConfig.set({clientId: "test-client-id"});
       updateGoogleAuthUrl();
 
       const authUrl = googleAuthUrl.get();
@@ -85,7 +85,7 @@ describe("Google Provider", () => {
     });
 
     it("should include Google default scopes", () => {
-      googleConfig.set({ clientId: "client-123" });
+      googleConfig.set({clientId: "client-123"});
       updateGoogleAuthUrl();
 
       const authUrl = googleAuthUrl.get();
@@ -95,7 +95,7 @@ describe("Google Provider", () => {
     });
 
     it("should include custom scope when provided", () => {
-      googleConfig.set({ clientId: "client-123", scope: "calendar" });
+      googleConfig.set({clientId: "client-123", scope: "calendar"});
       updateGoogleAuthUrl();
 
       const authUrl = googleAuthUrl.get();
@@ -103,7 +103,7 @@ describe("Google Provider", () => {
     });
 
     it("should use id_token response type", () => {
-      googleConfig.set({ clientId: "client-123" });
+      googleConfig.set({clientId: "client-123"});
       updateGoogleAuthUrl();
 
       const authUrl = googleAuthUrl.get();
@@ -111,7 +111,7 @@ describe("Google Provider", () => {
     });
 
     it("should include nonce for id_token", () => {
-      googleConfig.set({ clientId: "client-123" });
+      googleConfig.set({clientId: "client-123"});
       updateGoogleAuthUrl();
 
       const authUrl = googleAuthUrl.get();
@@ -119,7 +119,7 @@ describe("Google Provider", () => {
     });
 
     it("should include state parameter", () => {
-      googleConfig.set({ clientId: "client-123" });
+      googleConfig.set({clientId: "client-123"});
       updateGoogleAuthUrl();
 
       const authUrl = googleAuthUrl.get();
@@ -127,7 +127,7 @@ describe("Google Provider", () => {
     });
 
     it("should include redirect_uri", () => {
-      googleConfig.set({ clientId: "client-123" });
+      googleConfig.set({clientId: "client-123"});
       updateGoogleAuthUrl();
 
       const authUrl = googleAuthUrl.get();
@@ -141,16 +141,14 @@ describe("Google Provider", () => {
 
       updateGoogleAuthUrl();
 
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        "Google provider not configured. Check initClient method.",
-      );
+      expect(consoleWarnSpy).toHaveBeenCalledWith("Google provider not configured. Check initClient method.");
       expect(googleAuthUrl.get()).toBeNull();
 
       consoleWarnSpy.mockRestore();
     });
 
     it("should update URL when called multiple times", () => {
-      googleConfig.set({ clientId: "client-123" });
+      googleConfig.set({clientId: "client-123"});
 
       updateGoogleAuthUrl();
       const firstUrl = googleAuthUrl.get();
@@ -164,11 +162,11 @@ describe("Google Provider", () => {
     });
 
     it("should update URL after config changes", () => {
-      googleConfig.set({ clientId: "old-client-id" });
+      googleConfig.set({clientId: "old-client-id"});
       updateGoogleAuthUrl();
       const oldUrl = googleAuthUrl.get();
 
-      googleConfig.set({ clientId: "new-client-id" });
+      googleConfig.set({clientId: "new-client-id"});
       updateGoogleAuthUrl();
       const newUrl = googleAuthUrl.get();
 

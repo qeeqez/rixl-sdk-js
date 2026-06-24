@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { DomainSchema } from "./base";
+import {DomainSchema} from "./base";
 
 /**
  * Add domain request schema

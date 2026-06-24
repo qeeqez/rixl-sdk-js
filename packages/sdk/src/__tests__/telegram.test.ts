@@ -3,8 +3,8 @@
  * Tests: telegramConfig, telegramAuthUrl, updateTelegramAuthUrl
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { telegramConfig, telegramAuthUrl, updateTelegramAuthUrl } from "@/providers";
+import {describe, it, expect, beforeEach, vi} from "vitest";
+import {telegramConfig, telegramAuthUrl, updateTelegramAuthUrl} from "@/providers";
 
 describe("Telegram Provider", () => {
   beforeEach(() => {
@@ -39,17 +39,17 @@ describe("Telegram Provider", () => {
     });
 
     it("should set and get config", () => {
-      const config = { botId: "123456789" };
+      const config = {botId: "123456789"};
       telegramConfig.set(config);
 
       expect(telegramConfig.get()).toEqual(config);
     });
 
     it("should update config", () => {
-      telegramConfig.set({ botId: "111111111" });
+      telegramConfig.set({botId: "111111111"});
       expect(telegramConfig.get()?.botId).toBe("111111111");
 
-      telegramConfig.set({ botId: "222222222" });
+      telegramConfig.set({botId: "222222222"});
       expect(telegramConfig.get()?.botId).toBe("222222222");
     });
   });
@@ -69,7 +69,7 @@ describe("Telegram Provider", () => {
 
   describe("updateTelegramAuthUrl", () => {
     it("should generate Telegram auth URL with bot ID", () => {
-      telegramConfig.set({ botId: "123456789" });
+      telegramConfig.set({botId: "123456789"});
       updateTelegramAuthUrl();
 
       const url = telegramAuthUrl.get();
@@ -80,7 +80,7 @@ describe("Telegram Provider", () => {
     });
 
     it("should URL encode origin and return_to", () => {
-      telegramConfig.set({ botId: "987654321" });
+      telegramConfig.set({botId: "987654321"});
       updateTelegramAuthUrl();
 
       const url = telegramAuthUrl.get();
@@ -96,20 +96,18 @@ describe("Telegram Provider", () => {
       telegramConfig.set(null);
       updateTelegramAuthUrl();
 
-      expect(warnSpy).toHaveBeenCalledWith(
-        "Telegram provider not configured. Check initClient method.",
-      );
+      expect(warnSpy).toHaveBeenCalledWith("Telegram provider not configured. Check initClient method.");
       expect(telegramAuthUrl.get()).toBeNull();
 
       warnSpy.mockRestore();
     });
 
     it("should update URL when config changes", () => {
-      telegramConfig.set({ botId: "111111111" });
+      telegramConfig.set({botId: "111111111"});
       updateTelegramAuthUrl();
       const url1 = telegramAuthUrl.get();
 
-      telegramConfig.set({ botId: "222222222" });
+      telegramConfig.set({botId: "222222222"});
       updateTelegramAuthUrl();
       const url2 = telegramAuthUrl.get();
 
@@ -138,7 +136,7 @@ describe("Telegram Provider", () => {
         configurable: true,
       });
 
-      telegramConfig.set({ botId: "123456789" });
+      telegramConfig.set({botId: "123456789"});
       updateTelegramAuthUrl();
 
       const url = telegramAuthUrl.get();
@@ -147,7 +145,7 @@ describe("Telegram Provider", () => {
     });
 
     it("should handle bot ID with special characters", () => {
-      telegramConfig.set({ botId: "bot:123_456" });
+      telegramConfig.set({botId: "bot:123_456"});
       updateTelegramAuthUrl();
 
       const url = telegramAuthUrl.get();

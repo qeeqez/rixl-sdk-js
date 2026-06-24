@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { registerWithEmail, resendEmailVerificationCode } from "@/auth/register";
-import { setupAuthTest, cleanupAuthMocks } from "../utils/auth-test-helpers";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
+import {registerWithEmail, resendEmailVerificationCode} from "@/auth/register";
+import {setupAuthTest, cleanupAuthMocks} from "../utils/auth-test-helpers";
 
 const mockPostAuthV1Register = vi.fn();
 const mockPostAuthV1EmailVerifyResend = vi.fn();
@@ -35,7 +35,7 @@ describe("Registration Functions", () => {
       const result = await registerWithEmail("newuser@example.com", "Password123");
 
       expect(mockPostAuthV1Register).toHaveBeenCalledWith({
-        body: { email: "newuser@example.com", password: "Password123" },
+        body: {email: "newuser@example.com", password: "Password123"},
         throwOnError: true,
       });
       expect(result).toEqual({
@@ -55,7 +55,7 @@ describe("Registration Functions", () => {
       await registerWithEmail("newuser@example.com", "Password123", true);
 
       expect(mockPostAuthV1Register).toHaveBeenCalledWith({
-        body: { email: "newuser@example.com", password: "Password123", subscribe_to_blog: true },
+        body: {email: "newuser@example.com", password: "Password123", subscribe_to_blog: true},
         throwOnError: true,
       });
     });
@@ -71,7 +71,7 @@ describe("Registration Functions", () => {
       await registerWithEmail("newuser@example.com", "Password123", false);
 
       expect(mockPostAuthV1Register).toHaveBeenCalledWith({
-        body: { email: "newuser@example.com", password: "Password123", subscribe_to_blog: false },
+        body: {email: "newuser@example.com", password: "Password123", subscribe_to_blog: false},
         throwOnError: true,
       });
     });
@@ -87,7 +87,7 @@ describe("Registration Functions", () => {
       await registerWithEmail("newuser@example.com", "Password123");
 
       expect(mockPostAuthV1Register).toHaveBeenCalledWith({
-        body: { email: "newuser@example.com", password: "Password123" },
+        body: {email: "newuser@example.com", password: "Password123"},
         throwOnError: true,
       });
     });
@@ -131,7 +131,7 @@ describe("Registration Functions", () => {
       const result = await resendEmailVerificationCode("test@example.com");
 
       expect(mockPostAuthV1EmailVerifyResend).toHaveBeenCalledWith({
-        body: { email: "test@example.com" },
+        body: {email: "test@example.com"},
         throwOnError: true,
       });
       expect(result).toEqual({

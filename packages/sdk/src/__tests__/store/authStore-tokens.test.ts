@@ -3,13 +3,9 @@
  * Tests: setTokens, removeTokens, token state
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import { createMockJWT } from "../utils/test-helpers";
-import {
-  createApiMock,
-  createProvidersMock,
-  createCookieMock,
-} from "../setup/authstore-mock-factory";
+import {describe, it, expect, beforeEach, vi, afterEach} from "vitest";
+import {createMockJWT} from "../utils/test-helpers";
+import {createApiMock, createProvidersMock, createCookieMock} from "../setup/authstore-mock-factory";
 
 // Setup mocks BEFORE importing the modules that depend on them
 vi.mock("../../auth/api", () => createApiMock());
@@ -29,7 +25,7 @@ import {
   authError,
   clearAuthError,
 } from "@/authStore.ts";
-import { user } from "@/userStore.ts";
+import {user} from "@/userStore.ts";
 
 describe("AuthStore - Token Management", () => {
   beforeEach(() => {
@@ -60,7 +56,7 @@ describe("AuthStore - Token Management", () => {
     });
 
     it("should decode and set user from access token", () => {
-      const mockToken = createMockJWT({ username: "tokenuser", id: "token123" });
+      const mockToken = createMockJWT({username: "tokenuser", id: "token123"});
       setTokens(mockToken, "refresh", 3600);
 
       const userData = user.get();
@@ -127,7 +123,7 @@ describe("AuthStore - Token Management", () => {
     });
 
     it("should clear user data", () => {
-      setTokens(createMockJWT({ username: "testuser" }), "refresh", 3600);
+      setTokens(createMockJWT({username: "testuser"}), "refresh", 3600);
       expect(user.get()?.username).toBe("testuser");
 
       removeTokens();

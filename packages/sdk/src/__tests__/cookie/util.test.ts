@@ -4,8 +4,8 @@
  * @vitest-environment jsdom
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { getAllCookiesStartWith, setCookie, deleteCookie } from "@/cookie/util.ts";
+import {describe, it, expect, beforeEach, vi} from "vitest";
+import {getAllCookiesStartWith, setCookie, deleteCookie} from "@/cookie/util.ts";
 
 describe("Cookie Utilities", () => {
   beforeEach(() => {
@@ -70,15 +70,15 @@ describe("Cookie Utilities", () => {
     });
 
     it("should set cookie with path option", () => {
-      setCookie("test", "value", { path: "/app" });
+      setCookie("test", "value", {path: "/app"});
 
       // jsdom doesn't support path attribute - cookie won't be set
       // This is a known limitation, the actual code works in real browsers
-      expect(() => setCookie("test", "value", { path: "/app" })).not.toThrow();
+      expect(() => setCookie("test", "value", {path: "/app"})).not.toThrow();
     });
 
     it("should set cookie with expiration as number (days)", () => {
-      setCookie("test", "value", { expires: 7 });
+      setCookie("test", "value", {expires: 7});
 
       expect(document.cookie).toContain("test=value");
     });
@@ -87,27 +87,27 @@ describe("Cookie Utilities", () => {
       const futureDate = new Date();
       futureDate.setDate(futureDate.getDate() + 7);
 
-      setCookie("test", "value", { expires: futureDate });
+      setCookie("test", "value", {expires: futureDate});
 
       expect(document.cookie).toContain("test=value");
     });
 
     it("should set cookie with domain option", () => {
-      setCookie("test", "value", { domain: ".example.com" });
+      setCookie("test", "value", {domain: ".example.com"});
 
       // jsdom doesn't support domain attribute - cookie won't be set
       // This is a known limitation, the actual code works in real browsers
-      expect(() => setCookie("test", "value", { domain: ".example.com" })).not.toThrow();
+      expect(() => setCookie("test", "value", {domain: ".example.com"})).not.toThrow();
     });
 
     it("should set cookie with secure flag", () => {
-      setCookie("test", "value", { secure: true });
+      setCookie("test", "value", {secure: true});
 
       expect(document.cookie).toContain("test=value");
     });
 
     it("should set cookie with sameSite option", () => {
-      setCookie("test", "value", { sameSite: "Strict" });
+      setCookie("test", "value", {sameSite: "Strict"});
 
       expect(document.cookie).toContain("test=value");
     });

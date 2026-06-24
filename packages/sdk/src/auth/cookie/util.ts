@@ -8,13 +8,10 @@ export const getAllCookiesStartWith = (startWithKey: string): Partial<Record<str
     .split(";")
     .map((cv) => cv.split("=").map((v) => v.trim()))
     .filter(([key]) => key && key !== startWithKey && key.startsWith(startWithKey))
-    .reduce(
-      (ac, [key, value]) => Object.assign(ac, { [key!.slice(startWithKey.length + 1)]: value }),
-      {},
-    );
+    .reduce((ac, [key, value]) => Object.assign(ac, {[key!.slice(startWithKey.length + 1)]: value}), {});
 };
 
-import type { CookieSameSite } from "../types";
+import type {CookieSameSite} from "../types";
 
 interface CookieAttributes {
   expires?: number | Date | undefined;
@@ -69,11 +66,7 @@ export function deleteCookie(name: string): void {
   document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 
-const encodeName = (name: string) =>
-  encodeURIComponent(name).replace(/%(2[346B]|5E|60|7C)/g, decodeURIComponent);
+const encodeName = (name: string) => encodeURIComponent(name).replace(/%(2[346B]|5E|60|7C)/g, decodeURIComponent);
 
 const encodeValue = (value: string) =>
-  encodeURIComponent(value as string).replace(
-    /%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g,
-    decodeURIComponent,
-  );
+  encodeURIComponent(value as string).replace(/%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g, decodeURIComponent);

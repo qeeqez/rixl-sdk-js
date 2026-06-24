@@ -1,6 +1,6 @@
-import { client } from "../../generated/client.gen";
-import { apiURL } from "../api-url";
-import { getToken } from "../authStore";
+import {client} from "../../generated/client.gen";
+import {apiURL} from "../api-url";
+import {getToken} from "../authStore";
 
 let configured = false;
 
@@ -8,10 +8,10 @@ export function configureSdkClient(): void {
   if (configured) return;
   configured = true;
 
-  client.setConfig({ baseUrl: apiURL.get() });
+  client.setConfig({baseUrl: apiURL.get()});
 
   apiURL.subscribe((url) => {
-    client.setConfig({ baseUrl: url });
+    client.setConfig({baseUrl: url});
   });
 
   client.interceptors.request.use(async (request) => {

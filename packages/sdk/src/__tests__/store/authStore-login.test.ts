@@ -3,12 +3,8 @@
  * Tests: login function for OAuth providers
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import {
-  createApiMock,
-  createProvidersMock,
-  createCookieMock,
-} from "../setup/authstore-mock-factory";
+import {describe, it, expect, beforeEach, vi, afterEach} from "vitest";
+import {createApiMock, createProvidersMock, createCookieMock} from "../setup/authstore-mock-factory";
 
 // Setup mocks BEFORE importing the modules that depend on them
 vi.mock("../../auth/api", () => createApiMock());
@@ -18,8 +14,8 @@ vi.mock("../../auth/cookie", () => createCookieMock());
 // Import mocked modules and authStore AFTER mocks are set up
 import * as providers from "@/providers";
 import * as initialization from "@/initialization";
-import { login, removeTokens, resetTokenPromise } from "@/authStore.ts";
-import { user } from "@/userStore";
+import {login, removeTokens, resetTokenPromise} from "@/authStore.ts";
+import {user} from "@/userStore";
 
 describe("AuthStore - Login", () => {
   beforeEach(() => {
@@ -32,7 +28,7 @@ describe("AuthStore - Login", () => {
     // Mock window.location
     Object.defineProperty(global, "window", {
       value: {
-        location: { href: "" },
+        location: {href: ""},
       },
       writable: true,
     });
@@ -53,18 +49,14 @@ describe("AuthStore - Login", () => {
     // These tests verify the error handling which is more critical
 
     it("should throw error for unsupported provider", async () => {
-      await expect(login("unsupported" as any)).rejects.toThrow(
-        "Unsupported provider: unsupported",
-      );
+      await expect(login("unsupported" as any)).rejects.toThrow("Unsupported provider: unsupported");
     });
 
     it("should throw error when provider URL is null", async () => {
       // Mock a provider that returns null URL
       (providers.googleAuthUrl.get as any).mockReturnValueOnce(null);
 
-      await expect(login("google")).rejects.toThrow(
-        "google provider is not configured. Please check your initClient configuration.",
-      );
+      await expect(login("google")).rejects.toThrow("google provider is not configured. Please check your initClient configuration.");
     });
 
     it("should wait for initialization before attempting login", async () => {

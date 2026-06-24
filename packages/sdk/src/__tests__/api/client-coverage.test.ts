@@ -3,11 +3,11 @@
  * Tests: Additional coverage for client.ts uncovered lines
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { setTokenRefreshFunction } from "../../auth/api/client-core";
-import { ApiError } from "../../auth/api/types";
-import { err, commonErrors, handleApiError } from "../../auth/api/error-handlers";
-import { HTTP_STATUS } from "@/constants.ts";
+import {describe, it, expect, beforeEach, vi} from "vitest";
+import {setTokenRefreshFunction} from "../../auth/api/client-core";
+import {ApiError} from "../../auth/api/types";
+import {err, commonErrors, handleApiError} from "../../auth/api/error-handlers";
+import {HTTP_STATUS} from "@/constants.ts";
 
 describe("API Client - Additional Coverage", () => {
   beforeEach(() => {

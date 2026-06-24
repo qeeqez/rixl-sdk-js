@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { loginWithEmail, verifyTOTPForLogin } from "@/auth";
-import { createMockJWT } from "../utils/test-helpers";
-import { setupAuthTest, cleanupAuthMocks } from "../utils/auth-test-helpers";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
+import {loginWithEmail, verifyTOTPForLogin} from "@/auth";
+import {createMockJWT} from "../utils/test-helpers";
+import {setupAuthTest, cleanupAuthMocks} from "../utils/auth-test-helpers";
 
 const mockPostAuthV1Login = vi.fn();
 const mockPostAuthV1VerifyTotp = vi.fn();
@@ -30,14 +30,14 @@ describe("Login Functions", () => {
       mockPostAuthV1Login.mockResolvedValue({
         data: {
           status: "ok",
-          tokens: { access_token: mockToken, refresh_token: "refresh-123", expires_in: 3600 },
+          tokens: {access_token: mockToken, refresh_token: "refresh-123", expires_in: 3600},
         },
       });
 
       await loginWithEmail("test@example.com", "Password123");
 
       expect(mockPostAuthV1Login).toHaveBeenCalledWith({
-        body: { email: "test@example.com", password: "Password123" },
+        body: {email: "test@example.com", password: "Password123"},
         throwOnError: true,
       });
       expect(mocks.setTokensSpy).toHaveBeenCalledWith(mockToken, "refresh-123", 3600);
@@ -91,9 +91,7 @@ describe("Login Functions", () => {
     it("should handle network errors gracefully", async () => {
       mockPostAuthV1Login.mockRejectedValue(new Error("Network error"));
 
-      await expect(loginWithEmail("test@example.com", "Password123")).rejects.toThrow(
-        "Network error",
-      );
+      await expect(loginWithEmail("test@example.com", "Password123")).rejects.toThrow("Network error");
     });
 
     it("should validate empty email", async () => {
@@ -109,14 +107,14 @@ describe("Login Functions", () => {
       mockPostAuthV1Login.mockResolvedValue({
         data: {
           status: "ok",
-          tokens: { access_token: mockToken, refresh_token: "refresh", expires_in: 3600 },
+          tokens: {access_token: mockToken, refresh_token: "refresh", expires_in: 3600},
         },
       });
 
       await loginWithEmail("test+special@example.com", "Password123");
 
       expect(mockPostAuthV1Login).toHaveBeenCalledWith({
-        body: { email: "test+special@example.com", password: "Password123" },
+        body: {email: "test+special@example.com", password: "Password123"},
         throwOnError: true,
       });
     });
@@ -171,7 +169,7 @@ describe("Login Functions", () => {
       await verifyTOTPForLogin("123456", "session-123");
 
       expect(mockPostAuthV1VerifyTotp).toHaveBeenCalledWith({
-        body: { code: "123456", session_id: "session-123" },
+        body: {code: "123456", session_id: "session-123"},
         throwOnError: true,
       });
       expect(mocks.setTokensSpy).toHaveBeenCalledWith(mockToken, "refresh-123", 3600);

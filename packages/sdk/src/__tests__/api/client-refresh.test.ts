@@ -3,10 +3,10 @@
  * Tests: Token refresh logic, retry mechanism, 401 handling
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import { setTokenRefreshFunction } from "../../auth/api/client-core";
-import { authenticatedFetch } from "../../auth/api/fetchers";
-import { apiURL } from "../../auth/api-url";
+import {describe, it, expect, beforeEach, vi, afterEach} from "vitest";
+import {setTokenRefreshFunction} from "../../auth/api/client-core";
+import {authenticatedFetch} from "../../auth/api/fetchers";
+import {apiURL} from "../../auth/api-url";
 
 describe("API Client - Token Refresh and Retry Logic", () => {
   beforeEach(() => {
@@ -44,9 +44,7 @@ describe("API Client - Token Refresh and Retry Logic", () => {
     it("should throw error when no token and skipAuth is false", async () => {
       const mockGetToken = vi.fn().mockResolvedValue(undefined);
 
-      await expect(authenticatedFetch("/test", mockGetToken, { method: "GET" })).rejects.toThrow(
-        "No authentication token available",
-      );
+      await expect(authenticatedFetch("/test", mockGetToken, {method: "GET"})).rejects.toThrow("No authentication token available");
     });
 
     it("should not throw when skipAuth is true even without token", async () => {
@@ -54,7 +52,7 @@ describe("API Client - Token Refresh and Retry Logic", () => {
 
       // This will fail due to network, but won't throw auth error
       try {
-        await authenticatedFetch("/test", mockGetToken, { method: "GET", skipAuth: true });
+        await authenticatedFetch("/test", mockGetToken, {method: "GET", skipAuth: true});
       } catch (error: any) {
         // Should not be auth error
         expect(error.message).not.toBe("No authentication token available");
@@ -78,7 +76,7 @@ describe("API Client - Token Refresh and Retry Logic", () => {
       const mockGetToken = vi.fn().mockResolvedValue("token");
 
       try {
-        await authenticatedFetch("/test", mockGetToken, { skipAuth: true });
+        await authenticatedFetch("/test", mockGetToken, {skipAuth: true});
       } catch {
         // Token function still called but auth skipped
         expect(mockGetToken).toHaveBeenCalled();
@@ -90,7 +88,7 @@ describe("API Client - Token Refresh and Retry Logic", () => {
 
       for (const method of ["GET", "POST", "PUT", "DELETE", "PATCH"]) {
         try {
-          await authenticatedFetch("/test", mockGetToken, { method: method as any });
+          await authenticatedFetch("/test", mockGetToken, {method: method as any});
         } catch {
           expect(mockGetToken).toHaveBeenCalled();
         }

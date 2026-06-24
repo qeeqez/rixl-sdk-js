@@ -5,13 +5,13 @@
  * Each function can be called directly inside vi.mock() to avoid hoisting issues.
  */
 
-import { vi } from "vitest";
+import {vi} from "vitest";
 
 /**
  * Creates mock for the api module
  * Usage: vi.mock("../../auth/api", () => createApiMock());
  */
-export function createApiMock(): { refreshTokens: ReturnType<typeof vi.fn> } {
+export function createApiMock(): {refreshTokens: ReturnType<typeof vi.fn>} {
   return {
     refreshTokens: vi.fn(),
   };
@@ -22,20 +22,20 @@ export function createApiMock(): { refreshTokens: ReturnType<typeof vi.fn> } {
  * Usage: vi.mock("../../auth/providers", () => createProvidersMock());
  */
 export function createProvidersMock(): {
-  appleAuthUrl: { get: ReturnType<typeof vi.fn>; set: ReturnType<typeof vi.fn> };
-  googleAuthUrl: { get: ReturnType<typeof vi.fn>; set: ReturnType<typeof vi.fn> };
-  microsoftAuthUrl: { get: ReturnType<typeof vi.fn>; set: ReturnType<typeof vi.fn> };
-  telegramAuthUrl: { get: ReturnType<typeof vi.fn>; set: ReturnType<typeof vi.fn> };
+  appleAuthUrl: {get: ReturnType<typeof vi.fn>; set: ReturnType<typeof vi.fn>};
+  googleAuthUrl: {get: ReturnType<typeof vi.fn>; set: ReturnType<typeof vi.fn>};
+  microsoftAuthUrl: {get: ReturnType<typeof vi.fn>; set: ReturnType<typeof vi.fn>};
+  telegramAuthUrl: {get: ReturnType<typeof vi.fn>; set: ReturnType<typeof vi.fn>};
   detectProvider: ReturnType<typeof vi.fn>;
-  AuthProvider: { BEARER: string };
+  AuthProvider: {BEARER: string};
 } {
   return {
-    appleAuthUrl: { get: vi.fn(() => "https://apple.com/auth"), set: vi.fn() },
-    googleAuthUrl: { get: vi.fn(() => "https://google.com/auth"), set: vi.fn() },
-    microsoftAuthUrl: { get: vi.fn(() => "https://microsoft.com/auth"), set: vi.fn() },
-    telegramAuthUrl: { get: vi.fn(() => "https://telegram.com/auth"), set: vi.fn() },
+    appleAuthUrl: {get: vi.fn(() => "https://apple.com/auth"), set: vi.fn()},
+    googleAuthUrl: {get: vi.fn(() => "https://google.com/auth"), set: vi.fn()},
+    microsoftAuthUrl: {get: vi.fn(() => "https://microsoft.com/auth"), set: vi.fn()},
+    telegramAuthUrl: {get: vi.fn(() => "https://telegram.com/auth"), set: vi.fn()},
     detectProvider: vi.fn(() => undefined),
-    AuthProvider: { BEARER: "bearer" },
+    AuthProvider: {BEARER: "bearer"},
   };
 }
 

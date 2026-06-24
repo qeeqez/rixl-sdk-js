@@ -3,8 +3,8 @@
  * Tests: Actual execution of refreshTokenWithLock (lines 33-50)
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import { setTokenRefreshFunction } from "../../auth/api/client-core";
+import {describe, it, expect, beforeEach, vi, afterEach} from "vitest";
+import {setTokenRefreshFunction} from "../../auth/api/client-core";
 
 describe("API Client - Mutex Execution Tests", () => {
   beforeEach(() => {

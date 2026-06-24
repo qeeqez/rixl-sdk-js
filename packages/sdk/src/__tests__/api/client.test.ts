@@ -3,11 +3,11 @@
  * Tests: authenticatedFetch, publicFetch, setTokenRefreshFunction, handleApiError, err, commonErrors
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { authenticatedFetch } from "../../auth/api/fetchers";
-import { setTokenRefreshFunction } from "../../auth/api/client-core";
-import { handleApiError, err, commonErrors } from "../../auth/api/error-handlers";
-import { ApiError } from "../../auth/api/types";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
+import {authenticatedFetch} from "../../auth/api/fetchers";
+import {setTokenRefreshFunction} from "../../auth/api/client-core";
+import {handleApiError, err, commonErrors} from "../../auth/api/error-handlers";
+import {ApiError} from "../../auth/api/types";
 
 // Mock the api module
 vi.mock("../../auth/api", () => ({
@@ -48,12 +48,12 @@ describe("API Client Module", () => {
 
   describe("ApiError", () => {
     it("should create ApiError with all properties", () => {
-      const error = new ApiError("Test error", 404, "/test/endpoint", { detail: "Not found" });
+      const error = new ApiError("Test error", 404, "/test/endpoint", {detail: "Not found"});
 
       expect(error.message).toBe("Test error");
       expect(error.status).toBe(404);
       expect(error.endpoint).toBe("/test/endpoint");
-      expect(error.data).toEqual({ detail: "Not found" });
+      expect(error.data).toEqual({detail: "Not found"});
       expect(error.name).toBe("ApiError");
       expect(error instanceof Error).toBe(true);
     });
@@ -96,7 +96,7 @@ describe("API Client Module", () => {
 
   describe("authenticatedFetch", () => {
     it("should make authenticated request successfully", async () => {
-      const mockResponse = { id: "123", name: "Test" };
+      const mockResponse = {id: "123", name: "Test"};
       mockBaseFetch.mockResolvedValue(mockResponse);
 
       const getTokenFn = vi.fn().mockResolvedValue("mock-token");
@@ -107,10 +107,10 @@ describe("API Client Module", () => {
     });
 
     it("should pass config to baseFetch", async () => {
-      mockBaseFetch.mockResolvedValue({ success: true });
+      mockBaseFetch.mockResolvedValue({success: true});
 
       const getTokenFn = vi.fn().mockResolvedValue("token");
-      const config = { method: "POST" as const, body: { data: "test" } };
+      const config = {method: "POST" as const, body: {data: "test"}};
 
       await authenticatedFetch("test", getTokenFn, config);
 
@@ -118,7 +118,7 @@ describe("API Client Module", () => {
     });
 
     it("should throw error if no token and auth not skipped", async () => {
-      const { ApiError } = await import("../../auth/api/types");
+      const {ApiError} = await import("../../auth/api/types");
       mockBaseFetch.mockImplementation(async (endpoint: string, _config: any, factoryFn: any) => {
         await factoryFn(); // Call factory to trigger the token check
         // Simulate what baseFetch does - it should throw if no token
@@ -127,18 +127,16 @@ describe("API Client Module", () => {
 
       const getTokenFn = vi.fn().mockResolvedValue(undefined);
 
-      await expect(authenticatedFetch("users/me", getTokenFn)).rejects.toThrow(
-        "No authentication token available",
-      );
+      await expect(authenticatedFetch("users/me", getTokenFn)).rejects.toThrow("No authentication token available");
     });
 
     it("should not throw if no token but auth is skipped", async () => {
-      mockBaseFetch.mockResolvedValue({ data: "public" });
+      mockBaseFetch.mockResolvedValue({data: "public"});
 
       const getTokenFn = vi.fn().mockResolvedValue(undefined);
-      const result = await authenticatedFetch("public", getTokenFn, { skipAuth: true });
+      const result = await authenticatedFetch("public", getTokenFn, {skipAuth: true});
 
-      expect(result).toEqual({ data: "public" });
+      expect(result).toEqual({data: "public"});
     });
 
     it("should create ky instance with token", async () => {
@@ -154,31 +152,23 @@ describe("API Client Module", () => {
     });
 
     it("should handle different HTTP methods", async () => {
-      mockBaseFetch.mockResolvedValue({ updated: true });
+      mockBaseFetch.mockResolvedValue({updated: true});
 
       const getTokenFn = vi.fn().mockResolvedValue("token");
-      await authenticatedFetch("resource/123", getTokenFn, { method: "PUT" });
+      await authenticatedFetch("resource/123", getTokenFn, {method: "PUT"});
 
-      expect(mockBaseFetch).toHaveBeenCalledWith(
-        "resource/123",
-        expect.objectContaining({ method: "PUT" }),
-        expect.any(Function),
-      );
+      expect(mockBaseFetch).toHaveBeenCalledWith("resource/123", expect.objectContaining({method: "PUT"}), expect.any(Function));
     });
 
     it("should pass request body", async () => {
-      mockBaseFetch.mockResolvedValue({ created: true });
+      mockBaseFetch.mockResolvedValue({created: true});
 
       const getTokenFn = vi.fn().mockResolvedValue("token");
-      const body = { name: "New Item", value: 42 };
+      const body = {name: "New Item", value: 42};
 
-      await authenticatedFetch("items", getTokenFn, { method: "POST", body });
+      await authenticatedFetch("items", getTokenFn, {method: "POST", body});
 
-      expect(mockBaseFetch).toHaveBeenCalledWith(
-        "items",
-        expect.objectContaining({ method: "POST", body }),
-        expect.any(Function),
-      );
+      expect(mockBaseFetch).toHaveBeenCalledWith("items", expect.objectContaining({method: "POST", body}), expect.any(Function));
     });
   });
 

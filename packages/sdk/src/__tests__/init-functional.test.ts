@@ -3,14 +3,14 @@
  * Tests: Actual execution of token refresh function (lines 57-62)
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import { initClient } from "../auth/init";
-import { refreshToken, getToken } from "../auth/authStore";
+import {describe, it, expect, beforeEach, vi, afterEach} from "vitest";
+import {initClient} from "../auth/init";
+import {refreshToken, getToken} from "../auth/authStore";
 import * as authStoreModule from "../auth/authStore";
-import { apiURL } from "../auth/api-url";
+import {apiURL} from "../auth/api-url";
 import * as apiModule from "../auth/api/refresh-tokens";
-import { AuthProvider } from "@/providers";
-import type { AuthClientConfig } from "../auth/init";
+import {AuthProvider} from "@/providers";
+import type {AuthClientConfig} from "../auth/init";
 
 describe("Init - Functional Token Refresh Execution", () => {
   beforeEach(() => {

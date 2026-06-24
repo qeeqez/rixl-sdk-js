@@ -4,9 +4,9 @@
  * Consolidated from client-401-integration.test.ts and client-hooks-integration.test.ts
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import { setTokenRefreshFunction } from "../../auth/api/client-core";
-import { apiURL } from "../../auth/api-url";
+import {describe, it, expect, beforeEach, vi, afterEach} from "vitest";
+import {setTokenRefreshFunction} from "../../auth/api/client-core";
+import {apiURL} from "../../auth/api-url";
 
 describe("API Client - HTTP Hooks and 401 Retry Logic", () => {
   beforeEach(() => {

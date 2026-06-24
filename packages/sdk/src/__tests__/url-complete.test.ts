@@ -3,8 +3,8 @@
  * Tests: fromURL function and edge cases
  */
 
-import { describe, it, expect } from "vitest";
-import { urlParams } from "../auth/url";
+import {describe, it, expect} from "vitest";
+import {urlParams} from "../auth/url";
 
 describe("URL Utils - Complete Coverage", () => {
   describe("urlParams initialization", () => {

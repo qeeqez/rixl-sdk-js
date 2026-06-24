@@ -1,12 +1,7 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import {
-  initiateEmailChange,
-  verifyEmailWithCode,
-  getEmailVerificationStatus,
-  addEmail,
-} from "@/auth/email";
-import { setupAuthTest, cleanupAuthMocks } from "../utils/auth-test-helpers";
-import { createMockJWT } from "../utils/test-helpers";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
+import {initiateEmailChange, verifyEmailWithCode, getEmailVerificationStatus, addEmail} from "@/auth/email";
+import {setupAuthTest, cleanupAuthMocks} from "../utils/auth-test-helpers";
+import {createMockJWT} from "../utils/test-helpers";
 
 const mockPutAuthV1UsersCurrentEmailsChange = vi.fn();
 const mockPostAuthV1UsersCurrentEmails = vi.fn();
@@ -14,12 +9,10 @@ const mockPostAuthV1EmailVerify = vi.fn();
 const mockGetAuthV1UsersCurrentEmailsStatus = vi.fn();
 
 vi.mock("../../generated/sdk.gen", () => ({
-  putAuthV1UsersCurrentEmailsChange: (...args: unknown[]) =>
-    mockPutAuthV1UsersCurrentEmailsChange(...args),
+  putAuthV1UsersCurrentEmailsChange: (...args: unknown[]) => mockPutAuthV1UsersCurrentEmailsChange(...args),
   postAuthV1UsersCurrentEmails: (...args: unknown[]) => mockPostAuthV1UsersCurrentEmails(...args),
   postAuthV1EmailVerify: (...args: unknown[]) => mockPostAuthV1EmailVerify(...args),
-  getAuthV1UsersCurrentEmailsStatus: (...args: unknown[]) =>
-    mockGetAuthV1UsersCurrentEmailsStatus(...args),
+  getAuthV1UsersCurrentEmailsStatus: (...args: unknown[]) => mockGetAuthV1UsersCurrentEmailsStatus(...args),
 }));
 
 describe("Email Functions", () => {
@@ -49,7 +42,7 @@ describe("Email Functions", () => {
       const result = await initiateEmailChange("newemail@example.com");
 
       expect(mockPutAuthV1UsersCurrentEmailsChange).toHaveBeenCalledWith({
-        body: { new_email: "newemail@example.com" },
+        body: {new_email: "newemail@example.com"},
         throwOnError: true,
       });
       expect(result).toEqual({
@@ -91,15 +84,10 @@ describe("Email Functions", () => {
         },
       });
 
-      const result = await verifyEmailWithCode(
-        "123456",
-        "email_change",
-        "verify-123",
-        "test@example.com",
-      );
+      const result = await verifyEmailWithCode("123456", "email_change", "verify-123", "test@example.com");
 
       expect(mockPostAuthV1EmailVerify).toHaveBeenCalledWith({
-        body: { code: "123456", verification_id: "verify-123" },
+        body: {code: "123456", verification_id: "verify-123"},
         throwOnError: true,
       });
       expect(result).toEqual({
@@ -150,9 +138,7 @@ describe("Email Functions", () => {
         code: 400,
       });
 
-      await expect(
-        verifyEmailWithCode("000000", "email_change", "verify-123", "test@example.com"),
-      ).rejects.toThrow();
+      await expect(verifyEmailWithCode("000000", "email_change", "verify-123", "test@example.com")).rejects.toThrow();
     });
 
     it("should accept object params format", async () => {
@@ -172,7 +158,7 @@ describe("Email Functions", () => {
       });
 
       expect(mockPostAuthV1EmailVerify).toHaveBeenCalledWith({
-        body: { code: "123456", verification_id: "verify-123" },
+        body: {code: "123456", verification_id: "verify-123"},
         throwOnError: true,
       });
     });
@@ -190,7 +176,7 @@ describe("Email Functions", () => {
       const result = await addEmail("newemail@example.com");
 
       expect(mockPostAuthV1UsersCurrentEmails).toHaveBeenCalledWith({
-        body: { email: "newemail@example.com" },
+        body: {email: "newemail@example.com"},
         throwOnError: true,
       });
       expect(result).toEqual({
@@ -246,7 +232,7 @@ describe("Email Functions", () => {
       expect(mockGetAuthV1UsersCurrentEmailsStatus).toHaveBeenCalledWith({
         throwOnError: true,
       });
-      expect(result).toEqual({ verified: true, email: "test@example.com", has_email: "true" });
+      expect(result).toEqual({verified: true, email: "test@example.com", has_email: "true"});
     });
 
     it("should throw error for unauthorized user", async () => {

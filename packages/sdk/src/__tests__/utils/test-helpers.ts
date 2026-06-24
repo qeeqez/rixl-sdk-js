@@ -7,7 +7,7 @@
  * Creates a JWT token for testing
  */
 export const createMockJWT = (payload: Record<string, any> = {}): string => {
-  const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
+  const header = btoa(JSON.stringify({alg: "HS256", typ: "JWT"}));
   const body = btoa(
     JSON.stringify({
       id: "user123",
@@ -19,7 +19,7 @@ export const createMockJWT = (payload: Record<string, any> = {}): string => {
       org_id: "org123",
       exp: Math.floor(Date.now() / 1000) + 3600,
       ...payload,
-    }),
+    })
   );
   const signature = btoa("mock-signature");
   return `${header}.${body}.${signature}`;

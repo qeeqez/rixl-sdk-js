@@ -1,6 +1,6 @@
-import { HTTPError, type KyInstance, type Options } from "ky";
-import { ApiError, type ApiRequestConfig } from "./types";
-import { getRequestKey, pendingRequests } from "./deduplication";
+import {HTTPError, type KyInstance, type Options} from "ky";
+import {ApiError, type ApiRequestConfig} from "./types";
+import {getRequestKey, pendingRequests} from "./deduplication";
 
 const normalizeEndpoint = (endpoint: string): string => endpoint.replace(/^\/+/, "");
 
@@ -45,17 +45,13 @@ const parseJsonResponse = async <T>(response: Response): Promise<T> => {
 const handleHttpError = async (error: HTTPError, endpoint: string): Promise<never> => {
   const errorData = await parseErrorData(error);
   const message =
-    (errorData as { message?: string; error?: string } | undefined)?.message ||
-    (errorData as { message?: string; error?: string } | undefined)?.error ||
+    (errorData as {message?: string; error?: string} | undefined)?.message ||
+    (errorData as {message?: string; error?: string} | undefined)?.error ||
     `Request failed with status ${error.response.status}`;
-  throw new ApiError(message, { status: error.response.status, endpoint, data: errorData });
+  throw new ApiError(message, {status: error.response.status, endpoint, data: errorData});
 };
 
-const executeRequest = async <T>(
-  endpoint: string,
-  config: ApiRequestConfig,
-  getKyInstance: () => Promise<KyInstance>,
-): Promise<T> => {
+const executeRequest = async <T>(endpoint: string, config: ApiRequestConfig, getKyInstance: () => Promise<KyInstance>): Promise<T> => {
   const normalizedEndpoint = normalizeEndpoint(endpoint);
 
   try {
@@ -74,11 +70,7 @@ const executeRequest = async <T>(
 /**
  * Base fetch function to handle common logic (deduplication, execution, error handling)
  */
-export const baseFetch = async <T>(
-  endpoint: string,
-  config: ApiRequestConfig,
-  getKyInstance: () => Promise<KyInstance>,
-): Promise<T> => {
+export const baseFetch = async <T>(endpoint: string, config: ApiRequestConfig, getKyInstance: () => Promise<KyInstance>): Promise<T> => {
   const normalizedEndpoint = normalizeEndpoint(endpoint);
   const requestKey = getRequestKey(normalizedEndpoint, config);
 

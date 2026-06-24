@@ -3,7 +3,7 @@
  * Tests: buildOAuthUrl, warnProviderNotConfigured, createOAuthProvider
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
 import {
   buildOAuthUrl,
   warnProviderNotConfigured,
@@ -11,7 +11,7 @@ import {
   type OAuthProviderConfig,
   type OAuthProviderMetadata,
 } from "@/providers/oauth.ts";
-import { AuthProvider } from "@/providers";
+import {AuthProvider} from "@/providers";
 
 // Mock state module
 vi.mock("../../auth/state", () => ({
@@ -277,9 +277,7 @@ describe("OAuth Provider Module", () => {
 
       warnProviderNotConfigured("Google");
 
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        "Google provider not configured. Check initClient method.",
-      );
+      expect(consoleWarnSpy).toHaveBeenCalledWith("Google provider not configured. Check initClient method.");
 
       consoleWarnSpy.mockRestore();
     });
@@ -288,14 +286,10 @@ describe("OAuth Provider Module", () => {
       const consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
 
       warnProviderNotConfigured("Apple");
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        "Apple provider not configured. Check initClient method.",
-      );
+      expect(consoleWarnSpy).toHaveBeenCalledWith("Apple provider not configured. Check initClient method.");
 
       warnProviderNotConfigured("Microsoft");
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        "Microsoft provider not configured. Check initClient method.",
-      );
+      expect(consoleWarnSpy).toHaveBeenCalledWith("Microsoft provider not configured. Check initClient method.");
 
       consoleWarnSpy.mockRestore();
     });
@@ -351,7 +345,7 @@ describe("OAuth Provider Module", () => {
       expect(result.authUrl.get()).toBeNull();
 
       // Set config
-      result.config.set({ clientId: "test-client-id" });
+      result.config.set({clientId: "test-client-id"});
 
       // Update auth URL
       result.updateAuthUrl();
@@ -380,9 +374,7 @@ describe("OAuth Provider Module", () => {
 
       result.updateAuthUrl();
 
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        "Apple provider not configured. Check initClient method.",
-      );
+      expect(consoleWarnSpy).toHaveBeenCalledWith("Apple provider not configured. Check initClient method.");
       expect(result.authUrl.get()).toBeNull();
 
       consoleWarnSpy.mockRestore();
@@ -415,7 +407,7 @@ describe("OAuth Provider Module", () => {
     });
 
     it("should update authUrl with correct state for provider", async () => {
-      const { getOauthState } = await import("../../auth/state");
+      const {getOauthState} = await import("../../auth/state");
 
       const result = createOAuthProvider({
         provider: AuthProvider.MICROSOFT,
@@ -427,7 +419,7 @@ describe("OAuth Provider Module", () => {
         },
       });
 
-      result.config.set({ clientId: "ms-client-id" });
+      result.config.set({clientId: "ms-client-id"});
       result.updateAuthUrl();
 
       expect(getOauthState).toHaveBeenCalledWith(AuthProvider.MICROSOFT);
@@ -447,7 +439,7 @@ describe("OAuth Provider Module", () => {
         },
       });
 
-      result.config.set({ clientId: "client-1", scope: "email" });
+      result.config.set({clientId: "client-1", scope: "email"});
       result.updateAuthUrl();
 
       const firstUrl = result.authUrl.get();
@@ -457,7 +449,7 @@ describe("OAuth Provider Module", () => {
 
       expect(firstUrl).not.toBeNull();
       expect(secondUrl).not.toBeNull();
-      expect(result.config.get()).toEqual({ clientId: "client-1", scope: "email" });
+      expect(result.config.get()).toEqual({clientId: "client-1", scope: "email"});
     });
   });
 });

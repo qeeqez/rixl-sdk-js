@@ -3,7 +3,7 @@
  * Tests: urlParams and fromURL utility
  */
 
-import { describe, it, expect } from "vitest";
+import {describe, it, expect} from "vitest";
 
 // Note: urlParams is initialized at module load, so we need to test the behavior
 // We can't easily test the actual urlParams export due to how it's initialized
@@ -83,8 +83,7 @@ describe("URL Module", () => {
         return urlString.replace(/^[^?#]*[?#]/, "").replace(/[?#]/g, "&");
       };
 
-      const url =
-        "https://app.example.com/callback#access_token=abc123&token_type=bearer&expires_in=3600";
+      const url = "https://app.example.com/callback#access_token=abc123&token_type=bearer&expires_in=3600";
       const result = fromURL(url);
 
       expect(result).toBe("access_token=abc123&token_type=bearer&expires_in=3600");
@@ -172,13 +171,10 @@ describe("URL Module", () => {
         return urlString.replace(/^[^?#]*[?#]/, "").replace(/[?#]/g, "&");
       };
 
-      const url =
-        "https://app.example.com/callback#access_token=ya29...&token_type=Bearer&expires_in=3599&scope=email%20profile";
+      const url = "https://app.example.com/callback#access_token=ya29...&token_type=Bearer&expires_in=3599&scope=email%20profile";
       const result = fromURL(url);
 
-      expect(result).toBe(
-        "access_token=ya29...&token_type=Bearer&expires_in=3599&scope=email%20profile",
-      );
+      expect(result).toBe("access_token=ya29...&token_type=Bearer&expires_in=3599&scope=email%20profile");
     });
   });
 

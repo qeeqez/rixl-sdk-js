@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { redirectToLogin, setLoginRedirectUrl } from "../auth/authConfig";
+import {describe, it, expect, vi, beforeEach} from "vitest";
+import {redirectToLogin, setLoginRedirectUrl} from "../auth/authConfig";
 
 describe("authConfig", () => {
   beforeEach(() => {
@@ -42,7 +42,7 @@ describe("authConfig", () => {
       // Let's try this approach:
       delete (window as any).location;
       // @ts-ignore
-      window.location = { href: "start" };
+      window.location = {href: "start"};
 
       redirectToLogin();
       expect(window.location.href).toBe("https://login.example.com");

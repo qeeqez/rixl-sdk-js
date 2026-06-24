@@ -3,8 +3,8 @@
  * Provides reusable validation test patterns
  */
 
-import { expect } from "vitest";
-import { validateInput } from "../../auth/validation/base";
+import {expect} from "vitest";
+import {validateInput} from "../../auth/validation/base";
 
 /**
  * Tests that a schema accepts valid input

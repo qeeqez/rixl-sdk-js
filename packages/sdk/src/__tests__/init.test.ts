@@ -3,12 +3,12 @@
  * Tests: initClient initialization flow, initConfig, initPage, initSocials
  */
 
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { AuthClientConfig } from "../auth/init";
-import { initClient } from "../auth/init";
-import { apiURL } from "../auth/api-url";
-import { appleConfig, googleConfig, microsoftConfig, telegramConfig } from "@/providers";
-import { setLoginRedirectUrl } from "../auth/authConfig";
+import {beforeEach, describe, expect, it, vi} from "vitest";
+import type {AuthClientConfig} from "../auth/init";
+import {initClient} from "../auth/init";
+import {apiURL} from "../auth/api-url";
+import {appleConfig, googleConfig, microsoftConfig, telegramConfig} from "@/providers";
+import {setLoginRedirectUrl} from "../auth/authConfig";
 
 vi.mock("../auth/authConfig", () => ({
   setLoginRedirectUrl: vi.fn(),

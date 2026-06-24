@@ -3,8 +3,8 @@
  * Tests: Line 15 - Non-ValiError rethrow
  */
 
-import { describe, it, expect } from "vitest";
-import { validateInput, EmailSchema } from "../../auth/validation/base";
+import {describe, it, expect} from "vitest";
+import {validateInput, EmailSchema} from "../../auth/validation/base";
 import * as v from "valibot";
 
 describe("Validation Utils - Line 15 Coverage", () => {

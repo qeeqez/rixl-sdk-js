@@ -1,10 +1,5 @@
-import { describe, it, expect, vi, afterEach } from "vitest";
-import {
-  setTokenRefreshFunction,
-  refreshTokenWithLock,
-  createKyInstance,
-  resetApiClient,
-} from "../../auth/api/client-core";
+import {describe, it, expect, vi, afterEach} from "vitest";
+import {setTokenRefreshFunction, refreshTokenWithLock, createKyInstance, resetApiClient} from "../../auth/api/client-core";
 
 // Mock dependencies
 vi.mock("../../auth/api-url", () => ({
@@ -23,9 +18,7 @@ describe("API Client Core", () => {
     it("should throw if refresh function not set", async () => {
       // @ts-ignore - explicitly setting null for test
       setTokenRefreshFunction(null);
-      await expect(refreshTokenWithLock()).rejects.toThrow(
-        "Token refresh function not initialized",
-      );
+      await expect(refreshTokenWithLock()).rejects.toThrow("Token refresh function not initialized");
     });
 
     it("should execute refresh function and return token", async () => {

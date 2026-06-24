@@ -20,7 +20,7 @@ export function createDeferred(): Deferred {
     reject = rej;
   });
 
-  return { promise, resolve, reject };
+  return {promise, resolve, reject};
 }
 
 /**

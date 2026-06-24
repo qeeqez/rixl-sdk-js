@@ -1,6 +1,6 @@
-import { decodeJwt } from "jose";
-import type { User } from "../types";
-import { user } from "../userStore";
+import {decodeJwt} from "jose";
+import type {User} from "../types";
+import {user} from "../userStore";
 
 /**
  * Decodes a JWT token and extracts user information

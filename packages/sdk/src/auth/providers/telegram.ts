@@ -1,5 +1,5 @@
-import { atom, type WritableAtom } from "nanostores";
-import { warnProviderNotConfigured } from "./oauth";
+import {atom, type WritableAtom} from "nanostores";
+import {warnProviderNotConfigured} from "./oauth";
 
 // Provider configuration interface
 export interface TelegramProviderConfig {
@@ -7,8 +7,7 @@ export interface TelegramProviderConfig {
 }
 
 // Store provider configuration
-export const telegramConfig: WritableAtom<TelegramProviderConfig | null> =
-  atom<TelegramProviderConfig | null>(null);
+export const telegramConfig: WritableAtom<TelegramProviderConfig | null> = atom<TelegramProviderConfig | null>(null);
 
 // Store for Telegram auth URL
 export const telegramAuthUrl: WritableAtom<string | null> = atom<string | null>(null);

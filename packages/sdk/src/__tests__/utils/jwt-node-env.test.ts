@@ -3,8 +3,8 @@
  * Tests: Line 26 in jwt.ts - console.warn in non-test environment
  */
 
-import { describe, it, expect, afterEach, vi } from "vitest";
-import { decodeToken } from "@/utils/jwt.ts";
+import {describe, it, expect, afterEach, vi} from "vitest";
+import {decodeToken} from "@/utils/jwt.ts";
 
 describe("JWT - NODE_ENV Coverage", () => {
   const originalEnv = process.env.NODE_ENV;
@@ -37,10 +37,7 @@ describe("JWT - NODE_ENV Coverage", () => {
       const result = decodeToken("invalid-jwt-token");
 
       // Should log in non-test env (line 26 executes)
-      expect(consoleSpy).toHaveBeenCalledWith(
-        "Failed to decode JWT token. Error: ",
-        expect.any(Error),
-      );
+      expect(consoleSpy).toHaveBeenCalledWith("Failed to decode JWT token. Error: ", expect.any(Error));
       expect(result).toBeUndefined();
 
       consoleSpy.mockRestore();
@@ -51,14 +48,14 @@ describe("JWT - NODE_ENV Coverage", () => {
 
       // Test different NODE_ENV values
       const testEnvs = [
-        { env: "test", shouldLog: false },
-        { env: "development", shouldLog: true },
-        { env: "production", shouldLog: true },
-        { env: "staging", shouldLog: true },
-        { env: undefined, shouldLog: true },
+        {env: "test", shouldLog: false},
+        {env: "development", shouldLog: true},
+        {env: "production", shouldLog: true},
+        {env: "staging", shouldLog: true},
+        {env: undefined, shouldLog: true},
       ];
 
-      for (const { env, shouldLog } of testEnvs) {
+      for (const {env, shouldLog} of testEnvs) {
         const condition = env !== "test";
         expect(condition).toBe(shouldLog);
       }
@@ -97,13 +94,7 @@ describe("JWT - NODE_ENV Coverage", () => {
       const consoleSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
 
       // Test various invalid JWT formats
-      const invalidTokens = [
-        "not-a-jwt",
-        "invalid.token",
-        "{malformed}",
-        "",
-        "eyJhbGciOiJIUzI1NiJ9.invalid.sig",
-      ];
+      const invalidTokens = ["not-a-jwt", "invalid.token", "{malformed}", "", "eyJhbGciOiJIUzI1NiJ9.invalid.sig"];
 
       for (const token of invalidTokens) {
         const result = decodeToken(token);

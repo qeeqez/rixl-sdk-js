@@ -3,9 +3,9 @@
  * Tests: Lines 36-41 in login.ts - ACCEPTED status handling
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { ApiError } from "../../auth/api/types";
-import { HTTP_STATUS } from "@/constants";
+import {describe, it, expect, beforeEach, vi} from "vitest";
+import {ApiError} from "../../auth/api/types";
+import {HTTP_STATUS} from "@/constants";
 
 describe("Login - 202 ACCEPTED Handling", () => {
   beforeEach(() => {
@@ -57,7 +57,7 @@ describe("Login - 202 ACCEPTED Handling", () => {
     it("should verify that re-fetch uses same validatedInput", () => {
       // Line 40: body: validatedInput
       // The re-fetch uses the same validatedInput from the original call
-      const validatedInput = { email: "test@example.com", password: "pass" };
+      const validatedInput = {email: "test@example.com", password: "pass"};
 
       // Both the original call and re-fetch use validatedInput
       expect(validatedInput).toBeDefined();
@@ -73,18 +73,14 @@ describe("Login - 202 ACCEPTED Handling", () => {
         status: HTTP_STATUS.ACCEPTED,
         endpoint: "/auth/login",
       });
-      expect(
-        acceptedError instanceof ApiError && acceptedError.status === HTTP_STATUS.ACCEPTED,
-      ).toBe(true);
+      expect(acceptedError instanceof ApiError && acceptedError.status === HTTP_STATUS.ACCEPTED).toBe(true);
 
       // Case 2: ApiError with different status - should NOT re-fetch
       const unauthorizedError = new ApiError("Unauthorized", {
         status: HTTP_STATUS.UNAUTHORIZED,
         endpoint: "/auth/login",
       });
-      expect(
-        unauthorizedError instanceof ApiError && unauthorizedError.status === HTTP_STATUS.ACCEPTED,
-      ).toBe(false);
+      expect(unauthorizedError instanceof ApiError && unauthorizedError.status === HTTP_STATUS.ACCEPTED).toBe(false);
 
       // Case 3: Regular Error - should NOT re-fetch
       const regularError = new Error("Regular error");

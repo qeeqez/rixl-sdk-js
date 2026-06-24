@@ -1287,8 +1287,7 @@ export type GetAnalyticsV1DashboardErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAnalyticsV1DashboardError =
-  GetAnalyticsV1DashboardErrors[keyof GetAnalyticsV1DashboardErrors];
+export type GetAnalyticsV1DashboardError = GetAnalyticsV1DashboardErrors[keyof GetAnalyticsV1DashboardErrors];
 
 export type GetAnalyticsV1DashboardResponses = {
   /**
@@ -1297,8 +1296,7 @@ export type GetAnalyticsV1DashboardResponses = {
   200: Analyticsv1DashboardStatsResponse;
 };
 
-export type GetAnalyticsV1DashboardResponse =
-  GetAnalyticsV1DashboardResponses[keyof GetAnalyticsV1DashboardResponses];
+export type GetAnalyticsV1DashboardResponse = GetAnalyticsV1DashboardResponses[keyof GetAnalyticsV1DashboardResponses];
 
 export type PostAnalyticsV1EventsData = {
   /**
@@ -1321,8 +1319,7 @@ export type PostAnalyticsV1EventsErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostAnalyticsV1EventsError =
-  PostAnalyticsV1EventsErrors[keyof PostAnalyticsV1EventsErrors];
+export type PostAnalyticsV1EventsError = PostAnalyticsV1EventsErrors[keyof PostAnalyticsV1EventsErrors];
 
 export type PostAnalyticsV1EventsResponses = {
   /**
@@ -1331,8 +1328,7 @@ export type PostAnalyticsV1EventsResponses = {
   200: Analyticsv1TrackEventsResponse;
 };
 
-export type PostAnalyticsV1EventsResponse =
-  PostAnalyticsV1EventsResponses[keyof PostAnalyticsV1EventsResponses];
+export type PostAnalyticsV1EventsResponse = PostAnalyticsV1EventsResponses[keyof PostAnalyticsV1EventsResponses];
 
 export type GetAnalyticsV1FeedsByFeedIdStatsData = {
   body?: never;
@@ -1366,8 +1362,7 @@ export type GetAnalyticsV1FeedsByFeedIdStatsErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAnalyticsV1FeedsByFeedIdStatsError =
-  GetAnalyticsV1FeedsByFeedIdStatsErrors[keyof GetAnalyticsV1FeedsByFeedIdStatsErrors];
+export type GetAnalyticsV1FeedsByFeedIdStatsError = GetAnalyticsV1FeedsByFeedIdStatsErrors[keyof GetAnalyticsV1FeedsByFeedIdStatsErrors];
 
 export type GetAnalyticsV1FeedsByFeedIdStatsResponses = {
   /**
@@ -1409,8 +1404,7 @@ export type PostAnalyticsV1FunnelsErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostAnalyticsV1FunnelsError =
-  PostAnalyticsV1FunnelsErrors[keyof PostAnalyticsV1FunnelsErrors];
+export type PostAnalyticsV1FunnelsError = PostAnalyticsV1FunnelsErrors[keyof PostAnalyticsV1FunnelsErrors];
 
 export type PostAnalyticsV1FunnelsResponses = {
   /**
@@ -1419,8 +1413,7 @@ export type PostAnalyticsV1FunnelsResponses = {
   200: Analyticsv1FunnelAnalytics;
 };
 
-export type PostAnalyticsV1FunnelsResponse =
-  PostAnalyticsV1FunnelsResponses[keyof PostAnalyticsV1FunnelsResponses];
+export type PostAnalyticsV1FunnelsResponse = PostAnalyticsV1FunnelsResponses[keyof PostAnalyticsV1FunnelsResponses];
 
 export type GetAnalyticsV1PostsByPostIdStatsData = {
   body?: never;
@@ -1445,8 +1438,7 @@ export type GetAnalyticsV1PostsByPostIdStatsErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAnalyticsV1PostsByPostIdStatsError =
-  GetAnalyticsV1PostsByPostIdStatsErrors[keyof GetAnalyticsV1PostsByPostIdStatsErrors];
+export type GetAnalyticsV1PostsByPostIdStatsError = GetAnalyticsV1PostsByPostIdStatsErrors[keyof GetAnalyticsV1PostsByPostIdStatsErrors];
 
 export type GetAnalyticsV1PostsByPostIdStatsResponses = {
   /**
@@ -1472,8 +1464,7 @@ export type GetAnalyticsV1RealtimeErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAnalyticsV1RealtimeError =
-  GetAnalyticsV1RealtimeErrors[keyof GetAnalyticsV1RealtimeErrors];
+export type GetAnalyticsV1RealtimeError = GetAnalyticsV1RealtimeErrors[keyof GetAnalyticsV1RealtimeErrors];
 
 export type GetAnalyticsV1RealtimeResponses = {
   /**
@@ -1482,8 +1473,7 @@ export type GetAnalyticsV1RealtimeResponses = {
   200: Analyticsv1RealtimeStats;
 };
 
-export type GetAnalyticsV1RealtimeResponse =
-  GetAnalyticsV1RealtimeResponses[keyof GetAnalyticsV1RealtimeResponses];
+export type GetAnalyticsV1RealtimeResponse = GetAnalyticsV1RealtimeResponses[keyof GetAnalyticsV1RealtimeResponses];
 
 export type GetAnalyticsV1RetentionData = {
   body?: never;
@@ -1512,8 +1502,7 @@ export type GetAnalyticsV1RetentionErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAnalyticsV1RetentionError =
-  GetAnalyticsV1RetentionErrors[keyof GetAnalyticsV1RetentionErrors];
+export type GetAnalyticsV1RetentionError = GetAnalyticsV1RetentionErrors[keyof GetAnalyticsV1RetentionErrors];
 
 export type GetAnalyticsV1RetentionResponses = {
   /**
@@ -1522,8 +1511,7 @@ export type GetAnalyticsV1RetentionResponses = {
   200: Analyticsv1RetentionAnalytics;
 };
 
-export type GetAnalyticsV1RetentionResponse =
-  GetAnalyticsV1RetentionResponses[keyof GetAnalyticsV1RetentionResponses];
+export type GetAnalyticsV1RetentionResponse = GetAnalyticsV1RetentionResponses[keyof GetAnalyticsV1RetentionResponses];
 
 export type GetAnalyticsV1TopFeedsData = {
   body?: never;
@@ -1556,8 +1544,7 @@ export type GetAnalyticsV1TopFeedsErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAnalyticsV1TopFeedsError =
-  GetAnalyticsV1TopFeedsErrors[keyof GetAnalyticsV1TopFeedsErrors];
+export type GetAnalyticsV1TopFeedsError = GetAnalyticsV1TopFeedsErrors[keyof GetAnalyticsV1TopFeedsErrors];
 
 export type GetAnalyticsV1TopFeedsResponses = {
   /**
@@ -1566,8 +1553,7 @@ export type GetAnalyticsV1TopFeedsResponses = {
   200: Analyticsv1TopFeedsResponse;
 };
 
-export type GetAnalyticsV1TopFeedsResponse =
-  GetAnalyticsV1TopFeedsResponses[keyof GetAnalyticsV1TopFeedsResponses];
+export type GetAnalyticsV1TopFeedsResponse = GetAnalyticsV1TopFeedsResponses[keyof GetAnalyticsV1TopFeedsResponses];
 
 export type GetAnalyticsV1TopPostsData = {
   body?: never;
@@ -1600,8 +1586,7 @@ export type GetAnalyticsV1TopPostsErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAnalyticsV1TopPostsError =
-  GetAnalyticsV1TopPostsErrors[keyof GetAnalyticsV1TopPostsErrors];
+export type GetAnalyticsV1TopPostsError = GetAnalyticsV1TopPostsErrors[keyof GetAnalyticsV1TopPostsErrors];
 
 export type GetAnalyticsV1TopPostsResponses = {
   /**
@@ -1610,8 +1595,7 @@ export type GetAnalyticsV1TopPostsResponses = {
   200: Analyticsv1TopPostsResponse;
 };
 
-export type GetAnalyticsV1TopPostsResponse =
-  GetAnalyticsV1TopPostsResponses[keyof GetAnalyticsV1TopPostsResponses];
+export type GetAnalyticsV1TopPostsResponse = GetAnalyticsV1TopPostsResponses[keyof GetAnalyticsV1TopPostsResponses];
 
 export type GetAnalyticsV1TopVideosData = {
   body?: never;
@@ -1644,8 +1628,7 @@ export type GetAnalyticsV1TopVideosErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAnalyticsV1TopVideosError =
-  GetAnalyticsV1TopVideosErrors[keyof GetAnalyticsV1TopVideosErrors];
+export type GetAnalyticsV1TopVideosError = GetAnalyticsV1TopVideosErrors[keyof GetAnalyticsV1TopVideosErrors];
 
 export type GetAnalyticsV1TopVideosResponses = {
   /**
@@ -1654,8 +1637,7 @@ export type GetAnalyticsV1TopVideosResponses = {
   200: Analyticsv1TopVideosResponse;
 };
 
-export type GetAnalyticsV1TopVideosResponse =
-  GetAnalyticsV1TopVideosResponses[keyof GetAnalyticsV1TopVideosResponses];
+export type GetAnalyticsV1TopVideosResponse = GetAnalyticsV1TopVideosResponses[keyof GetAnalyticsV1TopVideosResponses];
 
 export type GetAnalyticsV1VideosByVideoIdHeatmapData = {
   body?: never;
@@ -1788,8 +1770,7 @@ export type PostAuthV1BlogSubscribeErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostAuthV1BlogSubscribeError =
-  PostAuthV1BlogSubscribeErrors[keyof PostAuthV1BlogSubscribeErrors];
+export type PostAuthV1BlogSubscribeError = PostAuthV1BlogSubscribeErrors[keyof PostAuthV1BlogSubscribeErrors];
 
 export type PostAuthV1BlogSubscribeResponses = {
   /**
@@ -1798,8 +1779,7 @@ export type PostAuthV1BlogSubscribeResponses = {
   200: Authv1MessageResponse;
 };
 
-export type PostAuthV1BlogSubscribeResponse =
-  PostAuthV1BlogSubscribeResponses[keyof PostAuthV1BlogSubscribeResponses];
+export type PostAuthV1BlogSubscribeResponse = PostAuthV1BlogSubscribeResponses[keyof PostAuthV1BlogSubscribeResponses];
 
 export type GetAuthV1BlogSubscriptionData = {
   body?: never;
@@ -1815,8 +1795,7 @@ export type GetAuthV1BlogSubscriptionErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAuthV1BlogSubscriptionError =
-  GetAuthV1BlogSubscriptionErrors[keyof GetAuthV1BlogSubscriptionErrors];
+export type GetAuthV1BlogSubscriptionError = GetAuthV1BlogSubscriptionErrors[keyof GetAuthV1BlogSubscriptionErrors];
 
 export type GetAuthV1BlogSubscriptionResponses = {
   /**
@@ -1825,8 +1804,7 @@ export type GetAuthV1BlogSubscriptionResponses = {
   200: Authv1BlogSubscriptionResponse;
 };
 
-export type GetAuthV1BlogSubscriptionResponse =
-  GetAuthV1BlogSubscriptionResponses[keyof GetAuthV1BlogSubscriptionResponses];
+export type GetAuthV1BlogSubscriptionResponse = GetAuthV1BlogSubscriptionResponses[keyof GetAuthV1BlogSubscriptionResponses];
 
 export type PostAuthV1BlogUnsubscribeData = {
   body?: never;
@@ -1842,8 +1820,7 @@ export type PostAuthV1BlogUnsubscribeErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostAuthV1BlogUnsubscribeError =
-  PostAuthV1BlogUnsubscribeErrors[keyof PostAuthV1BlogUnsubscribeErrors];
+export type PostAuthV1BlogUnsubscribeError = PostAuthV1BlogUnsubscribeErrors[keyof PostAuthV1BlogUnsubscribeErrors];
 
 export type PostAuthV1BlogUnsubscribeResponses = {
   /**
@@ -1852,8 +1829,7 @@ export type PostAuthV1BlogUnsubscribeResponses = {
   200: Authv1MessageResponse;
 };
 
-export type PostAuthV1BlogUnsubscribeResponse =
-  PostAuthV1BlogUnsubscribeResponses[keyof PostAuthV1BlogUnsubscribeResponses];
+export type PostAuthV1BlogUnsubscribeResponse = PostAuthV1BlogUnsubscribeResponses[keyof PostAuthV1BlogUnsubscribeResponses];
 
 export type PostAuthV1EmailVerifyData = {
   /**
@@ -1872,8 +1848,7 @@ export type PostAuthV1EmailVerifyErrors = {
   400: ErrorsErrorResponse;
 };
 
-export type PostAuthV1EmailVerifyError =
-  PostAuthV1EmailVerifyErrors[keyof PostAuthV1EmailVerifyErrors];
+export type PostAuthV1EmailVerifyError = PostAuthV1EmailVerifyErrors[keyof PostAuthV1EmailVerifyErrors];
 
 export type PostAuthV1EmailVerifyResponses = {
   /**
@@ -1882,8 +1857,7 @@ export type PostAuthV1EmailVerifyResponses = {
   200: Authv1VerifyEmailResponse;
 };
 
-export type PostAuthV1EmailVerifyResponse =
-  PostAuthV1EmailVerifyResponses[keyof PostAuthV1EmailVerifyResponses];
+export type PostAuthV1EmailVerifyResponse = PostAuthV1EmailVerifyResponses[keyof PostAuthV1EmailVerifyResponses];
 
 export type PostAuthV1EmailVerifyResendData = {
   /**
@@ -1906,8 +1880,7 @@ export type PostAuthV1EmailVerifyResendErrors = {
   429: ErrorsErrorResponse;
 };
 
-export type PostAuthV1EmailVerifyResendError =
-  PostAuthV1EmailVerifyResendErrors[keyof PostAuthV1EmailVerifyResendErrors];
+export type PostAuthV1EmailVerifyResendError = PostAuthV1EmailVerifyResendErrors[keyof PostAuthV1EmailVerifyResendErrors];
 
 export type PostAuthV1EmailVerifyResendResponses = {
   /**
@@ -1916,8 +1889,7 @@ export type PostAuthV1EmailVerifyResendResponses = {
   200: Authv1ResendVerificationResponse;
 };
 
-export type PostAuthV1EmailVerifyResendResponse =
-  PostAuthV1EmailVerifyResendResponses[keyof PostAuthV1EmailVerifyResendResponses];
+export type PostAuthV1EmailVerifyResendResponse = PostAuthV1EmailVerifyResendResponses[keyof PostAuthV1EmailVerifyResendResponses];
 
 export type PostAuthV1InvitationsByTokenAcceptData = {
   body?: never;
@@ -2060,8 +2032,7 @@ export type PutAuthV1MembershipsByOrgIdActiveErrors = {
   404: ErrorsErrorResponse;
 };
 
-export type PutAuthV1MembershipsByOrgIdActiveError =
-  PutAuthV1MembershipsByOrgIdActiveErrors[keyof PutAuthV1MembershipsByOrgIdActiveErrors];
+export type PutAuthV1MembershipsByOrgIdActiveError = PutAuthV1MembershipsByOrgIdActiveErrors[keyof PutAuthV1MembershipsByOrgIdActiveErrors];
 
 export type PutAuthV1MembershipsByOrgIdActiveResponses = {
   /**
@@ -2092,8 +2063,7 @@ export type GetAuthV1MembershipsByOrgIdCheckErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAuthV1MembershipsByOrgIdCheckError =
-  GetAuthV1MembershipsByOrgIdCheckErrors[keyof GetAuthV1MembershipsByOrgIdCheckErrors];
+export type GetAuthV1MembershipsByOrgIdCheckError = GetAuthV1MembershipsByOrgIdCheckErrors[keyof GetAuthV1MembershipsByOrgIdCheckErrors];
 
 export type GetAuthV1MembershipsByOrgIdCheckResponses = {
   /**
@@ -2156,8 +2126,7 @@ export type GetAuthV1MembershipsByOrgIdDomainErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAuthV1MembershipsByOrgIdDomainError =
-  GetAuthV1MembershipsByOrgIdDomainErrors[keyof GetAuthV1MembershipsByOrgIdDomainErrors];
+export type GetAuthV1MembershipsByOrgIdDomainError = GetAuthV1MembershipsByOrgIdDomainErrors[keyof GetAuthV1MembershipsByOrgIdDomainErrors];
 
 export type GetAuthV1MembershipsByOrgIdDomainResponses = {
   /**
@@ -2607,8 +2576,7 @@ export type PutAuthV1MembershipsByOrgIdNameErrors = {
   429: ErrorsErrorResponse;
 };
 
-export type PutAuthV1MembershipsByOrgIdNameError =
-  PutAuthV1MembershipsByOrgIdNameErrors[keyof PutAuthV1MembershipsByOrgIdNameErrors];
+export type PutAuthV1MembershipsByOrgIdNameError = PutAuthV1MembershipsByOrgIdNameErrors[keyof PutAuthV1MembershipsByOrgIdNameErrors];
 
 export type PutAuthV1MembershipsByOrgIdNameResponses = {
   /**
@@ -3003,8 +2971,7 @@ export type GetAuthV1MembershipsActiveErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAuthV1MembershipsActiveError =
-  GetAuthV1MembershipsActiveErrors[keyof GetAuthV1MembershipsActiveErrors];
+export type GetAuthV1MembershipsActiveError = GetAuthV1MembershipsActiveErrors[keyof GetAuthV1MembershipsActiveErrors];
 
 export type GetAuthV1MembershipsActiveResponses = {
   /**
@@ -3013,8 +2980,7 @@ export type GetAuthV1MembershipsActiveResponses = {
   200: Authv1ListMembershipsResponse;
 };
 
-export type GetAuthV1MembershipsActiveResponse =
-  GetAuthV1MembershipsActiveResponses[keyof GetAuthV1MembershipsActiveResponses];
+export type GetAuthV1MembershipsActiveResponse = GetAuthV1MembershipsActiveResponses[keyof GetAuthV1MembershipsActiveResponses];
 
 export type GetAuthV1MembershipsPendingData = {
   body?: never;
@@ -3039,8 +3005,7 @@ export type GetAuthV1MembershipsPendingErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAuthV1MembershipsPendingError =
-  GetAuthV1MembershipsPendingErrors[keyof GetAuthV1MembershipsPendingErrors];
+export type GetAuthV1MembershipsPendingError = GetAuthV1MembershipsPendingErrors[keyof GetAuthV1MembershipsPendingErrors];
 
 export type GetAuthV1MembershipsPendingResponses = {
   /**
@@ -3049,8 +3014,7 @@ export type GetAuthV1MembershipsPendingResponses = {
   200: Authv1ListMembershipsResponse;
 };
 
-export type GetAuthV1MembershipsPendingResponse =
-  GetAuthV1MembershipsPendingResponses[keyof GetAuthV1MembershipsPendingResponses];
+export type GetAuthV1MembershipsPendingResponse = GetAuthV1MembershipsPendingResponses[keyof GetAuthV1MembershipsPendingResponses];
 
 export type PostAuthV1PasskeyLoginBeginData = {
   body?: never;
@@ -3066,8 +3030,7 @@ export type PostAuthV1PasskeyLoginBeginErrors = {
   500: ErrorsErrorResponse;
 };
 
-export type PostAuthV1PasskeyLoginBeginError =
-  PostAuthV1PasskeyLoginBeginErrors[keyof PostAuthV1PasskeyLoginBeginErrors];
+export type PostAuthV1PasskeyLoginBeginError = PostAuthV1PasskeyLoginBeginErrors[keyof PostAuthV1PasskeyLoginBeginErrors];
 
 export type PostAuthV1PasskeyLoginBeginResponses = {
   /**
@@ -3076,8 +3039,7 @@ export type PostAuthV1PasskeyLoginBeginResponses = {
   200: Authv1PasskeyBeginResponse;
 };
 
-export type PostAuthV1PasskeyLoginBeginResponse =
-  PostAuthV1PasskeyLoginBeginResponses[keyof PostAuthV1PasskeyLoginBeginResponses];
+export type PostAuthV1PasskeyLoginBeginResponse = PostAuthV1PasskeyLoginBeginResponses[keyof PostAuthV1PasskeyLoginBeginResponses];
 
 export type PostAuthV1PasskeyLoginFinishData = {
   /**
@@ -3100,8 +3062,7 @@ export type PostAuthV1PasskeyLoginFinishErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostAuthV1PasskeyLoginFinishError =
-  PostAuthV1PasskeyLoginFinishErrors[keyof PostAuthV1PasskeyLoginFinishErrors];
+export type PostAuthV1PasskeyLoginFinishError = PostAuthV1PasskeyLoginFinishErrors[keyof PostAuthV1PasskeyLoginFinishErrors];
 
 export type PostAuthV1PasskeyLoginFinishResponses = {
   /**
@@ -3110,8 +3071,7 @@ export type PostAuthV1PasskeyLoginFinishResponses = {
   200: Authv1TokenResponse;
 };
 
-export type PostAuthV1PasskeyLoginFinishResponse =
-  PostAuthV1PasskeyLoginFinishResponses[keyof PostAuthV1PasskeyLoginFinishResponses];
+export type PostAuthV1PasskeyLoginFinishResponse = PostAuthV1PasskeyLoginFinishResponses[keyof PostAuthV1PasskeyLoginFinishResponses];
 
 export type PostAuthV1PasswordResetData = {
   /**
@@ -3130,8 +3090,7 @@ export type PostAuthV1PasswordResetErrors = {
   400: ErrorsErrorResponse;
 };
 
-export type PostAuthV1PasswordResetError =
-  PostAuthV1PasswordResetErrors[keyof PostAuthV1PasswordResetErrors];
+export type PostAuthV1PasswordResetError = PostAuthV1PasswordResetErrors[keyof PostAuthV1PasswordResetErrors];
 
 export type PostAuthV1PasswordResetResponses = {
   /**
@@ -3140,8 +3099,7 @@ export type PostAuthV1PasswordResetResponses = {
   200: Authv1MessageResponse;
 };
 
-export type PostAuthV1PasswordResetResponse =
-  PostAuthV1PasswordResetResponses[keyof PostAuthV1PasswordResetResponses];
+export type PostAuthV1PasswordResetResponse = PostAuthV1PasswordResetResponses[keyof PostAuthV1PasswordResetResponses];
 
 export type PostAuthV1PasswordResetConfirmData = {
   /**
@@ -3160,8 +3118,7 @@ export type PostAuthV1PasswordResetConfirmErrors = {
   400: ErrorsErrorResponse;
 };
 
-export type PostAuthV1PasswordResetConfirmError =
-  PostAuthV1PasswordResetConfirmErrors[keyof PostAuthV1PasswordResetConfirmErrors];
+export type PostAuthV1PasswordResetConfirmError = PostAuthV1PasswordResetConfirmErrors[keyof PostAuthV1PasswordResetConfirmErrors];
 
 export type PostAuthV1PasswordResetConfirmResponses = {
   /**
@@ -3170,8 +3127,7 @@ export type PostAuthV1PasswordResetConfirmResponses = {
   200: Authv1MessageResponse;
 };
 
-export type PostAuthV1PasswordResetConfirmResponse =
-  PostAuthV1PasswordResetConfirmResponses[keyof PostAuthV1PasswordResetConfirmResponses];
+export type PostAuthV1PasswordResetConfirmResponse = PostAuthV1PasswordResetConfirmResponses[keyof PostAuthV1PasswordResetConfirmResponses];
 
 export type GetAuthV1ProvidersData = {
   body?: never;
@@ -3196,8 +3152,7 @@ export type GetAuthV1ProvidersResponses = {
   200: Authv1ListProvidersResponse;
 };
 
-export type GetAuthV1ProvidersResponse =
-  GetAuthV1ProvidersResponses[keyof GetAuthV1ProvidersResponses];
+export type GetAuthV1ProvidersResponse = GetAuthV1ProvidersResponses[keyof GetAuthV1ProvidersResponses];
 
 export type DeleteAuthV1ProvidersByProviderData = {
   body?: never;
@@ -3222,8 +3177,7 @@ export type DeleteAuthV1ProvidersByProviderErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type DeleteAuthV1ProvidersByProviderError =
-  DeleteAuthV1ProvidersByProviderErrors[keyof DeleteAuthV1ProvidersByProviderErrors];
+export type DeleteAuthV1ProvidersByProviderError = DeleteAuthV1ProvidersByProviderErrors[keyof DeleteAuthV1ProvidersByProviderErrors];
 
 export type DeleteAuthV1ProvidersByProviderResponses = {
   /**
@@ -3256,8 +3210,7 @@ export type PostAuthV1ProvidersConnectErrors = {
   409: ErrorsErrorResponse;
 };
 
-export type PostAuthV1ProvidersConnectError =
-  PostAuthV1ProvidersConnectErrors[keyof PostAuthV1ProvidersConnectErrors];
+export type PostAuthV1ProvidersConnectError = PostAuthV1ProvidersConnectErrors[keyof PostAuthV1ProvidersConnectErrors];
 
 export type PostAuthV1ProvidersConnectResponses = {
   /**
@@ -3266,8 +3219,7 @@ export type PostAuthV1ProvidersConnectResponses = {
   200: Authv1TokenResponse;
 };
 
-export type PostAuthV1ProvidersConnectResponse =
-  PostAuthV1ProvidersConnectResponses[keyof PostAuthV1ProvidersConnectResponses];
+export type PostAuthV1ProvidersConnectResponse = PostAuthV1ProvidersConnectResponses[keyof PostAuthV1ProvidersConnectResponses];
 
 export type PostAuthV1RegisterData = {
   /**
@@ -3299,8 +3251,7 @@ export type PostAuthV1RegisterResponses = {
   201: Authv1RegisterResponse;
 };
 
-export type PostAuthV1RegisterResponse =
-  PostAuthV1RegisterResponses[keyof PostAuthV1RegisterResponses];
+export type PostAuthV1RegisterResponse = PostAuthV1RegisterResponses[keyof PostAuthV1RegisterResponses];
 
 export type PostAuthV1TokenData = {
   body?: never;
@@ -3356,8 +3307,7 @@ export type GetAuthV1UserinfoResponses = {
   200: Authv1UserInfo;
 };
 
-export type GetAuthV1UserinfoResponse =
-  GetAuthV1UserinfoResponses[keyof GetAuthV1UserinfoResponses];
+export type GetAuthV1UserinfoResponse = GetAuthV1UserinfoResponses[keyof GetAuthV1UserinfoResponses];
 
 export type GetAuthV1UsersCurrentData = {
   body?: never;
@@ -3373,8 +3323,7 @@ export type GetAuthV1UsersCurrentErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAuthV1UsersCurrentError =
-  GetAuthV1UsersCurrentErrors[keyof GetAuthV1UsersCurrentErrors];
+export type GetAuthV1UsersCurrentError = GetAuthV1UsersCurrentErrors[keyof GetAuthV1UsersCurrentErrors];
 
 export type GetAuthV1UsersCurrentResponses = {
   /**
@@ -3383,8 +3332,7 @@ export type GetAuthV1UsersCurrentResponses = {
   200: Authv1UserInfo;
 };
 
-export type GetAuthV1UsersCurrentResponse =
-  GetAuthV1UsersCurrentResponses[keyof GetAuthV1UsersCurrentResponses];
+export type GetAuthV1UsersCurrentResponse = GetAuthV1UsersCurrentResponses[keyof GetAuthV1UsersCurrentResponses];
 
 export type PostAuthV1UsersCurrentEmailsData = {
   /**
@@ -3415,8 +3363,7 @@ export type PostAuthV1UsersCurrentEmailsErrors = {
   429: ErrorsErrorResponse;
 };
 
-export type PostAuthV1UsersCurrentEmailsError =
-  PostAuthV1UsersCurrentEmailsErrors[keyof PostAuthV1UsersCurrentEmailsErrors];
+export type PostAuthV1UsersCurrentEmailsError = PostAuthV1UsersCurrentEmailsErrors[keyof PostAuthV1UsersCurrentEmailsErrors];
 
 export type PostAuthV1UsersCurrentEmailsResponses = {
   /**
@@ -3425,8 +3372,7 @@ export type PostAuthV1UsersCurrentEmailsResponses = {
   200: Authv1VerificationSentResponse;
 };
 
-export type PostAuthV1UsersCurrentEmailsResponse =
-  PostAuthV1UsersCurrentEmailsResponses[keyof PostAuthV1UsersCurrentEmailsResponses];
+export type PostAuthV1UsersCurrentEmailsResponse = PostAuthV1UsersCurrentEmailsResponses[keyof PostAuthV1UsersCurrentEmailsResponses];
 
 export type PutAuthV1UsersCurrentEmailsChangeData = {
   /**
@@ -3457,8 +3403,7 @@ export type PutAuthV1UsersCurrentEmailsChangeErrors = {
   429: ErrorsErrorResponse;
 };
 
-export type PutAuthV1UsersCurrentEmailsChangeError =
-  PutAuthV1UsersCurrentEmailsChangeErrors[keyof PutAuthV1UsersCurrentEmailsChangeErrors];
+export type PutAuthV1UsersCurrentEmailsChangeError = PutAuthV1UsersCurrentEmailsChangeErrors[keyof PutAuthV1UsersCurrentEmailsChangeErrors];
 
 export type PutAuthV1UsersCurrentEmailsChangeResponses = {
   /**
@@ -3484,8 +3429,7 @@ export type GetAuthV1UsersCurrentEmailsStatusErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAuthV1UsersCurrentEmailsStatusError =
-  GetAuthV1UsersCurrentEmailsStatusErrors[keyof GetAuthV1UsersCurrentEmailsStatusErrors];
+export type GetAuthV1UsersCurrentEmailsStatusError = GetAuthV1UsersCurrentEmailsStatusErrors[keyof GetAuthV1UsersCurrentEmailsStatusErrors];
 
 export type GetAuthV1UsersCurrentEmailsStatusResponses = {
   /**
@@ -3522,8 +3466,7 @@ export type PatchAuthV1UsersCurrentNameErrors = {
   429: ErrorsErrorResponse;
 };
 
-export type PatchAuthV1UsersCurrentNameError =
-  PatchAuthV1UsersCurrentNameErrors[keyof PatchAuthV1UsersCurrentNameErrors];
+export type PatchAuthV1UsersCurrentNameError = PatchAuthV1UsersCurrentNameErrors[keyof PatchAuthV1UsersCurrentNameErrors];
 
 export type PatchAuthV1UsersCurrentNameResponses = {
   /**
@@ -3532,8 +3475,7 @@ export type PatchAuthV1UsersCurrentNameResponses = {
   200: Authv1UpdateNameResponse;
 };
 
-export type PatchAuthV1UsersCurrentNameResponse =
-  PatchAuthV1UsersCurrentNameResponses[keyof PatchAuthV1UsersCurrentNameResponses];
+export type PatchAuthV1UsersCurrentNameResponse = PatchAuthV1UsersCurrentNameResponses[keyof PatchAuthV1UsersCurrentNameResponses];
 
 export type GetAuthV1UsersCurrentPasskeysData = {
   body?: never;
@@ -3549,8 +3491,7 @@ export type GetAuthV1UsersCurrentPasskeysErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAuthV1UsersCurrentPasskeysError =
-  GetAuthV1UsersCurrentPasskeysErrors[keyof GetAuthV1UsersCurrentPasskeysErrors];
+export type GetAuthV1UsersCurrentPasskeysError = GetAuthV1UsersCurrentPasskeysErrors[keyof GetAuthV1UsersCurrentPasskeysErrors];
 
 export type GetAuthV1UsersCurrentPasskeysResponses = {
   /**
@@ -3559,8 +3500,7 @@ export type GetAuthV1UsersCurrentPasskeysResponses = {
   200: Authv1ListPasskeysResponse;
 };
 
-export type GetAuthV1UsersCurrentPasskeysResponse =
-  GetAuthV1UsersCurrentPasskeysResponses[keyof GetAuthV1UsersCurrentPasskeysResponses];
+export type GetAuthV1UsersCurrentPasskeysResponse = GetAuthV1UsersCurrentPasskeysResponses[keyof GetAuthV1UsersCurrentPasskeysResponses];
 
 export type DeleteAuthV1UsersCurrentPasskeysByIdData = {
   body?: never;
@@ -3731,8 +3671,7 @@ export type PostAuthV1UsersCurrentTotpSetupErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostAuthV1UsersCurrentTotpSetupError =
-  PostAuthV1UsersCurrentTotpSetupErrors[keyof PostAuthV1UsersCurrentTotpSetupErrors];
+export type PostAuthV1UsersCurrentTotpSetupError = PostAuthV1UsersCurrentTotpSetupErrors[keyof PostAuthV1UsersCurrentTotpSetupErrors];
 
 export type PostAuthV1UsersCurrentTotpSetupResponses = {
   /**
@@ -3758,8 +3697,7 @@ export type GetAuthV1UsersCurrentTotpStatusErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetAuthV1UsersCurrentTotpStatusError =
-  GetAuthV1UsersCurrentTotpStatusErrors[keyof GetAuthV1UsersCurrentTotpStatusErrors];
+export type GetAuthV1UsersCurrentTotpStatusError = GetAuthV1UsersCurrentTotpStatusErrors[keyof GetAuthV1UsersCurrentTotpStatusErrors];
 
 export type GetAuthV1UsersCurrentTotpStatusResponses = {
   /**
@@ -3792,8 +3730,7 @@ export type PostAuthV1UsersCurrentTotpVerifyErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostAuthV1UsersCurrentTotpVerifyError =
-  PostAuthV1UsersCurrentTotpVerifyErrors[keyof PostAuthV1UsersCurrentTotpVerifyErrors];
+export type PostAuthV1UsersCurrentTotpVerifyError = PostAuthV1UsersCurrentTotpVerifyErrors[keyof PostAuthV1UsersCurrentTotpVerifyErrors];
 
 export type PostAuthV1UsersCurrentTotpVerifyResponses = {
   /**
@@ -3834,8 +3771,7 @@ export type PatchAuthV1UsersCurrentUsernameErrors = {
   429: ErrorsErrorResponse;
 };
 
-export type PatchAuthV1UsersCurrentUsernameError =
-  PatchAuthV1UsersCurrentUsernameErrors[keyof PatchAuthV1UsersCurrentUsernameErrors];
+export type PatchAuthV1UsersCurrentUsernameError = PatchAuthV1UsersCurrentUsernameErrors[keyof PatchAuthV1UsersCurrentUsernameErrors];
 
 export type PatchAuthV1UsersCurrentUsernameResponses = {
   /**
@@ -3864,8 +3800,7 @@ export type PostAuthV1VerifyTotpErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostAuthV1VerifyTotpError =
-  PostAuthV1VerifyTotpErrors[keyof PostAuthV1VerifyTotpErrors];
+export type PostAuthV1VerifyTotpError = PostAuthV1VerifyTotpErrors[keyof PostAuthV1VerifyTotpErrors];
 
 export type PostAuthV1VerifyTotpResponses = {
   /**
@@ -3874,8 +3809,7 @@ export type PostAuthV1VerifyTotpResponses = {
   200: Authv1TokenResponse;
 };
 
-export type PostAuthV1VerifyTotpResponse =
-  PostAuthV1VerifyTotpResponses[keyof PostAuthV1VerifyTotpResponses];
+export type PostAuthV1VerifyTotpResponse = PostAuthV1VerifyTotpResponses[keyof PostAuthV1VerifyTotpResponses];
 
 export type GetBillingV1AddressData = {
   body?: never;
@@ -3900,8 +3834,7 @@ export type GetBillingV1AddressResponses = {
   200: Billingv1BillingAddress;
 };
 
-export type GetBillingV1AddressResponse =
-  GetBillingV1AddressResponses[keyof GetBillingV1AddressResponses];
+export type GetBillingV1AddressResponse = GetBillingV1AddressResponses[keyof GetBillingV1AddressResponses];
 
 export type PostBillingV1AddressData = {
   /**
@@ -3924,8 +3857,7 @@ export type PostBillingV1AddressErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostBillingV1AddressError =
-  PostBillingV1AddressErrors[keyof PostBillingV1AddressErrors];
+export type PostBillingV1AddressError = PostBillingV1AddressErrors[keyof PostBillingV1AddressErrors];
 
 export type PostBillingV1AddressResponses = {
   /**
@@ -3934,8 +3866,7 @@ export type PostBillingV1AddressResponses = {
   200: Billingv1BillingAddress;
 };
 
-export type PostBillingV1AddressResponse =
-  PostBillingV1AddressResponses[keyof PostBillingV1AddressResponses];
+export type PostBillingV1AddressResponse = PostBillingV1AddressResponses[keyof PostBillingV1AddressResponses];
 
 export type GetBillingV1BandwidthUsageData = {
   body?: never;
@@ -3955,8 +3886,7 @@ export type GetBillingV1BandwidthUsageErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetBillingV1BandwidthUsageError =
-  GetBillingV1BandwidthUsageErrors[keyof GetBillingV1BandwidthUsageErrors];
+export type GetBillingV1BandwidthUsageError = GetBillingV1BandwidthUsageErrors[keyof GetBillingV1BandwidthUsageErrors];
 
 export type GetBillingV1BandwidthUsageResponses = {
   /**
@@ -3965,8 +3895,7 @@ export type GetBillingV1BandwidthUsageResponses = {
   200: Billingv1BandwidthUsage;
 };
 
-export type GetBillingV1BandwidthUsageResponse =
-  GetBillingV1BandwidthUsageResponses[keyof GetBillingV1BandwidthUsageResponses];
+export type GetBillingV1BandwidthUsageResponse = GetBillingV1BandwidthUsageResponses[keyof GetBillingV1BandwidthUsageResponses];
 
 export type GetBillingV1BandwidthUsageHistoryData = {
   body?: never;
@@ -3987,8 +3916,7 @@ export type GetBillingV1BandwidthUsageHistoryErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetBillingV1BandwidthUsageHistoryError =
-  GetBillingV1BandwidthUsageHistoryErrors[keyof GetBillingV1BandwidthUsageHistoryErrors];
+export type GetBillingV1BandwidthUsageHistoryError = GetBillingV1BandwidthUsageHistoryErrors[keyof GetBillingV1BandwidthUsageHistoryErrors];
 
 export type GetBillingV1BandwidthUsageHistoryResponses = {
   /**
@@ -4048,8 +3976,7 @@ export type PostBillingV1CheckoutErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostBillingV1CheckoutError =
-  PostBillingV1CheckoutErrors[keyof PostBillingV1CheckoutErrors];
+export type PostBillingV1CheckoutError = PostBillingV1CheckoutErrors[keyof PostBillingV1CheckoutErrors];
 
 export type PostBillingV1CheckoutResponses = {
   /**
@@ -4058,8 +3985,7 @@ export type PostBillingV1CheckoutResponses = {
   200: Billingv1HostedCheckoutSessionResponse;
 };
 
-export type PostBillingV1CheckoutResponse =
-  PostBillingV1CheckoutResponses[keyof PostBillingV1CheckoutResponses];
+export type PostBillingV1CheckoutResponse = PostBillingV1CheckoutResponses[keyof PostBillingV1CheckoutResponses];
 
 export type PostBillingV1ContactSalesData = {
   /**
@@ -4082,8 +4008,7 @@ export type PostBillingV1ContactSalesErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostBillingV1ContactSalesError =
-  PostBillingV1ContactSalesErrors[keyof PostBillingV1ContactSalesErrors];
+export type PostBillingV1ContactSalesError = PostBillingV1ContactSalesErrors[keyof PostBillingV1ContactSalesErrors];
 
 export type PostBillingV1ContactSalesResponses = {
   /**
@@ -4092,8 +4017,7 @@ export type PostBillingV1ContactSalesResponses = {
   201: Billingv1SalesLead;
 };
 
-export type PostBillingV1ContactSalesResponse =
-  PostBillingV1ContactSalesResponses[keyof PostBillingV1ContactSalesResponses];
+export type PostBillingV1ContactSalesResponse = PostBillingV1ContactSalesResponses[keyof PostBillingV1ContactSalesResponses];
 
 export type GetBillingV1InvoicesData = {
   body?: never;
@@ -4113,8 +4037,7 @@ export type GetBillingV1InvoicesErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetBillingV1InvoicesError =
-  GetBillingV1InvoicesErrors[keyof GetBillingV1InvoicesErrors];
+export type GetBillingV1InvoicesError = GetBillingV1InvoicesErrors[keyof GetBillingV1InvoicesErrors];
 
 export type GetBillingV1InvoicesResponses = {
   /**
@@ -4123,8 +4046,7 @@ export type GetBillingV1InvoicesResponses = {
   200: Billingv1ListInvoicesResponse;
 };
 
-export type GetBillingV1InvoicesResponse =
-  GetBillingV1InvoicesResponses[keyof GetBillingV1InvoicesResponses];
+export type GetBillingV1InvoicesResponse = GetBillingV1InvoicesResponses[keyof GetBillingV1InvoicesResponses];
 
 export type PutBillingV1InvoicesByInvoiceIdStatusData = {
   /**
@@ -4268,8 +4190,7 @@ export type GetBillingV1PaymentMethodsErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetBillingV1PaymentMethodsError =
-  GetBillingV1PaymentMethodsErrors[keyof GetBillingV1PaymentMethodsErrors];
+export type GetBillingV1PaymentMethodsError = GetBillingV1PaymentMethodsErrors[keyof GetBillingV1PaymentMethodsErrors];
 
 export type GetBillingV1PaymentMethodsResponses = {
   /**
@@ -4278,8 +4199,7 @@ export type GetBillingV1PaymentMethodsResponses = {
   200: Billingv1ListPaymentMethodsResponse;
 };
 
-export type GetBillingV1PaymentMethodsResponse =
-  GetBillingV1PaymentMethodsResponses[keyof GetBillingV1PaymentMethodsResponses];
+export type GetBillingV1PaymentMethodsResponse = GetBillingV1PaymentMethodsResponses[keyof GetBillingV1PaymentMethodsResponses];
 
 export type PostBillingV1PaymentMethodsData = {
   /**
@@ -4302,8 +4222,7 @@ export type PostBillingV1PaymentMethodsErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostBillingV1PaymentMethodsError =
-  PostBillingV1PaymentMethodsErrors[keyof PostBillingV1PaymentMethodsErrors];
+export type PostBillingV1PaymentMethodsError = PostBillingV1PaymentMethodsErrors[keyof PostBillingV1PaymentMethodsErrors];
 
 export type PostBillingV1PaymentMethodsResponses = {
   /**
@@ -4312,8 +4231,7 @@ export type PostBillingV1PaymentMethodsResponses = {
   200: Billingv1PaymentMethodDetails;
 };
 
-export type PostBillingV1PaymentMethodsResponse =
-  PostBillingV1PaymentMethodsResponses[keyof PostBillingV1PaymentMethodsResponses];
+export type PostBillingV1PaymentMethodsResponse = PostBillingV1PaymentMethodsResponses[keyof PostBillingV1PaymentMethodsResponses];
 
 export type DeleteBillingV1PaymentMethodsByPaymentMethodIdData = {
   body?: never;
@@ -4434,8 +4352,7 @@ export type GetBillingV1PlansResponses = {
   200: Billingv1ListPlansResponse;
 };
 
-export type GetBillingV1PlansResponse =
-  GetBillingV1PlansResponses[keyof GetBillingV1PlansResponses];
+export type GetBillingV1PlansResponse = GetBillingV1PlansResponses[keyof GetBillingV1PlansResponses];
 
 export type GetBillingV1PlansByPlanIdData = {
   body?: never;
@@ -4460,8 +4377,7 @@ export type GetBillingV1PlansByPlanIdErrors = {
   404: ErrorsErrorResponse;
 };
 
-export type GetBillingV1PlansByPlanIdError =
-  GetBillingV1PlansByPlanIdErrors[keyof GetBillingV1PlansByPlanIdErrors];
+export type GetBillingV1PlansByPlanIdError = GetBillingV1PlansByPlanIdErrors[keyof GetBillingV1PlansByPlanIdErrors];
 
 export type GetBillingV1PlansByPlanIdResponses = {
   /**
@@ -4470,8 +4386,7 @@ export type GetBillingV1PlansByPlanIdResponses = {
   200: Billingv1GetPlanResponse;
 };
 
-export type GetBillingV1PlansByPlanIdResponse =
-  GetBillingV1PlansByPlanIdResponses[keyof GetBillingV1PlansByPlanIdResponses];
+export type GetBillingV1PlansByPlanIdResponse = GetBillingV1PlansByPlanIdResponses[keyof GetBillingV1PlansByPlanIdResponses];
 
 export type PostBillingV1SetupIntentData = {
   body?: never;
@@ -4487,8 +4402,7 @@ export type PostBillingV1SetupIntentErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostBillingV1SetupIntentError =
-  PostBillingV1SetupIntentErrors[keyof PostBillingV1SetupIntentErrors];
+export type PostBillingV1SetupIntentError = PostBillingV1SetupIntentErrors[keyof PostBillingV1SetupIntentErrors];
 
 export type PostBillingV1SetupIntentResponses = {
   /**
@@ -4497,8 +4411,7 @@ export type PostBillingV1SetupIntentResponses = {
   200: Billingv1SetupIntentResponse;
 };
 
-export type PostBillingV1SetupIntentResponse =
-  PostBillingV1SetupIntentResponses[keyof PostBillingV1SetupIntentResponses];
+export type PostBillingV1SetupIntentResponse = PostBillingV1SetupIntentResponses[keyof PostBillingV1SetupIntentResponses];
 
 export type GetBillingV1StorageUsageData = {
   body?: never;
@@ -4518,8 +4431,7 @@ export type GetBillingV1StorageUsageErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetBillingV1StorageUsageError =
-  GetBillingV1StorageUsageErrors[keyof GetBillingV1StorageUsageErrors];
+export type GetBillingV1StorageUsageError = GetBillingV1StorageUsageErrors[keyof GetBillingV1StorageUsageErrors];
 
 export type GetBillingV1StorageUsageResponses = {
   /**
@@ -4528,8 +4440,7 @@ export type GetBillingV1StorageUsageResponses = {
   200: Billingv1StorageUsage;
 };
 
-export type GetBillingV1StorageUsageResponse =
-  GetBillingV1StorageUsageResponses[keyof GetBillingV1StorageUsageResponses];
+export type GetBillingV1StorageUsageResponse = GetBillingV1StorageUsageResponses[keyof GetBillingV1StorageUsageResponses];
 
 export type GetBillingV1StorageUsageHistoryData = {
   body?: never;
@@ -4550,8 +4461,7 @@ export type GetBillingV1StorageUsageHistoryErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetBillingV1StorageUsageHistoryError =
-  GetBillingV1StorageUsageHistoryErrors[keyof GetBillingV1StorageUsageHistoryErrors];
+export type GetBillingV1StorageUsageHistoryError = GetBillingV1StorageUsageHistoryErrors[keyof GetBillingV1StorageUsageHistoryErrors];
 
 export type GetBillingV1StorageUsageHistoryResponses = {
   /**
@@ -4577,8 +4487,7 @@ export type PostBillingV1StorageUsageRefreshErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostBillingV1StorageUsageRefreshError =
-  PostBillingV1StorageUsageRefreshErrors[keyof PostBillingV1StorageUsageRefreshErrors];
+export type PostBillingV1StorageUsageRefreshError = PostBillingV1StorageUsageRefreshErrors[keyof PostBillingV1StorageUsageRefreshErrors];
 
 export type PostBillingV1StorageUsageRefreshResponses = {
   /**
@@ -4608,8 +4517,7 @@ export type GetBillingV1SubscriptionErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetBillingV1SubscriptionError =
-  GetBillingV1SubscriptionErrors[keyof GetBillingV1SubscriptionErrors];
+export type GetBillingV1SubscriptionError = GetBillingV1SubscriptionErrors[keyof GetBillingV1SubscriptionErrors];
 
 export type GetBillingV1SubscriptionResponses = {
   /**
@@ -4618,8 +4526,7 @@ export type GetBillingV1SubscriptionResponses = {
   200: Billingv1Subscription;
 };
 
-export type GetBillingV1SubscriptionResponse =
-  GetBillingV1SubscriptionResponses[keyof GetBillingV1SubscriptionResponses];
+export type GetBillingV1SubscriptionResponse = GetBillingV1SubscriptionResponses[keyof GetBillingV1SubscriptionResponses];
 
 export type PostBillingV1SubscriptionData = {
   /**
@@ -4642,8 +4549,7 @@ export type PostBillingV1SubscriptionErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostBillingV1SubscriptionError =
-  PostBillingV1SubscriptionErrors[keyof PostBillingV1SubscriptionErrors];
+export type PostBillingV1SubscriptionError = PostBillingV1SubscriptionErrors[keyof PostBillingV1SubscriptionErrors];
 
 export type PostBillingV1SubscriptionResponses = {
   /**
@@ -4652,8 +4558,7 @@ export type PostBillingV1SubscriptionResponses = {
   200: Billingv1CreateSubscriptionResponse;
 };
 
-export type PostBillingV1SubscriptionResponse =
-  PostBillingV1SubscriptionResponses[keyof PostBillingV1SubscriptionResponses];
+export type PostBillingV1SubscriptionResponse = PostBillingV1SubscriptionResponses[keyof PostBillingV1SubscriptionResponses];
 
 export type PutBillingV1SubscriptionCancelData = {
   body?: never;
@@ -4669,8 +4574,7 @@ export type PutBillingV1SubscriptionCancelErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PutBillingV1SubscriptionCancelError =
-  PutBillingV1SubscriptionCancelErrors[keyof PutBillingV1SubscriptionCancelErrors];
+export type PutBillingV1SubscriptionCancelError = PutBillingV1SubscriptionCancelErrors[keyof PutBillingV1SubscriptionCancelErrors];
 
 export type PutBillingV1SubscriptionCancelResponses = {
   /**
@@ -4679,8 +4583,7 @@ export type PutBillingV1SubscriptionCancelResponses = {
   200: Billingv1CancelSubscriptionResponse;
 };
 
-export type PutBillingV1SubscriptionCancelResponse =
-  PutBillingV1SubscriptionCancelResponses[keyof PutBillingV1SubscriptionCancelResponses];
+export type PutBillingV1SubscriptionCancelResponse = PutBillingV1SubscriptionCancelResponses[keyof PutBillingV1SubscriptionCancelResponses];
 
 export type GetBillingV1SubscriptionHistoryData = {
   body?: never;
@@ -4700,8 +4603,7 @@ export type GetBillingV1SubscriptionHistoryErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type GetBillingV1SubscriptionHistoryError =
-  GetBillingV1SubscriptionHistoryErrors[keyof GetBillingV1SubscriptionHistoryErrors];
+export type GetBillingV1SubscriptionHistoryError = GetBillingV1SubscriptionHistoryErrors[keyof GetBillingV1SubscriptionHistoryErrors];
 
 export type GetBillingV1SubscriptionHistoryResponses = {
   /**
@@ -4761,8 +4663,7 @@ export type PostBillingV1SubscriptionUpgradeErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostBillingV1SubscriptionUpgradeError =
-  PostBillingV1SubscriptionUpgradeErrors[keyof PostBillingV1SubscriptionUpgradeErrors];
+export type PostBillingV1SubscriptionUpgradeError = PostBillingV1SubscriptionUpgradeErrors[keyof PostBillingV1SubscriptionUpgradeErrors];
 
 export type PostBillingV1SubscriptionUpgradeResponses = {
   /**
@@ -4795,8 +4696,7 @@ export type PostBillingV1TaxCalculateErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostBillingV1TaxCalculateError =
-  PostBillingV1TaxCalculateErrors[keyof PostBillingV1TaxCalculateErrors];
+export type PostBillingV1TaxCalculateError = PostBillingV1TaxCalculateErrors[keyof PostBillingV1TaxCalculateErrors];
 
 export type PostBillingV1TaxCalculateResponses = {
   /**
@@ -4805,8 +4705,7 @@ export type PostBillingV1TaxCalculateResponses = {
   200: Billingv1PlanTaxCalculationResponse;
 };
 
-export type PostBillingV1TaxCalculateResponse =
-  PostBillingV1TaxCalculateResponses[keyof PostBillingV1TaxCalculateResponses];
+export type PostBillingV1TaxCalculateResponse = PostBillingV1TaxCalculateResponses[keyof PostBillingV1TaxCalculateResponses];
 
 export type PostBillingWebhooksStripeData = {
   body?: {
@@ -4824,8 +4723,7 @@ export type PostBillingWebhooksStripeErrors = {
   400: ErrorsErrorResponse;
 };
 
-export type PostBillingWebhooksStripeError =
-  PostBillingWebhooksStripeErrors[keyof PostBillingWebhooksStripeErrors];
+export type PostBillingWebhooksStripeError = PostBillingWebhooksStripeErrors[keyof PostBillingWebhooksStripeErrors];
 
 export type PostBillingWebhooksStripeResponses = {
   /**
@@ -4834,8 +4732,7 @@ export type PostBillingWebhooksStripeResponses = {
   200: Billingv1ProcessStripeWebhookResponse;
 };
 
-export type PostBillingWebhooksStripeResponse =
-  PostBillingWebhooksStripeResponses[keyof PostBillingWebhooksStripeResponses];
+export type PostBillingWebhooksStripeResponse = PostBillingWebhooksStripeResponses[keyof PostBillingWebhooksStripeResponses];
 
 export type GetMediaV1ImagesByImageIdData = {
   body?: never;
@@ -4860,8 +4757,7 @@ export type GetMediaV1ImagesByImageIdErrors = {
   404: ErrorsErrorResponse;
 };
 
-export type GetMediaV1ImagesByImageIdError =
-  GetMediaV1ImagesByImageIdErrors[keyof GetMediaV1ImagesByImageIdErrors];
+export type GetMediaV1ImagesByImageIdError = GetMediaV1ImagesByImageIdErrors[keyof GetMediaV1ImagesByImageIdErrors];
 
 export type GetMediaV1ImagesByImageIdResponses = {
   /**
@@ -4870,8 +4766,7 @@ export type GetMediaV1ImagesByImageIdResponses = {
   200: Imagesv1GetImageResponse;
 };
 
-export type GetMediaV1ImagesByImageIdResponse =
-  GetMediaV1ImagesByImageIdResponses[keyof GetMediaV1ImagesByImageIdResponses];
+export type GetMediaV1ImagesByImageIdResponse = GetMediaV1ImagesByImageIdResponses[keyof GetMediaV1ImagesByImageIdResponses];
 
 export type GetMediaV1LanguagesData = {
   body?: never;
@@ -4896,8 +4791,7 @@ export type GetMediaV1LanguagesResponses = {
   200: Videosv1ListLanguagesResponse;
 };
 
-export type GetMediaV1LanguagesResponse =
-  GetMediaV1LanguagesResponses[keyof GetMediaV1LanguagesResponses];
+export type GetMediaV1LanguagesResponse = GetMediaV1LanguagesResponses[keyof GetMediaV1LanguagesResponses];
 
 export type GetMediaV1ProjectsByProjectIdImagesData = {
   body?: never;
@@ -5863,8 +5757,7 @@ export type GetMediaV1VideosByVideoIdErrors = {
   404: ErrorsErrorResponse;
 };
 
-export type GetMediaV1VideosByVideoIdError =
-  GetMediaV1VideosByVideoIdErrors[keyof GetMediaV1VideosByVideoIdErrors];
+export type GetMediaV1VideosByVideoIdError = GetMediaV1VideosByVideoIdErrors[keyof GetMediaV1VideosByVideoIdErrors];
 
 export type GetMediaV1VideosByVideoIdResponses = {
   /**
@@ -5873,8 +5766,7 @@ export type GetMediaV1VideosByVideoIdResponses = {
   200: Videosv1GetVideoResponse;
 };
 
-export type GetMediaV1VideosByVideoIdResponse =
-  GetMediaV1VideosByVideoIdResponses[keyof GetMediaV1VideosByVideoIdResponses];
+export type GetMediaV1VideosByVideoIdResponse = GetMediaV1VideosByVideoIdResponses[keyof GetMediaV1VideosByVideoIdResponses];
 
 export type GetMediaV1VideosByVideoIdAudioTracksData = {
   body?: never;
@@ -5992,8 +5884,7 @@ export type ListApiKeysByOrgidResponses = {
   200: Apikeysv1ListApiKeysResponse;
 };
 
-export type ListApiKeysByOrgidResponse =
-  ListApiKeysByOrgidResponses[keyof ListApiKeysByOrgidResponses];
+export type ListApiKeysByOrgidResponse = ListApiKeysByOrgidResponses[keyof ListApiKeysByOrgidResponses];
 
 export type CreateApiKeyByOrgidData = {
   /**
@@ -6033,8 +5924,7 @@ export type CreateApiKeyByOrgidResponses = {
   200: Apikeysv1CreateApiKeyResponse;
 };
 
-export type CreateApiKeyByOrgidResponse =
-  CreateApiKeyByOrgidResponses[keyof CreateApiKeyByOrgidResponses];
+export type CreateApiKeyByOrgidResponse = CreateApiKeyByOrgidResponses[keyof CreateApiKeyByOrgidResponses];
 
 export type DeleteApiKeyByKeyidData = {
   body?: never;
@@ -6068,8 +5958,7 @@ export type DeleteApiKeyByKeyidResponses = {
   200: Apikeysv1DeleteApiKeyResponse;
 };
 
-export type DeleteApiKeyByKeyidResponse =
-  DeleteApiKeyByKeyidResponses[keyof DeleteApiKeyByKeyidResponses];
+export type DeleteApiKeyByKeyidResponse = DeleteApiKeyByKeyidResponses[keyof DeleteApiKeyByKeyidResponses];
 
 export type RotateApiKeyByKeyidData = {
   body?: never;
@@ -6103,8 +5992,7 @@ export type RotateApiKeyByKeyidResponses = {
   200: Apikeysv1RotateApiKeyResponse;
 };
 
-export type RotateApiKeyByKeyidResponse =
-  RotateApiKeyByKeyidResponses[keyof RotateApiKeyByKeyidResponses];
+export type RotateApiKeyByKeyidResponse = RotateApiKeyByKeyidResponses[keyof RotateApiKeyByKeyidResponses];
 
 export type PostPlatformAuthRefreshData = {
   /**
@@ -6123,8 +6011,7 @@ export type PostPlatformAuthRefreshErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostPlatformAuthRefreshError =
-  PostPlatformAuthRefreshErrors[keyof PostPlatformAuthRefreshErrors];
+export type PostPlatformAuthRefreshError = PostPlatformAuthRefreshErrors[keyof PostPlatformAuthRefreshErrors];
 
 export type PostPlatformAuthRefreshResponses = {
   /**
@@ -6133,8 +6020,7 @@ export type PostPlatformAuthRefreshResponses = {
   200: TypesTokenResponse;
 };
 
-export type PostPlatformAuthRefreshResponse =
-  PostPlatformAuthRefreshResponses[keyof PostPlatformAuthRefreshResponses];
+export type PostPlatformAuthRefreshResponse = PostPlatformAuthRefreshResponses[keyof PostPlatformAuthRefreshResponses];
 
 export type PostPlatformAuthTokenData = {
   /**
@@ -6153,8 +6039,7 @@ export type PostPlatformAuthTokenErrors = {
   401: ErrorsErrorResponse;
 };
 
-export type PostPlatformAuthTokenError =
-  PostPlatformAuthTokenErrors[keyof PostPlatformAuthTokenErrors];
+export type PostPlatformAuthTokenError = PostPlatformAuthTokenErrors[keyof PostPlatformAuthTokenErrors];
 
 export type PostPlatformAuthTokenResponses = {
   /**
@@ -6163,8 +6048,7 @@ export type PostPlatformAuthTokenResponses = {
   200: TypesTokenResponse;
 };
 
-export type PostPlatformAuthTokenResponse =
-  PostPlatformAuthTokenResponses[keyof PostPlatformAuthTokenResponses];
+export type PostPlatformAuthTokenResponse = PostPlatformAuthTokenResponses[keyof PostPlatformAuthTokenResponses];
 
 export type ListCredentialsByOrgidData = {
   body?: never;
@@ -6201,8 +6085,7 @@ export type ListCredentialsByOrgidErrors = {
   500: ErrorsErrorResponse;
 };
 
-export type ListCredentialsByOrgidError =
-  ListCredentialsByOrgidErrors[keyof ListCredentialsByOrgidErrors];
+export type ListCredentialsByOrgidError = ListCredentialsByOrgidErrors[keyof ListCredentialsByOrgidErrors];
 
 export type ListCredentialsByOrgidResponses = {
   /**
@@ -6211,8 +6094,7 @@ export type ListCredentialsByOrgidResponses = {
   200: Clientauthv1ListClientCredentialsResponse;
 };
 
-export type ListCredentialsByOrgidResponse =
-  ListCredentialsByOrgidResponses[keyof ListCredentialsByOrgidResponses];
+export type ListCredentialsByOrgidResponse = ListCredentialsByOrgidResponses[keyof ListCredentialsByOrgidResponses];
 
 export type CreateCredentialByOrgidData = {
   /**
@@ -6243,8 +6125,7 @@ export type CreateCredentialByOrgidErrors = {
   500: ErrorsErrorResponse;
 };
 
-export type CreateCredentialByOrgidError =
-  CreateCredentialByOrgidErrors[keyof CreateCredentialByOrgidErrors];
+export type CreateCredentialByOrgidError = CreateCredentialByOrgidErrors[keyof CreateCredentialByOrgidErrors];
 
 export type CreateCredentialByOrgidResponses = {
   /**
@@ -6253,8 +6134,7 @@ export type CreateCredentialByOrgidResponses = {
   200: Clientauthv1CreateClientCredentialResponse;
 };
 
-export type CreateCredentialByOrgidResponse =
-  CreateCredentialByOrgidResponses[keyof CreateCredentialByOrgidResponses];
+export type CreateCredentialByOrgidResponse = CreateCredentialByOrgidResponses[keyof CreateCredentialByOrgidResponses];
 
 export type RevokeCredentialByCredentialidData = {
   body?: never;
@@ -6279,8 +6159,7 @@ export type RevokeCredentialByCredentialidErrors = {
   404: ErrorsErrorResponse;
 };
 
-export type RevokeCredentialByCredentialidError =
-  RevokeCredentialByCredentialidErrors[keyof RevokeCredentialByCredentialidErrors];
+export type RevokeCredentialByCredentialidError = RevokeCredentialByCredentialidErrors[keyof RevokeCredentialByCredentialidErrors];
 
 export type RevokeCredentialByCredentialidResponses = {
   /**
@@ -6289,8 +6168,7 @@ export type RevokeCredentialByCredentialidResponses = {
   200: Clientauthv1RevokeClientCredentialResponse;
 };
 
-export type RevokeCredentialByCredentialidResponse =
-  RevokeCredentialByCredentialidResponses[keyof RevokeCredentialByCredentialidResponses];
+export type RevokeCredentialByCredentialidResponse = RevokeCredentialByCredentialidResponses[keyof RevokeCredentialByCredentialidResponses];
 
 export type CreateTokenData = {
   /**
@@ -6710,8 +6588,7 @@ export type ListProjectsByOrgidResponses = {
   200: Projectsv1ListProjectsResponse;
 };
 
-export type ListProjectsByOrgidResponse =
-  ListProjectsByOrgidResponses[keyof ListProjectsByOrgidResponses];
+export type ListProjectsByOrgidResponse = ListProjectsByOrgidResponses[keyof ListProjectsByOrgidResponses];
 
 export type CreateProjectsByOrgidData = {
   /**
@@ -6742,8 +6619,7 @@ export type CreateProjectsByOrgidErrors = {
   500: ErrorsErrorResponse;
 };
 
-export type CreateProjectsByOrgidError =
-  CreateProjectsByOrgidErrors[keyof CreateProjectsByOrgidErrors];
+export type CreateProjectsByOrgidError = CreateProjectsByOrgidErrors[keyof CreateProjectsByOrgidErrors];
 
 export type CreateProjectsByOrgidResponses = {
   /**
@@ -6752,8 +6628,7 @@ export type CreateProjectsByOrgidResponses = {
   201: Projectsv1Project;
 };
 
-export type CreateProjectsByOrgidResponse =
-  CreateProjectsByOrgidResponses[keyof CreateProjectsByOrgidResponses];
+export type CreateProjectsByOrgidResponse = CreateProjectsByOrgidResponses[keyof CreateProjectsByOrgidResponses];
 
 export type DeleteProjectsData = {
   body?: never;
@@ -6870,8 +6745,7 @@ export type DeleteCustomDomainByProjectidErrors = {
   500: ErrorsErrorResponse;
 };
 
-export type DeleteCustomDomainByProjectidError =
-  DeleteCustomDomainByProjectidErrors[keyof DeleteCustomDomainByProjectidErrors];
+export type DeleteCustomDomainByProjectidError = DeleteCustomDomainByProjectidErrors[keyof DeleteCustomDomainByProjectidErrors];
 
 export type DeleteCustomDomainByProjectidResponses = {
   /**
@@ -6880,8 +6754,7 @@ export type DeleteCustomDomainByProjectidResponses = {
   200: Projectsv1Project;
 };
 
-export type DeleteCustomDomainByProjectidResponse =
-  DeleteCustomDomainByProjectidResponses[keyof DeleteCustomDomainByProjectidResponses];
+export type DeleteCustomDomainByProjectidResponse = DeleteCustomDomainByProjectidResponses[keyof DeleteCustomDomainByProjectidResponses];
 
 export type UpdateCustomDomainByProjectidData = {
   /**
@@ -6917,8 +6790,7 @@ export type UpdateCustomDomainByProjectidErrors = {
   500: ErrorsErrorResponse;
 };
 
-export type UpdateCustomDomainByProjectidError =
-  UpdateCustomDomainByProjectidErrors[keyof UpdateCustomDomainByProjectidErrors];
+export type UpdateCustomDomainByProjectidError = UpdateCustomDomainByProjectidErrors[keyof UpdateCustomDomainByProjectidErrors];
 
 export type UpdateCustomDomainByProjectidResponses = {
   /**
@@ -6927,8 +6799,7 @@ export type UpdateCustomDomainByProjectidResponses = {
   200: Projectsv1Project;
 };
 
-export type UpdateCustomDomainByProjectidResponse =
-  UpdateCustomDomainByProjectidResponses[keyof UpdateCustomDomainByProjectidResponses];
+export type UpdateCustomDomainByProjectidResponse = UpdateCustomDomainByProjectidResponses[keyof UpdateCustomDomainByProjectidResponses];
 
 export type ListFeedsData = {
   body?: {
@@ -7219,8 +7090,7 @@ export type CreateMoveByProjectidErrors = {
   500: ErrorsErrorResponse;
 };
 
-export type CreateMoveByProjectidError =
-  CreateMoveByProjectidErrors[keyof CreateMoveByProjectidErrors];
+export type CreateMoveByProjectidError = CreateMoveByProjectidErrors[keyof CreateMoveByProjectidErrors];
 
 export type CreateMoveByProjectidResponses = {
   /**
@@ -7229,8 +7099,7 @@ export type CreateMoveByProjectidResponses = {
   200: Projectsv1Project;
 };
 
-export type CreateMoveByProjectidResponse =
-  CreateMoveByProjectidResponses[keyof CreateMoveByProjectidResponses];
+export type CreateMoveByProjectidResponse = CreateMoveByProjectidResponses[keyof CreateMoveByProjectidResponses];
 
 export type PatchNameByProjectidData = {
   /**
@@ -7266,8 +7135,7 @@ export type PatchNameByProjectidErrors = {
   500: ErrorsErrorResponse;
 };
 
-export type PatchNameByProjectidError =
-  PatchNameByProjectidErrors[keyof PatchNameByProjectidErrors];
+export type PatchNameByProjectidError = PatchNameByProjectidErrors[keyof PatchNameByProjectidErrors];
 
 export type PatchNameByProjectidResponses = {
   /**
@@ -7276,8 +7144,7 @@ export type PatchNameByProjectidResponses = {
   200: Projectsv1Project;
 };
 
-export type PatchNameByProjectidResponse =
-  PatchNameByProjectidResponses[keyof PatchNameByProjectidResponses];
+export type PatchNameByProjectidResponse = PatchNameByProjectidResponses[keyof PatchNameByProjectidResponses];
 
 export type PatchVideoQualityByProjectidData = {
   /**
@@ -7313,8 +7180,7 @@ export type PatchVideoQualityByProjectidErrors = {
   500: ErrorsErrorResponse;
 };
 
-export type PatchVideoQualityByProjectidError =
-  PatchVideoQualityByProjectidErrors[keyof PatchVideoQualityByProjectidErrors];
+export type PatchVideoQualityByProjectidError = PatchVideoQualityByProjectidErrors[keyof PatchVideoQualityByProjectidErrors];
 
 export type PatchVideoQualityByProjectidResponses = {
   /**
@@ -7323,5 +7189,4 @@ export type PatchVideoQualityByProjectidResponses = {
   200: Projectsv1Project;
 };
 
-export type PatchVideoQualityByProjectidResponse =
-  PatchVideoQualityByProjectidResponses[keyof PatchVideoQualityByProjectidResponses];
+export type PatchVideoQualityByProjectidResponse = PatchVideoQualityByProjectidResponses[keyof PatchVideoQualityByProjectidResponses];

@@ -3,13 +3,8 @@
  * Tests: Edge cases in validation-utils
  */
 
-import { describe, it, expect } from "vitest";
-import {
-  EmailSchema,
-  PasswordSchema,
-  UsernameSchema,
-  validateInput,
-} from "../../auth/validation/base";
+import {describe, it, expect} from "vitest";
+import {EmailSchema, PasswordSchema, UsernameSchema, validateInput} from "../../auth/validation/base";
 
 describe("Validation Utils - Coverage", () => {
   describe("validateInput", () => {

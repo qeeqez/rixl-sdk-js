@@ -1,4 +1,4 @@
-import { SOCIAL_CONNECT_KEY_PREFIX } from "../constants";
+import {SOCIAL_CONNECT_KEY_PREFIX} from "../constants";
 
 const socialStoragePath = (provider: string) => SOCIAL_CONNECT_KEY_PREFIX + provider;
 

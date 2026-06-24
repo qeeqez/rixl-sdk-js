@@ -1,9 +1,9 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { initClient, type AuthClientConfig } from "../../auth/init";
+import {describe, it, expect, beforeEach, vi} from "vitest";
+import {initClient, type AuthClientConfig} from "../../auth/init";
 
 // Mock implementation
 vi.mock("../../auth/api-url", () => ({
-  apiURL: { set: vi.fn(), get: vi.fn() },
+  apiURL: {set: vi.fn(), get: vi.fn()},
 }));
 vi.mock("../../auth/api/refresh-tokens", () => ({
   refreshTokens: vi.fn(),
@@ -11,31 +11,31 @@ vi.mock("../../auth/api/refresh-tokens", () => ({
 
 vi.mock("../../auth/authStore", () => ({
   getToken: vi.fn().mockResolvedValue("mock-access-token"),
-  refreshToken: { get: vi.fn() },
-  expireAt: { set: vi.fn() },
-  accessToken: { set: vi.fn() },
-  authError: { set: vi.fn() },
+  refreshToken: {get: vi.fn()},
+  expireAt: {set: vi.fn()},
+  accessToken: {set: vi.fn()},
+  authError: {set: vi.fn()},
   setTokens: vi.fn(),
   setLimitedAccessState: vi.fn(),
 }));
 
 vi.mock("../../auth/initialization", () => ({
-  initDeferred: { promise: Promise.resolve(), resolve: vi.fn() },
+  initDeferred: {promise: Promise.resolve(), resolve: vi.fn()},
 }));
 
 vi.mock("../../auth/providers", () => ({
   detectProvider: vi.fn(),
   getProviderToken: vi.fn(),
-  googleConfig: { set: vi.fn() },
-  appleConfig: { set: vi.fn() },
-  microsoftConfig: { set: vi.fn() },
-  telegramConfig: { set: vi.fn() },
+  googleConfig: {set: vi.fn()},
+  appleConfig: {set: vi.fn()},
+  microsoftConfig: {set: vi.fn()},
+  telegramConfig: {set: vi.fn()},
   getRedirectUrl: vi.fn(),
   updateGoogleAuthUrl: vi.fn(),
   updateAppleAuthUrl: vi.fn(),
   updateMicrosoftAuthUrl: vi.fn(),
   updateTelegramAuthUrl: vi.fn(),
-  AuthProvider: { BEARER: "bearer" },
+  AuthProvider: {BEARER: "bearer"},
 }));
 
 vi.mock("../../auth/api/client-core", () => ({
@@ -67,7 +67,7 @@ describe("initClient - OAuth Callback Handling", () => {
   });
 
   it("should handle OAuth callback with token", async () => {
-    const config: AuthClientConfig = { apiUrl: "https://api.example.com" };
+    const config: AuthClientConfig = {apiUrl: "https://api.example.com"};
 
     mockDetectProvider.mockReturnValue("google");
     mockGetProviderToken.mockReturnValue("oauth-token");
@@ -86,7 +86,7 @@ describe("initClient - OAuth Callback Handling", () => {
   });
 
   it("should skip token refresh if refresh token exists", async () => {
-    const config: AuthClientConfig = { apiUrl: "https://api.example.com" };
+    const config: AuthClientConfig = {apiUrl: "https://api.example.com"};
 
     mockDetectProvider.mockReturnValue("google");
     mockGetProviderToken.mockReturnValue("oauth-token");

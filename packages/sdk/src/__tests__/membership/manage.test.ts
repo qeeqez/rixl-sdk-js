@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { MembershipRole } from "@/membership";
-import { setupAuthTest, cleanupAuthMocks } from "../utils/auth-test-helpers";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
+import {MembershipRole} from "@/membership";
+import {setupAuthTest, cleanupAuthMocks} from "../utils/auth-test-helpers";
 
 const mockPutAuthV1MembershipsByOrgIdActive = vi.fn();
 const mockPutAuthV1MembershipsByOrgIdMembersByUserIdRole = vi.fn();
@@ -8,22 +8,13 @@ const mockDeleteAuthV1MembershipsByOrgIdMembersByUserId = vi.fn();
 const mockDeleteAuthV1MembershipsByOrgIdLeave = vi.fn();
 
 vi.mock("../../generated/sdk.gen", () => ({
-  putAuthV1MembershipsByOrgIdActive: (...args: unknown[]) =>
-    mockPutAuthV1MembershipsByOrgIdActive(...args),
-  putAuthV1MembershipsByOrgIdMembersByUserIdRole: (...args: unknown[]) =>
-    mockPutAuthV1MembershipsByOrgIdMembersByUserIdRole(...args),
-  deleteAuthV1MembershipsByOrgIdMembersByUserId: (...args: unknown[]) =>
-    mockDeleteAuthV1MembershipsByOrgIdMembersByUserId(...args),
-  deleteAuthV1MembershipsByOrgIdLeave: (...args: unknown[]) =>
-    mockDeleteAuthV1MembershipsByOrgIdLeave(...args),
+  putAuthV1MembershipsByOrgIdActive: (...args: unknown[]) => mockPutAuthV1MembershipsByOrgIdActive(...args),
+  putAuthV1MembershipsByOrgIdMembersByUserIdRole: (...args: unknown[]) => mockPutAuthV1MembershipsByOrgIdMembersByUserIdRole(...args),
+  deleteAuthV1MembershipsByOrgIdMembersByUserId: (...args: unknown[]) => mockDeleteAuthV1MembershipsByOrgIdMembersByUserId(...args),
+  deleteAuthV1MembershipsByOrgIdLeave: (...args: unknown[]) => mockDeleteAuthV1MembershipsByOrgIdLeave(...args),
 }));
 
-import {
-  updateActiveMembership,
-  updateMemberRole,
-  deleteMember,
-  leaveOrganization,
-} from "@/membership";
+import {updateActiveMembership, updateMemberRole, deleteMember, leaveOrganization} from "@/membership";
 
 describe("Membership Manage Module", () => {
   let mocks: ReturnType<typeof setupAuthTest>;
@@ -42,23 +33,23 @@ describe("Membership Manage Module", () => {
 
   describe("updateActiveMembership", () => {
     it("should update active membership successfully", async () => {
-      mockPutAuthV1MembershipsByOrgIdActive.mockResolvedValue({ data: {} });
+      mockPutAuthV1MembershipsByOrgIdActive.mockResolvedValue({data: {}});
 
       await updateActiveMembership("org123");
 
       expect(mockPutAuthV1MembershipsByOrgIdActive).toHaveBeenCalledWith({
-        path: { orgId: "org123" },
+        path: {orgId: "org123"},
         throwOnError: true,
       });
     });
 
     it("should invalidate token after update", async () => {
-      mockPutAuthV1MembershipsByOrgIdActive.mockResolvedValue({ data: {} });
+      mockPutAuthV1MembershipsByOrgIdActive.mockResolvedValue({data: {}});
 
       await updateActiveMembership("org456");
 
       expect(mockPutAuthV1MembershipsByOrgIdActive).toHaveBeenCalledWith({
-        path: { orgId: "org456" },
+        path: {orgId: "org456"},
         throwOnError: true,
       });
     });
@@ -75,25 +66,25 @@ describe("Membership Manage Module", () => {
 
   describe("updateMemberRole", () => {
     it("should update member role successfully", async () => {
-      mockPutAuthV1MembershipsByOrgIdMembersByUserIdRole.mockResolvedValue({ data: {} });
+      mockPutAuthV1MembershipsByOrgIdMembersByUserIdRole.mockResolvedValue({data: {}});
 
       await updateMemberRole("org123", "user456", MembershipRole.ADMIN);
 
       expect(mockPutAuthV1MembershipsByOrgIdMembersByUserIdRole).toHaveBeenCalledWith({
-        path: { orgId: "org123", userId: "user456" },
-        body: { role: MembershipRole.ADMIN },
+        path: {orgId: "org123", userId: "user456"},
+        body: {role: MembershipRole.ADMIN},
         throwOnError: true,
       });
     });
 
     it("should update to different roles", async () => {
-      mockPutAuthV1MembershipsByOrgIdMembersByUserIdRole.mockResolvedValue({ data: {} });
+      mockPutAuthV1MembershipsByOrgIdMembersByUserIdRole.mockResolvedValue({data: {}});
 
       await updateMemberRole("org123", "user789", MembershipRole.MEMBER);
 
       expect(mockPutAuthV1MembershipsByOrgIdMembersByUserIdRole).toHaveBeenCalledWith({
-        path: { orgId: "org123", userId: "user789" },
-        body: { role: MembershipRole.MEMBER },
+        path: {orgId: "org123", userId: "user789"},
+        body: {role: MembershipRole.MEMBER},
         throwOnError: true,
       });
     });
@@ -128,12 +119,12 @@ describe("Membership Manage Module", () => {
 
   describe("deleteMember", () => {
     it("should delete member successfully", async () => {
-      mockDeleteAuthV1MembershipsByOrgIdMembersByUserId.mockResolvedValue({ data: {} });
+      mockDeleteAuthV1MembershipsByOrgIdMembersByUserId.mockResolvedValue({data: {}});
 
       await deleteMember("org123", "user456");
 
       expect(mockDeleteAuthV1MembershipsByOrgIdMembersByUserId).toHaveBeenCalledWith({
-        path: { orgId: "org123", userId: "user456" },
+        path: {orgId: "org123", userId: "user456"},
         throwOnError: true,
       });
     });
@@ -168,12 +159,12 @@ describe("Membership Manage Module", () => {
 
   describe("leaveOrganization", () => {
     it("should leave organization successfully", async () => {
-      mockDeleteAuthV1MembershipsByOrgIdLeave.mockResolvedValue({ data: {} });
+      mockDeleteAuthV1MembershipsByOrgIdLeave.mockResolvedValue({data: {}});
 
       await leaveOrganization("org123");
 
       expect(mockDeleteAuthV1MembershipsByOrgIdLeave).toHaveBeenCalledWith({
-        path: { orgId: "org123" },
+        path: {orgId: "org123"},
         throwOnError: true,
       });
     });

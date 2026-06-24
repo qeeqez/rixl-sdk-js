@@ -3,10 +3,10 @@
  * Provides reusable patterns for testing updateEntityField and performOTPOperation
  */
 
-import { vi, beforeEach, afterEach } from "vitest";
+import {vi, beforeEach, afterEach} from "vitest";
 import * as initialization from "@/initialization";
-import { ApiError } from "../../auth/api/types";
-import { HTTP_STATUS } from "@/constants.ts";
+import {ApiError} from "../../auth/api/types";
+import {HTTP_STATUS} from "@/constants.ts";
 
 /**
  * Sets up common mocks for entity update tests
@@ -19,7 +19,7 @@ export const setupEntityUpdateTest = (authStore: any) => {
   const mockGetToken = vi.spyOn(authStore, "getToken").mockResolvedValue("mock-token");
   const mockSetTokens = vi.spyOn(authStore, "setTokens").mockImplementation(() => {});
 
-  return { mockGetToken, mockSetTokens };
+  return {mockGetToken, mockSetTokens};
 };
 
 /**

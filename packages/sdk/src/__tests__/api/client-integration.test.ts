@@ -7,7 +7,7 @@
  * - Real request/response handling
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
 import ky from "ky";
 
 describe("API Client - Ky Integration", () => {
@@ -17,14 +17,14 @@ describe("API Client - Ky Integration", () => {
     ok: true,
     status: 200,
     statusText: "OK",
-    text: async () => JSON.stringify({ success: true }),
-    json: async () => ({ success: true }),
+    text: async () => JSON.stringify({success: true}),
+    json: async () => ({success: true}),
     blob: async () => new Blob(),
     arrayBuffer: async () => new ArrayBuffer(0),
     clone: function () {
       return this;
     },
-    headers: new Headers({ "content-type": "application/json" }),
+    headers: new Headers({"content-type": "application/json"}),
   });
 
   describe("Ky v2 prefix compatibility", () => {
@@ -85,12 +85,9 @@ describe("API Client - Ky Integration", () => {
       ["invitations/token123/accept", "/invitations/token123/accept"],
     ] as const;
 
-    it.each(equivalentEndpoints)(
-      "should map %s and %s to the same path",
-      (withoutSlash, withSlash) => {
-        expect(withSlash.replace(/^\/+/, "")).toBe(withoutSlash);
-      },
-    );
+    it.each(equivalentEndpoints)("should map %s and %s to the same path", (withoutSlash, withSlash) => {
+      expect(withSlash.replace(/^\/+/, "")).toBe(withoutSlash);
+    });
   });
 
   describe("real-world usage patterns", () => {
@@ -112,7 +109,7 @@ describe("API Client - Ky Integration", () => {
 
       await client
         .post("auth/login", {
-          json: { email: "test@example.com", password: "password123" },
+          json: {email: "test@example.com", password: "password123"},
         })
         .json();
 

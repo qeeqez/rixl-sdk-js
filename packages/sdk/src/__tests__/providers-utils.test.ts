@@ -3,13 +3,9 @@
  * Tests: extractProviderFromState, detectProvider, getProviderToken
  */
 
-import { describe, it, expect } from "vitest";
-import {
-  extractProviderFromState,
-  detectProvider,
-  getProviderToken,
-} from "../auth/providers/utils";
-import { AuthProvider } from "@/providers";
+import {describe, it, expect} from "vitest";
+import {extractProviderFromState, detectProvider, getProviderToken} from "../auth/providers/utils";
+import {AuthProvider} from "@/providers";
 
 // Note: We test extractProviderFromState in isolation as it's a pure function
 // For detectProvider and getProviderToken, we document they are tested via integration

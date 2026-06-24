@@ -1,12 +1,5 @@
-import { describe, it, expect } from "vitest";
-import {
-  validateInput,
-  EmailSchema,
-  PasswordSchema,
-  UsernameSchema,
-  NameSchema,
-  DomainSchema,
-} from "../../auth/validation/base";
+import {describe, it, expect} from "vitest";
+import {validateInput, EmailSchema, PasswordSchema, UsernameSchema, NameSchema, DomainSchema} from "../../auth/validation/base";
 
 describe("Base Validation Schemas", () => {
   describe("validateInput", () => {
@@ -48,15 +41,11 @@ describe("Base Validation Schemas", () => {
     });
 
     it("should reject passwords shorter than 8 characters", () => {
-      expect(() => validateInput(PasswordSchema, "Pass1")).toThrow(
-        "Password must be at least 8 characters long",
-      );
+      expect(() => validateInput(PasswordSchema, "Pass1")).toThrow("Password must be at least 8 characters long");
     });
 
     it("should reject passwords without uppercase letter", () => {
-      expect(() => validateInput(PasswordSchema, "password123")).toThrow(
-        "Password must contain at least one uppercase letter",
-      );
+      expect(() => validateInput(PasswordSchema, "password123")).toThrow("Password must contain at least one uppercase letter");
     });
   });
 
@@ -67,9 +56,7 @@ describe("Base Validation Schemas", () => {
     });
 
     it("should reject usernames shorter than 4 characters", () => {
-      expect(() => validateInput(UsernameSchema, "usr")).toThrow(
-        "Username must be 4-24 characters long",
-      );
+      expect(() => validateInput(UsernameSchema, "usr")).toThrow("Username must be 4-24 characters long");
     });
 
     it("should reject usernames with invalid characters", () => {
@@ -78,7 +65,7 @@ describe("Base Validation Schemas", () => {
 
     it("should reject usernames with uppercase letters", () => {
       expect(() => validateInput(UsernameSchema, "UserName")).toThrow(
-        "Username can only contain lowercase letters, numbers, dots and underscores",
+        "Username can only contain lowercase letters, numbers, dots and underscores"
       );
     });
   });

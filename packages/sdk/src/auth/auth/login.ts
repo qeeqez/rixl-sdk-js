@@ -1,22 +1,19 @@
-import { postAuthV1Login, postAuthV1VerifyTotp } from "../../generated/sdk.gen";
-import { setTokens } from "../authStore";
-import { EmailAuthRequestSchema, LoginOTPVerifyRequestSchema } from "../validation/auth";
-import { validateInput } from "../validation/base";
-import { ApiError } from "../api/error-handlers";
-import { apiCall } from "../api/utils";
-import { HTTP_STATUS } from "../constants";
-import type { LoginErrorResponse, OTPVerificationResponse } from "./types";
-import type { Authv1LoginResponse, ErrorsErrorResponse } from "../../generated/types.gen";
+import {postAuthV1Login, postAuthV1VerifyTotp} from "../../generated/sdk.gen";
+import {setTokens} from "../authStore";
+import {EmailAuthRequestSchema, LoginOTPVerifyRequestSchema} from "../validation/auth";
+import {validateInput} from "../validation/base";
+import {ApiError} from "../api/error-handlers";
+import {apiCall} from "../api/utils";
+import {HTTP_STATUS} from "../constants";
+import type {LoginErrorResponse, OTPVerificationResponse} from "./types";
+import type {Authv1LoginResponse, ErrorsErrorResponse} from "../../generated/types.gen";
 
-export const loginWithEmail = async (
-  email: string,
-  password: string,
-): Promise<void | OTPVerificationResponse | LoginErrorResponse> => {
+export const loginWithEmail = async (email: string, password: string): Promise<void | OTPVerificationResponse | LoginErrorResponse> => {
   return apiCall(
     async () => {
-      const validatedInput = validateInput(EmailAuthRequestSchema, { email, password });
+      const validatedInput = validateInput(EmailAuthRequestSchema, {email, password});
       try {
-        const { data } = await postAuthV1Login({
+        const {data} = await postAuthV1Login({
           body: validatedInput,
           throwOnError: true,
         });
@@ -29,15 +26,15 @@ export const loginWithEmail = async (
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Incorrect email or password"),
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid password format"),
-    },
+    }
   );
 };
 
 export const verifyTOTPForLogin = async (code: string, session_id: string): Promise<void> => {
   return apiCall(
     async () => {
-      const validatedInput = validateInput(LoginOTPVerifyRequestSchema, { code, session_id });
-      const { data } = await postAuthV1VerifyTotp({
+      const validatedInput = validateInput(LoginOTPVerifyRequestSchema, {code, session_id});
+      const {data} = await postAuthV1VerifyTotp({
         body: validatedInput,
         throwOnError: true,
       });
@@ -47,17 +44,13 @@ export const verifyTOTPForLogin = async (code: string, session_id: string): Prom
       }
     },
     {
-      [HTTP_STATUS.BAD_REQUEST]: () =>
-        new Error("Bad request - Invalid code format, invalid code, or invalid session"),
+      [HTTP_STATUS.BAD_REQUEST]: () => new Error("Bad request - Invalid code format, invalid code, or invalid session"),
       [HTTP_STATUS.NOT_FOUND]: () => new Error("Session not found"),
-    },
+    }
   );
 };
 
-function handleLoginResponse(
-  data: Authv1LoginResponse,
-  email: string,
-): void | OTPVerificationResponse | LoginErrorResponse {
+function handleLoginResponse(data: Authv1LoginResponse, email: string): void | OTPVerificationResponse | LoginErrorResponse {
   switch (data.status) {
     case "ok":
       if (data.tokens?.access_token && data.tokens.refresh_token && data.tokens.expires_in) {
@@ -81,10 +74,7 @@ function handleLoginResponse(
   }
 }
 
-function handleLoginError(
-  error: unknown,
-  email: string,
-): OTPVerificationResponse | LoginErrorResponse | never {
+function handleLoginError(error: unknown, email: string): OTPVerificationResponse | LoginErrorResponse | never {
   if (isErrorResponse(error)) {
     if (error.error === "email_not_verified") {
       return {
@@ -105,6 +95,6 @@ function handleLoginError(
   throw error;
 }
 
-function isErrorResponse(error: unknown): error is ErrorsErrorResponse & { code: number } {
+function isErrorResponse(error: unknown): error is ErrorsErrorResponse & {code: number} {
   return typeof error === "object" && error !== null && "error" in error;
 }

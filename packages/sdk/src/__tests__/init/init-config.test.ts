@@ -1,9 +1,9 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { initClient, type AuthClientConfig } from "../../auth/init";
+import {describe, it, expect, beforeEach, vi} from "vitest";
+import {initClient, type AuthClientConfig} from "../../auth/init";
 
 // Mock API module
 vi.mock("../../auth/api-url", () => ({
-  apiURL: { set: vi.fn(), get: vi.fn() },
+  apiURL: {set: vi.fn(), get: vi.fn()},
 }));
 vi.mock("../../auth/api/refresh-tokens", () => ({
   refreshTokens: vi.fn(),
@@ -12,9 +12,9 @@ vi.mock("../../auth/api/refresh-tokens", () => ({
 // Mock authStore
 vi.mock("../../auth/authStore", () => ({
   getToken: vi.fn().mockResolvedValue("mock-access-token"),
-  refreshToken: { get: vi.fn() },
-  accessToken: { set: vi.fn() },
-  expireAt: { set: vi.fn() },
+  refreshToken: {get: vi.fn()},
+  accessToken: {set: vi.fn()},
+  expireAt: {set: vi.fn()},
 }));
 
 // Mock initialization
@@ -27,17 +27,17 @@ vi.mock("../../auth/initialization", () => ({
 
 // Mock providers
 vi.mock("../../auth/providers", () => ({
-  googleConfig: { set: vi.fn() },
-  telegramConfig: { set: vi.fn() },
-  appleConfig: { set: vi.fn() },
-  microsoftConfig: { set: vi.fn() },
+  googleConfig: {set: vi.fn()},
+  telegramConfig: {set: vi.fn()},
+  appleConfig: {set: vi.fn()},
+  microsoftConfig: {set: vi.fn()},
   updateGoogleAuthUrl: vi.fn(),
   updateAppleAuthUrl: vi.fn(),
   updateMicrosoftAuthUrl: vi.fn(),
   updateTelegramAuthUrl: vi.fn(),
   getProviderToken: vi.fn(),
   detectProvider: vi.fn(),
-  AuthProvider: { BEARER: "bearer" },
+  AuthProvider: {BEARER: "bearer"},
 }));
 
 // Mock API client core
@@ -59,7 +59,7 @@ describe("initClient - Basic Configuration", () => {
   beforeEach(async () => {
     vi.clearAllMocks();
 
-    const { apiURL } = await import("../../auth/api-url");
+    const {apiURL} = await import("../../auth/api-url");
     mockApiURL = apiURL;
 
     const apiClientCore = await import("../../auth/api/client-core");
@@ -94,10 +94,10 @@ describe("initClient - Basic Configuration", () => {
   it("should initialize with all providers", async () => {
     const config: AuthClientConfig = {
       apiUrl: "https://api.example.com",
-      googleProvider: { clientId: "google-id" },
-      appleProvider: { clientId: "apple-id" },
-      microsoftProvider: { clientId: "ms-id" },
-      telegramProvider: { botId: "bot" },
+      googleProvider: {clientId: "google-id"},
+      appleProvider: {clientId: "apple-id"},
+      microsoftProvider: {clientId: "ms-id"},
+      telegramProvider: {botId: "bot"},
     };
 
     const providers = await import("../../auth/providers");

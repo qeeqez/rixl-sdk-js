@@ -1,5 +1,5 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { DomainStatus } from "@/domain";
+import {describe, it, expect, beforeEach, vi} from "vitest";
+import {DomainStatus} from "@/domain";
 import * as initialization from "../../auth/initialization";
 
 const mockGetAuthV1MembershipsByOrgIdDomain = vi.fn();
@@ -9,25 +9,14 @@ const mockPutAuthV1MembershipsByOrgIdDomainAutoJoin = vi.fn();
 const mockDeleteAuthV1MembershipsByOrgIdDomain = vi.fn();
 
 vi.mock("../../generated/sdk.gen", () => ({
-  getAuthV1MembershipsByOrgIdDomain: (...args: unknown[]) =>
-    mockGetAuthV1MembershipsByOrgIdDomain(...args),
-  postAuthV1MembershipsByOrgIdDomain: (...args: unknown[]) =>
-    mockPostAuthV1MembershipsByOrgIdDomain(...args),
-  postAuthV1MembershipsByOrgIdDomainVerification: (...args: unknown[]) =>
-    mockPostAuthV1MembershipsByOrgIdDomainVerification(...args),
-  putAuthV1MembershipsByOrgIdDomainAutoJoin: (...args: unknown[]) =>
-    mockPutAuthV1MembershipsByOrgIdDomainAutoJoin(...args),
-  deleteAuthV1MembershipsByOrgIdDomain: (...args: unknown[]) =>
-    mockDeleteAuthV1MembershipsByOrgIdDomain(...args),
+  getAuthV1MembershipsByOrgIdDomain: (...args: unknown[]) => mockGetAuthV1MembershipsByOrgIdDomain(...args),
+  postAuthV1MembershipsByOrgIdDomain: (...args: unknown[]) => mockPostAuthV1MembershipsByOrgIdDomain(...args),
+  postAuthV1MembershipsByOrgIdDomainVerification: (...args: unknown[]) => mockPostAuthV1MembershipsByOrgIdDomainVerification(...args),
+  putAuthV1MembershipsByOrgIdDomainAutoJoin: (...args: unknown[]) => mockPutAuthV1MembershipsByOrgIdDomainAutoJoin(...args),
+  deleteAuthV1MembershipsByOrgIdDomain: (...args: unknown[]) => mockDeleteAuthV1MembershipsByOrgIdDomain(...args),
 }));
 
-import {
-  getDomainStatus,
-  initiateDomainVerification,
-  checkDomainVerification,
-  updateAutoJoin,
-  removeDomain,
-} from "@/domain";
+import {getDomainStatus, initiateDomainVerification, checkDomainVerification, updateAutoJoin, removeDomain} from "@/domain";
 
 describe("Domain Management Module", () => {
   beforeEach(() => {
@@ -49,12 +38,12 @@ describe("Domain Management Module", () => {
         verified_at: "2026-01-20T00:00:00Z",
         auto_join: true,
       };
-      mockGetAuthV1MembershipsByOrgIdDomain.mockResolvedValue({ data: mockResponse });
+      mockGetAuthV1MembershipsByOrgIdDomain.mockResolvedValue({data: mockResponse});
 
       const result = await getDomainStatus("org123");
 
       expect(mockGetAuthV1MembershipsByOrgIdDomain).toHaveBeenCalledWith({
-        path: { orgId: "org123" },
+        path: {orgId: "org123"},
         throwOnError: true,
       });
       expect(result).toEqual(mockResponse);
@@ -79,7 +68,7 @@ describe("Domain Management Module", () => {
         verification_token: "rixl-domain-verification=abc123",
         expires_at: "2026-01-30T00:00:00Z",
       };
-      mockGetAuthV1MembershipsByOrgIdDomain.mockResolvedValue({ data: mockResponse });
+      mockGetAuthV1MembershipsByOrgIdDomain.mockResolvedValue({data: mockResponse});
 
       const result = await getDomainStatus("org123");
 
@@ -106,22 +95,20 @@ describe("Domain Management Module", () => {
         verification_token: "rixl-domain-verification=abc123",
         expires_at: "2026-01-30T00:00:00Z",
       };
-      mockPostAuthV1MembershipsByOrgIdDomain.mockResolvedValue({ data: mockResponse });
+      mockPostAuthV1MembershipsByOrgIdDomain.mockResolvedValue({data: mockResponse});
 
       const result = await initiateDomainVerification("org123", "company.com");
 
       expect(mockPostAuthV1MembershipsByOrgIdDomain).toHaveBeenCalledWith({
-        path: { orgId: "org123" },
-        body: { domain: "company.com" },
+        path: {orgId: "org123"},
+        body: {domain: "company.com"},
         throwOnError: true,
       });
       expect(result).toEqual(mockResponse);
     });
 
     it("should handle validation error for invalid domain format", async () => {
-      await expect(initiateDomainVerification("org123", "invalid")).rejects.toThrow(
-        "Invalid domain format",
-      );
+      await expect(initiateDomainVerification("org123", "invalid")).rejects.toThrow("Invalid domain format");
     });
 
     it("should handle bad request error for public domain", async () => {
@@ -177,7 +164,7 @@ describe("Domain Management Module", () => {
       const result = await checkDomainVerification("org123");
 
       expect(mockPostAuthV1MembershipsByOrgIdDomainVerification).toHaveBeenCalledWith({
-        path: { orgId: "org123" },
+        path: {orgId: "org123"},
         throwOnError: true,
       });
       expect(result).toEqual(mockResponse);
@@ -240,28 +227,28 @@ describe("Domain Management Module", () => {
 
   describe("updateAutoJoin", () => {
     it("should enable auto-join successfully", async () => {
-      const mockResponse = { enabled: true };
-      mockPutAuthV1MembershipsByOrgIdDomainAutoJoin.mockResolvedValue({ data: mockResponse });
+      const mockResponse = {enabled: true};
+      mockPutAuthV1MembershipsByOrgIdDomainAutoJoin.mockResolvedValue({data: mockResponse});
 
       const result = await updateAutoJoin("org123", true);
 
       expect(mockPutAuthV1MembershipsByOrgIdDomainAutoJoin).toHaveBeenCalledWith({
-        path: { orgId: "org123" },
-        body: { enabled: true },
+        path: {orgId: "org123"},
+        body: {enabled: true},
         throwOnError: true,
       });
       expect(result).toEqual(mockResponse);
     });
 
     it("should disable auto-join successfully", async () => {
-      const mockResponse = { enabled: false };
-      mockPutAuthV1MembershipsByOrgIdDomainAutoJoin.mockResolvedValue({ data: mockResponse });
+      const mockResponse = {enabled: false};
+      mockPutAuthV1MembershipsByOrgIdDomainAutoJoin.mockResolvedValue({data: mockResponse});
 
       const result = await updateAutoJoin("org123", false);
 
       expect(mockPutAuthV1MembershipsByOrgIdDomainAutoJoin).toHaveBeenCalledWith({
-        path: { orgId: "org123" },
-        body: { enabled: false },
+        path: {orgId: "org123"},
+        body: {enabled: false},
         throwOnError: true,
       });
       expect(result).toEqual(mockResponse);
@@ -297,12 +284,12 @@ describe("Domain Management Module", () => {
 
   describe("removeDomain", () => {
     it("should remove domain successfully", async () => {
-      mockDeleteAuthV1MembershipsByOrgIdDomain.mockResolvedValue({ data: {} });
+      mockDeleteAuthV1MembershipsByOrgIdDomain.mockResolvedValue({data: {}});
 
       await removeDomain("org123");
 
       expect(mockDeleteAuthV1MembershipsByOrgIdDomain).toHaveBeenCalledWith({
-        path: { orgId: "org123" },
+        path: {orgId: "org123"},
         throwOnError: true,
       });
     });
@@ -326,12 +313,12 @@ describe("Domain Management Module", () => {
     });
 
     it("should work with different organization IDs", async () => {
-      mockDeleteAuthV1MembershipsByOrgIdDomain.mockResolvedValue({ data: {} });
+      mockDeleteAuthV1MembershipsByOrgIdDomain.mockResolvedValue({data: {}});
 
       await removeDomain("org456");
 
       expect(mockDeleteAuthV1MembershipsByOrgIdDomain).toHaveBeenCalledWith({
-        path: { orgId: "org456" },
+        path: {orgId: "org456"},
         throwOnError: true,
       });
     });

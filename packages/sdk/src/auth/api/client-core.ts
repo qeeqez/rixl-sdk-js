@@ -1,5 +1,5 @@
-import ky, { type KyInstance } from "ky";
-import { apiURL } from "../api-url";
+import ky, {type KyInstance} from "ky";
+import {apiURL} from "../api-url";
 
 /**
  * Token refresh function type - will be set during initialization
@@ -56,10 +56,7 @@ export const refreshTokenWithLock = async (): Promise<string | undefined> => {
 /**
  * Creates a ky instance with proper auth handling and retry logic
  */
-export const createKyInstance = (
-  getTokenFn: () => Promise<string | undefined>,
-  skipAuth = false,
-): KyInstance => {
+export const createKyInstance = (getTokenFn: () => Promise<string | undefined>, skipAuth = false): KyInstance => {
   return ky.create({
     prefix: apiURL.get(),
     retry: {
@@ -71,7 +68,7 @@ export const createKyInstance = (
     },
     hooks: {
       beforeRequest: [
-        async ({ request }) => {
+        async ({request}) => {
           if (!skipAuth) {
             const token = await getTokenFn();
             if (token) {
@@ -81,7 +78,7 @@ export const createKyInstance = (
         },
       ],
       afterResponse: [
-        async ({ request, response }) => {
+        async ({request, response}) => {
           // Handle 401 Unauthorized - attempt token refresh and retry
           if (response.status === 401 && !skipAuth) {
             try {

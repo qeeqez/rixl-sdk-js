@@ -1,14 +1,13 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { sendPasswordResetEmail, confirmPasswordReset } from "@/auth/password";
-import { setupAuthTest, cleanupAuthMocks } from "../utils/auth-test-helpers";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
+import {sendPasswordResetEmail, confirmPasswordReset} from "@/auth/password";
+import {setupAuthTest, cleanupAuthMocks} from "../utils/auth-test-helpers";
 
 const mockPostAuthV1PasswordReset = vi.fn();
 const mockPostAuthV1PasswordResetConfirm = vi.fn();
 
 vi.mock("../../generated/sdk.gen", () => ({
   postAuthV1PasswordReset: (...args: unknown[]) => mockPostAuthV1PasswordReset(...args),
-  postAuthV1PasswordResetConfirm: (...args: unknown[]) =>
-    mockPostAuthV1PasswordResetConfirm(...args),
+  postAuthV1PasswordResetConfirm: (...args: unknown[]) => mockPostAuthV1PasswordResetConfirm(...args),
 }));
 
 describe("Password Functions", () => {
@@ -27,13 +26,13 @@ describe("Password Functions", () => {
   describe("sendPasswordResetEmail", () => {
     it("should send password reset email", async () => {
       mockPostAuthV1PasswordReset.mockResolvedValue({
-        data: { message: "Reset email sent" },
+        data: {message: "Reset email sent"},
       });
 
       await sendPasswordResetEmail("test@example.com");
 
       expect(mockPostAuthV1PasswordReset).toHaveBeenCalledWith({
-        body: { email: "test@example.com" },
+        body: {email: "test@example.com"},
         throwOnError: true,
       });
     });
@@ -55,13 +54,13 @@ describe("Password Functions", () => {
   describe("confirmPasswordReset", () => {
     it("should confirm password reset successfully", async () => {
       mockPostAuthV1PasswordResetConfirm.mockResolvedValue({
-        data: { message: "Password reset" },
+        data: {message: "Password reset"},
       });
 
       await confirmPasswordReset("reset-token-123", "NewPassword123");
 
       expect(mockPostAuthV1PasswordResetConfirm).toHaveBeenCalledWith({
-        body: { token: "reset-token-123", new_password: "NewPassword123" },
+        body: {token: "reset-token-123", new_password: "NewPassword123"},
         throwOnError: true,
       });
     });

@@ -12,18 +12,14 @@ pre-commit:
       stage_fixed: true
       priority: 2
     lint:
-      glob: "*.{js,ts,jsx,tsx}"
+      glob: "packages/sdk/**/*.{js,ts,jsx,tsx}"
       exclude:
         - "**/__tests__/**"
-        - "packages/sdk/**"
+        - "packages/sdk/src/generated/**"
       run: bun lint {staged_files}
       stage_fixed: true
       priority: 3
-    build:
-      glob: "packages/{auth,react}/**/*.{ts,tsx}"
-      run: bun run build
-      priority: 4
     test:
-      glob: "packages/{auth,react}/**/*.{ts,tsx}"
+      glob: "packages/sdk/**/*.{ts,tsx}"
       run: bun run test --run
-      priority: 5
+      priority: 4

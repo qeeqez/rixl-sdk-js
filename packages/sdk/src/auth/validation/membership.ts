@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { UsernameSchema } from "./base";
+import {UsernameSchema} from "./base";
 
 /**
  * Membership state schemas

@@ -3,8 +3,8 @@
  * Tests: Line 15 - parts.length < 1 condition
  */
 
-import { describe, it, expect } from "vitest";
-import { extractProviderFromState } from "@/providers/utils.ts";
+import {describe, it, expect} from "vitest";
+import {extractProviderFromState} from "@/providers/utils.ts";
 
 describe("Provider Utils - Line 15 Coverage", () => {
   describe("extractProviderFromState - Line 15: parts.length < 1", () => {
@@ -50,15 +50,15 @@ describe("Provider Utils - Line 15 Coverage", () => {
     it("should handle all provider state formats", () => {
       // Test extractProviderFromState with various inputs
       const testCases = [
-        { input: "google_state123", expected: "google" },
-        { input: "apple_state456", expected: "apple" },
-        { input: "microsoft_state789", expected: "microsoft" },
-        { input: "_", expected: "" },
-        { input: "test", expected: "test" },
-        { input: "", expected: "" },
+        {input: "google_state123", expected: "google"},
+        {input: "apple_state456", expected: "apple"},
+        {input: "microsoft_state789", expected: "microsoft"},
+        {input: "_", expected: ""},
+        {input: "test", expected: "test"},
+        {input: "", expected: ""},
       ];
 
-      for (const { input, expected } of testCases) {
+      for (const {input, expected} of testCases) {
         const result = extractProviderFromState(input);
         expect(result).toBe(expected);
       }

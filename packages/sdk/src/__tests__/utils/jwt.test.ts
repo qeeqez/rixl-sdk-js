@@ -3,15 +3,15 @@
  * Tests: decodeToken, decodeAndSetUser, isTokenExpired
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
-import { decodeToken, decodeAndSetUser, isTokenExpired } from "@/utils/jwt";
-import { user } from "@/userStore";
-import { createMockJWT, createMockUser } from "./test-helpers";
+import {describe, it, expect, beforeEach} from "vitest";
+import {decodeToken, decodeAndSetUser, isTokenExpired} from "@/utils/jwt";
+import {user} from "@/userStore";
+import {createMockJWT, createMockUser} from "./test-helpers";
 
 describe("JWT Utils", () => {
   describe("decodeToken", () => {
     it("should decode valid JWT token", () => {
-      const token = createMockJWT({ id: "custom-id", username: "custom-user" });
+      const token = createMockJWT({id: "custom-id", username: "custom-user"});
       const result = decodeToken(token);
 
       expect(result).toMatchObject({
@@ -70,7 +70,7 @@ describe("JWT Utils", () => {
     });
 
     it("should update user store with correct data", () => {
-      const mockData = { username: "newuser", id: "new123" };
+      const mockData = {username: "newuser", id: "new123"};
       const token = createMockJWT(mockData);
 
       decodeAndSetUser(token);

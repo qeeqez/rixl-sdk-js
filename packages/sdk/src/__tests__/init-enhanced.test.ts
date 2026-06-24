@@ -3,11 +3,11 @@
  * Tests: initPage, initSocials flows with mocked dependencies
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import { initClient } from "../auth/init";
-import { apiURL } from "../auth/api-url";
-import { refreshToken } from "../auth/authStore";
-import type { AuthClientConfig } from "../auth/init";
+import {describe, it, expect, beforeEach, vi, afterEach} from "vitest";
+import {initClient} from "../auth/init";
+import {apiURL} from "../auth/api-url";
+import {refreshToken} from "../auth/authStore";
+import type {AuthClientConfig} from "../auth/init";
 
 describe("Init - Enhanced Coverage", () => {
   beforeEach(() => {

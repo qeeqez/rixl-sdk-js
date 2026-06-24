@@ -3,9 +3,9 @@
  * Tests: Edge cases and localStorage error handling
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { user } from "../auth/userStore";
-import { createMockUser } from "./utils/test-helpers";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
+import {user} from "../auth/userStore";
+import {createMockUser} from "./utils/test-helpers";
 
 describe("UserStore - Enhanced Coverage", () => {
   beforeEach(() => {
@@ -123,7 +123,7 @@ describe("UserStore - Enhanced Coverage", () => {
 
   describe("User subscription behavior", () => {
     it("should trigger subscription on user update", async () => {
-      const mockUser = createMockUser({ id: "test-id" });
+      const mockUser = createMockUser({id: "test-id"});
 
       let subscriptionCalled = false;
       const unsubscribe = user.subscribe((value) => {

@@ -3,10 +3,10 @@
  * Tests: Additional coverage for detectProvider and getProviderToken edge cases
  */
 
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { extractProviderFromState } from "@/providers/utils.ts";
-import { AuthProvider } from "@/providers";
-import { urlParams } from "@/url.ts";
+import {describe, it, expect, beforeEach, afterEach} from "vitest";
+import {extractProviderFromState} from "@/providers/utils.ts";
+import {AuthProvider} from "@/providers";
+import {urlParams} from "@/url.ts";
 
 describe("Provider Utils - Coverage", () => {
   beforeEach(() => {

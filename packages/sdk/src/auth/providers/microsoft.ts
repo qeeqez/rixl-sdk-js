@@ -1,6 +1,6 @@
-import { AuthProvider } from "./types";
-import { createOAuthProvider, type OAuthProviderConfig } from "./oauth";
-import type { WritableAtom } from "nanostores";
+import {AuthProvider} from "./types";
+import {createOAuthProvider, type OAuthProviderConfig} from "./oauth";
+import type {WritableAtom} from "nanostores";
 
 // Provider configuration interface
 export interface MicrosoftProviderConfig extends OAuthProviderConfig {}

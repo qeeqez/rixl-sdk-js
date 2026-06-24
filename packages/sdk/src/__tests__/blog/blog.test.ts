@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import {beforeEach, describe, expect, it, vi} from "vitest";
 import * as initialization from "../../auth/initialization";
 
 const mockGetAuthV1BlogSubscription = vi.fn();
@@ -11,12 +11,7 @@ vi.mock("../../generated/sdk.gen", () => ({
   postAuthV1BlogUnsubscribe: (...args: unknown[]) => mockPostAuthV1BlogUnsubscribe(...args),
 }));
 
-import {
-  getBlogSubscriptionStatus,
-  subscribeToBlog,
-  unsubscribeFromBlog,
-  type BlogSubscriptionStatus,
-} from "@/blog";
+import {getBlogSubscriptionStatus, subscribeToBlog, unsubscribeFromBlog, type BlogSubscriptionStatus} from "@/blog";
 
 describe("Blog subscription API", () => {
   beforeEach(() => {
@@ -32,7 +27,7 @@ describe("Blog subscription API", () => {
       subscribed: true,
       subscribed_at: "2026-04-23T12:00:00Z",
     };
-    mockGetAuthV1BlogSubscription.mockResolvedValue({ data: response });
+    mockGetAuthV1BlogSubscription.mockResolvedValue({data: response});
 
     const result = await getBlogSubscriptionStatus();
 
@@ -43,7 +38,7 @@ describe("Blog subscription API", () => {
   });
 
   it("subscribes the current user to blog updates", async () => {
-    mockPostAuthV1BlogSubscribe.mockResolvedValue({ data: {} });
+    mockPostAuthV1BlogSubscribe.mockResolvedValue({data: {}});
 
     await subscribeToBlog();
 
@@ -53,7 +48,7 @@ describe("Blog subscription API", () => {
   });
 
   it("unsubscribes the current user from blog updates", async () => {
-    mockPostAuthV1BlogUnsubscribe.mockResolvedValue({ data: {} });
+    mockPostAuthV1BlogUnsubscribe.mockResolvedValue({data: {}});
 
     await unsubscribeFromBlog();
 
@@ -63,67 +58,67 @@ describe("Blog subscription API", () => {
   });
 
   it("handles unauthorized errors for subscription reads", async () => {
-    mockGetAuthV1BlogSubscription.mockRejectedValue({ error: "unauthorized", code: 401 });
+    mockGetAuthV1BlogSubscription.mockRejectedValue({error: "unauthorized", code: 401});
 
     await expect(getBlogSubscriptionStatus()).rejects.toThrow();
   });
 
   it("handles server errors for subscribe failures", async () => {
-    mockPostAuthV1BlogSubscribe.mockRejectedValue({ error: "server_error", code: 500 });
+    mockPostAuthV1BlogSubscribe.mockRejectedValue({error: "server_error", code: 500});
 
     await expect(subscribeToBlog()).rejects.toThrow();
   });
 
   it("handles forbidden errors for subscribe failures", async () => {
-    mockPostAuthV1BlogSubscribe.mockRejectedValue({ error: "forbidden", code: 403 });
+    mockPostAuthV1BlogSubscribe.mockRejectedValue({error: "forbidden", code: 403});
 
     await expect(subscribeToBlog()).rejects.toThrow();
   });
 
   it("handles rate-limit errors for subscribe failures", async () => {
-    mockPostAuthV1BlogSubscribe.mockRejectedValue({ error: "too_many_requests", code: 429 });
+    mockPostAuthV1BlogSubscribe.mockRejectedValue({error: "too_many_requests", code: 429});
 
     await expect(subscribeToBlog()).rejects.toThrow();
   });
 
   it("handles unauthorized errors for subscribe failures", async () => {
-    mockPostAuthV1BlogSubscribe.mockRejectedValue({ error: "unauthorized", code: 401 });
+    mockPostAuthV1BlogSubscribe.mockRejectedValue({error: "unauthorized", code: 401});
 
     await expect(subscribeToBlog()).rejects.toThrow();
   });
 
   it("handles forbidden errors for subscription reads", async () => {
-    mockGetAuthV1BlogSubscription.mockRejectedValue({ error: "forbidden", code: 403 });
+    mockGetAuthV1BlogSubscription.mockRejectedValue({error: "forbidden", code: 403});
 
     await expect(getBlogSubscriptionStatus()).rejects.toThrow();
   });
 
   it("handles rate-limit errors for subscription reads", async () => {
-    mockGetAuthV1BlogSubscription.mockRejectedValue({ error: "too_many_requests", code: 429 });
+    mockGetAuthV1BlogSubscription.mockRejectedValue({error: "too_many_requests", code: 429});
 
     await expect(getBlogSubscriptionStatus()).rejects.toThrow();
   });
 
   it("handles unauthorized errors for unsubscribe failures", async () => {
-    mockPostAuthV1BlogUnsubscribe.mockRejectedValue({ error: "unauthorized", code: 401 });
+    mockPostAuthV1BlogUnsubscribe.mockRejectedValue({error: "unauthorized", code: 401});
 
     await expect(unsubscribeFromBlog()).rejects.toThrow();
   });
 
   it("handles forbidden errors for unsubscribe failures", async () => {
-    mockPostAuthV1BlogUnsubscribe.mockRejectedValue({ error: "forbidden", code: 403 });
+    mockPostAuthV1BlogUnsubscribe.mockRejectedValue({error: "forbidden", code: 403});
 
     await expect(unsubscribeFromBlog()).rejects.toThrow();
   });
 
   it("handles rate-limit errors for unsubscribe failures", async () => {
-    mockPostAuthV1BlogUnsubscribe.mockRejectedValue({ error: "too_many_requests", code: 429 });
+    mockPostAuthV1BlogUnsubscribe.mockRejectedValue({error: "too_many_requests", code: 429});
 
     await expect(unsubscribeFromBlog()).rejects.toThrow();
   });
 
   it("handles server errors for unsubscribe failures", async () => {
-    mockPostAuthV1BlogUnsubscribe.mockRejectedValue({ error: "server_error", code: 500 });
+    mockPostAuthV1BlogUnsubscribe.mockRejectedValue({error: "server_error", code: 500});
 
     await expect(unsubscribeFromBlog()).rejects.toThrow();
   });

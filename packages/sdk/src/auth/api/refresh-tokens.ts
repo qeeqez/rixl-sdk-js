@@ -1,6 +1,6 @@
-import { postAuthV1Token } from "../../generated/sdk.gen";
-import { AuthProvider } from "../providers";
-import type { LimitedScopeTokenResponse } from "../types";
+import {postAuthV1Token} from "../../generated/sdk.gen";
+import {AuthProvider} from "../providers";
+import type {LimitedScopeTokenResponse} from "../types";
 
 export interface TokenResponse {
   access_token: string;
@@ -8,12 +8,9 @@ export interface TokenResponse {
   expires_in: number;
 }
 
-export const refreshTokens = async (
-  provider: AuthProvider,
-  token: string,
-): Promise<TokenResponse | LimitedScopeTokenResponse> => {
-  const { data } = await postAuthV1Token({
-    headers: { Authorization: `${provider} ${token}` },
+export const refreshTokens = async (provider: AuthProvider, token: string): Promise<TokenResponse | LimitedScopeTokenResponse> => {
+  const {data} = await postAuthV1Token({
+    headers: {Authorization: `${provider} ${token}`},
     throwOnError: true,
   });
   return data as unknown as TokenResponse | LimitedScopeTokenResponse;

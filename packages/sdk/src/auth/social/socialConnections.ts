@@ -1,14 +1,10 @@
-import {
-  getAuthV1Providers,
-  postAuthV1ProvidersConnect,
-  deleteAuthV1ProvidersByProvider,
-} from "../../generated/sdk.gen";
-import { login } from "../authStore";
-import { setSocialConnectAttempt } from "./socialState";
-import { apiCall } from "../api/utils";
-import { HTTP_STATUS } from "../constants";
-import { validateInput } from "../validation/base";
-import { ConnectProviderSchema } from "../validation/auth";
+import {getAuthV1Providers, postAuthV1ProvidersConnect, deleteAuthV1ProvidersByProvider} from "../../generated/sdk.gen";
+import {login} from "../authStore";
+import {setSocialConnectAttempt} from "./socialState";
+import {apiCall} from "../api/utils";
+import {HTTP_STATUS} from "../constants";
+import {validateInput} from "../validation/base";
+import {ConnectProviderSchema} from "../validation/auth";
 
 export type ProviderType = "google" | "apple" | "microsoft" | "facebook" | "telegram";
 
@@ -24,21 +20,24 @@ export interface ConnectedProvider {
 export const listSocials = async (): Promise<ConnectedProvider[]> => {
   return apiCall(
     async () => {
-      const { data } = await getAuthV1Providers({
+      const {data} = await getAuthV1Providers({
         throwOnError: true,
       });
       return (data.providers ?? []) as unknown as ConnectedProvider[];
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("User is not authorized to list providers!"),
-    },
+    }
   );
 };
 
 export const connectSocialInternal = async (provider: string, token: string): Promise<void> => {
   return apiCall(
     async () => {
-      const requestBody = validateInput(ConnectProviderSchema, { provider, token });
+      const requestBody = validateInput(ConnectProviderSchema, {provider, token}) as {
+        provider: "google" | "apple" | "microsoft" | "tgAuthResult";
+        token: string;
+      };
       await postAuthV1ProvidersConnect({
         body: requestBody,
         throwOnError: true,
@@ -46,7 +45,7 @@ export const connectSocialInternal = async (provider: string, token: string): Pr
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("User is not authorized to connect provider!"),
-    },
+    }
   );
 };
 
@@ -54,7 +53,7 @@ export const disconnectSocial = async (providerId: string): Promise<void> => {
   return apiCall(
     async () => {
       await deleteAuthV1ProvidersByProvider({
-        path: { provider: providerId },
+        path: {provider: providerId},
         throwOnError: true,
       });
     },
@@ -62,7 +61,7 @@ export const disconnectSocial = async (providerId: string): Promise<void> => {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("User is not authorized to disconnect provider!"),
       [HTTP_STATUS.NOT_FOUND]: () => new Error("Provider not found!"),
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Cannot disconnect the last social provider!"),
-    },
+    }
   );
 };
 

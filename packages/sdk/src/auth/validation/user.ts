@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { UsernameSchema, NameSchema } from "./base";
+import {UsernameSchema, NameSchema} from "./base";
 
 /**
  * Update username request schema

@@ -3,9 +3,9 @@
  * Tests: pendingRequests map, getRequestKey
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
-import { pendingRequests, getRequestKey } from "../auth/api/deduplication";
-import { ApiRequestConfig } from "../auth/api/types";
+import {describe, it, expect, beforeEach} from "vitest";
+import {pendingRequests, getRequestKey} from "../auth/api/deduplication";
+import {ApiRequestConfig} from "../auth/api/types";
 
 describe("API Deduplication", () => {
   beforeEach(() => {
@@ -43,7 +43,7 @@ describe("API Deduplication", () => {
 
   describe("getRequestKey", () => {
     it("should generate key for GET request", () => {
-      const config: ApiRequestConfig = { method: "GET" };
+      const config: ApiRequestConfig = {method: "GET"};
       const key = getRequestKey("/api/users", config);
 
       expect(key).toContain("/api/users");
@@ -51,30 +51,30 @@ describe("API Deduplication", () => {
     });
 
     it("should return empty string for POST request", () => {
-      const config: ApiRequestConfig = { method: "POST" };
+      const config: ApiRequestConfig = {method: "POST"};
       const key = getRequestKey("/api/users", config);
 
       expect(key).toBe("");
     });
 
     it("should return empty string for PUT request", () => {
-      const config: ApiRequestConfig = { method: "PUT" };
+      const config: ApiRequestConfig = {method: "PUT"};
       const key = getRequestKey("/api/users", config);
 
       expect(key).toBe("");
     });
 
     it("should return empty string for DELETE request", () => {
-      const config: ApiRequestConfig = { method: "DELETE" };
+      const config: ApiRequestConfig = {method: "DELETE"};
       const key = getRequestKey("/api/users", config);
 
       expect(key).toBe("");
     });
 
     it("should be case insensitive for method", () => {
-      const getUpper: ApiRequestConfig = { method: "GET" };
-      const getLower: ApiRequestConfig = { method: "GET" }; // TypeScript requires uppercase
-      const getMixed: ApiRequestConfig = { method: "GET" }; // TypeScript requires uppercase
+      const getUpper: ApiRequestConfig = {method: "GET"};
+      const getLower: ApiRequestConfig = {method: "GET"}; // TypeScript requires uppercase
+      const getMixed: ApiRequestConfig = {method: "GET"}; // TypeScript requires uppercase
 
       expect(getRequestKey("/api/test", getUpper)).toBeTruthy();
       expect(getRequestKey("/api/test", getLower)).toBeTruthy();
@@ -84,11 +84,11 @@ describe("API Deduplication", () => {
     it("should include headers in key", () => {
       const config1: ApiRequestConfig = {
         method: "GET",
-        headers: { "X-Custom": "value1" },
+        headers: {"X-Custom": "value1"},
       };
       const config2: ApiRequestConfig = {
         method: "GET",
-        headers: { "X-Custom": "value2" },
+        headers: {"X-Custom": "value2"},
       };
 
       const key1 = getRequestKey("/api/users", config1);
@@ -100,11 +100,11 @@ describe("API Deduplication", () => {
     it("should include body in key", () => {
       const config1: ApiRequestConfig = {
         method: "GET",
-        body: { filter: "active" },
+        body: {filter: "active"},
       };
       const config2: ApiRequestConfig = {
         method: "GET",
-        body: { filter: "inactive" },
+        body: {filter: "inactive"},
       };
 
       const key1 = getRequestKey("/api/users", config1);
@@ -116,11 +116,11 @@ describe("API Deduplication", () => {
     it("should generate same key for identical GET requests", () => {
       const config1: ApiRequestConfig = {
         method: "GET",
-        headers: { Authorization: "Bearer token" },
+        headers: {Authorization: "Bearer token"},
       };
       const config2: ApiRequestConfig = {
         method: "GET",
-        headers: { Authorization: "Bearer token" },
+        headers: {Authorization: "Bearer token"},
       };
 
       const key1 = getRequestKey("/api/users", config1);
@@ -138,7 +138,7 @@ describe("API Deduplication", () => {
     });
 
     it("should handle config with no headers or body", () => {
-      const config: ApiRequestConfig = { method: "GET" };
+      const config: ApiRequestConfig = {method: "GET"};
       const key = getRequestKey("/api/users", config);
 
       expect(key).toBe("/api/users|undefined|undefined");

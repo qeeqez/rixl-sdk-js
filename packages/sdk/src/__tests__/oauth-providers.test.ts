@@ -3,13 +3,9 @@
  * Tests: buildOAuthUrl, createOAuthProvider, provider configurations
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import {
-  buildOAuthUrl,
-  createOAuthProvider,
-  warnProviderNotConfigured,
-} from "../auth/providers/oauth";
-import { AuthProvider } from "@/providers";
+import {describe, it, expect, beforeEach, vi} from "vitest";
+import {buildOAuthUrl, createOAuthProvider, warnProviderNotConfigured} from "../auth/providers/oauth";
+import {AuthProvider} from "@/providers";
 import * as state from "../auth/state";
 
 vi.mock("../auth/state", () => ({
@@ -27,7 +23,7 @@ describe("OAuth Providers", () => {
     // Mock window.location
     Object.defineProperty(global, "window", {
       value: {
-        location: { origin: "https://example.com" },
+        location: {origin: "https://example.com"},
       },
       writable: true,
       configurable: true,
@@ -37,14 +33,14 @@ describe("OAuth Providers", () => {
   describe("buildOAuthUrl", () => {
     it("should build basic OAuth URL", () => {
       const url = buildOAuthUrl(
-        { clientId: "client-123" },
+        {clientId: "client-123"},
         {
           name: "Google",
           authBaseUrl: "https://accounts.google.com/o/oauth2/v2/auth",
           defaultScopes: ["openid", "profile", "email"],
           responseType: "code",
         },
-        "test-state",
+        "test-state"
       );
 
       expect(url).toContain("https://accounts.google.com/o/oauth2/v2/auth?");
@@ -57,14 +53,14 @@ describe("OAuth Providers", () => {
 
     it("should include custom scope", () => {
       const url = buildOAuthUrl(
-        { clientId: "client-123", scope: "custom-scope" },
+        {clientId: "client-123", scope: "custom-scope"},
         {
           name: "Google",
           authBaseUrl: "https://accounts.google.com/o/oauth2/v2/auth",
           defaultScopes: ["openid"],
           responseType: "code",
         },
-        "test-state",
+        "test-state"
       );
 
       expect(url).toContain("scope=openid+custom-scope");
@@ -72,14 +68,14 @@ describe("OAuth Providers", () => {
 
     it("should add nonce for id_token response type", () => {
       const url = buildOAuthUrl(
-        { clientId: "client-123" },
+        {clientId: "client-123"},
         {
           name: "Apple",
           authBaseUrl: "https://appleid.apple.com/auth/authorize",
           defaultScopes: ["name", "email"],
           responseType: "code id_token",
         },
-        "test-nonce",
+        "test-nonce"
       );
 
       expect(url).toContain("nonce=test-nonce");
@@ -87,7 +83,7 @@ describe("OAuth Providers", () => {
 
     it("should include response_mode when specified", () => {
       const url = buildOAuthUrl(
-        { clientId: "client-123" },
+        {clientId: "client-123"},
         {
           name: "Apple",
           authBaseUrl: "https://appleid.apple.com/auth/authorize",
@@ -95,7 +91,7 @@ describe("OAuth Providers", () => {
           responseType: "code",
           responseMode: "form_post",
         },
-        "test-state",
+        "test-state"
       );
 
       expect(url).toContain("response_mode=form_post");
@@ -103,7 +99,7 @@ describe("OAuth Providers", () => {
 
     it("should include additional parameters", () => {
       const url = buildOAuthUrl(
-        { clientId: "client-123" },
+        {clientId: "client-123"},
         {
           name: "Microsoft",
           authBaseUrl: "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
@@ -114,7 +110,7 @@ describe("OAuth Providers", () => {
             access_type: "offline",
           },
         },
-        "test-state",
+        "test-state"
       );
 
       expect(url).toContain("prompt=consent");
@@ -149,7 +145,7 @@ describe("OAuth Providers", () => {
         },
       });
 
-      provider.config.set({ clientId: "test-client-id" });
+      provider.config.set({clientId: "test-client-id"});
       provider.updateAuthUrl();
 
       const authUrl = provider.authUrl.get();
@@ -172,9 +168,7 @@ describe("OAuth Providers", () => {
 
       provider.updateAuthUrl();
 
-      expect(warnSpy).toHaveBeenCalledWith(
-        "Google provider not configured. Check initClient method.",
-      );
+      expect(warnSpy).toHaveBeenCalledWith("Google provider not configured. Check initClient method.");
       expect(provider.authUrl.get()).toBeNull();
 
       warnSpy.mockRestore();
@@ -187,9 +181,7 @@ describe("OAuth Providers", () => {
 
       warnProviderNotConfigured("TestProvider");
 
-      expect(warnSpy).toHaveBeenCalledWith(
-        "TestProvider provider not configured. Check initClient method.",
-      );
+      expect(warnSpy).toHaveBeenCalledWith("TestProvider provider not configured. Check initClient method.");
 
       warnSpy.mockRestore();
     });

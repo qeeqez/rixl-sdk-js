@@ -1,10 +1,5 @@
-import { client } from "./generated/client.gen";
-import type {
-  GoogleProviderConfig,
-  AppleProviderConfig,
-  MicrosoftProviderConfig,
-  TelegramProviderConfig,
-} from "./auth/providers";
+import {client} from "./generated/client.gen";
+import type {GoogleProviderConfig, AppleProviderConfig, MicrosoftProviderConfig, TelegramProviderConfig} from "./auth/providers";
 
 export interface AuthConfig {
   loginRedirectUrl?: string;
@@ -21,7 +16,7 @@ export interface ConnectConfig {
 }
 
 export const connect = async (config: ConnectConfig): Promise<string | undefined> => {
-  client.setConfig({ baseUrl: config.baseUrl });
+  client.setConfig({baseUrl: config.baseUrl});
 
   if (config.apiKey) {
     client.interceptors.request.use(async (request) => {
@@ -31,7 +26,7 @@ export const connect = async (config: ConnectConfig): Promise<string | undefined
   }
 
   if (config.auth) {
-    const { initClient } = await import("./auth/init");
+    const {initClient} = await import("./auth/init");
     return initClient({
       apiUrl: config.baseUrl,
       loginRedirectUrl: config.auth.loginRedirectUrl,

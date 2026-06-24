@@ -1,9 +1,9 @@
-import { it, expect } from "vitest";
+import {it, expect} from "vitest";
 
 export const testTokenRefreshBehavior = (
   runAction: (handleRefresh: boolean) => Promise<any>,
   mockAuthenticatedFetch: any,
-  getMockSetTokens: () => any,
+  getMockSetTokens: () => any
 ) => {
   it("should refresh tokens when handleTokenRefresh is true", async () => {
     mockAuthenticatedFetch.mockResolvedValue({
@@ -26,7 +26,7 @@ export const testTokenRefreshBehavior = (
   });
 
   it("should not refresh tokens when response doesn't contain token data", async () => {
-    mockAuthenticatedFetch.mockResolvedValue({ message: "Success" });
+    mockAuthenticatedFetch.mockResolvedValue({message: "Success"});
 
     await runAction(true);
 

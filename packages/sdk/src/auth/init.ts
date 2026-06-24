@@ -1,19 +1,12 @@
-import {
-  getToken,
-  refreshToken,
-  authError,
-  setTokens,
-  setLimitedAccessState,
-  clearLimitedAccessState,
-} from "./authStore";
-import { ApiError } from "./api/types";
-import { HTTP_STATUS } from "./constants";
-import type { TokenResponse, LimitedScopeTokenResponse } from "./types";
-import type { LoginErrorCode } from "./auth/types";
-import { apiURL } from "./api-url";
-import { refreshTokens } from "./api/refresh-tokens";
-import { initDeferred } from "./initialization";
-import { configureSdkClient } from "./api/sdk-client";
+import {getToken, refreshToken, authError, setTokens, setLimitedAccessState, clearLimitedAccessState} from "./authStore";
+import {ApiError} from "./api/types";
+import {HTTP_STATUS} from "./constants";
+import type {TokenResponse, LimitedScopeTokenResponse} from "./types";
+import type {LoginErrorCode} from "./auth/types";
+import {apiURL} from "./api-url";
+import {refreshTokens} from "./api/refresh-tokens";
+import {initDeferred} from "./initialization";
+import {configureSdkClient} from "./api/sdk-client";
 import {
   type GoogleProviderConfig,
   type TelegramProviderConfig,
@@ -31,10 +24,10 @@ import {
   detectProvider,
   AuthProvider,
 } from "./providers";
-import { clearSocialConnectAttempt, hasSocialConnectAttempt } from "./social/socialState";
-import { connectSocialInternal } from "./social/socialConnections";
-import { setTokenRefreshFunction } from "./api/client-core";
-import { setLoginRedirectUrl } from "./authConfig";
+import {clearSocialConnectAttempt, hasSocialConnectAttempt} from "./social/socialState";
+import {connectSocialInternal} from "./social/socialConnections";
+import {setTokenRefreshFunction} from "./api/client-core";
+import {setLoginRedirectUrl} from "./authConfig";
 
 /**
  * Configuration options for the authentication client
@@ -78,7 +71,7 @@ const initConfig = async (config: AuthClientConfig) => {
   setTokenRefreshFunction(async () => {
     const currentRefreshToken = refreshToken.get();
     if (currentRefreshToken) {
-      const { AuthProvider } = await import("./providers");
+      const {AuthProvider} = await import("./providers");
       const result = await refreshTokens(AuthProvider.BEARER, currentRefreshToken);
       // Store new tokens if full response (not limited scope)
       if (result && !("requires_action" in result)) {
@@ -111,9 +104,7 @@ const initConfig = async (config: AuthClientConfig) => {
   }
 };
 
-const isLimitedScopeTokenResponse = (
-  result: TokenResponse | LimitedScopeTokenResponse,
-): result is LimitedScopeTokenResponse => {
+const isLimitedScopeTokenResponse = (result: TokenResponse | LimitedScopeTokenResponse): result is LimitedScopeTokenResponse => {
   return "requires_action" in result;
 };
 
@@ -129,16 +120,12 @@ const applyTokenExchangeResult = (result: TokenResponse | LimitedScopeTokenRespo
 
 const setAuthErrorAndClear = (error_code: LoginErrorCode, message: string, email: string): true => {
   clearLimitedAccessState();
-  authError.set({ error_code, message, email });
+  authError.set({error_code, message, email});
   return true;
 };
 
-const extractAuthErrorInfo = (
-  error: ApiError,
-): { error: string; description: string; email: string } => {
-  const data = error.data as
-    | { error?: string; error_description?: string; email?: string }
-    | undefined;
+const extractAuthErrorInfo = (error: ApiError): {error: string; description: string; email: string} => {
+  const data = error.data as {error?: string; error_description?: string; email?: string} | undefined;
   return {
     error: data?.error ?? "",
     description: data?.error_description ?? error.message ?? "",

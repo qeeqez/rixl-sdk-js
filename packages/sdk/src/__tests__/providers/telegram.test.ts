@@ -3,8 +3,8 @@
  * Tests: telegramConfig, telegramAuthUrl, updateTelegramAuthUrl
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { telegramConfig, telegramAuthUrl, updateTelegramAuthUrl } from "@/providers";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
+import {telegramConfig, telegramAuthUrl, updateTelegramAuthUrl} from "@/providers";
 
 // Mock window.location
 const originalLocation = global.window?.location;
@@ -45,24 +45,24 @@ describe("Telegram Provider", () => {
     });
 
     it("should accept valid configuration", () => {
-      const config = { botId: "mybot" };
+      const config = {botId: "mybot"};
       telegramConfig.set(config);
       expect(telegramConfig.get()).toEqual(config);
     });
 
     it("should accept different bot IDs", () => {
-      telegramConfig.set({ botId: "testbot" });
+      telegramConfig.set({botId: "testbot"});
       expect(telegramConfig.get()?.botId).toBe("testbot");
 
-      telegramConfig.set({ botId: "anotherbot" });
+      telegramConfig.set({botId: "anotherbot"});
       expect(telegramConfig.get()?.botId).toBe("anotherbot");
     });
 
     it("should allow configuration updates", () => {
-      telegramConfig.set({ botId: "oldbot" });
+      telegramConfig.set({botId: "oldbot"});
       expect(telegramConfig.get()?.botId).toBe("oldbot");
 
-      telegramConfig.set({ botId: "newbot" });
+      telegramConfig.set({botId: "newbot"});
       expect(telegramConfig.get()?.botId).toBe("newbot");
     });
   });
@@ -78,7 +78,7 @@ describe("Telegram Provider", () => {
     });
 
     it("should generate auth URL when config is set", () => {
-      telegramConfig.set({ botId: "mybot" });
+      telegramConfig.set({botId: "mybot"});
       updateTelegramAuthUrl();
 
       const authUrl = telegramAuthUrl.get();
@@ -88,7 +88,7 @@ describe("Telegram Provider", () => {
     });
 
     it("should include origin parameter", () => {
-      telegramConfig.set({ botId: "testbot" });
+      telegramConfig.set({botId: "testbot"});
       updateTelegramAuthUrl();
 
       const authUrl = telegramAuthUrl.get();
@@ -96,7 +96,7 @@ describe("Telegram Provider", () => {
     });
 
     it("should include return_to parameter with pathname", () => {
-      telegramConfig.set({ botId: "testbot" });
+      telegramConfig.set({botId: "testbot"});
       updateTelegramAuthUrl();
 
       const authUrl = telegramAuthUrl.get();
@@ -104,7 +104,7 @@ describe("Telegram Provider", () => {
     });
 
     it("should URL encode bot_id", () => {
-      telegramConfig.set({ botId: "bot with spaces" });
+      telegramConfig.set({botId: "bot with spaces"});
       updateTelegramAuthUrl();
 
       const authUrl = telegramAuthUrl.get();
@@ -120,7 +120,7 @@ describe("Telegram Provider", () => {
       (global as any).window.location = newLocation;
       (global as any).location = newLocation;
 
-      telegramConfig.set({ botId: "mybot" });
+      telegramConfig.set({botId: "mybot"});
       updateTelegramAuthUrl();
 
       const authUrl = telegramAuthUrl.get();
@@ -136,7 +136,7 @@ describe("Telegram Provider", () => {
       (global as any).window.location = newLocation;
       (global as any).location = newLocation;
 
-      telegramConfig.set({ botId: "mybot" });
+      telegramConfig.set({botId: "mybot"});
       updateTelegramAuthUrl();
 
       const authUrl = telegramAuthUrl.get();
@@ -152,7 +152,7 @@ describe("Telegram Provider", () => {
       (global as any).window.location = newLocation;
       (global as any).location = newLocation;
 
-      telegramConfig.set({ botId: "devbot" });
+      telegramConfig.set({botId: "devbot"});
       updateTelegramAuthUrl();
 
       const authUrl = telegramAuthUrl.get();
@@ -167,16 +167,14 @@ describe("Telegram Provider", () => {
 
       updateTelegramAuthUrl();
 
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        "Telegram provider not configured. Check initClient method.",
-      );
+      expect(consoleWarnSpy).toHaveBeenCalledWith("Telegram provider not configured. Check initClient method.");
       expect(telegramAuthUrl.get()).toBeNull();
 
       consoleWarnSpy.mockRestore();
     });
 
     it("should update URL when called multiple times", () => {
-      telegramConfig.set({ botId: "mybot" });
+      telegramConfig.set({botId: "mybot"});
 
       updateTelegramAuthUrl();
       const firstUrl = telegramAuthUrl.get();
@@ -190,11 +188,11 @@ describe("Telegram Provider", () => {
     });
 
     it("should update URL after config changes", () => {
-      telegramConfig.set({ botId: "oldbot" });
+      telegramConfig.set({botId: "oldbot"});
       updateTelegramAuthUrl();
       const oldUrl = telegramAuthUrl.get();
 
-      telegramConfig.set({ botId: "newbot" });
+      telegramConfig.set({botId: "newbot"});
       updateTelegramAuthUrl();
       const newUrl = telegramAuthUrl.get();
 
@@ -203,7 +201,7 @@ describe("Telegram Provider", () => {
     });
 
     it("should handle special characters in bot ID", () => {
-      telegramConfig.set({ botId: "bot_with_underscore" });
+      telegramConfig.set({botId: "bot_with_underscore"});
       updateTelegramAuthUrl();
 
       const authUrl = telegramAuthUrl.get();
@@ -211,7 +209,7 @@ describe("Telegram Provider", () => {
     });
 
     it("should update when location changes", () => {
-      telegramConfig.set({ botId: "mybot" });
+      telegramConfig.set({botId: "mybot"});
       updateTelegramAuthUrl();
       const firstUrl = telegramAuthUrl.get();
 

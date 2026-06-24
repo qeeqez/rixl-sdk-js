@@ -1,8 +1,6 @@
 // Initialize urlParams lazily to avoid accessing window during module import
 // This is important for test environments and SSR
-export const urlParams: URLSearchParams = new URLSearchParams(
-  typeof window !== "undefined" ? fromURL(window.location.href) : "",
-);
+export const urlParams: URLSearchParams = new URLSearchParams(typeof window !== "undefined" ? fromURL(window.location.href) : "");
 
 function fromURL(urlString: string): string {
   return (

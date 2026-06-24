@@ -3,8 +3,8 @@
  * Tests: createDeferred, initDeferred
  */
 
-import { describe, it, expect } from "vitest";
-import { createDeferred } from "../auth/initialization";
+import {describe, it, expect} from "vitest";
+import {createDeferred} from "../auth/initialization";
 
 describe("Initialization", () => {
   describe("createDeferred", () => {
@@ -102,7 +102,7 @@ describe("Initialization", () => {
 
     it("should handle reject with custom object", async () => {
       const deferred = createDeferred();
-      const customError = { code: 500, message: "Server error" };
+      const customError = {code: 500, message: "Server error"};
 
       deferred.reject(customError);
 

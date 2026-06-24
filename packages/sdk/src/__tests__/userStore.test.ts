@@ -3,9 +3,9 @@
  * Tests: user atom, localStorage persistence
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
-import { user } from "../auth/userStore";
-import { createMockUser } from "./utils/test-helpers";
+import {describe, it, expect, beforeEach} from "vitest";
+import {user} from "../auth/userStore";
+import {createMockUser} from "./utils/test-helpers";
 
 describe("UserStore", () => {
   beforeEach(() => {
@@ -39,7 +39,7 @@ describe("UserStore", () => {
     });
 
     it("should persist user to localStorage on set", async () => {
-      const mockUser = createMockUser({ username: "testuser123" });
+      const mockUser = createMockUser({username: "testuser123"});
       user.set(mockUser);
 
       // Wait for subscription to trigger
@@ -72,7 +72,7 @@ describe("UserStore", () => {
     });
 
     it("should load user from localStorage on initialization", () => {
-      const mockUser = createMockUser({ id: "stored-user" });
+      const mockUser = createMockUser({id: "stored-user"});
 
       // Test the persistence path
       user.set(mockUser);
@@ -97,10 +97,10 @@ describe("UserStore", () => {
     });
 
     it("should update user data", () => {
-      const mockUser = createMockUser({ first_name: "John" });
+      const mockUser = createMockUser({first_name: "John"});
       user.set(mockUser);
 
-      const updatedUser = { ...mockUser, first_name: "Jane" };
+      const updatedUser = {...mockUser, first_name: "Jane"};
       user.set(updatedUser);
 
       expect(user.get()?.first_name).toBe("Jane");

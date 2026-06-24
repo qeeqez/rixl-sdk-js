@@ -3,8 +3,8 @@
  * Tests: microsoftConfig, microsoftAuthUrl, updateMicrosoftAuthUrl
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { microsoftConfig, microsoftAuthUrl, updateMicrosoftAuthUrl } from "@/providers";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
+import {microsoftConfig, microsoftAuthUrl, updateMicrosoftAuthUrl} from "@/providers";
 
 // Mock state module
 vi.mock("../../auth/state", () => ({
@@ -44,22 +44,22 @@ describe("Microsoft Provider", () => {
     });
 
     it("should accept valid configuration", () => {
-      const config = { clientId: "ms-client-id-12345" };
+      const config = {clientId: "ms-client-id-12345"};
       microsoftConfig.set(config);
       expect(microsoftConfig.get()).toEqual(config);
     });
 
     it("should accept configuration with custom scope", () => {
-      const config = { clientId: "client-id", scope: "User.Read Calendars.Read" };
+      const config = {clientId: "client-id", scope: "User.Read Calendars.Read"};
       microsoftConfig.set(config);
       expect(microsoftConfig.get()).toEqual(config);
     });
 
     it("should allow configuration updates", () => {
-      microsoftConfig.set({ clientId: "old-client-id" });
+      microsoftConfig.set({clientId: "old-client-id"});
       expect(microsoftConfig.get()?.clientId).toBe("old-client-id");
 
-      microsoftConfig.set({ clientId: "new-client-id" });
+      microsoftConfig.set({clientId: "new-client-id"});
       expect(microsoftConfig.get()?.clientId).toBe("new-client-id");
     });
   });
@@ -75,7 +75,7 @@ describe("Microsoft Provider", () => {
     });
 
     it("should generate auth URL when config is set", () => {
-      microsoftConfig.set({ clientId: "ms-client-123" });
+      microsoftConfig.set({clientId: "ms-client-123"});
       updateMicrosoftAuthUrl();
 
       const authUrl = microsoftAuthUrl.get();
@@ -85,7 +85,7 @@ describe("Microsoft Provider", () => {
     });
 
     it("should include Microsoft default scopes", () => {
-      microsoftConfig.set({ clientId: "client-123" });
+      microsoftConfig.set({clientId: "client-123"});
       updateMicrosoftAuthUrl();
 
       const authUrl = microsoftAuthUrl.get();
@@ -95,7 +95,7 @@ describe("Microsoft Provider", () => {
     });
 
     it("should include custom scope when provided", () => {
-      microsoftConfig.set({ clientId: "client-123", scope: "User.Read" });
+      microsoftConfig.set({clientId: "client-123", scope: "User.Read"});
       updateMicrosoftAuthUrl();
 
       const authUrl = microsoftAuthUrl.get();
@@ -103,7 +103,7 @@ describe("Microsoft Provider", () => {
     });
 
     it("should use id_token response type", () => {
-      microsoftConfig.set({ clientId: "client-123" });
+      microsoftConfig.set({clientId: "client-123"});
       updateMicrosoftAuthUrl();
 
       const authUrl = microsoftAuthUrl.get();
@@ -111,7 +111,7 @@ describe("Microsoft Provider", () => {
     });
 
     it("should include nonce for id_token", () => {
-      microsoftConfig.set({ clientId: "client-123" });
+      microsoftConfig.set({clientId: "client-123"});
       updateMicrosoftAuthUrl();
 
       const authUrl = microsoftAuthUrl.get();
@@ -119,7 +119,7 @@ describe("Microsoft Provider", () => {
     });
 
     it("should use fragment response mode", () => {
-      microsoftConfig.set({ clientId: "client-123" });
+      microsoftConfig.set({clientId: "client-123"});
       updateMicrosoftAuthUrl();
 
       const authUrl = microsoftAuthUrl.get();
@@ -127,7 +127,7 @@ describe("Microsoft Provider", () => {
     });
 
     it("should include state parameter", () => {
-      microsoftConfig.set({ clientId: "client-123" });
+      microsoftConfig.set({clientId: "client-123"});
       updateMicrosoftAuthUrl();
 
       const authUrl = microsoftAuthUrl.get();
@@ -135,7 +135,7 @@ describe("Microsoft Provider", () => {
     });
 
     it("should include redirect_uri", () => {
-      microsoftConfig.set({ clientId: "client-123" });
+      microsoftConfig.set({clientId: "client-123"});
       updateMicrosoftAuthUrl();
 
       const authUrl = microsoftAuthUrl.get();
@@ -149,16 +149,14 @@ describe("Microsoft Provider", () => {
 
       updateMicrosoftAuthUrl();
 
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        "Microsoft provider not configured. Check initClient method.",
-      );
+      expect(consoleWarnSpy).toHaveBeenCalledWith("Microsoft provider not configured. Check initClient method.");
       expect(microsoftAuthUrl.get()).toBeNull();
 
       consoleWarnSpy.mockRestore();
     });
 
     it("should update URL when called multiple times", () => {
-      microsoftConfig.set({ clientId: "client-123" });
+      microsoftConfig.set({clientId: "client-123"});
 
       updateMicrosoftAuthUrl();
       const firstUrl = microsoftAuthUrl.get();
@@ -172,11 +170,11 @@ describe("Microsoft Provider", () => {
     });
 
     it("should update URL after config changes", () => {
-      microsoftConfig.set({ clientId: "old-client-id" });
+      microsoftConfig.set({clientId: "old-client-id"});
       updateMicrosoftAuthUrl();
       const oldUrl = microsoftAuthUrl.get();
 
-      microsoftConfig.set({ clientId: "new-client-id" });
+      microsoftConfig.set({clientId: "new-client-id"});
       updateMicrosoftAuthUrl();
       const newUrl = microsoftAuthUrl.get();
 

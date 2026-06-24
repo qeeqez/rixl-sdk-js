@@ -11,7 +11,7 @@
  * ```
  */
 
-import { vi } from "vitest";
+import {vi} from "vitest";
 
 /**
  * Creates a standardized API client mock
@@ -24,7 +24,7 @@ class ApiErrorClass extends Error {
     message: string,
     public status: number,
     public endpoint: string,
-    public data?: any,
+    public data?: any
   ) {
     super(message);
     this.name = "ApiError";

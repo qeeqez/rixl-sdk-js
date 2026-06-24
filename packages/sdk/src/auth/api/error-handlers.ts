@@ -1,5 +1,5 @@
-import { ApiError } from "./types";
-export { ApiError };
+import {ApiError} from "./types";
+export {ApiError};
 
 /**
  * Helper to create error functions - reduces bundle size by reusing error creation logic
@@ -31,10 +31,7 @@ export const commonErrors: CommonErrors = {
 /**
  * Standard error handler for API errors with custom status code handling
  */
-export const handleApiError = (
-  error: unknown,
-  statusHandlers: Record<number, () => Error>,
-): never => {
+export const handleApiError = (error: unknown, statusHandlers: Record<number, () => Error>): never => {
   if (error instanceof ApiError) {
     const handler = statusHandlers[error.status];
     if (handler) {

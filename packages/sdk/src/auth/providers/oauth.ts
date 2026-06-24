@@ -3,9 +3,9 @@
  * This file contains shared logic for all OAuth providers to reduce duplication
  */
 
-import { atom, type WritableAtom } from "nanostores";
-import { getOauthState } from "../state";
-import { AuthProvider } from "./types";
+import {atom, type WritableAtom} from "nanostores";
+import {getOauthState} from "../state";
+import {AuthProvider} from "./types";
 
 /**
  * Base configuration for OAuth providers
@@ -47,11 +47,7 @@ export interface OAuthProviderResult {
 /**
  * Builds an OAuth URL from configuration and metadata
  */
-export const buildOAuthUrl = (
-  config: OAuthProviderConfig,
-  metadata: OAuthProviderMetadata,
-  state: string,
-): string => {
+export const buildOAuthUrl = (config: OAuthProviderConfig, metadata: OAuthProviderMetadata, state: string): string => {
   const params = new URLSearchParams({
     client_id: config.clientId,
     redirect_uri: window.location.origin,
@@ -91,10 +87,7 @@ export const warnProviderNotConfigured = (providerName: string): void => {
  * Creates a reusable OAuth provider with configuration and URL management
  * This factory reduces code duplication across OAuth providers
  */
-export const createOAuthProvider = ({
-  provider,
-  metadata,
-}: CreateOAuthProviderConfig): OAuthProviderResult => {
+export const createOAuthProvider = ({provider, metadata}: CreateOAuthProviderConfig): OAuthProviderResult => {
   const config = atom<OAuthProviderConfig | null>(null);
   const authUrl = atom<string | null>(null);
 
@@ -111,5 +104,5 @@ export const createOAuthProvider = ({
     authUrl.set(url);
   };
 
-  return { config, authUrl, updateAuthUrl };
+  return {config, authUrl, updateAuthUrl};
 };

@@ -4,6 +4,7 @@
     "target": "es2022",
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["node"],
     "module": "ESNext",
     "skipLibCheck": true,
     /* Bundler mode */
@@ -16,10 +17,9 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
   "include": ["index.ts", "src"],
-  "exclude": ["examples", "src/auth"]
+  "exclude": ["examples", "src/__tests__"]
 }

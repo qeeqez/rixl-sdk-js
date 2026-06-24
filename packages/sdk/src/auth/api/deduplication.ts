@@ -1,4 +1,4 @@
-import type { ApiRequestConfig } from "./types";
+import type {ApiRequestConfig} from "./types";
 
 /**
  * Map to store in-flight GET requests for deduplication

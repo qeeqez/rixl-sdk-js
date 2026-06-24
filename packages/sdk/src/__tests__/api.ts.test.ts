@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { refreshTokens } from "../auth/api/refresh-tokens";
-import { apiURL } from "../auth/api-url";
-import { AuthProvider } from "@/providers";
+import {describe, it, expect, beforeEach, vi} from "vitest";
+import {refreshTokens} from "../auth/api/refresh-tokens";
+import {apiURL} from "../auth/api-url";
+import {AuthProvider} from "@/providers";
 
 const mockPostAuthV1Token = vi.fn();
 
@@ -39,25 +39,25 @@ describe("API Module", () => {
         expires_in: 3600,
       };
 
-      mockPostAuthV1Token.mockResolvedValue({ data: mockResponse });
+      mockPostAuthV1Token.mockResolvedValue({data: mockResponse});
 
       const result = await refreshTokens(AuthProvider.BEARER, "old-refresh-token");
 
       expect(mockPostAuthV1Token).toHaveBeenCalledWith({
-        headers: { Authorization: "Bearer old-refresh-token" },
+        headers: {Authorization: "Bearer old-refresh-token"},
         throwOnError: true,
       });
       expect(result).toEqual(mockResponse);
     });
 
     it("should handle 401 unauthorized error", async () => {
-      mockPostAuthV1Token.mockRejectedValue({ error: "unauthorized", code: 401 });
+      mockPostAuthV1Token.mockRejectedValue({error: "unauthorized", code: 401});
 
       await expect(refreshTokens(AuthProvider.BEARER, "invalid-token")).rejects.toThrow();
     });
 
     it("should propagate errors (no side effects in this function)", async () => {
-      mockPostAuthV1Token.mockRejectedValue({ error: "bad_request", code: 400 });
+      mockPostAuthV1Token.mockRejectedValue({error: "bad_request", code: 400});
 
       await expect(refreshTokens(AuthProvider.BEARER, "expired-token")).rejects.toThrow();
     });
@@ -69,12 +69,12 @@ describe("API Module", () => {
         expires_in: 7200,
       };
 
-      mockPostAuthV1Token.mockResolvedValue({ data: mockResponse });
+      mockPostAuthV1Token.mockResolvedValue({data: mockResponse});
 
       await refreshTokens(AuthProvider.GOOGLE, "google-token");
 
       expect(mockPostAuthV1Token).toHaveBeenCalledWith({
-        headers: { Authorization: "google google-token" },
+        headers: {Authorization: "google google-token"},
         throwOnError: true,
       });
     });
@@ -92,7 +92,7 @@ describe("API Module", () => {
         expires_in: 1800,
       };
 
-      mockPostAuthV1Token.mockResolvedValue({ data: mockResponse });
+      mockPostAuthV1Token.mockResolvedValue({data: mockResponse});
 
       const result = await refreshTokens(AuthProvider.BEARER, "token");
 

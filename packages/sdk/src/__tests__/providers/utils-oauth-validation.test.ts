@@ -3,9 +3,9 @@
  * Tests: OAuth state validation paths in detectProvider
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { detectProvider, extractProviderFromState } from "@/providers/utils";
-import { AuthProvider } from "@/providers";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
+import {detectProvider, extractProviderFromState} from "@/providers/utils";
+import {AuthProvider} from "@/providers";
 import * as urlModule from "@/url";
 import * as stateModule from "@/state";
 

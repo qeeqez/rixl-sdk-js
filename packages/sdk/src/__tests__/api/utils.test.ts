@@ -3,8 +3,8 @@
  * Tests: apiCall helper function
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { apiCall } from "@/api/utils.ts";
+import {describe, it, expect, beforeEach, vi} from "vitest";
+import {apiCall} from "@/api/utils.ts";
 
 // Mock initialization
 vi.mock("../../auth/initialization", () => ({
@@ -32,12 +32,12 @@ describe("API Utils Module", () => {
 
   describe("apiCall", () => {
     it("should execute function successfully", async () => {
-      const mockFn = vi.fn().mockResolvedValue({ success: true });
+      const mockFn = vi.fn().mockResolvedValue({success: true});
 
       const result = await apiCall(mockFn);
 
       expect(mockFn).toHaveBeenCalled();
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({success: true});
     });
 
     it("should wait for initialization before executing", async () => {
@@ -52,17 +52,17 @@ describe("API Utils Module", () => {
     it("should handle successful API calls with different return types", async () => {
       const stringFn = vi.fn().mockResolvedValue("string result");
       const numberFn = vi.fn().mockResolvedValue(42);
-      const objectFn = vi.fn().mockResolvedValue({ id: 1, name: "test" });
+      const objectFn = vi.fn().mockResolvedValue({id: 1, name: "test"});
       const arrayFn = vi.fn().mockResolvedValue([1, 2, 3]);
 
       expect(await apiCall(stringFn)).toBe("string result");
       expect(await apiCall(numberFn)).toBe(42);
-      expect(await apiCall(objectFn)).toEqual({ id: 1, name: "test" });
+      expect(await apiCall(objectFn)).toEqual({id: 1, name: "test"});
       expect(await apiCall(arrayFn)).toEqual([1, 2, 3]);
     });
 
     it("should handle errors with status code mapping", async () => {
-      const mockError = { status: 404, message: "Not Found" };
+      const mockError = {status: 404, message: "Not Found"};
       const mockFn = vi.fn().mockRejectedValue(mockError);
       const errorMap = {
         404: () => new Error("Resource not found!"),
@@ -88,7 +88,7 @@ describe("API Utils Module", () => {
       };
 
       const testError = async (status: number, expectedMessage: string) => {
-        const mockError = { status, message: "Error" };
+        const mockError = {status, message: "Error"};
         const mockFn = vi.fn().mockRejectedValue(mockError);
         await expect(apiCall(mockFn, errorMap)).rejects.toThrow(expectedMessage);
       };
@@ -101,7 +101,7 @@ describe("API Utils Module", () => {
     });
 
     it("should pass through errors without matching status code", async () => {
-      const mockError = { status: 418, message: "I'm a teapot" };
+      const mockError = {status: 418, message: "I'm a teapot"};
       const mockFn = vi.fn().mockRejectedValue(mockError);
       const errorMap = {
         404: () => new Error("Not found!"),

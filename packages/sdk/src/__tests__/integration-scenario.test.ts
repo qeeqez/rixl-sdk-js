@@ -5,10 +5,10 @@
  * and that auth functions construct correct request URLs.
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { initClient } from "@/init";
-import { loginWithEmail } from "@/auth/login";
-import { registerWithEmail } from "@/auth/register";
+import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
+import {initClient} from "@/init";
+import {loginWithEmail} from "@/auth/login";
+import {registerWithEmail} from "@/auth/register";
 
 describe("Integration Scenario - Dashboard Usage", () => {
   let originalFetch: typeof global.fetch;
@@ -42,7 +42,7 @@ describe("Integration Scenario - Dashboard Usage", () => {
       clone: function () {
         return this;
       },
-      headers: new Headers({ "content-type": "application/json" }),
+      headers: new Headers({"content-type": "application/json"}),
     };
 
     global.fetch = vi.fn().mockResolvedValue(mockResponse) as any;
@@ -78,15 +78,14 @@ describe("Integration Scenario - Dashboard Usage", () => {
       ok: true,
       status: 200,
       statusText: "OK",
-      text: async () =>
-        JSON.stringify({ verification_id: "verify-123", message: "Registration successful" }),
-      json: async () => ({ verification_id: "verify-123", message: "Registration successful" }),
+      text: async () => JSON.stringify({verification_id: "verify-123", message: "Registration successful"}),
+      json: async () => ({verification_id: "verify-123", message: "Registration successful"}),
       blob: async () => new Blob(),
       arrayBuffer: async () => new ArrayBuffer(0),
       clone: function () {
         return this;
       },
-      headers: new Headers({ "content-type": "application/json" }),
+      headers: new Headers({"content-type": "application/json"}),
     };
     global.fetch = vi.fn().mockResolvedValue(registerResponse) as any;
 
@@ -109,12 +108,7 @@ describe("Integration Scenario - Dashboard Usage", () => {
   });
 
   it("should work with different API URL formats", async () => {
-    const apiUrls = [
-      "http://localhost:8081",
-      "http://localhost:8081/",
-      "https://api.example.com",
-      "https://api.example.com/",
-    ];
+    const apiUrls = ["http://localhost:8081", "http://localhost:8081/", "https://api.example.com", "https://api.example.com/"];
 
     for (const apiUrl of apiUrls) {
       vi.clearAllMocks();
@@ -144,10 +138,10 @@ describe("Integration Scenario - Dashboard Usage", () => {
         clone: function () {
           return this;
         },
-        headers: new Headers({ "content-type": "application/json" }),
+        headers: new Headers({"content-type": "application/json"}),
       }) as any;
 
-      initClient({ apiUrl });
+      initClient({apiUrl});
       await new Promise((resolve) => setTimeout(resolve, 10));
 
       await loginWithEmail("test@example.com", "Password123!");

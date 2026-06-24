@@ -1,7 +1,7 @@
-import { HTTP_STATUS } from "../constants";
-import { ApiError, type ApiRequestConfig } from "./types";
-import { baseFetch } from "./base";
-import { createKyInstance } from "./client-core";
+import {HTTP_STATUS} from "../constants";
+import {ApiError, type ApiRequestConfig} from "./types";
+import {baseFetch} from "./base";
+import {createKyInstance} from "./client-core";
 
 /**
  * Makes an authenticated API request using ky.
@@ -10,7 +10,7 @@ import { createKyInstance } from "./client-core";
 export const authenticatedFetch = async <T>(
   endpoint: string,
   getTokenFn: () => Promise<string | undefined>,
-  config: ApiRequestConfig = {},
+  config: ApiRequestConfig = {}
 ): Promise<T> => {
   return baseFetch<T>(endpoint, config, async () => {
     const token = await getTokenFn();
