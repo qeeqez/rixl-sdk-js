@@ -1,7 +1,7 @@
 {
   "name": "@rixl/sdk",
-  "version": "0.4.1",
-  "description": "Official TypeScript/JavaScript SDK for the Rixl REST API — typed client for managing images, videos, and feeds.",
+  "version": "0.5.0",
+  "description": "Official TypeScript/JavaScript SDK for the Rixl platform — typed API client, authentication, and reactive state.",
   "keywords": [
     "media",
     "rixl",
