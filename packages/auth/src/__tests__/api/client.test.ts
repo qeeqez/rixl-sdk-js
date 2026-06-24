@@ -4,7 +4,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { authenticatedFetch, publicFetch } from "../../api/fetchers";
+import { authenticatedFetch } from "../../api/fetchers";
 import { setTokenRefreshFunction } from "../../api/client-core";
 import { handleApiError, err, commonErrors } from "../../api/error-handlers";
 import { ApiError } from "../../api/types";
@@ -177,66 +177,6 @@ describe("API Client Module", () => {
       expect(mockBaseFetch).toHaveBeenCalledWith(
         "items",
         expect.objectContaining({ method: "POST", body }),
-        expect.any(Function),
-      );
-    });
-  });
-
-  describe("publicFetch", () => {
-    it("should make public request successfully", async () => {
-      const mockResponse = { message: "Public data" };
-      mockBaseFetch.mockResolvedValue(mockResponse);
-
-      const result = await publicFetch("public/info");
-
-      expect(mockBaseFetch).toHaveBeenCalledWith("public/info", {}, expect.any(Function));
-      expect(result).toEqual(mockResponse);
-    });
-
-    it("should pass config to baseFetch", async () => {
-      mockBaseFetch.mockResolvedValue({ success: true });
-
-      const config = { method: "POST" as const, body: { email: "test@example.com" } };
-      await publicFetch("newsletter/subscribe", config);
-
-      expect(mockBaseFetch).toHaveBeenCalledWith(
-        "newsletter/subscribe",
-        config,
-        expect.any(Function),
-      );
-    });
-
-    it("should work without authentication", async () => {
-      mockBaseFetch.mockResolvedValue({ public: true });
-
-      const result = await publicFetch("health");
-
-      expect(result).toEqual({ public: true });
-    });
-
-    it("should handle GET requests", async () => {
-      mockBaseFetch.mockResolvedValue([{ id: 1 }, { id: 2 }]);
-
-      await publicFetch("public/list", { method: "GET" });
-
-      expect(mockBaseFetch).toHaveBeenCalledWith(
-        "public/list",
-        expect.objectContaining({ method: "GET" }),
-        expect.any(Function),
-      );
-    });
-
-    it("should handle POST requests", async () => {
-      mockBaseFetch.mockResolvedValue({ submitted: true });
-
-      await publicFetch("public/submit", {
-        method: "POST",
-        body: { data: "test" },
-      });
-
-      expect(mockBaseFetch).toHaveBeenCalledWith(
-        "public/submit",
-        expect.objectContaining({ method: "POST" }),
         expect.any(Function),
       );
     });

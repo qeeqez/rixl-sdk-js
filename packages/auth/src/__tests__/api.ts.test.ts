@@ -1,43 +1,18 @@
-/**
- * API module tests
- * Tests: apiURL, refreshTokens
- */
-
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { refreshTokens } from "../api/refresh-tokens";
 import { apiURL } from "../api-url";
 import { AuthProvider } from "@/providers";
-import { ApiError } from "../api/types";
 
-// Mock API fetchers
-vi.mock("../api/fetchers", () => ({
-  publicFetch: vi.fn(),
-}));
+const mockPostAuthV1Token = vi.fn();
 
-// Mock API types
-vi.mock("../api/types", () => ({
-  ApiError: class ApiError extends Error {
-    constructor(
-      public message: string,
-      public status: number,
-      public endpoint: string,
-      public data?: any,
-    ) {
-      super(message);
-      this.name = "ApiError";
-    }
-  },
+vi.mock("@rixl/sdk", () => ({
+  postAuthV1Token: (...args: unknown[]) => mockPostAuthV1Token(...args),
 }));
 
 describe("API Module", () => {
-  let mockPublicFetch: any;
-
-  beforeEach(async () => {
+  beforeEach(() => {
     vi.clearAllMocks();
-    const fetchers = await import("../api/fetchers");
-    mockPublicFetch = fetchers.publicFetch;
-
-    // Set a test API URL
+    mockPostAuthV1Token.mockReset();
     apiURL.set("https://api.example.com");
   });
 
@@ -64,31 +39,27 @@ describe("API Module", () => {
         expires_in: 3600,
       };
 
-      mockPublicFetch.mockResolvedValue(mockResponse);
+      mockPostAuthV1Token.mockResolvedValue({ data: mockResponse });
 
       const result = await refreshTokens(AuthProvider.BEARER, "old-refresh-token");
 
-      expect(mockPublicFetch).toHaveBeenCalledWith("token", {
-        method: "POST",
+      expect(mockPostAuthV1Token).toHaveBeenCalledWith({
         headers: { Authorization: "Bearer old-refresh-token" },
+        throwOnError: true,
       });
       expect(result).toEqual(mockResponse);
     });
 
     it("should handle 401 unauthorized error", async () => {
-      mockPublicFetch.mockRejectedValue(new ApiError("Unauthorized", 401, "token"));
+      mockPostAuthV1Token.mockRejectedValue({ error: "unauthorized", code: 401 });
 
-      await expect(refreshTokens(AuthProvider.BEARER, "invalid-token")).rejects.toThrow(
-        "Unauthorized",
-      );
+      await expect(refreshTokens(AuthProvider.BEARER, "invalid-token")).rejects.toThrow();
     });
 
     it("should propagate errors (no side effects in this function)", async () => {
-      mockPublicFetch.mockRejectedValue(new ApiError("Refresh token expired", 400, "token"));
+      mockPostAuthV1Token.mockRejectedValue({ error: "bad_request", code: 400 });
 
-      await expect(refreshTokens(AuthProvider.BEARER, "expired-token")).rejects.toThrow(
-        "Refresh token expired",
-      );
+      await expect(refreshTokens(AuthProvider.BEARER, "expired-token")).rejects.toThrow();
     });
 
     it("should work with different providers", async () => {
@@ -98,20 +69,18 @@ describe("API Module", () => {
         expires_in: 7200,
       };
 
-      mockPublicFetch.mockResolvedValue(mockResponse);
+      mockPostAuthV1Token.mockResolvedValue({ data: mockResponse });
 
       await refreshTokens(AuthProvider.GOOGLE, "google-token");
 
-      expect(mockPublicFetch).toHaveBeenCalledWith(
-        "token",
-        expect.objectContaining({
-          headers: { Authorization: "google google-token" },
-        }),
-      );
+      expect(mockPostAuthV1Token).toHaveBeenCalledWith({
+        headers: { Authorization: "google google-token" },
+        throwOnError: true,
+      });
     });
 
     it("should handle network errors", async () => {
-      mockPublicFetch.mockRejectedValue(new Error("Network error"));
+      mockPostAuthV1Token.mockRejectedValue(new Error("Network error"));
 
       await expect(refreshTokens(AuthProvider.BEARER, "token")).rejects.toThrow("Network error");
     });
@@ -123,7 +92,7 @@ describe("API Module", () => {
         expires_in: 1800,
       };
 
-      mockPublicFetch.mockResolvedValue(mockResponse);
+      mockPostAuthV1Token.mockResolvedValue({ data: mockResponse });
 
       const result = await refreshTokens(AuthProvider.BEARER, "token");
 

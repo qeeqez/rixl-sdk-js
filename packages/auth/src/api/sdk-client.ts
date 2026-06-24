@@ -15,6 +15,9 @@ export function configureSdkClient(): void {
   });
 
   client.interceptors.request.use(async (request) => {
+    if (request.headers.has("Authorization")) {
+      return request;
+    }
     const token = await getToken();
     if (token) {
       request.headers.set("Authorization", `Bearer ${token}`);

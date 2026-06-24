@@ -1,105 +1,106 @@
-/**
- * Organization management tests
- * Tests: updateOrgName, updateOrgUsername
- */
-
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { updateOrgName, updateOrgUsername } from "../organization";
+import * as initialization from "../initialization";
 
-vi.mock("../utils/nameUpdates", () => ({
-  updateEntityField: vi.fn(),
+const mockPutAuthV1MembershipsByOrgIdName = vi.fn();
+const mockPutAuthV1MembershipsByOrgIdUsername = vi.fn();
+
+vi.mock("@rixl/sdk", () => ({
+  putAuthV1MembershipsByOrgIdName: (...args: unknown[]) =>
+    mockPutAuthV1MembershipsByOrgIdName(...args),
+  putAuthV1MembershipsByOrgIdUsername: (...args: unknown[]) =>
+    mockPutAuthV1MembershipsByOrgIdUsername(...args),
 }));
 
 describe("Organization Management", () => {
-  let mockUpdateEntityField: any;
-
-  beforeEach(async () => {
+  beforeEach(() => {
     vi.clearAllMocks();
-    const nameUpdatesModule = await import("../utils/nameUpdates");
-    mockUpdateEntityField = nameUpdatesModule.updateEntityField;
+    initialization.initDeferred.promise = Promise.resolve();
+    mockPutAuthV1MembershipsByOrgIdName.mockReset();
+    mockPutAuthV1MembershipsByOrgIdUsername.mockReset();
   });
 
   describe("updateOrgName", () => {
-    it("should call updateEntityField with correct parameters", async () => {
-      mockUpdateEntityField.mockResolvedValue(undefined);
+    it("should update org name successfully", async () => {
+      mockPutAuthV1MembershipsByOrgIdName.mockResolvedValue({ data: {} });
 
       await updateOrgName("New Org Name", "org123");
 
-      expect(mockUpdateEntityField).toHaveBeenCalledWith({
-        value: "New Org Name",
-        type: "name",
-        endpoint: "memberships/org123/name",
-        method: "PUT",
+      expect(mockPutAuthV1MembershipsByOrgIdName).toHaveBeenCalledWith({
+        path: { orgId: "org123" },
+        body: { full_name: "New Org Name" },
+        throwOnError: true,
       });
     });
 
     it("should handle valid organization names", async () => {
-      mockUpdateEntityField.mockResolvedValue(undefined);
+      mockPutAuthV1MembershipsByOrgIdName.mockResolvedValue({ data: {} });
 
       await expect(updateOrgName("Valid Organization", "org456")).resolves.toBeUndefined();
-      expect(mockUpdateEntityField).toHaveBeenCalledTimes(1);
     });
 
-    it("should pass through errors from updateEntityField", async () => {
-      const error = new Error("Name update failed");
-      mockUpdateEntityField.mockRejectedValue(error);
+    it("should handle errors", async () => {
+      mockPutAuthV1MembershipsByOrgIdName.mockRejectedValue({ error: "unauthorized", code: 401 });
 
-      await expect(updateOrgName("Test Org", "org789")).rejects.toThrow("Name update failed");
+      await expect(updateOrgName("Test Org", "org789")).rejects.toThrow();
     });
 
     it("should handle different organization IDs", async () => {
-      mockUpdateEntityField.mockResolvedValue(undefined);
+      mockPutAuthV1MembershipsByOrgIdName.mockResolvedValue({ data: {} });
 
       await updateOrgName("Org Name", "org-abc-123");
 
-      expect(mockUpdateEntityField).toHaveBeenCalledWith(
-        expect.objectContaining({
-          endpoint: "memberships/org-abc-123/name",
-        }),
-      );
+      expect(mockPutAuthV1MembershipsByOrgIdName).toHaveBeenCalledWith({
+        path: { orgId: "org-abc-123" },
+        body: { full_name: "Org Name" },
+        throwOnError: true,
+      });
+    });
+
+    it("should validate name format", async () => {
+      await expect(updateOrgName("", "org123")).rejects.toThrow();
     });
   });
 
   describe("updateOrgUsername", () => {
-    it("should call updateEntityField with correct parameters", async () => {
-      mockUpdateEntityField.mockResolvedValue(undefined);
+    it("should update org username successfully", async () => {
+      mockPutAuthV1MembershipsByOrgIdUsername.mockResolvedValue({ data: {} });
 
       await updateOrgUsername("neworgusername", "org123");
 
-      expect(mockUpdateEntityField).toHaveBeenCalledWith({
-        value: "neworgusername",
-        type: "username",
-        endpoint: "memberships/org123/username",
-        method: "PUT",
+      expect(mockPutAuthV1MembershipsByOrgIdUsername).toHaveBeenCalledWith({
+        path: { orgId: "org123" },
+        body: { username: "neworgusername" },
+        throwOnError: true,
       });
     });
 
     it("should handle valid organization usernames", async () => {
-      mockUpdateEntityField.mockResolvedValue(undefined);
+      mockPutAuthV1MembershipsByOrgIdUsername.mockResolvedValue({ data: {} });
 
       await expect(updateOrgUsername("valid_org_user", "org456")).resolves.toBeUndefined();
-      expect(mockUpdateEntityField).toHaveBeenCalledTimes(1);
     });
 
-    it("should pass through errors from updateEntityField", async () => {
-      const error = new Error("Username already taken");
-      mockUpdateEntityField.mockRejectedValue(error);
+    it("should handle errors", async () => {
+      mockPutAuthV1MembershipsByOrgIdUsername.mockRejectedValue({ error: "conflict", code: 409 });
 
-      await expect(updateOrgUsername("takenusername", "org789")).rejects.toThrow(
-        "Username already taken",
-      );
+      await expect(updateOrgUsername("takenusername", "org789")).rejects.toThrow();
     });
 
     it("should handle different organization IDs", async () => {
-      mockUpdateEntityField.mockResolvedValue(undefined);
+      mockPutAuthV1MembershipsByOrgIdUsername.mockResolvedValue({ data: {} });
 
       await updateOrgUsername("orguser", "org-xyz-789");
 
-      expect(mockUpdateEntityField).toHaveBeenCalledWith(
-        expect.objectContaining({
-          endpoint: "memberships/org-xyz-789/username",
-        }),
-      );
+      expect(mockPutAuthV1MembershipsByOrgIdUsername).toHaveBeenCalledWith({
+        path: { orgId: "org-xyz-789" },
+        body: { username: "orguser" },
+        throwOnError: true,
+      });
+    });
+
+    it("should validate username format", async () => {
+      await expect(updateOrgUsername("ab", "org123")).rejects.toThrow();
     });
   });
 });

@@ -5,7 +5,7 @@
 
 import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
 import { setTokenRefreshFunction } from "../../api/client-core";
-import { authenticatedFetch, publicFetch } from "../../api/fetchers";
+import { authenticatedFetch } from "../../api/fetchers";
 import { apiURL } from "../../api-url";
 
 describe("API Client - Token Refresh and Retry Logic", () => {
@@ -69,28 +69,6 @@ describe("API Client - Token Refresh and Retry Logic", () => {
       } catch {
         // Expected to fail, but getToken should be called
         expect(mockGetToken).toHaveBeenCalled();
-      }
-    });
-  });
-
-  describe("publicFetch", () => {
-    it("should make requests without authentication", async () => {
-      // publicFetch should not require authentication
-      try {
-        await publicFetch("/public-endpoint", { method: "GET" });
-      } catch {
-        // Expected to fail in test env, but no auth error
-      }
-    });
-
-    it("should accept request configuration", async () => {
-      try {
-        await publicFetch("/public", {
-          method: "POST",
-          body: { data: "test" },
-        });
-      } catch {
-        // Expected to fail, but config is accepted
       }
     });
   });
