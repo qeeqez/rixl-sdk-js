@@ -31,12 +31,10 @@ export default defineConfig({
       },
     },
     include: ["packages/**/*.{test,spec}.{js,ts}"],
-    exclude: ["packages/auth/**", "packages/react/**", "node_modules/**"],
   },
   resolve: {
     alias: {
       "@": resolve(__dirname, "./packages/sdk/src/auth"),
-      "@core": resolve(__dirname, "./packages/sdk/src/auth"),
     },
   },
 });
