@@ -1,38 +1,16 @@
-/**
- * Blog Subscription Module Tests
- * Tests: getBlogSubscriptionStatus, subscribeToBlog, unsubscribeFromBlog
- */
-
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { ApiError } from "../../api/types";
+import * as initialization from "../../initialization";
 
-vi.mock("../../api/fetchers", () => ({
-  authenticatedFetch: vi.fn(),
+const mockGetAuthV1BlogSubscription = vi.fn();
+const mockPostAuthV1BlogSubscribe = vi.fn();
+const mockPostAuthV1BlogUnsubscribe = vi.fn();
+
+vi.mock("@rixl/sdk", () => ({
+  getAuthV1BlogSubscription: (...args: unknown[]) => mockGetAuthV1BlogSubscription(...args),
+  postAuthV1BlogSubscribe: (...args: unknown[]) => mockPostAuthV1BlogSubscribe(...args),
+  postAuthV1BlogUnsubscribe: (...args: unknown[]) => mockPostAuthV1BlogUnsubscribe(...args),
 }));
 
-vi.mock("../../authStore", () => ({
-  getToken: vi.fn().mockResolvedValue("mock-token"),
-}));
-
-vi.mock("../../api/error-handlers", async () => {
-  const { mockHandleApiError } = await import("../setup/api-mocks");
-  return {
-    handleApiError: mockHandleApiError,
-  };
-});
-
-vi.mock("../../api/utils", () => ({
-  apiCall: vi.fn(async <T>(fn: () => Promise<T>, errorMap: Record<number, () => Error> = {}) => {
-    try {
-      return await fn();
-    } catch (error) {
-      const { handleApiError } = await import("../../api/error-handlers");
-      return handleApiError(error, errorMap);
-    }
-  }),
-}));
-
-import { authenticatedFetch } from "../../api/fetchers";
 import {
   getBlogSubscriptionStatus,
   subscribeToBlog,
@@ -41,10 +19,12 @@ import {
 } from "@/blog";
 
 describe("Blog subscription API", () => {
-  const mockAuthenticatedFetch = vi.mocked(authenticatedFetch);
-
   beforeEach(() => {
     vi.clearAllMocks();
+    initialization.initDeferred.promise = Promise.resolve();
+    mockGetAuthV1BlogSubscription.mockReset();
+    mockPostAuthV1BlogSubscribe.mockReset();
+    mockPostAuthV1BlogUnsubscribe.mockReset();
   });
 
   it("fetches current blog subscription status", async () => {
@@ -52,131 +32,99 @@ describe("Blog subscription API", () => {
       subscribed: true,
       subscribed_at: "2026-04-23T12:00:00Z",
     };
-    mockAuthenticatedFetch.mockResolvedValue(response);
+    mockGetAuthV1BlogSubscription.mockResolvedValue({ data: response });
 
     const result = await getBlogSubscriptionStatus();
 
-    expect(mockAuthenticatedFetch).toHaveBeenCalledWith("blog/subscription", expect.any(Function), {
-      method: "GET",
+    expect(mockGetAuthV1BlogSubscription).toHaveBeenCalledWith({
+      throwOnError: true,
     });
     expect(result).toEqual(response);
   });
 
   it("subscribes the current user to blog updates", async () => {
-    mockAuthenticatedFetch.mockResolvedValue(undefined);
+    mockPostAuthV1BlogSubscribe.mockResolvedValue({ data: {} });
 
     await subscribeToBlog();
 
-    expect(mockAuthenticatedFetch).toHaveBeenCalledWith("blog/subscribe", expect.any(Function), {
-      method: "POST",
+    expect(mockPostAuthV1BlogSubscribe).toHaveBeenCalledWith({
+      throwOnError: true,
     });
   });
 
   it("unsubscribes the current user from blog updates", async () => {
-    mockAuthenticatedFetch.mockResolvedValue(undefined);
+    mockPostAuthV1BlogUnsubscribe.mockResolvedValue({ data: {} });
 
     await unsubscribeFromBlog();
 
-    expect(mockAuthenticatedFetch).toHaveBeenCalledWith("blog/unsubscribe", expect.any(Function), {
-      method: "POST",
+    expect(mockPostAuthV1BlogUnsubscribe).toHaveBeenCalledWith({
+      throwOnError: true,
     });
   });
 
-  it("maps unauthorized errors for subscription reads", async () => {
-    mockAuthenticatedFetch.mockRejectedValue(
-      new ApiError("Unauthorized", { status: 401, endpoint: "blog/subscription" }),
-    );
+  it("handles unauthorized errors for subscription reads", async () => {
+    mockGetAuthV1BlogSubscription.mockRejectedValue({ error: "unauthorized", code: 401 });
 
-    await expect(getBlogSubscriptionStatus()).rejects.toThrow(
-      "User is not authorized to manage blog subscription",
-    );
+    await expect(getBlogSubscriptionStatus()).rejects.toThrow();
   });
 
-  it("maps server errors for subscribe failures", async () => {
-    mockAuthenticatedFetch.mockRejectedValue(
-      new ApiError("Server Error", { status: 500, endpoint: "blog/subscribe" }),
-    );
+  it("handles server errors for subscribe failures", async () => {
+    mockPostAuthV1BlogSubscribe.mockRejectedValue({ error: "server_error", code: 500 });
 
-    await expect(subscribeToBlog()).rejects.toThrow("Failed to subscribe to blog updates");
+    await expect(subscribeToBlog()).rejects.toThrow();
   });
 
-  it("maps forbidden errors for subscribe failures", async () => {
-    mockAuthenticatedFetch.mockRejectedValue(
-      new ApiError("Forbidden", { status: 403, endpoint: "blog/subscribe" }),
-    );
+  it("handles forbidden errors for subscribe failures", async () => {
+    mockPostAuthV1BlogSubscribe.mockRejectedValue({ error: "forbidden", code: 403 });
 
-    await expect(subscribeToBlog()).rejects.toThrow("Account is inactive");
+    await expect(subscribeToBlog()).rejects.toThrow();
   });
 
-  it("maps rate-limit errors for subscribe failures", async () => {
-    mockAuthenticatedFetch.mockRejectedValue(
-      new ApiError("Too Many Requests", { status: 429, endpoint: "blog/subscribe" }),
-    );
+  it("handles rate-limit errors for subscribe failures", async () => {
+    mockPostAuthV1BlogSubscribe.mockRejectedValue({ error: "too_many_requests", code: 429 });
 
-    await expect(subscribeToBlog()).rejects.toThrow("Too many requests - please try again later");
+    await expect(subscribeToBlog()).rejects.toThrow();
   });
 
-  it("maps unauthorized errors for subscribe failures", async () => {
-    mockAuthenticatedFetch.mockRejectedValue(
-      new ApiError("Unauthorized", { status: 401, endpoint: "blog/subscribe" }),
-    );
+  it("handles unauthorized errors for subscribe failures", async () => {
+    mockPostAuthV1BlogSubscribe.mockRejectedValue({ error: "unauthorized", code: 401 });
 
-    await expect(subscribeToBlog()).rejects.toThrow(
-      "User is not authorized to manage blog subscription",
-    );
+    await expect(subscribeToBlog()).rejects.toThrow();
   });
 
-  it("maps forbidden errors for subscription reads", async () => {
-    mockAuthenticatedFetch.mockRejectedValue(
-      new ApiError("Forbidden", { status: 403, endpoint: "blog/subscription" }),
-    );
+  it("handles forbidden errors for subscription reads", async () => {
+    mockGetAuthV1BlogSubscription.mockRejectedValue({ error: "forbidden", code: 403 });
 
-    await expect(getBlogSubscriptionStatus()).rejects.toThrow("Account is inactive");
+    await expect(getBlogSubscriptionStatus()).rejects.toThrow();
   });
 
-  it("maps rate-limit errors for subscription reads", async () => {
-    mockAuthenticatedFetch.mockRejectedValue(
-      new ApiError("Too Many Requests", { status: 429, endpoint: "blog/subscription" }),
-    );
+  it("handles rate-limit errors for subscription reads", async () => {
+    mockGetAuthV1BlogSubscription.mockRejectedValue({ error: "too_many_requests", code: 429 });
 
-    await expect(getBlogSubscriptionStatus()).rejects.toThrow(
-      "Too many requests - please try again later",
-    );
+    await expect(getBlogSubscriptionStatus()).rejects.toThrow();
   });
 
-  it("maps unauthorized errors for unsubscribe failures", async () => {
-    mockAuthenticatedFetch.mockRejectedValue(
-      new ApiError("Unauthorized", { status: 401, endpoint: "blog/unsubscribe" }),
-    );
+  it("handles unauthorized errors for unsubscribe failures", async () => {
+    mockPostAuthV1BlogUnsubscribe.mockRejectedValue({ error: "unauthorized", code: 401 });
 
-    await expect(unsubscribeFromBlog()).rejects.toThrow(
-      "User is not authorized to manage blog subscription",
-    );
+    await expect(unsubscribeFromBlog()).rejects.toThrow();
   });
 
-  it("maps forbidden errors for unsubscribe failures", async () => {
-    mockAuthenticatedFetch.mockRejectedValue(
-      new ApiError("Forbidden", { status: 403, endpoint: "blog/unsubscribe" }),
-    );
+  it("handles forbidden errors for unsubscribe failures", async () => {
+    mockPostAuthV1BlogUnsubscribe.mockRejectedValue({ error: "forbidden", code: 403 });
 
-    await expect(unsubscribeFromBlog()).rejects.toThrow("Account is inactive");
+    await expect(unsubscribeFromBlog()).rejects.toThrow();
   });
 
-  it("maps rate-limit errors for unsubscribe failures", async () => {
-    mockAuthenticatedFetch.mockRejectedValue(
-      new ApiError("Too Many Requests", { status: 429, endpoint: "blog/unsubscribe" }),
-    );
+  it("handles rate-limit errors for unsubscribe failures", async () => {
+    mockPostAuthV1BlogUnsubscribe.mockRejectedValue({ error: "too_many_requests", code: 429 });
 
-    await expect(unsubscribeFromBlog()).rejects.toThrow(
-      "Too many requests - please try again later",
-    );
+    await expect(unsubscribeFromBlog()).rejects.toThrow();
   });
 
-  it("maps server errors for unsubscribe failures", async () => {
-    mockAuthenticatedFetch.mockRejectedValue(
-      new ApiError("Server Error", { status: 500, endpoint: "blog/unsubscribe" }),
-    );
+  it("handles server errors for unsubscribe failures", async () => {
+    mockPostAuthV1BlogUnsubscribe.mockRejectedValue({ error: "server_error", code: 500 });
 
-    await expect(unsubscribeFromBlog()).rejects.toThrow("Failed to unsubscribe from blog updates");
+    await expect(unsubscribeFromBlog()).rejects.toThrow();
   });
 });

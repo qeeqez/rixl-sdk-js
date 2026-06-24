@@ -1,6 +1,9 @@
-import { authenticatedFetch } from "../api/fetchers";
+import {
+  getAuthV1BlogSubscription,
+  postAuthV1BlogSubscribe,
+  postAuthV1BlogUnsubscribe,
+} from "@rixl/sdk";
 import { apiCall } from "../api/utils";
-import { getToken } from "../authStore";
 import { HTTP_STATUS } from "../constants";
 
 export interface BlogSubscriptionStatus {
@@ -16,16 +19,19 @@ const BLOG_SUBSCRIPTION_ERRORS = {
 
 export const getBlogSubscriptionStatus = async (): Promise<BlogSubscriptionStatus> => {
   return apiCall(async () => {
-    return await authenticatedFetch<BlogSubscriptionStatus>("blog/subscription", getToken, {
-      method: "GET",
+    const { data } = await getAuthV1BlogSubscription({
+      throwOnError: true,
     });
+    return data as unknown as BlogSubscriptionStatus;
   }, BLOG_SUBSCRIPTION_ERRORS);
 };
 
 export const subscribeToBlog = async (): Promise<void> => {
   return apiCall(
     async () => {
-      await authenticatedFetch<void>("blog/subscribe", getToken, { method: "POST" });
+      await postAuthV1BlogSubscribe({
+        throwOnError: true,
+      });
     },
     {
       ...BLOG_SUBSCRIPTION_ERRORS,
@@ -37,7 +43,9 @@ export const subscribeToBlog = async (): Promise<void> => {
 export const unsubscribeFromBlog = async (): Promise<void> => {
   return apiCall(
     async () => {
-      await authenticatedFetch<void>("blog/unsubscribe", getToken, { method: "POST" });
+      await postAuthV1BlogUnsubscribe({
+        throwOnError: true,
+      });
     },
     {
       ...BLOG_SUBSCRIPTION_ERRORS,
