@@ -1,7 +1,7 @@
 import {getToken, refreshToken, authError, setTokens, setLimitedAccessState, clearLimitedAccessState} from "./authStore";
 import {ApiError} from "./api/types";
 import {HTTP_STATUS} from "./constants";
-import type {TokenResponse, LimitedScopeTokenResponse} from "./types";
+import type {TokenResponse, LimitedScopeTokenResponse, RequiresAction} from "./types";
 import type {LoginErrorCode} from "./auth/types";
 import {apiURL} from "./api-url";
 import {refreshTokens} from "./api/refresh-tokens";
@@ -110,7 +110,7 @@ const isLimitedScopeTokenResponse = (result: TokenResponse | LimitedScopeTokenRe
 
 const applyTokenExchangeResult = (result: TokenResponse | LimitedScopeTokenResponse): void => {
   if (isLimitedScopeTokenResponse(result)) {
-    setLimitedAccessState(result.access_token, result.requires_action);
+    setLimitedAccessState(result.access_token, result.requires_action as RequiresAction);
     return;
   }
 

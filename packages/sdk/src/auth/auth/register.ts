@@ -31,7 +31,6 @@ export const registerWithEmail = async (
     },
     {
       [HTTP_STATUS.CONFLICT]: () => new Error("Email address is already registered"),
-      [HTTP_STATUS.BAD_REQUEST]: () => new Error("Password is too short (minimum 8 characters)"),
     }
   );
 };
@@ -53,8 +52,7 @@ export const resendEmailVerificationCode = async (email: string): Promise<void |
       }
     },
     {
-      [HTTP_STATUS.BAD_REQUEST]: () => new Error("Bad request - invalid email or validation error"),
-      [HTTP_STATUS.NOT_FOUND]: () => new Error("User not found with the provided email"),
+      [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid email or validation error"),
       [HTTP_STATUS.TOO_MANY_REQUESTS]: () => new Error("Too many requests - rate limit exceeded"),
     }
   );

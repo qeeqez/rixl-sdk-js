@@ -15,9 +15,8 @@ export const updateOrgName = async (fullName: string, orgId: string): Promise<vo
       });
     },
     {
-      [HTTP_STATUS.TOO_MANY_REQUESTS]: () => new Error("Name can only be changed once every 7 days."),
-      [HTTP_STATUS.UNAUTHORIZED]: () => new Error("User is not authorized to update name"),
       [HTTP_STATUS.FORBIDDEN]: () => new Error("Only owners and admins can update name"),
+      [HTTP_STATUS.TOO_MANY_REQUESTS]: () => new Error("Name can only be changed once every 7 days."),
     }
   );
 };
@@ -33,10 +32,9 @@ export const updateOrgUsername = async (username: string, orgId: string): Promis
       });
     },
     {
-      [HTTP_STATUS.TOO_MANY_REQUESTS]: () => new Error("Username can only be changed once every 30 days."),
-      [HTTP_STATUS.CONFLICT]: () => new Error("Username is not unique. Choose another one!"),
-      [HTTP_STATUS.UNAUTHORIZED]: () => new Error("User is not authorized to update username"),
       [HTTP_STATUS.FORBIDDEN]: () => new Error("Only owners and admins can update username"),
+      [HTTP_STATUS.CONFLICT]: () => new Error("Username is not unique. Choose another one!"),
+      [HTTP_STATUS.TOO_MANY_REQUESTS]: () => new Error("Username can only be changed once every 30 days."),
     }
   );
 };

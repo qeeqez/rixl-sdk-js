@@ -15,29 +15,26 @@ export enum MembershipState {
   DECLINE = "decline",
 }
 
-// Membership type
 export interface Common {
+  id: string;
   user_id: string;
   org_id: string;
   role: MembershipRole;
   state: MembershipState;
+  joined_at?: string;
 }
 
-// Membership with organization details
 export interface Membership extends Common {
   organization_username: string;
   organization_first_name: string;
   organization_last_name: string;
 }
 
-// Member type with user details
 export interface Member extends Common {
   username: string;
   first_name: string;
   last_name: string;
-  image_url: string;
-  created_at: string;
-  joined_at: string;
+  invitation_expires_at?: string;
 }
 
 // Invite member request

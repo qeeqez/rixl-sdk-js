@@ -149,10 +149,6 @@ export type Analyticsv1TrackEventsRequest = {
   user_id?: string;
 };
 
-export type Analyticsv1TrackEventsResponse = {
-  status?: string;
-};
-
 export type Analyticsv1VideoHeatmap = {
   data?: Array<number>;
   total_duration_ms?: number;
@@ -239,6 +235,10 @@ export type Authv1EmailStatusResponse = {
   verified?: boolean;
 };
 
+export type Authv1GetInternalMembershipInfoResponse = {
+  email?: string;
+};
+
 export type Authv1ListAttachmentsResponse = {
   attachments?: Array<Authv1PolicyAttachment>;
 };
@@ -299,10 +299,6 @@ export type Authv1MembershipMutation = {
   user_id?: string;
 };
 
-export type Authv1MessageResponse = {
-  message?: string;
-};
-
 export type Authv1OtpStatusResponse = {
   created_at?: string;
   is_setup?: boolean;
@@ -341,6 +337,15 @@ export type Authv1PasskeyBeginResponse = {
 export type Authv1PasskeyRegisterFinishResponse = {
   name?: string;
   passkey_id?: string;
+};
+
+export type Authv1PermissionOffset = {
+  name?: string;
+  offset?: number;
+};
+
+export type Authv1PermissionRegistryResponse = {
+  permissions?: Array<Authv1PermissionOffset>;
 };
 
 export type Authv1Policy = {
@@ -382,6 +387,12 @@ export type Authv1ResendVerificationResponse = {
   code_sent?: boolean;
   message?: string;
   verification_id?: string;
+};
+
+export type Authv1SendBlogBroadcastResponse = {
+  broadcast_id?: string;
+  scheduled_at?: string;
+  sent_at?: string;
 };
 
 export type Authv1SetupOtpResponse = {
@@ -446,11 +457,6 @@ export type Authv1VerifyEmailResponse = {
   verified?: boolean;
 };
 
-export type Billingv1BandwidthJobResponse = {
-  message?: string;
-  status?: string;
-};
-
 export type Billingv1BandwidthUsage = {
   created_at?: string;
   data_source?: string;
@@ -478,10 +484,6 @@ export type Billingv1BillingAddress = {
   state?: string;
 };
 
-export type Billingv1CancelSubscriptionResponse = {
-  message?: string;
-};
-
 export type Billingv1CreateSubscriptionResponse = {
   cancel_at_period_end?: boolean;
   current_period_end?: string;
@@ -491,10 +493,6 @@ export type Billingv1CreateSubscriptionResponse = {
   status?: string;
   stripe_customer_id?: string;
   stripe_subscription_id?: string;
-};
-
-export type Billingv1DeletePaymentMethodResponse = {
-  [key: string]: unknown;
 };
 
 export type Billingv1GetBandwidthUsageHistoryResponse = {
@@ -606,14 +604,6 @@ export type Billingv1PlanTaxCalculationResponse = {
   tax_percentage?: number;
 };
 
-export type Billingv1ProcessStripeWebhookResponse = {
-  status?: string;
-};
-
-export type Billingv1ReactivateSubscriptionResponse = {
-  message?: string;
-};
-
 export type Billingv1SalesLead = {
   company?: string;
   created_at?: string;
@@ -684,7 +674,6 @@ export type Billingv1SubscriptionHistoryItem = {
 
 export type Billingv1UpgradeSubscriptionResponse = {
   client_secret?: string;
-  status?: string;
 };
 
 export type Clientauthv1ClientCredential = {
@@ -931,6 +920,16 @@ export type GatewayResetPasswordBody = {
   token: string;
 };
 
+export type GatewaySendBlogBroadcastBody = {
+  category?: string;
+  commit_sha?: string;
+  description: string;
+  published_at?: string;
+  read_more_url: string;
+  slug?: string;
+  title: string;
+};
+
 export type GatewayTaxLineItemBody = {
   amount?: number;
   reference?: string;
@@ -943,6 +942,11 @@ export type GatewayTrackUploadItem = {
   label?: string;
   language_code: string;
   size?: number;
+};
+
+export type GatewayUnsubscribeBlogByEmailBody = {
+  email: string;
+  user_id: string;
 };
 
 export type GatewayUpdateChaptersBody = {
@@ -1002,12 +1006,22 @@ export type Imagesv1DeleteResult = {
 };
 
 export type Imagesv1GetImageResponse = {
-  format?: string;
+  attached_to_video?: boolean;
+  file?: Imagesv1ImageFile;
   height?: number;
   id?: string;
-  size?: number;
   thumbhash?: string;
   width?: number;
+};
+
+export type Imagesv1ImageFile = {
+  format?: string;
+  id?: string;
+  name?: string;
+  project_id?: string;
+  size?: number;
+  status?: string;
+  url?: string;
 };
 
 export type Imagesv1ImageSummary = {
@@ -1018,6 +1032,7 @@ export type Imagesv1ImageSummary = {
   name?: string;
   size?: number;
   thumbhash?: string;
+  url?: string;
   width?: number;
 };
 
@@ -1047,9 +1062,30 @@ export type Postsv1Post = {
   description?: string;
   feed_id?: string;
   id?: string;
+  image?: Postsv1PostImage;
   image_id?: string;
   type?: string;
+  video?: Postsv1PostVideo;
   video_id?: string;
+};
+
+export type Postsv1PostFile = {
+  format?: string;
+  id?: string;
+  name?: string;
+  project_id?: string;
+  size?: number;
+  status?: string;
+  url?: string;
+};
+
+export type Postsv1PostImage = {
+  attached_to_video?: boolean;
+  file?: Postsv1PostFile;
+  height?: number;
+  id?: string;
+  thumbhash?: string;
+  width?: number;
 };
 
 export type Postsv1PostUploadInit = {
@@ -1059,6 +1095,19 @@ export type Postsv1PostUploadInit = {
   poster_id?: string;
   poster_upload_url?: string;
   upload_expires?: number;
+};
+
+export type Postsv1PostVideo = {
+  bitrate?: number;
+  codec?: string;
+  duration?: number;
+  file?: Postsv1PostFile;
+  framerate?: string;
+  hdr?: boolean;
+  height?: number;
+  id?: string;
+  poster?: Postsv1PostImage;
+  width?: number;
 };
 
 export type Projectsv1ListProjectsResponse = {
@@ -1232,6 +1281,10 @@ export type Videosv1UploadAck = {
   ok?: boolean;
 };
 
+export type Videosv1UploadVideoThumbnailResponse = {
+  thumbnail_url?: string;
+};
+
 export type Videosv1VideoChapters = {
   chapters?: Array<Videosv1Chapter>;
   video_id?: string;
@@ -1323,9 +1376,9 @@ export type PostAnalyticsV1EventsError = PostAnalyticsV1EventsErrors[keyof PostA
 
 export type PostAnalyticsV1EventsResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Analyticsv1TrackEventsResponse;
+  204: void;
 };
 
 export type PostAnalyticsV1EventsResponse = PostAnalyticsV1EventsResponses[keyof PostAnalyticsV1EventsResponses];
@@ -1423,7 +1476,16 @@ export type GetAnalyticsV1PostsByPostIdStatsData = {
      */
     postId: string;
   };
-  query?: never;
+  query?: {
+    /**
+     * Start date (inclusive)
+     */
+    start?: string;
+    /**
+     * End date (inclusive)
+     */
+    end?: string;
+  };
   url: "/analytics/v1/posts/{postId}/stats";
 };
 
@@ -1647,7 +1709,20 @@ export type GetAnalyticsV1VideosByVideoIdHeatmapData = {
      */
     videoId: string;
   };
-  query?: never;
+  query?: {
+    /**
+     * Number of buckets
+     */
+    buckets?: string;
+    /**
+     * Start date (inclusive)
+     */
+    start?: string;
+    /**
+     * End date (inclusive)
+     */
+    end?: string;
+  };
   url: "/analytics/v1/videos/{videoId}/heatmap";
 };
 
@@ -1683,7 +1758,16 @@ export type GetAnalyticsV1VideosByVideoIdHotSegmentsData = {
      */
     videoId: string;
   };
-  query?: never;
+  query?: {
+    /**
+     * Start date (inclusive)
+     */
+    start?: string;
+    /**
+     * End date (inclusive)
+     */
+    end?: string;
+  };
   url: "/analytics/v1/videos/{videoId}/hot-segments";
 };
 
@@ -1756,6 +1840,44 @@ export type GetAnalyticsV1VideosByVideoIdStatsResponses = {
 export type GetAnalyticsV1VideosByVideoIdStatsResponse =
   GetAnalyticsV1VideosByVideoIdStatsResponses[keyof GetAnalyticsV1VideosByVideoIdStatsResponses];
 
+export type SendBlogBroadcastData = {
+  /**
+   * Broadcast payload
+   */
+  body: GatewaySendBlogBroadcastBody;
+  headers: {
+    /**
+     * Internal service key
+     */
+    "X-Api-Key": string;
+  };
+  path?: never;
+  query?: never;
+  url: "/auth/v1/blog/broadcast";
+};
+
+export type SendBlogBroadcastErrors = {
+  /**
+   * Bad Request
+   */
+  400: ErrorsErrorResponse;
+  /**
+   * Unauthorized
+   */
+  401: ErrorsErrorResponse;
+};
+
+export type SendBlogBroadcastError = SendBlogBroadcastErrors[keyof SendBlogBroadcastErrors];
+
+export type SendBlogBroadcastResponses = {
+  /**
+   * OK
+   */
+  200: Authv1SendBlogBroadcastResponse;
+};
+
+export type SendBlogBroadcastResponse = SendBlogBroadcastResponses[keyof SendBlogBroadcastResponses];
+
 export type PostAuthV1BlogSubscribeData = {
   body?: never;
   path?: never;
@@ -1774,9 +1896,9 @@ export type PostAuthV1BlogSubscribeError = PostAuthV1BlogSubscribeErrors[keyof P
 
 export type PostAuthV1BlogSubscribeResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Authv1MessageResponse;
+  204: void;
 };
 
 export type PostAuthV1BlogSubscribeResponse = PostAuthV1BlogSubscribeResponses[keyof PostAuthV1BlogSubscribeResponses];
@@ -1824,12 +1946,40 @@ export type PostAuthV1BlogUnsubscribeError = PostAuthV1BlogUnsubscribeErrors[key
 
 export type PostAuthV1BlogUnsubscribeResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Authv1MessageResponse;
+  204: void;
 };
 
 export type PostAuthV1BlogUnsubscribeResponse = PostAuthV1BlogUnsubscribeResponses[keyof PostAuthV1BlogUnsubscribeResponses];
+
+export type PostAuthV1BlogUnsubscribeEmailData = {
+  /**
+   * Unsubscribe request
+   */
+  body: GatewayUnsubscribeBlogByEmailBody;
+  path?: never;
+  query?: never;
+  url: "/auth/v1/blog/unsubscribe/email";
+};
+
+export type PostAuthV1BlogUnsubscribeEmailErrors = {
+  /**
+   * Bad Request
+   */
+  400: ErrorsErrorResponse;
+};
+
+export type PostAuthV1BlogUnsubscribeEmailError = PostAuthV1BlogUnsubscribeEmailErrors[keyof PostAuthV1BlogUnsubscribeEmailErrors];
+
+export type PostAuthV1BlogUnsubscribeEmailResponses = {
+  /**
+   * No Content
+   */
+  204: void;
+};
+
+export type PostAuthV1BlogUnsubscribeEmailResponse = PostAuthV1BlogUnsubscribeEmailResponses[keyof PostAuthV1BlogUnsubscribeEmailResponses];
 
 export type PostAuthV1EmailVerifyData = {
   /**
@@ -1947,9 +2097,9 @@ export type PostAuthV1InvitationsByTokenDeclineError =
 
 export type PostAuthV1InvitationsByTokenDeclineResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Authv1MessageResponse;
+  204: void;
 };
 
 export type PostAuthV1InvitationsByTokenDeclineResponse =
@@ -2002,9 +2152,9 @@ export type PostAuthV1LogoutData = {
 
 export type PostAuthV1LogoutResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Authv1MessageResponse;
+  204: void;
 };
 
 export type PostAuthV1LogoutResponse = PostAuthV1LogoutResponses[keyof PostAuthV1LogoutResponses];
@@ -2099,9 +2249,9 @@ export type DeleteAuthV1MembershipsByOrgIdDomainError =
 
 export type DeleteAuthV1MembershipsByOrgIdDomainResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Authv1MessageResponse;
+  204: void;
 };
 
 export type DeleteAuthV1MembershipsByOrgIdDomainResponse =
@@ -2275,6 +2425,41 @@ export type PostAuthV1MembershipsByOrgIdDomainVerificationResponses = {
 
 export type PostAuthV1MembershipsByOrgIdDomainVerificationResponse =
   PostAuthV1MembershipsByOrgIdDomainVerificationResponses[keyof PostAuthV1MembershipsByOrgIdDomainVerificationResponses];
+
+export type GetAuthV1MembershipsByOrgIdInfoData = {
+  body?: never;
+  path: {
+    /**
+     * Organization ID
+     */
+    orgId: string;
+  };
+  query?: never;
+  url: "/auth/v1/memberships/{orgId}/info";
+};
+
+export type GetAuthV1MembershipsByOrgIdInfoErrors = {
+  /**
+   * Unauthorized
+   */
+  401: ErrorsErrorResponse;
+  /**
+   * Forbidden
+   */
+  403: ErrorsErrorResponse;
+};
+
+export type GetAuthV1MembershipsByOrgIdInfoError = GetAuthV1MembershipsByOrgIdInfoErrors[keyof GetAuthV1MembershipsByOrgIdInfoErrors];
+
+export type GetAuthV1MembershipsByOrgIdInfoResponses = {
+  /**
+   * OK
+   */
+  200: Authv1GetInternalMembershipInfoResponse;
+};
+
+export type GetAuthV1MembershipsByOrgIdInfoResponse =
+  GetAuthV1MembershipsByOrgIdInfoResponses[keyof GetAuthV1MembershipsByOrgIdInfoResponses];
 
 export type DeleteAuthV1MembershipsByOrgIdLeaveData = {
   body?: never;
@@ -2542,9 +2727,9 @@ export type PostAuthV1MembershipsByOrgIdMembersInviteResendError =
 
 export type PostAuthV1MembershipsByOrgIdMembersInviteResendResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Authv1MessageResponse;
+  204: void;
 };
 
 export type PostAuthV1MembershipsByOrgIdMembersInviteResendResponse =
@@ -2695,9 +2880,9 @@ export type DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdError =
 
 export type DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Authv1MessageResponse;
+  204: void;
 };
 
 export type DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponse =
@@ -2897,9 +3082,9 @@ export type DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachm
 
 export type DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachmentIdResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Authv1MessageResponse;
+  204: void;
 };
 
 export type DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachmentIdResponse =
@@ -3094,9 +3279,9 @@ export type PostAuthV1PasswordResetError = PostAuthV1PasswordResetErrors[keyof P
 
 export type PostAuthV1PasswordResetResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Authv1MessageResponse;
+  204: void;
 };
 
 export type PostAuthV1PasswordResetResponse = PostAuthV1PasswordResetResponses[keyof PostAuthV1PasswordResetResponses];
@@ -3122,12 +3307,37 @@ export type PostAuthV1PasswordResetConfirmError = PostAuthV1PasswordResetConfirm
 
 export type PostAuthV1PasswordResetConfirmResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Authv1MessageResponse;
+  204: void;
 };
 
 export type PostAuthV1PasswordResetConfirmResponse = PostAuthV1PasswordResetConfirmResponses[keyof PostAuthV1PasswordResetConfirmResponses];
+
+export type GetAuthV1PoliciesPermissionsData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/auth/v1/policies/permissions";
+};
+
+export type GetAuthV1PoliciesPermissionsErrors = {
+  /**
+   * Unauthorized
+   */
+  401: ErrorsErrorResponse;
+};
+
+export type GetAuthV1PoliciesPermissionsError = GetAuthV1PoliciesPermissionsErrors[keyof GetAuthV1PoliciesPermissionsErrors];
+
+export type GetAuthV1PoliciesPermissionsResponses = {
+  /**
+   * OK
+   */
+  200: Authv1PermissionRegistryResponse;
+};
+
+export type GetAuthV1PoliciesPermissionsResponse = GetAuthV1PoliciesPermissionsResponses[keyof GetAuthV1PoliciesPermissionsResponses];
 
 export type GetAuthV1ProvidersData = {
   body?: never;
@@ -3181,9 +3391,9 @@ export type DeleteAuthV1ProvidersByProviderError = DeleteAuthV1ProvidersByProvid
 
 export type DeleteAuthV1ProvidersByProviderResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Authv1MessageResponse;
+  204: void;
 };
 
 export type DeleteAuthV1ProvidersByProviderResponse =
@@ -3526,9 +3736,9 @@ export type DeleteAuthV1UsersCurrentPasskeysByIdError =
 
 export type DeleteAuthV1UsersCurrentPasskeysByIdResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Authv1MessageResponse;
+  204: void;
 };
 
 export type DeleteAuthV1UsersCurrentPasskeysByIdResponse =
@@ -3561,9 +3771,9 @@ export type PatchAuthV1UsersCurrentPasskeysByIdError =
 
 export type PatchAuthV1UsersCurrentPasskeysByIdResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Authv1MessageResponse;
+  204: void;
 };
 
 export type PatchAuthV1UsersCurrentPasskeysByIdResponse =
@@ -3649,9 +3859,9 @@ export type DeleteAuthV1UsersCurrentTotpDeleteError =
 
 export type DeleteAuthV1UsersCurrentTotpDeleteResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Authv1MessageResponse;
+  204: void;
 };
 
 export type DeleteAuthV1UsersCurrentTotpDeleteResponse =
@@ -4110,9 +4320,9 @@ export type PostBillingV1JobsCleanupBandwidthSnapshotsError =
 
 export type PostBillingV1JobsCleanupBandwidthSnapshotsResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Billingv1BandwidthJobResponse;
+  204: void;
 };
 
 export type PostBillingV1JobsCleanupBandwidthSnapshotsResponse =
@@ -4137,9 +4347,9 @@ export type PostBillingV1JobsDailyBandwidthCalculationError =
 
 export type PostBillingV1JobsDailyBandwidthCalculationResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Billingv1BandwidthJobResponse;
+  204: void;
 };
 
 export type PostBillingV1JobsDailyBandwidthCalculationResponse =
@@ -4164,9 +4374,9 @@ export type PostBillingV1JobsMonthlyBandwidthCalculationError =
 
 export type PostBillingV1JobsMonthlyBandwidthCalculationResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Billingv1BandwidthJobResponse;
+  204: void;
 };
 
 export type PostBillingV1JobsMonthlyBandwidthCalculationResponse =
@@ -4257,9 +4467,9 @@ export type DeleteBillingV1PaymentMethodsByPaymentMethodIdError =
 
 export type DeleteBillingV1PaymentMethodsByPaymentMethodIdResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Billingv1DeletePaymentMethodResponse;
+  204: void;
 };
 
 export type DeleteBillingV1PaymentMethodsByPaymentMethodIdResponse =
@@ -4578,9 +4788,9 @@ export type PutBillingV1SubscriptionCancelError = PutBillingV1SubscriptionCancel
 
 export type PutBillingV1SubscriptionCancelResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Billingv1CancelSubscriptionResponse;
+  204: void;
 };
 
 export type PutBillingV1SubscriptionCancelResponse = PutBillingV1SubscriptionCancelResponses[keyof PutBillingV1SubscriptionCancelResponses];
@@ -4634,9 +4844,9 @@ export type PutBillingV1SubscriptionReactivateError =
 
 export type PutBillingV1SubscriptionReactivateResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Billingv1ReactivateSubscriptionResponse;
+  204: void;
 };
 
 export type PutBillingV1SubscriptionReactivateResponse =
@@ -4727,9 +4937,9 @@ export type PostBillingWebhooksStripeError = PostBillingWebhooksStripeErrors[key
 
 export type PostBillingWebhooksStripeResponses = {
   /**
-   * OK
+   * No Content
    */
-  200: Billingv1ProcessStripeWebhookResponse;
+  204: void;
 };
 
 export type PostBillingWebhooksStripeResponse = PostBillingWebhooksStripeResponses[keyof PostBillingWebhooksStripeResponses];
@@ -5274,6 +5484,50 @@ export type PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadComple
 export type PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadCompleteResponse =
   PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadCompleteResponses[keyof PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadCompleteResponses];
 
+export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersData = {
+  body?: never;
+  path: {
+    /**
+     * Project ID
+     */
+    projectId: string;
+    /**
+     * Video ID
+     */
+    videoId: string;
+  };
+  query?: never;
+  url: "/media/v1/projects/{projectId}/videos/{videoId}/chapters";
+};
+
+export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors = {
+  /**
+   * Bad Request
+   */
+  400: ErrorsErrorResponse;
+  /**
+   * Unauthorized
+   */
+  401: ErrorsErrorResponse;
+  /**
+   * Not Found
+   */
+  404: ErrorsErrorResponse;
+};
+
+export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersError =
+  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors[keyof DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors];
+
+export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses = {
+  /**
+   * OK
+   */
+  200: Videosv1VideoChapters;
+};
+
+export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponse =
+  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses[keyof DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses];
+
 export type GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersData = {
   body?: never;
   path: {
@@ -5646,6 +5900,58 @@ export type PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadComplete
 
 export type PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteResponse =
   PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteResponses[keyof PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteResponses];
+
+export type PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailData = {
+  /**
+   * Thumbnail image file
+   */
+  body: {
+    /**
+     * Thumbnail image file
+     */
+    thumbnail: Blob | File;
+  };
+  path: {
+    /**
+     * Project ID
+     */
+    projectId: string;
+    /**
+     * Video ID
+     */
+    videoId: string;
+  };
+  query?: never;
+  url: "/media/v1/projects/{projectId}/videos/{videoId}/thumbnail";
+};
+
+export type PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailErrors = {
+  /**
+   * Bad Request
+   */
+  400: ErrorsErrorResponse;
+  /**
+   * Unauthorized
+   */
+  401: ErrorsErrorResponse;
+  /**
+   * Not Found
+   */
+  404: ErrorsErrorResponse;
+};
+
+export type PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailError =
+  PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailErrors[keyof PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailErrors];
+
+export type PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailResponses = {
+  /**
+   * OK
+   */
+  200: Videosv1UploadVideoThumbnailResponse;
+};
+
+export type PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailResponse =
+  PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailResponses[keyof PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailResponses];
 
 export type PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteData = {
   body?: never;
@@ -6206,7 +6512,135 @@ export type CreateTokenResponses = {
 
 export type CreateTokenResponse = CreateTokenResponses[keyof CreateTokenResponses];
 
-export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsData = {
+export type ListPublicPostsData = {
+  body?: never;
+  path: {
+    /**
+     * Feed ID
+     */
+    feedId: string;
+  };
+  query?: {
+    /**
+     * Page size
+     */
+    limit?: number;
+    /**
+     * Page offset
+     */
+    offset?: number;
+  };
+  url: "/posts/v1/feeds/{feedId}";
+};
+
+export type ListPublicPostsErrors = {
+  /**
+   * Bad Request
+   */
+  400: ErrorsErrorResponse;
+  /**
+   * Internal Server Error
+   */
+  500: ErrorsErrorResponse;
+};
+
+export type ListPublicPostsError = ListPublicPostsErrors[keyof ListPublicPostsErrors];
+
+export type ListPublicPostsResponses = {
+  /**
+   * OK
+   */
+  200: Postsv1ListPostsResponse;
+};
+
+export type ListPublicPostsResponse = ListPublicPostsResponses[keyof ListPublicPostsResponses];
+
+export type GetPublicPostData = {
+  body?: never;
+  path: {
+    /**
+     * Feed ID
+     */
+    feedId: string;
+    /**
+     * Post ID
+     */
+    postId: string;
+  };
+  query?: never;
+  url: "/posts/v1/feeds/{feedId}/{postId}";
+};
+
+export type GetPublicPostErrors = {
+  /**
+   * Bad Request
+   */
+  400: ErrorsErrorResponse;
+  /**
+   * Not Found
+   */
+  404: ErrorsErrorResponse;
+};
+
+export type GetPublicPostError = GetPublicPostErrors[keyof GetPublicPostErrors];
+
+export type GetPublicPostResponses = {
+  /**
+   * OK
+   */
+  200: Postsv1Post;
+};
+
+export type GetPublicPostResponse = GetPublicPostResponses[keyof GetPublicPostResponses];
+
+export type ListPublicPostsByCreatorData = {
+  body?: never;
+  path: {
+    /**
+     * Feed ID
+     */
+    feedId: string;
+    /**
+     * Creator ID
+     */
+    creatorId: string;
+  };
+  query?: {
+    /**
+     * Page size
+     */
+    limit?: number;
+    /**
+     * Page offset
+     */
+    offset?: number;
+  };
+  url: "/posts/v1/feeds/{feedId}/creators/{creatorId}";
+};
+
+export type ListPublicPostsByCreatorErrors = {
+  /**
+   * Bad Request
+   */
+  400: ErrorsErrorResponse;
+  /**
+   * Internal Server Error
+   */
+  500: ErrorsErrorResponse;
+};
+
+export type ListPublicPostsByCreatorError = ListPublicPostsByCreatorErrors[keyof ListPublicPostsByCreatorErrors];
+
+export type ListPublicPostsByCreatorResponses = {
+  /**
+   * OK
+   */
+  200: Postsv1ListPostsResponse;
+};
+
+export type ListPublicPostsByCreatorResponse = ListPublicPostsByCreatorResponses[keyof ListPublicPostsByCreatorResponses];
+
+export type ListPostsData = {
   body?: never;
   path: {
     /**
@@ -6231,7 +6665,7 @@ export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsData = {
   url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts";
 };
 
-export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsErrors = {
+export type ListPostsErrors = {
   /**
    * Bad Request
    */
@@ -6246,20 +6680,18 @@ export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsErrors = {
   404: ErrorsErrorResponse;
 };
 
-export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsError =
-  GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsErrors[keyof GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsErrors];
+export type ListPostsError = ListPostsErrors[keyof ListPostsErrors];
 
-export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsResponses = {
+export type ListPostsResponses = {
   /**
    * OK
    */
   200: Postsv1ListPostsResponse;
 };
 
-export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsResponse =
-  GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsResponses[keyof GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsResponses];
+export type ListPostsResponse = ListPostsResponses[keyof ListPostsResponses];
 
-export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsData = {
+export type CreatePostData = {
   /**
    * Post to create
    */
@@ -6278,7 +6710,7 @@ export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsData = {
   url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts";
 };
 
-export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsErrors = {
+export type CreatePostErrors = {
   /**
    * Bad Request
    */
@@ -6293,20 +6725,18 @@ export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsErrors = {
   404: ErrorsErrorResponse;
 };
 
-export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsError =
-  PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsErrors[keyof PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsErrors];
+export type CreatePostError = CreatePostErrors[keyof CreatePostErrors];
 
-export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsResponses = {
+export type CreatePostResponses = {
   /**
    * Created
    */
   201: Postsv1Post;
 };
 
-export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsResponse =
-  PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsResponses[keyof PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsResponses];
+export type CreatePostResponse = CreatePostResponses[keyof CreatePostResponses];
 
-export type DeletePostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdData = {
+export type DeletePostData = {
   body?: never;
   path: {
     /**
@@ -6326,7 +6756,7 @@ export type DeletePostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdData = {
   url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts/{postId}";
 };
 
-export type DeletePostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdErrors = {
+export type DeletePostErrors = {
   /**
    * Bad Request
    */
@@ -6341,20 +6771,18 @@ export type DeletePostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdErrors = {
   404: ErrorsErrorResponse;
 };
 
-export type DeletePostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdError =
-  DeletePostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdErrors[keyof DeletePostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdErrors];
+export type DeletePostError = DeletePostErrors[keyof DeletePostErrors];
 
-export type DeletePostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdResponses = {
+export type DeletePostResponses = {
   /**
    * OK
    */
   200: Postsv1DeleteResult;
 };
 
-export type DeletePostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdResponse =
-  DeletePostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdResponses[keyof DeletePostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdResponses];
+export type DeletePostResponse = DeletePostResponses[keyof DeletePostResponses];
 
-export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdData = {
+export type GetPostData = {
   body?: never;
   path: {
     /**
@@ -6374,7 +6802,7 @@ export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdData = {
   url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts/{postId}";
 };
 
-export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdErrors = {
+export type GetPostErrors = {
   /**
    * Bad Request
    */
@@ -6389,20 +6817,18 @@ export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdErrors = {
   404: ErrorsErrorResponse;
 };
 
-export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdError =
-  GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdErrors[keyof GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdErrors];
+export type GetPostError = GetPostErrors[keyof GetPostErrors];
 
-export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdResponses = {
+export type GetPostResponses = {
   /**
    * OK
    */
   200: Postsv1Post;
 };
 
-export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdResponse =
-  GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdResponses[keyof GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostIdResponses];
+export type GetPostResponse = GetPostResponses[keyof GetPostResponses];
 
-export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsCreatorsByCreatorIdData = {
+export type ListPostsByCreatorData = {
   body?: never;
   path: {
     /**
@@ -6431,7 +6857,7 @@ export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsCreatorsByCreatorIdDa
   url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts/creators/{creatorId}";
 };
 
-export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsCreatorsByCreatorIdErrors = {
+export type ListPostsByCreatorErrors = {
   /**
    * Bad Request
    */
@@ -6446,20 +6872,18 @@ export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsCreatorsByCreatorIdEr
   404: ErrorsErrorResponse;
 };
 
-export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsCreatorsByCreatorIdError =
-  GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsCreatorsByCreatorIdErrors[keyof GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsCreatorsByCreatorIdErrors];
+export type ListPostsByCreatorError = ListPostsByCreatorErrors[keyof ListPostsByCreatorErrors];
 
-export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsCreatorsByCreatorIdResponses = {
+export type ListPostsByCreatorResponses = {
   /**
    * OK
    */
   200: Postsv1ListPostsResponse;
 };
 
-export type GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsCreatorsByCreatorIdResponse =
-  GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsCreatorsByCreatorIdResponses[keyof GetPostsV1ProjectsByProjectIdFeedsByFeedIdPostsCreatorsByCreatorIdResponses];
+export type ListPostsByCreatorResponse = ListPostsByCreatorResponses[keyof ListPostsByCreatorResponses];
 
-export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadCompleteData = {
+export type CompletePostUploadData = {
   /**
    * Upload completion request
    */
@@ -6478,7 +6902,7 @@ export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadCompleteData =
   url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts/upload/complete";
 };
 
-export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadCompleteErrors = {
+export type CompletePostUploadErrors = {
   /**
    * Bad Request
    */
@@ -6493,20 +6917,18 @@ export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadCompleteErrors
   404: ErrorsErrorResponse;
 };
 
-export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadCompleteError =
-  PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadCompleteErrors[keyof PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadCompleteErrors];
+export type CompletePostUploadError = CompletePostUploadErrors[keyof CompletePostUploadErrors];
 
-export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadCompleteResponses = {
+export type CompletePostUploadResponses = {
   /**
    * OK
    */
   200: Postsv1Post;
 };
 
-export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadCompleteResponse =
-  PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadCompleteResponses[keyof PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadCompleteResponses];
+export type CompletePostUploadResponse = CompletePostUploadResponses[keyof CompletePostUploadResponses];
 
-export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadInitData = {
+export type InitPostUploadData = {
   /**
    * Upload initialization request
    */
@@ -6525,7 +6947,7 @@ export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadInitData = {
   url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts/upload/init";
 };
 
-export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadInitErrors = {
+export type InitPostUploadErrors = {
   /**
    * Bad Request
    */
@@ -6540,18 +6962,16 @@ export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadInitErrors = {
   404: ErrorsErrorResponse;
 };
 
-export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadInitError =
-  PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadInitErrors[keyof PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadInitErrors];
+export type InitPostUploadError = InitPostUploadErrors[keyof InitPostUploadErrors];
 
-export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadInitResponses = {
+export type InitPostUploadResponses = {
   /**
    * Created
    */
   201: Postsv1PostUploadInit;
 };
 
-export type PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadInitResponse =
-  PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadInitResponses[keyof PostPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadInitResponses];
+export type InitPostUploadResponse = InitPostUploadResponses[keyof InitPostUploadResponses];
 
 export type ListProjectsByOrgidData = {
   body?: never;

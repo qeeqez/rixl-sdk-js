@@ -36,23 +36,17 @@ export interface User {
   org_id: string;
 }
 
-/**
- * Response from token refresh/authentication
- */
 export interface TokenResponse {
   access_token: string;
   refresh_token: string;
   expires_in: number;
+  token_type?: string;
 }
 
-/**
- * Response from token endpoint for limited scope access (e.g., Telegram user without email)
- */
 export interface LimitedScopeTokenResponse {
   access_token: string;
-  token_type: "Bearer";
-  scope: string;
-  requires_action: "add_email";
+  token_type?: string;
+  requires_action: string;
 }
 
 /**

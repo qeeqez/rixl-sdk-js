@@ -31,7 +31,7 @@ export interface VerifyEmailResponse {
 
 export interface VerifyStatusResponse {
   email: string;
-  has_email: string;
+  has_email: boolean;
   verified: boolean;
 }
 

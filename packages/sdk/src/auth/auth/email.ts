@@ -128,7 +128,7 @@ export const getEmailVerificationStatus = async (): Promise<void | VerifyStatusR
 
       return {
         email: data.email || "",
-        has_email: String(data.has_email ?? false),
+        has_email: data.has_email ?? false,
         verified: data.verified || false,
       };
     },

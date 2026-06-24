@@ -49,8 +49,6 @@ export const initiateDomainVerification = async (orgId: string, domain: string):
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid domain format or public domains like gmail.com are not allowed"),
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Not authorized to configure domain settings"),
-      [HTTP_STATUS.FORBIDDEN]: () => new Error("Domain verification requires an Enterprise plan"),
-      [HTTP_STATUS.CONFLICT]: () => new Error("This domain is already claimed by another organization"),
     }
   );
 };
@@ -65,10 +63,7 @@ export const checkDomainVerification = async (orgId: string): Promise<DomainResp
       return data as unknown as DomainResponse;
     },
     {
-      [HTTP_STATUS.BAD_REQUEST]: () => new Error("DNS verification failed. Please check your DNS settings and try again"),
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Not authorized to check domain verification"),
-      [HTTP_STATUS.FORBIDDEN]: () => new Error("You do not have permission to verify this domain"),
-      [HTTP_STATUS.NOT_FOUND]: () => new Error("No pending domain verification request found"),
     }
   );
 };
@@ -86,8 +81,6 @@ export const updateAutoJoin = async (orgId: string, enabled: boolean): Promise<A
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Not authorized to update auto-join settings"),
-      [HTTP_STATUS.FORBIDDEN]: () => new Error("Auto-join settings require an Enterprise plan"),
-      [HTTP_STATUS.NOT_FOUND]: () => new Error("No verified domain found. Please verify your domain first"),
     }
   );
 };
@@ -102,7 +95,6 @@ export const removeDomain = async (orgId: string): Promise<void> => {
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Not authorized to remove domain"),
-      [HTTP_STATUS.NOT_FOUND]: () => new Error("No verified domain found to remove"),
     }
   );
 };

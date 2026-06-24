@@ -25,7 +25,7 @@ export const loginWithEmail = async (email: string, password: string): Promise<v
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Incorrect email or password"),
-      [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid password format"),
+      [HTTP_STATUS.FORBIDDEN]: () => new Error("Account access is restricted"),
     }
   );
 };
@@ -44,8 +44,7 @@ export const verifyTOTPForLogin = async (code: string, session_id: string): Prom
       }
     },
     {
-      [HTTP_STATUS.BAD_REQUEST]: () => new Error("Bad request - Invalid code format, invalid code, or invalid session"),
-      [HTTP_STATUS.NOT_FOUND]: () => new Error("Session not found"),
+      [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Invalid or expired TOTP code"),
     }
   );
 };

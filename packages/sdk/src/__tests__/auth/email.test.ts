@@ -232,7 +232,7 @@ describe("Email Functions", () => {
       expect(mockGetAuthV1UsersCurrentEmailsStatus).toHaveBeenCalledWith({
         throwOnError: true,
       });
-      expect(result).toEqual({verified: true, email: "test@example.com", has_email: "true"});
+      expect(result).toEqual({verified: true, email: "test@example.com", has_email: true});
     });
 
     it("should throw error for unauthorized user", async () => {

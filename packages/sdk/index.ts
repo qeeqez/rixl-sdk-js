@@ -1,9 +1,9 @@
-export { createClient } from "./src/generated/client";
-export { client } from "./src/generated/client.gen";
+export {createClient} from "./src/generated/client";
+export {client} from "./src/generated/client.gen";
 export * from "./src/generated/types.gen";
 
 // Unified entry point
-export { connect, type ConnectConfig, type AuthConfig } from "./src/connect";
+export {connect, type ConnectConfig, type AuthConfig} from "./src/connect";
 
 // Auth surface — state machine, stores, and domain functions
 export {
@@ -127,7 +127,6 @@ export {
   deleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitles,
   deleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleId,
   deleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesLanguageByLang,
-  deletePostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostId,
   deleteProjects,
   getAnalyticsV1Dashboard,
   getAnalyticsV1FeedsByFeedIdStats,
@@ -179,9 +178,6 @@ export {
   getMediaV1VideosByVideoId,
   getMediaV1VideosByVideoIdAudioTracks,
   getMediaV1VideosByVideoIdSubtitles,
-  getPostsV1ProjectsByProjectIdFeedsByFeedIdPosts,
-  getPostsV1ProjectsByProjectIdFeedsByFeedIdPostsByPostId,
-  getPostsV1ProjectsByProjectIdFeedsByFeedIdPostsCreatorsByCreatorId,
   getProjects,
   listApiKeysByOrgid,
   listCredentialsByOrgid,
@@ -241,9 +237,6 @@ export {
   postMediaV1ProjectsByProjectIdVideosUpload,
   postPlatformAuthRefresh,
   postPlatformAuthToken,
-  postPostsV1ProjectsByProjectIdFeedsByFeedIdPosts,
-  postPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadComplete,
-  postPostsV1ProjectsByProjectIdFeedsByFeedIdPostsUploadInit,
   putAuthV1MembershipsByOrgIdActive,
   putAuthV1MembershipsByOrgIdDomainAutoJoin,
   putAuthV1MembershipsByOrgIdMembersByUserIdRole,
