@@ -16,7 +16,6 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-      packages: write
       id-token: write
 
     steps:
@@ -37,9 +36,6 @@ jobs:
 
       - name: Build SDK
         run: cd packages/sdk && bun run pack
-
-      - name: Build packages
-        run: bun run build:prod
 
       - name: Run tests with coverage
         run: bun run test:coverage --run
@@ -67,9 +63,3 @@ jobs:
         run: cd packages/sdk && vp pack && npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish auth/react to GitHub Packages
-        if: ${{ steps.release.outputs['packages/auth--release_created'] == 'true' }}
-        run: bun ci:full
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
