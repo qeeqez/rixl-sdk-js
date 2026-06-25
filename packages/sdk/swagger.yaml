@@ -447,15 +447,23 @@ components:
       type: object
     authv1.LoginResponse:
       properties:
+        access_token:
+          type: string
         email:
+          type: string
+        expires_in:
+          type: integer
+        refresh_token:
+          type: string
+        requires_action:
           type: string
         session_id:
           type: string
         status:
           description: '"ok" | "otp_required" | "email_not_verified"'
           type: string
-        tokens:
-          $ref: '#/components/schemas/authv1.TokenResponse'
+        token_type:
+          type: string
       type: object
     authv1.MemberPoliciesResponse:
       properties:
@@ -1529,6 +1537,16 @@ components:
       - role
       - username
       type: object
+    gateway.membershipStateBody:
+      properties:
+        state:
+          enum:
+          - accepted
+          - declined
+          type: string
+      required:
+      - state
+      type: object
     gateway.passkeyLoginFinishBody:
       properties:
         credential:
@@ -1571,6 +1589,19 @@ components:
       required:
       - name
       - permissions
+      type: object
+    gateway.registerBody:
+      properties:
+        email:
+          type: string
+        password:
+          minLength: 8
+          type: string
+        subscribe_to_blog:
+          type: boolean
+      required:
+      - email
+      - password
       type: object
     gateway.registerOrLoginBody:
       properties:
@@ -1721,6 +1752,17 @@ components:
       required:
       - username
       type: object
+    gateway.updateVisibilityBody:
+      properties:
+        visibility:
+          enum:
+          - public
+          - unlisted
+          - private
+          type: string
+      required:
+      - visibility
+      type: object
     gateway.upgradeSubscriptionBody:
       properties:
         stripe_price_id:
@@ -1779,6 +1821,8 @@ components:
           type: string
         thumbhash:
           type: string
+        visibility:
+          $ref: '#/components/schemas/imagesv1.Visibility'
         width:
           type: integer
       type: object
@@ -1817,6 +1861,8 @@ components:
           type: string
         url:
           type: string
+        visibility:
+          $ref: '#/components/schemas/imagesv1.Visibility'
         width:
           type: integer
       type: object
@@ -1837,6 +1883,18 @@ components:
           type: array
           uniqueItems: false
       type: object
+    imagesv1.Visibility:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      x-enum-varnames:
+      - Visibility_VISIBILITY_UNSPECIFIED
+      - Visibility_VISIBILITY_PUBLIC
+      - Visibility_VISIBILITY_UNLISTED
+      - Visibility_VISIBILITY_PRIVATE
     postsv1.DeleteResult:
       properties:
         deleted:
@@ -2187,6 +2245,8 @@ components:
           type: integer
         id:
           type: string
+        visibility:
+          $ref: '#/components/schemas/videosv1.Visibility'
         width:
           type: integer
       type: object
@@ -2303,6 +2363,8 @@ components:
           type: string
         size:
           type: integer
+        visibility:
+          $ref: '#/components/schemas/videosv1.Visibility'
         width:
           type: integer
       type: object
@@ -2319,6 +2381,18 @@ components:
         video_upload_url:
           type: string
       type: object
+    videosv1.Visibility:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      x-enum-varnames:
+      - Visibility_VISIBILITY_UNSPECIFIED
+      - Visibility_VISIBILITY_PUBLIC
+      - Visibility_VISIBILITY_UNLISTED
+      - Visibility_VISIBILITY_PRIVATE
   securitySchemes:
     Bearer:
       in: header
@@ -3727,6 +3801,51 @@ paths:
       summary: Resend an invitation
       tags:
       - Auth / Memberships
+  /auth/v1/memberships/{orgId}/membership/state:
+    put:
+      description: Accepts or declines the authenticated user's pending invitation
+        to the organization. Used from inside the dashboard; the public token flow
+        is /auth/v1/invitations/{token}/accept|decline.
+      parameters:
+      - description: Organization ID
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/gateway.membershipStateBody'
+              description: New membership state
+              summary: request
+        description: New membership state
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authv1.MembershipMutation'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.ErrorResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.ErrorResponse'
+          description: Not Found
+      security:
+      - Bearer: []
+      summary: Accept or decline a pending membership
+      tags:
+      - Auth / Memberships
   /auth/v1/memberships/{orgId}/name:
     put:
       description: Updates the display name of the specified organization.
@@ -4431,7 +4550,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/gateway.registerOrLoginBody'
+              $ref: '#/components/schemas/gateway.registerBody'
               description: Credentials
               summary: request
         description: Credentials
@@ -5969,6 +6088,46 @@ paths:
       summary: Delete an image
       tags:
       - Media / Images
+    get:
+      description: Returns a single image within a project, including private media.
+        Requires project access.
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      - description: Image ID
+        in: path
+        name: imageId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/imagesv1.GetImageResponse'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.ErrorResponse'
+          description: Not Found
+      security:
+      - Bearer: []
+      summary: Get an image (project-scoped)
+      tags:
+      - Media / Images
   /media/v1/projects/{projectId}/images/{imageId}/upload/complete:
     post:
       description: Finalizes a previously initiated image upload.
@@ -6013,6 +6172,62 @@ paths:
       security:
       - Bearer: []
       summary: Complete an image upload
+      tags:
+      - Media / Images
+  /media/v1/projects/{projectId}/images/{imageId}/visibility:
+    put:
+      description: Updates an image's visibility (public, unlisted, or private). Requires
+        project access.
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      - description: Image ID
+        in: path
+        name: imageId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/gateway.updateVisibilityBody'
+              description: Visibility
+              summary: request
+        description: Visibility
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/imagesv1.GetImageResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.ErrorResponse'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.ErrorResponse'
+          description: Not Found
+      security:
+      - Bearer: []
+      summary: Set an image's visibility
       tags:
       - Media / Images
   /media/v1/projects/{projectId}/images/upload:
@@ -6150,6 +6365,46 @@ paths:
       summary: Delete a video
       tags:
       - Media / Videos
+    get:
+      description: Returns a single video within a project, including private media.
+        Requires project access.
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      - description: Video ID
+        in: path
+        name: videoId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/videosv1.GetVideoResponse'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.ErrorResponse'
+          description: Not Found
+      security:
+      - Bearer: []
+      summary: Get a video (project-scoped)
+      tags:
+      - Media / Videos
   /media/v1/projects/{projectId}/videos/{videoId}/audio-tracks:
     delete:
       description: Deletes all audio tracks for a video.
@@ -6194,6 +6449,46 @@ paths:
       security:
       - Bearer: []
       summary: Delete all audio tracks
+      tags:
+      - Media / Audio Tracks
+    get:
+      description: Returns a video's audio tracks within a project, including for
+        private media. Requires project access.
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      - description: Video ID
+        in: path
+        name: videoId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/videosv1.ListAudioTracksResponse'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.ErrorResponse'
+          description: Not Found
+      security:
+      - Bearer: []
+      summary: List audio tracks (project-scoped)
       tags:
       - Media / Audio Tracks
   /media/v1/projects/{projectId}/videos/{videoId}/audio-tracks/{trackId}:
@@ -6653,6 +6948,46 @@ paths:
       summary: Delete all subtitles
       tags:
       - Media / Subtitles
+    get:
+      description: Returns a video's subtitles within a project, including for private
+        media. Requires project access.
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      - description: Video ID
+        in: path
+        name: videoId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/videosv1.ListSubtitlesResponse'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.ErrorResponse'
+          description: Not Found
+      security:
+      - Bearer: []
+      summary: List subtitles (project-scoped)
+      tags:
+      - Media / Subtitles
   /media/v1/projects/{projectId}/videos/{videoId}/subtitles/{subtitleId}:
     delete:
       description: Deletes a single subtitle from a video.
@@ -6971,6 +7306,62 @@ paths:
       security:
       - Bearer: []
       summary: Complete a video upload
+      tags:
+      - Media / Videos
+  /media/v1/projects/{projectId}/videos/{videoId}/visibility:
+    put:
+      description: Updates a video's visibility (public, unlisted, or private). Requires
+        project access.
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      - description: Video ID
+        in: path
+        name: videoId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/gateway.updateVisibilityBody'
+              description: Visibility
+              summary: request
+        description: Visibility
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/videosv1.GetVideoResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.ErrorResponse'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.ErrorResponse'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.ErrorResponse'
+          description: Not Found
+      security:
+      - Bearer: []
+      summary: Set a video's visibility
       tags:
       - Media / Videos
   /media/v1/projects/{projectId}/videos/upload:

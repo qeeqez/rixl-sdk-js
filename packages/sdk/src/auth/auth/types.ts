@@ -14,6 +14,15 @@ export interface LoginOTPVerifyRequest {
 export interface RegistrationResponse {
   message: string;
   verification_id: string;
+  email_verification_sent?: boolean;
+  user_id?: string;
+}
+
+export interface VerificationSentResponse {
+  message: string;
+  verification_id: string;
+  can_resend_at?: string;
+  code_sent?: boolean;
 }
 
 export interface Token {

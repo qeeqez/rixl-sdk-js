@@ -30,10 +30,11 @@
     "./package.json": "./package.json"
   },
   "scripts": {
+    "dev": "vp pack index.ts --watch",
     "typecheck": "tsc --noEmit",
     "examples:check": "tsc --noEmit -p examples/tsconfig.json",
-    "pack": "tsc --noEmit && vp pack && vp fmt ./src",
-    "ci:release": "tsc --noEmit && vp pack && npm publish --access public"
+    "pack": "tsc --noEmit && vp pack index.ts && vp fmt ./src",
+    "ci:release": "tsc --noEmit && vp pack index.ts && npm publish --access public"
   },
   "dependencies": {
     "jose": "^6.2.3",

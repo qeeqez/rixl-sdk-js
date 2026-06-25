@@ -9,10 +9,10 @@ import {ChangeEmailRequestSchema, ResendEmailRequestSchema, verifyEmailChangeReq
 import {validateInput} from "../validation/base";
 import {apiCall} from "../api/utils";
 import {HTTP_STATUS} from "../constants";
-import type {RegistrationResponse, VerifyEmailResponse, VerifyStatusResponse} from "./types";
+import type {VerificationSentResponse, VerifyEmailResponse, VerifyStatusResponse} from "./types";
 import type {EmailVerificationType} from "../types";
 
-export const initiateEmailChange = async (email: string): Promise<void | RegistrationResponse> => {
+export const initiateEmailChange = async (email: string): Promise<void | VerificationSentResponse> => {
   return apiCall(
     async () => {
       const validatedInput = validateInput(ChangeEmailRequestSchema, {new_email: email});
@@ -25,6 +25,8 @@ export const initiateEmailChange = async (email: string): Promise<void | Registr
         return {
           message: data.message || "Verification code sent",
           verification_id: data.verification_id,
+          can_resend_at: data.can_resend_at,
+          code_sent: data.code_sent,
         };
       }
     },
@@ -36,7 +38,7 @@ export const initiateEmailChange = async (email: string): Promise<void | Registr
   );
 };
 
-export const addEmail = async (email: string): Promise<void | RegistrationResponse> => {
+export const addEmail = async (email: string): Promise<void | VerificationSentResponse> => {
   return apiCall(
     async () => {
       const validatedInput = validateInput(ResendEmailRequestSchema, {email});
@@ -49,6 +51,8 @@ export const addEmail = async (email: string): Promise<void | RegistrationRespon
         return {
           message: data.message || "Verification code sent",
           verification_id: data.verification_id,
+          can_resend_at: data.can_resend_at,
+          code_sent: data.code_sent,
         };
       }
     },

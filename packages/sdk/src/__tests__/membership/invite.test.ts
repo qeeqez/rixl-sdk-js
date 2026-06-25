@@ -6,28 +6,23 @@ const mockPostAuthV1MembershipsByOrgIdMembersInvite = vi.fn();
 const mockPostAuthV1MembershipsByOrgIdMembersInviteResend = vi.fn();
 const mockPostAuthV1InvitationsByTokenAccept = vi.fn();
 const mockPostAuthV1InvitationsByTokenDecline = vi.fn();
+const mockPutAuthV1MembershipsByOrgIdMembershipState = vi.fn();
 
 vi.mock("../../generated/sdk.gen", () => ({
   postAuthV1MembershipsByOrgIdMembersInvite: (...args: unknown[]) => mockPostAuthV1MembershipsByOrgIdMembersInvite(...args),
   postAuthV1MembershipsByOrgIdMembersInviteResend: (...args: unknown[]) => mockPostAuthV1MembershipsByOrgIdMembersInviteResend(...args),
   postAuthV1InvitationsByTokenAccept: (...args: unknown[]) => mockPostAuthV1InvitationsByTokenAccept(...args),
   postAuthV1InvitationsByTokenDecline: (...args: unknown[]) => mockPostAuthV1InvitationsByTokenDecline(...args),
-}));
-
-vi.mock("../../auth/api/fetchers", () => ({
-  authenticatedFetch: vi.fn(),
+  putAuthV1MembershipsByOrgIdMembershipState: (...args: unknown[]) => mockPutAuthV1MembershipsByOrgIdMembershipState(...args),
 }));
 
 vi.mock("../../auth/authStore", () => ({
   getToken: vi.fn().mockResolvedValue("mock-token"),
 }));
 
-import {authenticatedFetch} from "../../auth/api/fetchers";
 import {inviteMember, resendMemberInvite, respondToInvitation, publicRespondToInvitation} from "@/membership";
 
 describe("Membership Invite Module", () => {
-  const mockAuthenticatedFetch = authenticatedFetch as any;
-
   beforeEach(() => {
     vi.clearAllMocks();
     initialization.initDeferred.promise = Promise.resolve();
@@ -35,7 +30,7 @@ describe("Membership Invite Module", () => {
     mockPostAuthV1MembershipsByOrgIdMembersInviteResend.mockReset();
     mockPostAuthV1InvitationsByTokenAccept.mockReset();
     mockPostAuthV1InvitationsByTokenDecline.mockReset();
-    mockAuthenticatedFetch.mockReset();
+    mockPutAuthV1MembershipsByOrgIdMembershipState.mockReset();
   });
 
   describe("inviteMember", () => {
@@ -134,43 +129,37 @@ describe("Membership Invite Module", () => {
 
   describe("respondToInvitation", () => {
     it("should accept invitation successfully", async () => {
-      mockAuthenticatedFetch.mockResolvedValue(undefined);
+      mockPutAuthV1MembershipsByOrgIdMembershipState.mockResolvedValue({data: {}});
 
       await respondToInvitation("org123", MembershipState.ACCEPTED);
 
-      expect(mockAuthenticatedFetch).toHaveBeenCalledWith(
-        "memberships/org123/membership/state",
-        expect.any(Function),
-        expect.objectContaining({
-          method: "PUT",
-          body: {state: MembershipState.ACCEPTED},
-        })
-      );
+      expect(mockPutAuthV1MembershipsByOrgIdMembershipState).toHaveBeenCalledWith({
+        path: {orgId: "org123"},
+        body: {state: MembershipState.ACCEPTED},
+        throwOnError: true,
+      });
     });
 
     it("should decline invitation successfully", async () => {
-      mockAuthenticatedFetch.mockResolvedValue(undefined);
+      mockPutAuthV1MembershipsByOrgIdMembershipState.mockResolvedValue({data: {}});
 
       await respondToInvitation("org123", MembershipState.DECLINED);
 
-      expect(mockAuthenticatedFetch).toHaveBeenCalledWith(
-        "memberships/org123/membership/state",
-        expect.any(Function),
-        expect.objectContaining({
-          method: "PUT",
-          body: {state: MembershipState.DECLINED},
-        })
-      );
+      expect(mockPutAuthV1MembershipsByOrgIdMembershipState).toHaveBeenCalledWith({
+        path: {orgId: "org123"},
+        body: {state: MembershipState.DECLINED},
+        throwOnError: true,
+      });
     });
 
     it("should handle unauthorized error", async () => {
-      mockAuthenticatedFetch.mockRejectedValue(new Error("Unauthorized"));
+      mockPutAuthV1MembershipsByOrgIdMembershipState.mockRejectedValue({error: "unauthorized", code: 401});
 
       await expect(respondToInvitation("org123", MembershipState.ACCEPTED)).rejects.toThrow();
     });
 
     it("should handle invite not found error", async () => {
-      mockAuthenticatedFetch.mockRejectedValue(new Error("Not Found"));
+      mockPutAuthV1MembershipsByOrgIdMembershipState.mockRejectedValue({error: "not_found", code: 404});
 
       await expect(respondToInvitation("org123", MembershipState.ACCEPTED)).rejects.toThrow();
     });

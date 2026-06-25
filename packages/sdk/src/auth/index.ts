@@ -3,7 +3,6 @@ export {
   isLogged,
   getToken,
   login,
-  removeTokens as logout,
   authError,
   clearAuthError,
   requiresAction,
@@ -11,6 +10,8 @@ export {
   setLimitedAccessState,
   clearLimitedAccessState,
 } from "./authStore";
+
+export {logout} from "./auth/logout";
 
 export {user} from "./userStore";
 
@@ -72,6 +73,7 @@ export {
   confirmPasswordReset,
   type VerifyStatusResponse,
   type RegistrationResponse,
+  type VerificationSentResponse,
   type OTPVerificationResponse,
   type LoginOTPVerifyRequest,
   type LoginErrorResponse,

@@ -1,5 +1,5 @@
 import {getAuthV1Providers, postAuthV1ProvidersConnect, deleteAuthV1ProvidersByProvider} from "../../generated/sdk.gen";
-import {login} from "../authStore";
+import {login, setTokens} from "../authStore";
 import {setSocialConnectAttempt} from "./socialState";
 import {apiCall} from "../api/utils";
 import {HTTP_STATUS} from "../constants";
@@ -38,10 +38,13 @@ export const connectSocialInternal = async (provider: string, token: string): Pr
         provider: "google" | "apple" | "microsoft" | "tgAuthResult";
         token: string;
       };
-      await postAuthV1ProvidersConnect({
+      const {data} = await postAuthV1ProvidersConnect({
         body: requestBody,
         throwOnError: true,
       });
+      if (data.access_token && data.refresh_token && data.expires_in) {
+        setTokens(data.access_token, data.refresh_token, data.expires_in);
+      }
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("User is not authorized to connect provider!"),

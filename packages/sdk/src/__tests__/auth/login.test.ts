@@ -30,7 +30,9 @@ describe("Login Functions", () => {
       mockPostAuthV1Login.mockResolvedValue({
         data: {
           status: "ok",
-          tokens: {access_token: mockToken, refresh_token: "refresh-123", expires_in: 3600},
+          access_token: mockToken,
+          refresh_token: "refresh-123",
+          expires_in: 3600,
         },
       });
 
@@ -107,7 +109,9 @@ describe("Login Functions", () => {
       mockPostAuthV1Login.mockResolvedValue({
         data: {
           status: "ok",
-          tokens: {access_token: mockToken, refresh_token: "refresh", expires_in: 3600},
+          access_token: mockToken,
+          refresh_token: "refresh",
+          expires_in: 3600,
         },
       });
 

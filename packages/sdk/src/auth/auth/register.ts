@@ -3,7 +3,7 @@ import {validateInput} from "../validation/base";
 import {EmailAuthRequestSchema, ResendEmailRequestSchema} from "../validation/auth";
 import {apiCall} from "../api/utils";
 import {HTTP_STATUS} from "../constants";
-import type {RegistrationResponse} from "./types";
+import type {RegistrationResponse, VerificationSentResponse} from "./types";
 
 export const registerWithEmail = async (
   email: string,
@@ -18,7 +18,7 @@ export const registerWithEmail = async (
         subscribe_to_blog: subscribeToBlog,
       });
       const {data} = await postAuthV1Register({
-        body: validatedInput as {email: string; password: string},
+        body: validatedInput,
         throwOnError: true,
       });
 
@@ -26,6 +26,8 @@ export const registerWithEmail = async (
         return {
           message: data.message || "Registration successful",
           verification_id: data.verification_id,
+          email_verification_sent: data.email_verification_sent,
+          user_id: data.user_id,
         };
       }
     },
@@ -35,7 +37,7 @@ export const registerWithEmail = async (
   );
 };
 
-export const resendEmailVerificationCode = async (email: string): Promise<void | RegistrationResponse> => {
+export const resendEmailVerificationCode = async (email: string): Promise<void | VerificationSentResponse> => {
   return apiCall(
     async () => {
       const validatedInput = validateInput(ResendEmailRequestSchema, {email});
@@ -48,6 +50,7 @@ export const resendEmailVerificationCode = async (email: string): Promise<void |
         return {
           message: data.message || "Verification code resent",
           verification_id: data.verification_id,
+          code_sent: data.code_sent,
         };
       }
     },

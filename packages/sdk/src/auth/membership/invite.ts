@@ -3,9 +3,8 @@ import {
   postAuthV1MembershipsByOrgIdMembersInviteResend,
   postAuthV1InvitationsByTokenAccept,
   postAuthV1InvitationsByTokenDecline,
+  putAuthV1MembershipsByOrgIdMembershipState,
 } from "../../generated/sdk.gen";
-import {getToken} from "../authStore";
-import {authenticatedFetch} from "../api/fetchers";
 import {apiCall} from "../api/utils";
 import {HTTP_STATUS} from "../constants";
 import {MembershipState, type AssignableRole} from "./types";
@@ -51,11 +50,12 @@ export const resendMemberInvite = async (orgId: string, userId: string): Promise
 export const respondToInvitation = async (orgId: string, state: MembershipState.ACCEPTED | MembershipState.DECLINED): Promise<void> => {
   return apiCall(
     async () => {
-      const requestBody = validateInput(AcceptDeclineMembershipSchema, {state});
+      const requestBody = validateInput(AcceptDeclineMembershipSchema, {state}) as {state: "accepted" | "declined"};
 
-      await authenticatedFetch<void>(`memberships/${orgId}/membership/state`, getToken, {
-        method: "PUT",
+      await putAuthV1MembershipsByOrgIdMembershipState({
+        path: {orgId},
         body: requestBody,
+        throwOnError: true,
       });
     },
     {

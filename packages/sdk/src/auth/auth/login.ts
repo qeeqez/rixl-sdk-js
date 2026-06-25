@@ -52,8 +52,8 @@ export const verifyTOTPForLogin = async (code: string, session_id: string): Prom
 function handleLoginResponse(data: Authv1LoginResponse, email: string): void | OTPVerificationResponse | LoginErrorResponse {
   switch (data.status) {
     case "ok":
-      if (data.tokens?.access_token && data.tokens.refresh_token && data.tokens.expires_in) {
-        setTokens(data.tokens.access_token, data.tokens.refresh_token, data.tokens.expires_in);
+      if (data.access_token && data.refresh_token && data.expires_in) {
+        setTokens(data.access_token, data.refresh_token, data.expires_in);
       }
       return;
     case "otp_required":

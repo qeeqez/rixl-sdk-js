@@ -237,12 +237,24 @@ import type {
   GetMediaV1LanguagesData,
   GetMediaV1LanguagesErrors,
   GetMediaV1LanguagesResponses,
+  GetMediaV1ProjectsByProjectIdImagesByImageIdData,
+  GetMediaV1ProjectsByProjectIdImagesByImageIdErrors,
+  GetMediaV1ProjectsByProjectIdImagesByImageIdResponses,
   GetMediaV1ProjectsByProjectIdImagesData,
   GetMediaV1ProjectsByProjectIdImagesErrors,
   GetMediaV1ProjectsByProjectIdImagesResponses,
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksData,
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksErrors,
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses,
   GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersData,
   GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors,
   GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses,
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdData,
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdErrors,
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdResponses,
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesData,
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesErrors,
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponses,
   GetMediaV1ProjectsByProjectIdVideosData,
   GetMediaV1ProjectsByProjectIdVideosErrors,
   GetMediaV1ProjectsByProjectIdVideosResponses,
@@ -476,6 +488,9 @@ import type {
   PutAuthV1MembershipsByOrgIdMembersByUserIdRoleData,
   PutAuthV1MembershipsByOrgIdMembersByUserIdRoleErrors,
   PutAuthV1MembershipsByOrgIdMembersByUserIdRoleResponses,
+  PutAuthV1MembershipsByOrgIdMembershipStateData,
+  PutAuthV1MembershipsByOrgIdMembershipStateErrors,
+  PutAuthV1MembershipsByOrgIdMembershipStateResponses,
   PutAuthV1MembershipsByOrgIdNameData,
   PutAuthV1MembershipsByOrgIdNameErrors,
   PutAuthV1MembershipsByOrgIdNameResponses,
@@ -497,12 +512,18 @@ import type {
   PutBillingV1SubscriptionReactivateData,
   PutBillingV1SubscriptionReactivateErrors,
   PutBillingV1SubscriptionReactivateResponses,
+  PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityData,
+  PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityErrors,
+  PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityResponses,
   PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersData,
   PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors,
   PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses,
   PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailData,
   PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailErrors,
   PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailResponses,
+  PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityData,
+  PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityErrors,
+  PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityResponses,
   RevokeCredentialByCredentialidData,
   RevokeCredentialByCredentialidErrors,
   RevokeCredentialByCredentialidResponses,
@@ -1150,6 +1171,28 @@ export const postAuthV1MembershipsByOrgIdMembersInviteResend = <ThrowOnError ext
   >({
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/members/invite/resend",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+
+/**
+ * Accept or decline a pending membership
+ *
+ * Accepts or declines the authenticated user's pending invitation to the organization. Used from inside the dashboard; the public token flow is /auth/v1/invitations/{token}/accept|decline.
+ */
+export const putAuthV1MembershipsByOrgIdMembershipState = <ThrowOnError extends boolean = false>(
+  options: Options<PutAuthV1MembershipsByOrgIdMembershipStateData, ThrowOnError>
+) =>
+  (options.client ?? client).put<
+    PutAuthV1MembershipsByOrgIdMembershipStateResponses,
+    PutAuthV1MembershipsByOrgIdMembershipStateErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
+    url: "/auth/v1/memberships/{orgId}/membership/state",
     ...options,
     headers: {
       "Content-Type": "application/json",
@@ -2334,6 +2377,24 @@ export const deleteMediaV1ProjectsByProjectIdImagesByImageId = <ThrowOnError ext
   });
 
 /**
+ * Get an image (project-scoped)
+ *
+ * Returns a single image within a project, including private media. Requires project access.
+ */
+export const getMediaV1ProjectsByProjectIdImagesByImageId = <ThrowOnError extends boolean = false>(
+  options: Options<GetMediaV1ProjectsByProjectIdImagesByImageIdData, ThrowOnError>
+) =>
+  (options.client ?? client).get<
+    GetMediaV1ProjectsByProjectIdImagesByImageIdResponses,
+    GetMediaV1ProjectsByProjectIdImagesByImageIdErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
+    url: "/media/v1/projects/{projectId}/images/{imageId}",
+    ...options,
+  });
+
+/**
  * Complete an image upload
  *
  * Finalizes a previously initiated image upload.
@@ -2349,6 +2410,28 @@ export const postMediaV1ProjectsByProjectIdImagesByImageIdUploadComplete = <Thro
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/images/{imageId}/upload/complete",
     ...options,
+  });
+
+/**
+ * Set an image's visibility
+ *
+ * Updates an image's visibility (public, unlisted, or private). Requires project access.
+ */
+export const putMediaV1ProjectsByProjectIdImagesByImageIdVisibility = <ThrowOnError extends boolean = false>(
+  options: Options<PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityData, ThrowOnError>
+) =>
+  (options.client ?? client).put<
+    PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityResponses,
+    PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
+    url: "/media/v1/projects/{projectId}/images/{imageId}/visibility",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
   });
 
 /**
@@ -2406,6 +2489,24 @@ export const deleteMediaV1ProjectsByProjectIdVideosByVideoId = <ThrowOnError ext
   });
 
 /**
+ * Get a video (project-scoped)
+ *
+ * Returns a single video within a project, including private media. Requires project access.
+ */
+export const getMediaV1ProjectsByProjectIdVideosByVideoId = <ThrowOnError extends boolean = false>(
+  options: Options<GetMediaV1ProjectsByProjectIdVideosByVideoIdData, ThrowOnError>
+) =>
+  (options.client ?? client).get<
+    GetMediaV1ProjectsByProjectIdVideosByVideoIdResponses,
+    GetMediaV1ProjectsByProjectIdVideosByVideoIdErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
+    url: "/media/v1/projects/{projectId}/videos/{videoId}",
+    ...options,
+  });
+
+/**
  * Delete all audio tracks
  *
  * Deletes all audio tracks for a video.
@@ -2416,6 +2517,24 @@ export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracks = <Throw
   (options.client ?? client).delete<
     DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses,
     DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
+    url: "/media/v1/projects/{projectId}/videos/{videoId}/audio-tracks",
+    ...options,
+  });
+
+/**
+ * List audio tracks (project-scoped)
+ *
+ * Returns a video's audio tracks within a project, including for private media. Requires project access.
+ */
+export const getMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracks = <ThrowOnError extends boolean = false>(
+  options: Options<GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksData, ThrowOnError>
+) =>
+  (options.client ?? client).get<
+    GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses,
+    GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksErrors,
     ThrowOnError
   >({
     security: [{name: "X-API-Key", type: "apiKey"}],
@@ -2598,6 +2717,24 @@ export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitles = <ThrowOn
   });
 
 /**
+ * List subtitles (project-scoped)
+ *
+ * Returns a video's subtitles within a project, including for private media. Requires project access.
+ */
+export const getMediaV1ProjectsByProjectIdVideosByVideoIdSubtitles = <ThrowOnError extends boolean = false>(
+  options: Options<GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesData, ThrowOnError>
+) =>
+  (options.client ?? client).get<
+    GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponses,
+    GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
+    url: "/media/v1/projects/{projectId}/videos/{videoId}/subtitles",
+    ...options,
+  });
+
+/**
  * Delete a subtitle
  *
  * Deletes a single subtitle from a video.
@@ -2716,6 +2853,28 @@ export const postMediaV1ProjectsByProjectIdVideosByVideoIdUploadComplete = <Thro
     security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/upload/complete",
     ...options,
+  });
+
+/**
+ * Set a video's visibility
+ *
+ * Updates a video's visibility (public, unlisted, or private). Requires project access.
+ */
+export const putMediaV1ProjectsByProjectIdVideosByVideoIdVisibility = <ThrowOnError extends boolean = false>(
+  options: Options<PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityData, ThrowOnError>
+) =>
+  (options.client ?? client).put<
+    PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityResponses,
+    PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
+    url: "/media/v1/projects/{projectId}/videos/{videoId}/visibility",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
   });
 
 /**

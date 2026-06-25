@@ -264,13 +264,17 @@ export type Authv1ListProvidersResponse = {
 };
 
 export type Authv1LoginResponse = {
+  access_token?: string;
   email?: string;
+  expires_in?: number;
+  refresh_token?: string;
+  requires_action?: string;
   session_id?: string;
   /**
    * "ok" | "otp_required" | "email_not_verified"
    */
   status?: string;
-  tokens?: Authv1TokenResponse;
+  token_type?: string;
 };
 
 export type Authv1MemberPoliciesResponse = {
@@ -885,6 +889,10 @@ export type GatewayInviteMemberBody = {
   username: string;
 };
 
+export type GatewayMembershipStateBody = {
+  state: "accepted" | "declined";
+};
+
 export type GatewayPasskeyLoginFinishBody = {
   credential?: Array<number>;
   session_id: string;
@@ -900,6 +908,12 @@ export type GatewayPolicyBody = {
   description?: string;
   name: string;
   permissions: Array<string>;
+};
+
+export type GatewayRegisterBody = {
+  email: string;
+  password: string;
+  subscribe_to_blog?: boolean;
 };
 
 export type GatewayRegisterOrLoginBody = {
@@ -977,6 +991,10 @@ export type GatewayUpdateUsernameBody = {
   username: string;
 };
 
+export type GatewayUpdateVisibilityBody = {
+  visibility: "public" | "unlisted" | "private";
+};
+
 export type GatewayUpgradeSubscriptionBody = {
   stripe_price_id?: string;
 };
@@ -1011,6 +1029,7 @@ export type Imagesv1GetImageResponse = {
   height?: number;
   id?: string;
   thumbhash?: string;
+  visibility?: Imagesv1Visibility;
   width?: number;
 };
 
@@ -1033,6 +1052,7 @@ export type Imagesv1ImageSummary = {
   size?: number;
   thumbhash?: string;
   url?: string;
+  visibility?: Imagesv1Visibility;
   width?: number;
 };
 
@@ -1045,6 +1065,8 @@ export type Imagesv1ImageUploadInit = {
 export type Imagesv1ListImagesResponse = {
   images?: Array<Imagesv1ImageSummary>;
 };
+
+export type Imagesv1Visibility = 0 | 1 | 2 | 3;
 
 export type Postsv1DeleteResult = {
   deleted?: boolean;
@@ -1231,6 +1253,7 @@ export type Videosv1GetVideoResponse = {
   hdr?: boolean;
   height?: number;
   id?: string;
+  visibility?: Videosv1Visibility;
   width?: number;
 };
 
@@ -1298,6 +1321,7 @@ export type Videosv1VideoSummary = {
   id?: string;
   name?: string;
   size?: number;
+  visibility?: Videosv1Visibility;
   width?: number;
 };
 
@@ -1308,6 +1332,8 @@ export type Videosv1VideoUploadInit = {
   video_id?: string;
   video_upload_url?: string;
 };
+
+export type Videosv1Visibility = 0 | 1 | 2 | 3;
 
 export type GetAnalyticsV1DashboardData = {
   body?: never;
@@ -2735,6 +2761,45 @@ export type PostAuthV1MembershipsByOrgIdMembersInviteResendResponses = {
 export type PostAuthV1MembershipsByOrgIdMembersInviteResendResponse =
   PostAuthV1MembershipsByOrgIdMembersInviteResendResponses[keyof PostAuthV1MembershipsByOrgIdMembersInviteResendResponses];
 
+export type PutAuthV1MembershipsByOrgIdMembershipStateData = {
+  /**
+   * New membership state
+   */
+  body: GatewayMembershipStateBody;
+  path: {
+    /**
+     * Organization ID
+     */
+    orgId: string;
+  };
+  query?: never;
+  url: "/auth/v1/memberships/{orgId}/membership/state";
+};
+
+export type PutAuthV1MembershipsByOrgIdMembershipStateErrors = {
+  /**
+   * Bad Request
+   */
+  400: ErrorsErrorResponse;
+  /**
+   * Not Found
+   */
+  404: ErrorsErrorResponse;
+};
+
+export type PutAuthV1MembershipsByOrgIdMembershipStateError =
+  PutAuthV1MembershipsByOrgIdMembershipStateErrors[keyof PutAuthV1MembershipsByOrgIdMembershipStateErrors];
+
+export type PutAuthV1MembershipsByOrgIdMembershipStateResponses = {
+  /**
+   * OK
+   */
+  200: Authv1MembershipMutation;
+};
+
+export type PutAuthV1MembershipsByOrgIdMembershipStateResponse =
+  PutAuthV1MembershipsByOrgIdMembershipStateResponses[keyof PutAuthV1MembershipsByOrgIdMembershipStateResponses];
+
 export type PutAuthV1MembershipsByOrgIdNameData = {
   /**
    * New name
@@ -3435,7 +3500,7 @@ export type PostAuthV1RegisterData = {
   /**
    * Credentials
    */
-  body: GatewayRegisterOrLoginBody;
+  body: GatewayRegisterBody;
   path?: never;
   query?: never;
   url: "/auth/v1/register";
@@ -5079,6 +5144,46 @@ export type DeleteMediaV1ProjectsByProjectIdImagesByImageIdResponses = {
 export type DeleteMediaV1ProjectsByProjectIdImagesByImageIdResponse =
   DeleteMediaV1ProjectsByProjectIdImagesByImageIdResponses[keyof DeleteMediaV1ProjectsByProjectIdImagesByImageIdResponses];
 
+export type GetMediaV1ProjectsByProjectIdImagesByImageIdData = {
+  body?: never;
+  path: {
+    /**
+     * Project ID
+     */
+    projectId: string;
+    /**
+     * Image ID
+     */
+    imageId: string;
+  };
+  query?: never;
+  url: "/media/v1/projects/{projectId}/images/{imageId}";
+};
+
+export type GetMediaV1ProjectsByProjectIdImagesByImageIdErrors = {
+  /**
+   * Unauthorized
+   */
+  401: ErrorsErrorResponse;
+  /**
+   * Not Found
+   */
+  404: ErrorsErrorResponse;
+};
+
+export type GetMediaV1ProjectsByProjectIdImagesByImageIdError =
+  GetMediaV1ProjectsByProjectIdImagesByImageIdErrors[keyof GetMediaV1ProjectsByProjectIdImagesByImageIdErrors];
+
+export type GetMediaV1ProjectsByProjectIdImagesByImageIdResponses = {
+  /**
+   * OK
+   */
+  200: Imagesv1GetImageResponse;
+};
+
+export type GetMediaV1ProjectsByProjectIdImagesByImageIdResponse =
+  GetMediaV1ProjectsByProjectIdImagesByImageIdResponses[keyof GetMediaV1ProjectsByProjectIdImagesByImageIdResponses];
+
 export type PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteData = {
   body?: never;
   path: {
@@ -5122,6 +5227,53 @@ export type PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteResponses
 
 export type PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteResponse =
   PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteResponses[keyof PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteResponses];
+
+export type PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityData = {
+  /**
+   * Visibility
+   */
+  body: GatewayUpdateVisibilityBody;
+  path: {
+    /**
+     * Project ID
+     */
+    projectId: string;
+    /**
+     * Image ID
+     */
+    imageId: string;
+  };
+  query?: never;
+  url: "/media/v1/projects/{projectId}/images/{imageId}/visibility";
+};
+
+export type PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityErrors = {
+  /**
+   * Bad Request
+   */
+  400: ErrorsErrorResponse;
+  /**
+   * Unauthorized
+   */
+  401: ErrorsErrorResponse;
+  /**
+   * Not Found
+   */
+  404: ErrorsErrorResponse;
+};
+
+export type PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityError =
+  PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityErrors[keyof PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityErrors];
+
+export type PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityResponses = {
+  /**
+   * OK
+   */
+  200: Imagesv1GetImageResponse;
+};
+
+export type PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityResponse =
+  PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityResponses[keyof PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityResponses];
 
 export type PostMediaV1ProjectsByProjectIdImagesUploadData = {
   /**
@@ -5250,6 +5402,46 @@ export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdResponses = {
 export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdResponse =
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdResponses[keyof DeleteMediaV1ProjectsByProjectIdVideosByVideoIdResponses];
 
+export type GetMediaV1ProjectsByProjectIdVideosByVideoIdData = {
+  body?: never;
+  path: {
+    /**
+     * Project ID
+     */
+    projectId: string;
+    /**
+     * Video ID
+     */
+    videoId: string;
+  };
+  query?: never;
+  url: "/media/v1/projects/{projectId}/videos/{videoId}";
+};
+
+export type GetMediaV1ProjectsByProjectIdVideosByVideoIdErrors = {
+  /**
+   * Unauthorized
+   */
+  401: ErrorsErrorResponse;
+  /**
+   * Not Found
+   */
+  404: ErrorsErrorResponse;
+};
+
+export type GetMediaV1ProjectsByProjectIdVideosByVideoIdError =
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdErrors[keyof GetMediaV1ProjectsByProjectIdVideosByVideoIdErrors];
+
+export type GetMediaV1ProjectsByProjectIdVideosByVideoIdResponses = {
+  /**
+   * OK
+   */
+  200: Videosv1GetVideoResponse;
+};
+
+export type GetMediaV1ProjectsByProjectIdVideosByVideoIdResponse =
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdResponses[keyof GetMediaV1ProjectsByProjectIdVideosByVideoIdResponses];
+
 export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksData = {
   body?: never;
   path: {
@@ -5293,6 +5485,46 @@ export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses 
 
 export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponse =
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses[keyof DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses];
+
+export type GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksData = {
+  body?: never;
+  path: {
+    /**
+     * Project ID
+     */
+    projectId: string;
+    /**
+     * Video ID
+     */
+    videoId: string;
+  };
+  query?: never;
+  url: "/media/v1/projects/{projectId}/videos/{videoId}/audio-tracks";
+};
+
+export type GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksErrors = {
+  /**
+   * Unauthorized
+   */
+  401: ErrorsErrorResponse;
+  /**
+   * Not Found
+   */
+  404: ErrorsErrorResponse;
+};
+
+export type GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksError =
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksErrors[keyof GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksErrors];
+
+export type GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses = {
+  /**
+   * OK
+   */
+  200: Videosv1ListAudioTracksResponse;
+};
+
+export type GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponse =
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses[keyof GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses];
 
 export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksByTrackIdData = {
   body?: never;
@@ -5711,6 +5943,46 @@ export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponses = 
 export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponse =
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponses[keyof DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponses];
 
+export type GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesData = {
+  body?: never;
+  path: {
+    /**
+     * Project ID
+     */
+    projectId: string;
+    /**
+     * Video ID
+     */
+    videoId: string;
+  };
+  query?: never;
+  url: "/media/v1/projects/{projectId}/videos/{videoId}/subtitles";
+};
+
+export type GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesErrors = {
+  /**
+   * Unauthorized
+   */
+  401: ErrorsErrorResponse;
+  /**
+   * Not Found
+   */
+  404: ErrorsErrorResponse;
+};
+
+export type GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesError =
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesErrors[keyof GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesErrors];
+
+export type GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponses = {
+  /**
+   * OK
+   */
+  200: Videosv1ListSubtitlesResponse;
+};
+
+export type GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponse =
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponses[keyof GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponses];
+
 export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleIdData = {
   body?: never;
   path: {
@@ -5996,6 +6268,53 @@ export type PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteResponses
 
 export type PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteResponse =
   PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteResponses[keyof PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteResponses];
+
+export type PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityData = {
+  /**
+   * Visibility
+   */
+  body: GatewayUpdateVisibilityBody;
+  path: {
+    /**
+     * Project ID
+     */
+    projectId: string;
+    /**
+     * Video ID
+     */
+    videoId: string;
+  };
+  query?: never;
+  url: "/media/v1/projects/{projectId}/videos/{videoId}/visibility";
+};
+
+export type PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityErrors = {
+  /**
+   * Bad Request
+   */
+  400: ErrorsErrorResponse;
+  /**
+   * Unauthorized
+   */
+  401: ErrorsErrorResponse;
+  /**
+   * Not Found
+   */
+  404: ErrorsErrorResponse;
+};
+
+export type PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityError =
+  PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityErrors[keyof PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityErrors];
+
+export type PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityResponses = {
+  /**
+   * OK
+   */
+  200: Videosv1GetVideoResponse;
+};
+
+export type PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityResponse =
+  PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityResponses[keyof PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityResponses];
 
 export type PostMediaV1ProjectsByProjectIdVideosUploadData = {
   /**
