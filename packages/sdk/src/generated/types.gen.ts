@@ -5,6 +5,16 @@ export type ClientOptions = {
 };
 
 export type Analyticsv1AnalyticsEvent = {
+  /**
+   * Types that are valid to be assigned to Event:
+   *
+   * *AnalyticsEvent_SessionStart
+   * *AnalyticsEvent_ContentView
+   * *AnalyticsEvent_Engagement
+   * *AnalyticsEvent_Interaction
+   * *AnalyticsEvent_Error
+   */
+  event?: unknown;
   timestamp?: number;
 };
 
@@ -712,24 +722,6 @@ export type Clientauthv1RevokeClientCredentialResponse = {
   [key: string]: unknown;
 };
 
-/**
- * Standard error response returned by the API
- */
-export type ErrorsErrorResponse = {
-  /**
-   * HTTP status code
-   */
-  code?: number;
-  /**
-   * Optional details about the error
-   */
-  details?: string;
-  /**
-   * Error message describing what went wrong
-   */
-  error?: string;
-};
-
 export type Feedsv1DeleteFeedResponse = {
   [key: string]: unknown;
 };
@@ -751,271 +743,6 @@ export type Feedsv1Feed = {
 export type Feedsv1ListFeedsResponse = {
   feeds?: Array<Feedsv1Feed>;
   total?: number;
-};
-
-export type GatewayAddEmailBody = {
-  email: string;
-};
-
-export type GatewayAttachPolicyBody = {
-  identity_id: string;
-  identity_type: string;
-};
-
-export type GatewayAutoJoinBody = {
-  enabled?: boolean;
-};
-
-export type GatewayBillingAddressBody = {
-  city?: string;
-  country?: string;
-  email?: string;
-  line1?: string;
-  line2?: string;
-  name?: string;
-  phone?: string;
-  postal_code?: string;
-  state?: string;
-};
-
-export type GatewayCalculateTaxBody = {
-  amount?: number;
-  billing_address?: GatewayBillingAddressBody;
-  billing_cycle?: string;
-  currency?: string;
-  interval_count?: number;
-  line_items?: Array<GatewayTaxLineItemBody>;
-  metadata?: {
-    [key: string]: string;
-  };
-  plan_id?: string;
-  plan_name?: string;
-};
-
-export type GatewayChangeEmailBody = {
-  new_email: string;
-};
-
-export type GatewayChapterBody = {
-  start_time_sec?: number;
-  title: string;
-};
-
-export type GatewayCheckoutBody = {
-  cancel_url?: string;
-  stripe_price_id?: string;
-  success_url?: string;
-};
-
-export type GatewayCompleteTrackItem = {
-  id: string;
-  object_key: string;
-  size?: number;
-};
-
-export type GatewayCompleteTrackUploadBody = {
-  items: Array<GatewayCompleteTrackItem>;
-};
-
-export type GatewayCompleteUploadBody = {
-  post_id: string;
-};
-
-export type GatewayConnectProviderBody = {
-  provider: "google" | "apple" | "microsoft" | "tgAuthResult";
-  token: string;
-};
-
-export type GatewayContactSalesBody = {
-  company: string;
-  email: string;
-  first_name: string;
-  job_title?: string;
-  last_name: string;
-  message?: string;
-  phone: string;
-  website?: string;
-};
-
-export type GatewayCreateDomainBody = {
-  domain: string;
-};
-
-export type GatewayCreateImageUploadBody = {
-  format?: string;
-  name: string;
-};
-
-export type GatewayCreatePostBody = {
-  creator_id?: string;
-  description?: string;
-  image_id?: string;
-  type: "video" | "image";
-  video_id?: string;
-};
-
-export type GatewayCreateSubscriptionBody = {
-  billing_address?: GatewayBillingAddressBody;
-  payment_method_id?: string;
-  stripe_price_id?: string;
-};
-
-export type GatewayCreateVideoUploadBody = {
-  image_format?: string;
-  name: string;
-  video_quality?: string;
-};
-
-export type GatewayEmailBody = {
-  email: string;
-};
-
-export type GatewayInitTrackUploadBody = {
-  items: Array<GatewayTrackUploadItem>;
-};
-
-export type GatewayInitUploadBody = {
-  content_type: "image" | "video";
-  creator_id?: string;
-  description?: string;
-  file_name: string;
-  format: string;
-  image_format?: string;
-  video_quality?: string;
-};
-
-export type GatewayInviteMemberBody = {
-  role: "admin" | "member";
-  username: string;
-};
-
-export type GatewayMembershipStateBody = {
-  state: "accepted" | "declined";
-};
-
-export type GatewayPasskeyLoginFinishBody = {
-  credential?: Array<number>;
-  session_id: string;
-};
-
-export type GatewayPasskeyRegisterFinishBody = {
-  credential?: Array<number>;
-  name?: string;
-  session_id: string;
-};
-
-export type GatewayPolicyBody = {
-  description?: string;
-  name: string;
-  permissions: Array<string>;
-};
-
-export type GatewayRegisterBody = {
-  email: string;
-  password: string;
-  subscribe_to_blog?: boolean;
-};
-
-export type GatewayRegisterOrLoginBody = {
-  email: string;
-  password: string;
-};
-
-export type GatewayRenamePasskeyBody = {
-  name: string;
-};
-
-export type GatewayResendInviteBody = {
-  user_id: string;
-};
-
-export type GatewayResetPasswordBody = {
-  new_password: string;
-  token: string;
-};
-
-export type GatewaySendBlogBroadcastBody = {
-  category?: string;
-  commit_sha?: string;
-  description: string;
-  published_at?: string;
-  read_more_url: string;
-  slug?: string;
-  title: string;
-};
-
-export type GatewayTaxLineItemBody = {
-  amount?: number;
-  reference?: string;
-  tax_code?: string;
-};
-
-export type GatewayTrackUploadItem = {
-  file_name: string;
-  format: string;
-  label?: string;
-  language_code: string;
-  size?: number;
-};
-
-export type GatewayUnsubscribeBlogByEmailBody = {
-  email: string;
-  user_id: string;
-};
-
-export type GatewayUpdateChaptersBody = {
-  chapters?: Array<GatewayChapterBody>;
-};
-
-export type GatewayUpdateInvoiceStatusBody = {
-  status?: string;
-};
-
-export type GatewayUpdateNameBody = {
-  full_name: string;
-};
-
-export type GatewayUpdateOrgNameBody = {
-  full_name: string;
-};
-
-export type GatewayUpdateOrgUsernameBody = {
-  username: string;
-};
-
-export type GatewayUpdateRoleBody = {
-  role: "admin" | "member";
-};
-
-export type GatewayUpdateUsernameBody = {
-  username: string;
-};
-
-export type GatewayUpdateVisibilityBody = {
-  visibility: "public" | "unlisted" | "private";
-};
-
-export type GatewayUpgradeSubscriptionBody = {
-  stripe_price_id?: string;
-};
-
-export type GatewayUpsertPaymentMethodBody = {
-  payment_method_id?: string;
-  set_as_default?: boolean;
-};
-
-export type GatewayVerifyEmailBody = {
-  code: string;
-  verification_id: string;
-};
-
-export type GatewayVerifyOtpBody = {
-  code: string;
-};
-
-export type GatewayVerifyTotpLoginBody = {
-  code: string;
-  session_id: string;
 };
 
 export type Imagesv1DeleteResult = {
@@ -1067,6 +794,271 @@ export type Imagesv1ListImagesResponse = {
 };
 
 export type Imagesv1Visibility = 0 | 1 | 2 | 3;
+
+export type InternalAuthAddEmailBody = {
+  email: string;
+};
+
+export type InternalAuthAttachPolicyBody = {
+  identity_id: string;
+  identity_type: string;
+};
+
+export type InternalAuthAutoJoinBody = {
+  enabled?: boolean;
+};
+
+export type InternalAuthChangeEmailBody = {
+  new_email: string;
+};
+
+export type InternalAuthConnectProviderBody = {
+  provider: "google" | "apple" | "microsoft" | "tgAuthResult";
+  token: string;
+};
+
+export type InternalAuthCreateDomainBody = {
+  domain: string;
+};
+
+export type InternalAuthEmailBody = {
+  email: string;
+};
+
+export type InternalAuthInviteMemberBody = {
+  role: "admin" | "member";
+  username: string;
+};
+
+export type InternalAuthMembershipStateBody = {
+  state: "accepted" | "declined";
+};
+
+export type InternalAuthPasskeyLoginFinishBody = {
+  credential?: Array<number>;
+  session_id: string;
+};
+
+export type InternalAuthPasskeyRegisterFinishBody = {
+  credential?: Array<number>;
+  name?: string;
+  session_id: string;
+};
+
+export type InternalAuthPolicyBody = {
+  description?: string;
+  name: string;
+  permissions: Array<string>;
+};
+
+export type InternalAuthRegisterBody = {
+  email: string;
+  password: string;
+  subscribe_to_blog?: boolean;
+};
+
+export type InternalAuthRegisterOrLoginBody = {
+  email: string;
+  password: string;
+};
+
+export type InternalAuthRenamePasskeyBody = {
+  name: string;
+};
+
+export type InternalAuthResendInviteBody = {
+  user_id: string;
+};
+
+export type InternalAuthResetPasswordBody = {
+  new_password: string;
+  token: string;
+};
+
+export type InternalAuthSendBlogBroadcastBody = {
+  category?: string;
+  commit_sha?: string;
+  description: string;
+  published_at?: string;
+  read_more_url: string;
+  slug?: string;
+  title: string;
+};
+
+export type InternalAuthUnsubscribeBlogByEmailBody = {
+  email: string;
+  user_id: string;
+};
+
+export type InternalAuthUpdateNameBody = {
+  full_name: string;
+};
+
+export type InternalAuthUpdateOrgNameBody = {
+  full_name: string;
+};
+
+export type InternalAuthUpdateOrgUsernameBody = {
+  username: string;
+};
+
+export type InternalAuthUpdateRoleBody = {
+  role: "admin" | "member";
+};
+
+export type InternalAuthUpdateUsernameBody = {
+  username: string;
+};
+
+export type InternalAuthVerifyEmailBody = {
+  code: string;
+  verification_id: string;
+};
+
+export type InternalAuthVerifyOtpBody = {
+  code: string;
+};
+
+export type InternalAuthVerifyTotpLoginBody = {
+  code: string;
+  session_id: string;
+};
+
+export type InternalBillingBillingAddressBody = {
+  city?: string;
+  country?: string;
+  email?: string;
+  line1?: string;
+  line2?: string;
+  name?: string;
+  phone?: string;
+  postal_code?: string;
+  state?: string;
+};
+
+export type InternalBillingCalculateTaxBody = {
+  amount?: number;
+  billing_address?: InternalBillingBillingAddressBody;
+  billing_cycle?: string;
+  currency?: string;
+  interval_count?: number;
+  line_items?: Array<InternalBillingTaxLineItemBody>;
+  metadata?: {
+    [key: string]: string;
+  };
+  plan_id?: string;
+  plan_name?: string;
+};
+
+export type InternalBillingCheckoutBody = {
+  cancel_url?: string;
+  stripe_price_id?: string;
+  success_url?: string;
+};
+
+export type InternalBillingContactSalesBody = {
+  company: string;
+  email: string;
+  first_name: string;
+  job_title?: string;
+  last_name: string;
+  message?: string;
+  phone: string;
+  website?: string;
+};
+
+export type InternalBillingCreateSubscriptionBody = {
+  billing_address?: InternalBillingBillingAddressBody;
+  payment_method_id?: string;
+  stripe_price_id?: string;
+};
+
+export type InternalBillingTaxLineItemBody = {
+  amount?: number;
+  reference?: string;
+  tax_code?: string;
+};
+
+export type InternalBillingUpdateInvoiceStatusBody = {
+  status?: string;
+};
+
+export type InternalBillingUpgradeSubscriptionBody = {
+  stripe_price_id?: string;
+};
+
+export type InternalBillingUpsertPaymentMethodBody = {
+  payment_method_id?: string;
+  set_as_default?: boolean;
+};
+
+export type InternalMediaChapterBody = {
+  start_time_sec?: number;
+  title: string;
+};
+
+export type InternalMediaCompleteTrackItem = {
+  id: string;
+  object_key: string;
+  size?: number;
+};
+
+export type InternalMediaCompleteTrackUploadBody = {
+  items: Array<InternalMediaCompleteTrackItem>;
+};
+
+export type InternalMediaCreateImageUploadBody = {
+  format?: string;
+  name: string;
+};
+
+export type InternalMediaCreateVideoUploadBody = {
+  image_format?: string;
+  name: string;
+  video_quality?: string;
+};
+
+export type InternalMediaInitTrackUploadBody = {
+  items: Array<InternalMediaTrackUploadItem>;
+};
+
+export type InternalMediaTrackUploadItem = {
+  file_name: string;
+  format: string;
+  label?: string;
+  language_code: string;
+  size?: number;
+};
+
+export type InternalMediaUpdateChaptersBody = {
+  chapters?: Array<InternalMediaChapterBody>;
+};
+
+export type InternalMediaUpdateVisibilityBody = {
+  visibility: "public" | "unlisted" | "private";
+};
+
+export type InternalPostsCompleteUploadBody = {
+  post_id: string;
+};
+
+export type InternalPostsCreatePostBody = {
+  creator_id?: string;
+  description?: string;
+  image_id?: string;
+  type: "video" | "image";
+  video_id?: string;
+};
+
+export type InternalPostsInitUploadBody = {
+  content_type: "image" | "video";
+  creator_id?: string;
+  description?: string;
+  file_name: string;
+  format: string;
+  image_format?: string;
+  video_quality?: string;
+};
 
 export type Postsv1DeleteResult = {
   deleted?: boolean;
@@ -1224,7 +1216,7 @@ export type TypesUpdateProjectNameRequest = {
 };
 
 export type TypesUpdateVideoQualityRequest = {
-  video_quality: SqlcVideoQuality;
+  video_quality: "basic" | "shorts" | "pro";
 };
 
 export type Videosv1AudioTrack = {
@@ -1355,19 +1347,6 @@ export type GetAnalyticsV1DashboardData = {
   url: "/analytics/v1/dashboard";
 };
 
-export type GetAnalyticsV1DashboardErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAnalyticsV1DashboardError = GetAnalyticsV1DashboardErrors[keyof GetAnalyticsV1DashboardErrors];
-
 export type GetAnalyticsV1DashboardResponses = {
   /**
    * OK
@@ -1387,27 +1366,12 @@ export type PostAnalyticsV1EventsData = {
   url: "/analytics/v1/events";
 };
 
-export type PostAnalyticsV1EventsErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostAnalyticsV1EventsError = PostAnalyticsV1EventsErrors[keyof PostAnalyticsV1EventsErrors];
-
 export type PostAnalyticsV1EventsResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type PostAnalyticsV1EventsResponse = PostAnalyticsV1EventsResponses[keyof PostAnalyticsV1EventsResponses];
 
 export type GetAnalyticsV1FeedsByFeedIdStatsData = {
   body?: never;
@@ -1429,19 +1393,6 @@ export type GetAnalyticsV1FeedsByFeedIdStatsData = {
   };
   url: "/analytics/v1/feeds/{feedId}/stats";
 };
-
-export type GetAnalyticsV1FeedsByFeedIdStatsErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAnalyticsV1FeedsByFeedIdStatsError = GetAnalyticsV1FeedsByFeedIdStatsErrors[keyof GetAnalyticsV1FeedsByFeedIdStatsErrors];
 
 export type GetAnalyticsV1FeedsByFeedIdStatsResponses = {
   /**
@@ -1471,19 +1422,6 @@ export type PostAnalyticsV1FunnelsData = {
   };
   url: "/analytics/v1/funnels";
 };
-
-export type PostAnalyticsV1FunnelsErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostAnalyticsV1FunnelsError = PostAnalyticsV1FunnelsErrors[keyof PostAnalyticsV1FunnelsErrors];
 
 export type PostAnalyticsV1FunnelsResponses = {
   /**
@@ -1515,19 +1453,6 @@ export type GetAnalyticsV1PostsByPostIdStatsData = {
   url: "/analytics/v1/posts/{postId}/stats";
 };
 
-export type GetAnalyticsV1PostsByPostIdStatsErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAnalyticsV1PostsByPostIdStatsError = GetAnalyticsV1PostsByPostIdStatsErrors[keyof GetAnalyticsV1PostsByPostIdStatsErrors];
-
 export type GetAnalyticsV1PostsByPostIdStatsResponses = {
   /**
    * OK
@@ -1544,15 +1469,6 @@ export type GetAnalyticsV1RealtimeData = {
   query?: never;
   url: "/analytics/v1/realtime";
 };
-
-export type GetAnalyticsV1RealtimeErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAnalyticsV1RealtimeError = GetAnalyticsV1RealtimeErrors[keyof GetAnalyticsV1RealtimeErrors];
 
 export type GetAnalyticsV1RealtimeResponses = {
   /**
@@ -1583,15 +1499,6 @@ export type GetAnalyticsV1RetentionData = {
   url: "/analytics/v1/retention";
 };
 
-export type GetAnalyticsV1RetentionErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAnalyticsV1RetentionError = GetAnalyticsV1RetentionErrors[keyof GetAnalyticsV1RetentionErrors];
-
 export type GetAnalyticsV1RetentionResponses = {
   /**
    * OK
@@ -1620,19 +1527,6 @@ export type GetAnalyticsV1TopFeedsData = {
   };
   url: "/analytics/v1/top/feeds";
 };
-
-export type GetAnalyticsV1TopFeedsErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAnalyticsV1TopFeedsError = GetAnalyticsV1TopFeedsErrors[keyof GetAnalyticsV1TopFeedsErrors];
 
 export type GetAnalyticsV1TopFeedsResponses = {
   /**
@@ -1667,15 +1561,6 @@ export type GetAnalyticsV1TopPostsData = {
   url: "/analytics/v1/top/posts";
 };
 
-export type GetAnalyticsV1TopPostsErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAnalyticsV1TopPostsError = GetAnalyticsV1TopPostsErrors[keyof GetAnalyticsV1TopPostsErrors];
-
 export type GetAnalyticsV1TopPostsResponses = {
   /**
    * OK
@@ -1704,19 +1589,6 @@ export type GetAnalyticsV1TopVideosData = {
   };
   url: "/analytics/v1/top/videos";
 };
-
-export type GetAnalyticsV1TopVideosErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAnalyticsV1TopVideosError = GetAnalyticsV1TopVideosErrors[keyof GetAnalyticsV1TopVideosErrors];
 
 export type GetAnalyticsV1TopVideosResponses = {
   /**
@@ -1752,20 +1624,6 @@ export type GetAnalyticsV1VideosByVideoIdHeatmapData = {
   url: "/analytics/v1/videos/{videoId}/heatmap";
 };
 
-export type GetAnalyticsV1VideosByVideoIdHeatmapErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAnalyticsV1VideosByVideoIdHeatmapError =
-  GetAnalyticsV1VideosByVideoIdHeatmapErrors[keyof GetAnalyticsV1VideosByVideoIdHeatmapErrors];
-
 export type GetAnalyticsV1VideosByVideoIdHeatmapResponses = {
   /**
    * OK
@@ -1796,20 +1654,6 @@ export type GetAnalyticsV1VideosByVideoIdHotSegmentsData = {
   };
   url: "/analytics/v1/videos/{videoId}/hot-segments";
 };
-
-export type GetAnalyticsV1VideosByVideoIdHotSegmentsErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAnalyticsV1VideosByVideoIdHotSegmentsError =
-  GetAnalyticsV1VideosByVideoIdHotSegmentsErrors[keyof GetAnalyticsV1VideosByVideoIdHotSegmentsErrors];
 
 export type GetAnalyticsV1VideosByVideoIdHotSegmentsResponses = {
   /**
@@ -1842,20 +1686,6 @@ export type GetAnalyticsV1VideosByVideoIdStatsData = {
   url: "/analytics/v1/videos/{videoId}/stats";
 };
 
-export type GetAnalyticsV1VideosByVideoIdStatsErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAnalyticsV1VideosByVideoIdStatsError =
-  GetAnalyticsV1VideosByVideoIdStatsErrors[keyof GetAnalyticsV1VideosByVideoIdStatsErrors];
-
 export type GetAnalyticsV1VideosByVideoIdStatsResponses = {
   /**
    * OK
@@ -1870,7 +1700,7 @@ export type SendBlogBroadcastData = {
   /**
    * Broadcast payload
    */
-  body: GatewaySendBlogBroadcastBody;
+  body: InternalAuthSendBlogBroadcastBody;
   headers: {
     /**
      * Internal service key
@@ -1881,19 +1711,6 @@ export type SendBlogBroadcastData = {
   query?: never;
   url: "/auth/v1/blog/broadcast";
 };
-
-export type SendBlogBroadcastErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type SendBlogBroadcastError = SendBlogBroadcastErrors[keyof SendBlogBroadcastErrors];
 
 export type SendBlogBroadcastResponses = {
   /**
@@ -1911,23 +1728,12 @@ export type PostAuthV1BlogSubscribeData = {
   url: "/auth/v1/blog/subscribe";
 };
 
-export type PostAuthV1BlogSubscribeErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostAuthV1BlogSubscribeError = PostAuthV1BlogSubscribeErrors[keyof PostAuthV1BlogSubscribeErrors];
-
 export type PostAuthV1BlogSubscribeResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type PostAuthV1BlogSubscribeResponse = PostAuthV1BlogSubscribeResponses[keyof PostAuthV1BlogSubscribeResponses];
 
 export type GetAuthV1BlogSubscriptionData = {
   body?: never;
@@ -1935,15 +1741,6 @@ export type GetAuthV1BlogSubscriptionData = {
   query?: never;
   url: "/auth/v1/blog/subscription";
 };
-
-export type GetAuthV1BlogSubscriptionErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAuthV1BlogSubscriptionError = GetAuthV1BlogSubscriptionErrors[keyof GetAuthV1BlogSubscriptionErrors];
 
 export type GetAuthV1BlogSubscriptionResponses = {
   /**
@@ -1961,70 +1758,39 @@ export type PostAuthV1BlogUnsubscribeData = {
   url: "/auth/v1/blog/unsubscribe";
 };
 
-export type PostAuthV1BlogUnsubscribeErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostAuthV1BlogUnsubscribeError = PostAuthV1BlogUnsubscribeErrors[keyof PostAuthV1BlogUnsubscribeErrors];
-
 export type PostAuthV1BlogUnsubscribeResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type PostAuthV1BlogUnsubscribeResponse = PostAuthV1BlogUnsubscribeResponses[keyof PostAuthV1BlogUnsubscribeResponses];
 
 export type PostAuthV1BlogUnsubscribeEmailData = {
   /**
    * Unsubscribe request
    */
-  body: GatewayUnsubscribeBlogByEmailBody;
+  body: InternalAuthUnsubscribeBlogByEmailBody;
   path?: never;
   query?: never;
   url: "/auth/v1/blog/unsubscribe/email";
 };
 
-export type PostAuthV1BlogUnsubscribeEmailErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-};
-
-export type PostAuthV1BlogUnsubscribeEmailError = PostAuthV1BlogUnsubscribeEmailErrors[keyof PostAuthV1BlogUnsubscribeEmailErrors];
-
 export type PostAuthV1BlogUnsubscribeEmailResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type PostAuthV1BlogUnsubscribeEmailResponse = PostAuthV1BlogUnsubscribeEmailResponses[keyof PostAuthV1BlogUnsubscribeEmailResponses];
 
 export type PostAuthV1EmailVerifyData = {
   /**
    * Verification id and code
    */
-  body: GatewayVerifyEmailBody;
+  body: InternalAuthVerifyEmailBody;
   path?: never;
   query?: never;
   url: "/auth/v1/email/verify";
 };
-
-export type PostAuthV1EmailVerifyErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-};
-
-export type PostAuthV1EmailVerifyError = PostAuthV1EmailVerifyErrors[keyof PostAuthV1EmailVerifyErrors];
 
 export type PostAuthV1EmailVerifyResponses = {
   /**
@@ -2039,24 +1805,11 @@ export type PostAuthV1EmailVerifyResendData = {
   /**
    * Email address
    */
-  body: GatewayEmailBody;
+  body: InternalAuthEmailBody;
   path?: never;
   query?: never;
   url: "/auth/v1/email/verify/resend";
 };
-
-export type PostAuthV1EmailVerifyResendErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Too Many Requests
-   */
-  429: ErrorsErrorResponse;
-};
-
-export type PostAuthV1EmailVerifyResendError = PostAuthV1EmailVerifyResendErrors[keyof PostAuthV1EmailVerifyResendErrors];
 
 export type PostAuthV1EmailVerifyResendResponses = {
   /**
@@ -2078,16 +1831,6 @@ export type PostAuthV1InvitationsByTokenAcceptData = {
   query?: never;
   url: "/auth/v1/invitations/{token}/accept";
 };
-
-export type PostAuthV1InvitationsByTokenAcceptErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-};
-
-export type PostAuthV1InvitationsByTokenAcceptError =
-  PostAuthV1InvitationsByTokenAcceptErrors[keyof PostAuthV1InvitationsByTokenAcceptErrors];
 
 export type PostAuthV1InvitationsByTokenAcceptResponses = {
   /**
@@ -2111,48 +1854,22 @@ export type PostAuthV1InvitationsByTokenDeclineData = {
   url: "/auth/v1/invitations/{token}/decline";
 };
 
-export type PostAuthV1InvitationsByTokenDeclineErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-};
-
-export type PostAuthV1InvitationsByTokenDeclineError =
-  PostAuthV1InvitationsByTokenDeclineErrors[keyof PostAuthV1InvitationsByTokenDeclineErrors];
-
 export type PostAuthV1InvitationsByTokenDeclineResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type PostAuthV1InvitationsByTokenDeclineResponse =
-  PostAuthV1InvitationsByTokenDeclineResponses[keyof PostAuthV1InvitationsByTokenDeclineResponses];
 
 export type PostAuthV1LoginData = {
   /**
    * Credentials
    */
-  body: GatewayRegisterOrLoginBody;
+  body: InternalAuthRegisterOrLoginBody;
   path?: never;
   query?: never;
   url: "/auth/v1/login";
 };
-
-export type PostAuthV1LoginErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-};
-
-export type PostAuthV1LoginError = PostAuthV1LoginErrors[keyof PostAuthV1LoginErrors];
 
 export type PostAuthV1LoginResponses = {
   /**
@@ -2180,10 +1897,8 @@ export type PostAuthV1LogoutResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type PostAuthV1LogoutResponse = PostAuthV1LogoutResponses[keyof PostAuthV1LogoutResponses];
 
 export type PutAuthV1MembershipsByOrgIdActiveData = {
   body?: never;
@@ -2196,19 +1911,6 @@ export type PutAuthV1MembershipsByOrgIdActiveData = {
   query?: never;
   url: "/auth/v1/memberships/{orgId}/active";
 };
-
-export type PutAuthV1MembershipsByOrgIdActiveErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PutAuthV1MembershipsByOrgIdActiveError = PutAuthV1MembershipsByOrgIdActiveErrors[keyof PutAuthV1MembershipsByOrgIdActiveErrors];
 
 export type PutAuthV1MembershipsByOrgIdActiveResponses = {
   /**
@@ -2232,15 +1934,6 @@ export type GetAuthV1MembershipsByOrgIdCheckData = {
   url: "/auth/v1/memberships/{orgId}/check";
 };
 
-export type GetAuthV1MembershipsByOrgIdCheckErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAuthV1MembershipsByOrgIdCheckError = GetAuthV1MembershipsByOrgIdCheckErrors[keyof GetAuthV1MembershipsByOrgIdCheckErrors];
-
 export type GetAuthV1MembershipsByOrgIdCheckResponses = {
   /**
    * OK
@@ -2263,25 +1956,12 @@ export type DeleteAuthV1MembershipsByOrgIdDomainData = {
   url: "/auth/v1/memberships/{orgId}/domain";
 };
 
-export type DeleteAuthV1MembershipsByOrgIdDomainErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type DeleteAuthV1MembershipsByOrgIdDomainError =
-  DeleteAuthV1MembershipsByOrgIdDomainErrors[keyof DeleteAuthV1MembershipsByOrgIdDomainErrors];
-
 export type DeleteAuthV1MembershipsByOrgIdDomainResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type DeleteAuthV1MembershipsByOrgIdDomainResponse =
-  DeleteAuthV1MembershipsByOrgIdDomainResponses[keyof DeleteAuthV1MembershipsByOrgIdDomainResponses];
 
 export type GetAuthV1MembershipsByOrgIdDomainData = {
   body?: never;
@@ -2294,15 +1974,6 @@ export type GetAuthV1MembershipsByOrgIdDomainData = {
   query?: never;
   url: "/auth/v1/memberships/{orgId}/domain";
 };
-
-export type GetAuthV1MembershipsByOrgIdDomainErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAuthV1MembershipsByOrgIdDomainError = GetAuthV1MembershipsByOrgIdDomainErrors[keyof GetAuthV1MembershipsByOrgIdDomainErrors];
 
 export type GetAuthV1MembershipsByOrgIdDomainResponses = {
   /**
@@ -2318,7 +1989,7 @@ export type PostAuthV1MembershipsByOrgIdDomainData = {
   /**
    * Domain
    */
-  body: GatewayCreateDomainBody;
+  body: InternalAuthCreateDomainBody;
   path: {
     /**
      * Organization ID
@@ -2328,20 +1999,6 @@ export type PostAuthV1MembershipsByOrgIdDomainData = {
   query?: never;
   url: "/auth/v1/memberships/{orgId}/domain";
 };
-
-export type PostAuthV1MembershipsByOrgIdDomainErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostAuthV1MembershipsByOrgIdDomainError =
-  PostAuthV1MembershipsByOrgIdDomainErrors[keyof PostAuthV1MembershipsByOrgIdDomainErrors];
 
 export type PostAuthV1MembershipsByOrgIdDomainResponses = {
   /**
@@ -2365,16 +2022,6 @@ export type GetAuthV1MembershipsByOrgIdDomainAutoJoinData = {
   url: "/auth/v1/memberships/{orgId}/domain/auto-join";
 };
 
-export type GetAuthV1MembershipsByOrgIdDomainAutoJoinErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAuthV1MembershipsByOrgIdDomainAutoJoinError =
-  GetAuthV1MembershipsByOrgIdDomainAutoJoinErrors[keyof GetAuthV1MembershipsByOrgIdDomainAutoJoinErrors];
-
 export type GetAuthV1MembershipsByOrgIdDomainAutoJoinResponses = {
   /**
    * OK
@@ -2389,7 +2036,7 @@ export type PutAuthV1MembershipsByOrgIdDomainAutoJoinData = {
   /**
    * Auto-join enabled
    */
-  body: GatewayAutoJoinBody;
+  body: InternalAuthAutoJoinBody;
   path: {
     /**
      * Organization ID
@@ -2399,16 +2046,6 @@ export type PutAuthV1MembershipsByOrgIdDomainAutoJoinData = {
   query?: never;
   url: "/auth/v1/memberships/{orgId}/domain/auto-join";
 };
-
-export type PutAuthV1MembershipsByOrgIdDomainAutoJoinErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PutAuthV1MembershipsByOrgIdDomainAutoJoinError =
-  PutAuthV1MembershipsByOrgIdDomainAutoJoinErrors[keyof PutAuthV1MembershipsByOrgIdDomainAutoJoinErrors];
 
 export type PutAuthV1MembershipsByOrgIdDomainAutoJoinResponses = {
   /**
@@ -2432,16 +2069,6 @@ export type PostAuthV1MembershipsByOrgIdDomainVerificationData = {
   url: "/auth/v1/memberships/{orgId}/domain/verification";
 };
 
-export type PostAuthV1MembershipsByOrgIdDomainVerificationErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostAuthV1MembershipsByOrgIdDomainVerificationError =
-  PostAuthV1MembershipsByOrgIdDomainVerificationErrors[keyof PostAuthV1MembershipsByOrgIdDomainVerificationErrors];
-
 export type PostAuthV1MembershipsByOrgIdDomainVerificationResponses = {
   /**
    * OK
@@ -2464,19 +2091,6 @@ export type GetAuthV1MembershipsByOrgIdInfoData = {
   url: "/auth/v1/memberships/{orgId}/info";
 };
 
-export type GetAuthV1MembershipsByOrgIdInfoErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-};
-
-export type GetAuthV1MembershipsByOrgIdInfoError = GetAuthV1MembershipsByOrgIdInfoErrors[keyof GetAuthV1MembershipsByOrgIdInfoErrors];
-
 export type GetAuthV1MembershipsByOrgIdInfoResponses = {
   /**
    * OK
@@ -2498,16 +2112,6 @@ export type DeleteAuthV1MembershipsByOrgIdLeaveData = {
   query?: never;
   url: "/auth/v1/memberships/{orgId}/leave";
 };
-
-export type DeleteAuthV1MembershipsByOrgIdLeaveErrors = {
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-};
-
-export type DeleteAuthV1MembershipsByOrgIdLeaveError =
-  DeleteAuthV1MembershipsByOrgIdLeaveErrors[keyof DeleteAuthV1MembershipsByOrgIdLeaveErrors];
 
 export type DeleteAuthV1MembershipsByOrgIdLeaveResponses = {
   /**
@@ -2540,16 +2144,6 @@ export type GetAuthV1MembershipsByOrgIdMembersData = {
   url: "/auth/v1/memberships/{orgId}/members";
 };
 
-export type GetAuthV1MembershipsByOrgIdMembersErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAuthV1MembershipsByOrgIdMembersError =
-  GetAuthV1MembershipsByOrgIdMembersErrors[keyof GetAuthV1MembershipsByOrgIdMembersErrors];
-
 export type GetAuthV1MembershipsByOrgIdMembersResponses = {
   /**
    * OK
@@ -2575,16 +2169,6 @@ export type DeleteAuthV1MembershipsByOrgIdMembersByUserIdData = {
   query?: never;
   url: "/auth/v1/memberships/{orgId}/members/{userId}";
 };
-
-export type DeleteAuthV1MembershipsByOrgIdMembersByUserIdErrors = {
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-};
-
-export type DeleteAuthV1MembershipsByOrgIdMembersByUserIdError =
-  DeleteAuthV1MembershipsByOrgIdMembersByUserIdErrors[keyof DeleteAuthV1MembershipsByOrgIdMembersByUserIdErrors];
 
 export type DeleteAuthV1MembershipsByOrgIdMembersByUserIdResponses = {
   /**
@@ -2612,16 +2196,6 @@ export type GetAuthV1MembershipsByOrgIdMembersByUserIdPoliciesData = {
   url: "/auth/v1/memberships/{orgId}/members/{userId}/policies";
 };
 
-export type GetAuthV1MembershipsByOrgIdMembersByUserIdPoliciesErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAuthV1MembershipsByOrgIdMembersByUserIdPoliciesError =
-  GetAuthV1MembershipsByOrgIdMembersByUserIdPoliciesErrors[keyof GetAuthV1MembershipsByOrgIdMembersByUserIdPoliciesErrors];
-
 export type GetAuthV1MembershipsByOrgIdMembersByUserIdPoliciesResponses = {
   /**
    * OK
@@ -2636,7 +2210,7 @@ export type PutAuthV1MembershipsByOrgIdMembersByUserIdRoleData = {
   /**
    * Role
    */
-  body: GatewayUpdateRoleBody;
+  body: InternalAuthUpdateRoleBody;
   path: {
     /**
      * Organization ID
@@ -2650,20 +2224,6 @@ export type PutAuthV1MembershipsByOrgIdMembersByUserIdRoleData = {
   query?: never;
   url: "/auth/v1/memberships/{orgId}/members/{userId}/role";
 };
-
-export type PutAuthV1MembershipsByOrgIdMembersByUserIdRoleErrors = {
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PutAuthV1MembershipsByOrgIdMembersByUserIdRoleError =
-  PutAuthV1MembershipsByOrgIdMembersByUserIdRoleErrors[keyof PutAuthV1MembershipsByOrgIdMembersByUserIdRoleErrors];
 
 export type PutAuthV1MembershipsByOrgIdMembersByUserIdRoleResponses = {
   /**
@@ -2679,7 +2239,7 @@ export type PostAuthV1MembershipsByOrgIdMembersInviteData = {
   /**
    * Invitation
    */
-  body: GatewayInviteMemberBody;
+  body: InternalAuthInviteMemberBody;
   path: {
     /**
      * Organization ID
@@ -2689,24 +2249,6 @@ export type PostAuthV1MembershipsByOrgIdMembersInviteData = {
   query?: never;
   url: "/auth/v1/memberships/{orgId}/members/invite";
 };
-
-export type PostAuthV1MembershipsByOrgIdMembersInviteErrors = {
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-  /**
-   * Conflict
-   */
-  409: ErrorsErrorResponse;
-};
-
-export type PostAuthV1MembershipsByOrgIdMembersInviteError =
-  PostAuthV1MembershipsByOrgIdMembersInviteErrors[keyof PostAuthV1MembershipsByOrgIdMembersInviteErrors];
 
 export type PostAuthV1MembershipsByOrgIdMembersInviteResponses = {
   /**
@@ -2722,7 +2264,7 @@ export type PostAuthV1MembershipsByOrgIdMembersInviteResendData = {
   /**
    * Member to resend to
    */
-  body: GatewayResendInviteBody;
+  body: InternalAuthResendInviteBody;
   path: {
     /**
      * Organization ID
@@ -2733,39 +2275,18 @@ export type PostAuthV1MembershipsByOrgIdMembersInviteResendData = {
   url: "/auth/v1/memberships/{orgId}/members/invite/resend";
 };
 
-export type PostAuthV1MembershipsByOrgIdMembersInviteResendErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PostAuthV1MembershipsByOrgIdMembersInviteResendError =
-  PostAuthV1MembershipsByOrgIdMembersInviteResendErrors[keyof PostAuthV1MembershipsByOrgIdMembersInviteResendErrors];
-
 export type PostAuthV1MembershipsByOrgIdMembersInviteResendResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type PostAuthV1MembershipsByOrgIdMembersInviteResendResponse =
-  PostAuthV1MembershipsByOrgIdMembersInviteResendResponses[keyof PostAuthV1MembershipsByOrgIdMembersInviteResendResponses];
 
 export type PutAuthV1MembershipsByOrgIdMembershipStateData = {
   /**
    * New membership state
    */
-  body: GatewayMembershipStateBody;
+  body: InternalAuthMembershipStateBody;
   path: {
     /**
      * Organization ID
@@ -2775,20 +2296,6 @@ export type PutAuthV1MembershipsByOrgIdMembershipStateData = {
   query?: never;
   url: "/auth/v1/memberships/{orgId}/membership/state";
 };
-
-export type PutAuthV1MembershipsByOrgIdMembershipStateErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PutAuthV1MembershipsByOrgIdMembershipStateError =
-  PutAuthV1MembershipsByOrgIdMembershipStateErrors[keyof PutAuthV1MembershipsByOrgIdMembershipStateErrors];
 
 export type PutAuthV1MembershipsByOrgIdMembershipStateResponses = {
   /**
@@ -2804,7 +2311,7 @@ export type PutAuthV1MembershipsByOrgIdNameData = {
   /**
    * New name
    */
-  body: GatewayUpdateOrgNameBody;
+  body: InternalAuthUpdateOrgNameBody;
   path: {
     /**
      * Organization ID
@@ -2814,19 +2321,6 @@ export type PutAuthV1MembershipsByOrgIdNameData = {
   query?: never;
   url: "/auth/v1/memberships/{orgId}/name";
 };
-
-export type PutAuthV1MembershipsByOrgIdNameErrors = {
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Too Many Requests
-   */
-  429: ErrorsErrorResponse;
-};
-
-export type PutAuthV1MembershipsByOrgIdNameError = PutAuthV1MembershipsByOrgIdNameErrors[keyof PutAuthV1MembershipsByOrgIdNameErrors];
 
 export type PutAuthV1MembershipsByOrgIdNameResponses = {
   /**
@@ -2850,20 +2344,6 @@ export type GetAuthV1MembershipsByOrgIdPoliciesData = {
   url: "/auth/v1/memberships/{orgId}/policies";
 };
 
-export type GetAuthV1MembershipsByOrgIdPoliciesErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-};
-
-export type GetAuthV1MembershipsByOrgIdPoliciesError =
-  GetAuthV1MembershipsByOrgIdPoliciesErrors[keyof GetAuthV1MembershipsByOrgIdPoliciesErrors];
-
 export type GetAuthV1MembershipsByOrgIdPoliciesResponses = {
   /**
    * OK
@@ -2878,7 +2358,7 @@ export type PostAuthV1MembershipsByOrgIdPoliciesData = {
   /**
    * Policy
    */
-  body: GatewayPolicyBody;
+  body: InternalAuthPolicyBody;
   path: {
     /**
      * Organization ID
@@ -2888,20 +2368,6 @@ export type PostAuthV1MembershipsByOrgIdPoliciesData = {
   query?: never;
   url: "/auth/v1/memberships/{orgId}/policies";
 };
-
-export type PostAuthV1MembershipsByOrgIdPoliciesErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-};
-
-export type PostAuthV1MembershipsByOrgIdPoliciesError =
-  PostAuthV1MembershipsByOrgIdPoliciesErrors[keyof PostAuthV1MembershipsByOrgIdPoliciesErrors];
 
 export type PostAuthV1MembershipsByOrgIdPoliciesResponses = {
   /**
@@ -2929,29 +2395,12 @@ export type DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdData = {
   url: "/auth/v1/memberships/{orgId}/policies/{policyId}";
 };
 
-export type DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdErrors = {
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdError =
-  DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdErrors[keyof DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdErrors];
-
 export type DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponse =
-  DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponses[keyof DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponses];
 
 export type GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdData = {
   body?: never;
@@ -2969,20 +2418,6 @@ export type GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdData = {
   url: "/auth/v1/memberships/{orgId}/policies/{policyId}";
 };
 
-export type GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdError =
-  GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdErrors[keyof GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdErrors];
-
 export type GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponses = {
   /**
    * OK
@@ -2997,7 +2432,7 @@ export type PutAuthV1MembershipsByOrgIdPoliciesByPolicyIdData = {
   /**
    * Policy
    */
-  body: GatewayPolicyBody;
+  body: InternalAuthPolicyBody;
   path: {
     /**
      * Organization ID
@@ -3011,20 +2446,6 @@ export type PutAuthV1MembershipsByOrgIdPoliciesByPolicyIdData = {
   query?: never;
   url: "/auth/v1/memberships/{orgId}/policies/{policyId}";
 };
-
-export type PutAuthV1MembershipsByOrgIdPoliciesByPolicyIdErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PutAuthV1MembershipsByOrgIdPoliciesByPolicyIdError =
-  PutAuthV1MembershipsByOrgIdPoliciesByPolicyIdErrors[keyof PutAuthV1MembershipsByOrgIdPoliciesByPolicyIdErrors];
 
 export type PutAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponses = {
   /**
@@ -3052,16 +2473,6 @@ export type GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsData = {
   url: "/auth/v1/memberships/{orgId}/policies/{policyId}/attachments";
 };
 
-export type GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsError =
-  GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsErrors[keyof GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsErrors];
-
 export type GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsResponses = {
   /**
    * OK
@@ -3076,7 +2487,7 @@ export type PostAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsData = {
   /**
    * Identity
    */
-  body: GatewayAttachPolicyBody;
+  body: InternalAuthAttachPolicyBody;
   path: {
     /**
      * Organization ID
@@ -3090,20 +2501,6 @@ export type PostAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsData = {
   query?: never;
   url: "/auth/v1/memberships/{orgId}/policies/{policyId}/attachments";
 };
-
-export type PostAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-};
-
-export type PostAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsError =
-  PostAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsErrors[keyof PostAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsErrors];
 
 export type PostAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsResponses = {
   /**
@@ -3135,31 +2532,18 @@ export type DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachm
   url: "/auth/v1/memberships/{orgId}/policies/{policyId}/attachments/{attachmentId}";
 };
 
-export type DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachmentIdErrors = {
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachmentIdError =
-  DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachmentIdErrors[keyof DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachmentIdErrors];
-
 export type DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachmentIdResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachmentIdResponse =
-  DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachmentIdResponses[keyof DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachmentIdResponses];
 
 export type PutAuthV1MembershipsByOrgIdUsernameData = {
   /**
    * New username
    */
-  body: GatewayUpdateOrgUsernameBody;
+  body: InternalAuthUpdateOrgUsernameBody;
   path: {
     /**
      * Organization ID
@@ -3169,24 +2553,6 @@ export type PutAuthV1MembershipsByOrgIdUsernameData = {
   query?: never;
   url: "/auth/v1/memberships/{orgId}/username";
 };
-
-export type PutAuthV1MembershipsByOrgIdUsernameErrors = {
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Conflict
-   */
-  409: ErrorsErrorResponse;
-  /**
-   * Too Many Requests
-   */
-  429: ErrorsErrorResponse;
-};
-
-export type PutAuthV1MembershipsByOrgIdUsernameError =
-  PutAuthV1MembershipsByOrgIdUsernameErrors[keyof PutAuthV1MembershipsByOrgIdUsernameErrors];
 
 export type PutAuthV1MembershipsByOrgIdUsernameResponses = {
   /**
@@ -3214,15 +2580,6 @@ export type GetAuthV1MembershipsActiveData = {
   url: "/auth/v1/memberships/active";
 };
 
-export type GetAuthV1MembershipsActiveErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAuthV1MembershipsActiveError = GetAuthV1MembershipsActiveErrors[keyof GetAuthV1MembershipsActiveErrors];
-
 export type GetAuthV1MembershipsActiveResponses = {
   /**
    * OK
@@ -3248,15 +2605,6 @@ export type GetAuthV1MembershipsPendingData = {
   url: "/auth/v1/memberships/pending";
 };
 
-export type GetAuthV1MembershipsPendingErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAuthV1MembershipsPendingError = GetAuthV1MembershipsPendingErrors[keyof GetAuthV1MembershipsPendingErrors];
-
 export type GetAuthV1MembershipsPendingResponses = {
   /**
    * OK
@@ -3273,15 +2621,6 @@ export type PostAuthV1PasskeyLoginBeginData = {
   url: "/auth/v1/passkey/login/begin";
 };
 
-export type PostAuthV1PasskeyLoginBeginErrors = {
-  /**
-   * Internal Server Error
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type PostAuthV1PasskeyLoginBeginError = PostAuthV1PasskeyLoginBeginErrors[keyof PostAuthV1PasskeyLoginBeginErrors];
-
 export type PostAuthV1PasskeyLoginBeginResponses = {
   /**
    * session_id and WebAuthn options
@@ -3295,24 +2634,11 @@ export type PostAuthV1PasskeyLoginFinishData = {
   /**
    * session_id and WebAuthn credential
    */
-  body: GatewayPasskeyLoginFinishBody;
+  body: InternalAuthPasskeyLoginFinishBody;
   path?: never;
   query?: never;
   url: "/auth/v1/passkey/login/finish";
 };
-
-export type PostAuthV1PasskeyLoginFinishErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostAuthV1PasskeyLoginFinishError = PostAuthV1PasskeyLoginFinishErrors[keyof PostAuthV1PasskeyLoginFinishErrors];
 
 export type PostAuthV1PasskeyLoginFinishResponses = {
   /**
@@ -3327,57 +2653,35 @@ export type PostAuthV1PasswordResetData = {
   /**
    * Email address
    */
-  body: GatewayEmailBody;
+  body: InternalAuthEmailBody;
   path?: never;
   query?: never;
   url: "/auth/v1/password/reset";
 };
 
-export type PostAuthV1PasswordResetErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-};
-
-export type PostAuthV1PasswordResetError = PostAuthV1PasswordResetErrors[keyof PostAuthV1PasswordResetErrors];
-
 export type PostAuthV1PasswordResetResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type PostAuthV1PasswordResetResponse = PostAuthV1PasswordResetResponses[keyof PostAuthV1PasswordResetResponses];
 
 export type PostAuthV1PasswordResetConfirmData = {
   /**
    * Reset token and new password
    */
-  body: GatewayResetPasswordBody;
+  body: InternalAuthResetPasswordBody;
   path?: never;
   query?: never;
   url: "/auth/v1/password/reset/confirm";
 };
 
-export type PostAuthV1PasswordResetConfirmErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-};
-
-export type PostAuthV1PasswordResetConfirmError = PostAuthV1PasswordResetConfirmErrors[keyof PostAuthV1PasswordResetConfirmErrors];
-
 export type PostAuthV1PasswordResetConfirmResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type PostAuthV1PasswordResetConfirmResponse = PostAuthV1PasswordResetConfirmResponses[keyof PostAuthV1PasswordResetConfirmResponses];
 
 export type GetAuthV1PoliciesPermissionsData = {
   body?: never;
@@ -3385,15 +2689,6 @@ export type GetAuthV1PoliciesPermissionsData = {
   query?: never;
   url: "/auth/v1/policies/permissions";
 };
-
-export type GetAuthV1PoliciesPermissionsErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAuthV1PoliciesPermissionsError = GetAuthV1PoliciesPermissionsErrors[keyof GetAuthV1PoliciesPermissionsErrors];
 
 export type GetAuthV1PoliciesPermissionsResponses = {
   /**
@@ -3410,15 +2705,6 @@ export type GetAuthV1ProvidersData = {
   query?: never;
   url: "/auth/v1/providers";
 };
-
-export type GetAuthV1ProvidersErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAuthV1ProvidersError = GetAuthV1ProvidersErrors[keyof GetAuthV1ProvidersErrors];
 
 export type GetAuthV1ProvidersResponses = {
   /**
@@ -3441,51 +2727,22 @@ export type DeleteAuthV1ProvidersByProviderData = {
   url: "/auth/v1/providers/{provider}";
 };
 
-export type DeleteAuthV1ProvidersByProviderErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type DeleteAuthV1ProvidersByProviderError = DeleteAuthV1ProvidersByProviderErrors[keyof DeleteAuthV1ProvidersByProviderErrors];
-
 export type DeleteAuthV1ProvidersByProviderResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type DeleteAuthV1ProvidersByProviderResponse =
-  DeleteAuthV1ProvidersByProviderResponses[keyof DeleteAuthV1ProvidersByProviderResponses];
 
 export type PostAuthV1ProvidersConnectData = {
   /**
    * Provider token
    */
-  body: GatewayConnectProviderBody;
+  body: InternalAuthConnectProviderBody;
   path?: never;
   query?: never;
   url: "/auth/v1/providers/connect";
 };
-
-export type PostAuthV1ProvidersConnectErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Conflict
-   */
-  409: ErrorsErrorResponse;
-};
-
-export type PostAuthV1ProvidersConnectError = PostAuthV1ProvidersConnectErrors[keyof PostAuthV1ProvidersConnectErrors];
 
 export type PostAuthV1ProvidersConnectResponses = {
   /**
@@ -3500,24 +2757,11 @@ export type PostAuthV1RegisterData = {
   /**
    * Credentials
    */
-  body: GatewayRegisterBody;
+  body: InternalAuthRegisterBody;
   path?: never;
   query?: never;
   url: "/auth/v1/register";
 };
-
-export type PostAuthV1RegisterErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Conflict
-   */
-  409: ErrorsErrorResponse;
-};
-
-export type PostAuthV1RegisterError = PostAuthV1RegisterErrors[keyof PostAuthV1RegisterErrors];
 
 export type PostAuthV1RegisterResponses = {
   /**
@@ -3541,15 +2785,6 @@ export type PostAuthV1TokenData = {
   url: "/auth/v1/token";
 };
 
-export type PostAuthV1TokenErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-};
-
-export type PostAuthV1TokenError = PostAuthV1TokenErrors[keyof PostAuthV1TokenErrors];
-
 export type PostAuthV1TokenResponses = {
   /**
    * OK
@@ -3565,15 +2800,6 @@ export type GetAuthV1UserinfoData = {
   query?: never;
   url: "/auth/v1/userinfo";
 };
-
-export type GetAuthV1UserinfoErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAuthV1UserinfoError = GetAuthV1UserinfoErrors[keyof GetAuthV1UserinfoErrors];
 
 export type GetAuthV1UserinfoResponses = {
   /**
@@ -3591,15 +2817,6 @@ export type GetAuthV1UsersCurrentData = {
   url: "/auth/v1/users/current";
 };
 
-export type GetAuthV1UsersCurrentErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAuthV1UsersCurrentError = GetAuthV1UsersCurrentErrors[keyof GetAuthV1UsersCurrentErrors];
-
 export type GetAuthV1UsersCurrentResponses = {
   /**
    * OK
@@ -3613,32 +2830,11 @@ export type PostAuthV1UsersCurrentEmailsData = {
   /**
    * Email address to add
    */
-  body: GatewayAddEmailBody;
+  body: InternalAuthAddEmailBody;
   path?: never;
   query?: never;
   url: "/auth/v1/users/current/emails";
 };
-
-export type PostAuthV1UsersCurrentEmailsErrors = {
-  /**
-   * Malformed request or invalid email
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Missing or invalid access token
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Email already in use by another account
-   */
-  409: ErrorsErrorResponse;
-  /**
-   * Too many verification requests
-   */
-  429: ErrorsErrorResponse;
-};
-
-export type PostAuthV1UsersCurrentEmailsError = PostAuthV1UsersCurrentEmailsErrors[keyof PostAuthV1UsersCurrentEmailsErrors];
 
 export type PostAuthV1UsersCurrentEmailsResponses = {
   /**
@@ -3653,32 +2849,11 @@ export type PutAuthV1UsersCurrentEmailsChangeData = {
   /**
    * New email address
    */
-  body: GatewayChangeEmailBody;
+  body: InternalAuthChangeEmailBody;
   path?: never;
   query?: never;
   url: "/auth/v1/users/current/emails/change";
 };
-
-export type PutAuthV1UsersCurrentEmailsChangeErrors = {
-  /**
-   * Malformed request or invalid email
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Missing or invalid access token
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Email already in use by another account
-   */
-  409: ErrorsErrorResponse;
-  /**
-   * Too many verification requests
-   */
-  429: ErrorsErrorResponse;
-};
-
-export type PutAuthV1UsersCurrentEmailsChangeError = PutAuthV1UsersCurrentEmailsChangeErrors[keyof PutAuthV1UsersCurrentEmailsChangeErrors];
 
 export type PutAuthV1UsersCurrentEmailsChangeResponses = {
   /**
@@ -3697,15 +2872,6 @@ export type GetAuthV1UsersCurrentEmailsStatusData = {
   url: "/auth/v1/users/current/emails/status";
 };
 
-export type GetAuthV1UsersCurrentEmailsStatusErrors = {
-  /**
-   * Missing or invalid access token
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAuthV1UsersCurrentEmailsStatusError = GetAuthV1UsersCurrentEmailsStatusErrors[keyof GetAuthV1UsersCurrentEmailsStatusErrors];
-
 export type GetAuthV1UsersCurrentEmailsStatusResponses = {
   /**
    * Current email and verification status
@@ -3720,28 +2886,11 @@ export type PatchAuthV1UsersCurrentNameData = {
   /**
    * New name
    */
-  body: GatewayUpdateNameBody;
+  body: InternalAuthUpdateNameBody;
   path?: never;
   query?: never;
   url: "/auth/v1/users/current/name";
 };
-
-export type PatchAuthV1UsersCurrentNameErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Too Many Requests
-   */
-  429: ErrorsErrorResponse;
-};
-
-export type PatchAuthV1UsersCurrentNameError = PatchAuthV1UsersCurrentNameErrors[keyof PatchAuthV1UsersCurrentNameErrors];
 
 export type PatchAuthV1UsersCurrentNameResponses = {
   /**
@@ -3758,15 +2907,6 @@ export type GetAuthV1UsersCurrentPasskeysData = {
   query?: never;
   url: "/auth/v1/users/current/passkeys";
 };
-
-export type GetAuthV1UsersCurrentPasskeysErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAuthV1UsersCurrentPasskeysError = GetAuthV1UsersCurrentPasskeysErrors[keyof GetAuthV1UsersCurrentPasskeysErrors];
 
 export type GetAuthV1UsersCurrentPasskeysResponses = {
   /**
@@ -3789,31 +2929,18 @@ export type DeleteAuthV1UsersCurrentPasskeysByIdData = {
   url: "/auth/v1/users/current/passkeys/{id}";
 };
 
-export type DeleteAuthV1UsersCurrentPasskeysByIdErrors = {
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type DeleteAuthV1UsersCurrentPasskeysByIdError =
-  DeleteAuthV1UsersCurrentPasskeysByIdErrors[keyof DeleteAuthV1UsersCurrentPasskeysByIdErrors];
-
 export type DeleteAuthV1UsersCurrentPasskeysByIdResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type DeleteAuthV1UsersCurrentPasskeysByIdResponse =
-  DeleteAuthV1UsersCurrentPasskeysByIdResponses[keyof DeleteAuthV1UsersCurrentPasskeysByIdResponses];
 
 export type PatchAuthV1UsersCurrentPasskeysByIdData = {
   /**
    * New name
    */
-  body: GatewayRenamePasskeyBody;
+  body: InternalAuthRenamePasskeyBody;
   path: {
     /**
      * Passkey ID
@@ -3824,25 +2951,12 @@ export type PatchAuthV1UsersCurrentPasskeysByIdData = {
   url: "/auth/v1/users/current/passkeys/{id}";
 };
 
-export type PatchAuthV1UsersCurrentPasskeysByIdErrors = {
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PatchAuthV1UsersCurrentPasskeysByIdError =
-  PatchAuthV1UsersCurrentPasskeysByIdErrors[keyof PatchAuthV1UsersCurrentPasskeysByIdErrors];
-
 export type PatchAuthV1UsersCurrentPasskeysByIdResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type PatchAuthV1UsersCurrentPasskeysByIdResponse =
-  PatchAuthV1UsersCurrentPasskeysByIdResponses[keyof PatchAuthV1UsersCurrentPasskeysByIdResponses];
 
 export type PostAuthV1UsersCurrentPasskeysRegisterBeginData = {
   body?: never;
@@ -3850,16 +2964,6 @@ export type PostAuthV1UsersCurrentPasskeysRegisterBeginData = {
   query?: never;
   url: "/auth/v1/users/current/passkeys/register/begin";
 };
-
-export type PostAuthV1UsersCurrentPasskeysRegisterBeginErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostAuthV1UsersCurrentPasskeysRegisterBeginError =
-  PostAuthV1UsersCurrentPasskeysRegisterBeginErrors[keyof PostAuthV1UsersCurrentPasskeysRegisterBeginErrors];
 
 export type PostAuthV1UsersCurrentPasskeysRegisterBeginResponses = {
   /**
@@ -3875,25 +2979,11 @@ export type PostAuthV1UsersCurrentPasskeysRegisterFinishData = {
   /**
    * session_id, name and WebAuthn credential
    */
-  body: GatewayPasskeyRegisterFinishBody;
+  body: InternalAuthPasskeyRegisterFinishBody;
   path?: never;
   query?: never;
   url: "/auth/v1/users/current/passkeys/register/finish";
 };
-
-export type PostAuthV1UsersCurrentPasskeysRegisterFinishErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Conflict
-   */
-  409: ErrorsErrorResponse;
-};
-
-export type PostAuthV1UsersCurrentPasskeysRegisterFinishError =
-  PostAuthV1UsersCurrentPasskeysRegisterFinishErrors[keyof PostAuthV1UsersCurrentPasskeysRegisterFinishErrors];
 
 export type PostAuthV1UsersCurrentPasskeysRegisterFinishResponses = {
   /**
@@ -3912,25 +3002,12 @@ export type DeleteAuthV1UsersCurrentTotpDeleteData = {
   url: "/auth/v1/users/current/totp/delete";
 };
 
-export type DeleteAuthV1UsersCurrentTotpDeleteErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type DeleteAuthV1UsersCurrentTotpDeleteError =
-  DeleteAuthV1UsersCurrentTotpDeleteErrors[keyof DeleteAuthV1UsersCurrentTotpDeleteErrors];
-
 export type DeleteAuthV1UsersCurrentTotpDeleteResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type DeleteAuthV1UsersCurrentTotpDeleteResponse =
-  DeleteAuthV1UsersCurrentTotpDeleteResponses[keyof DeleteAuthV1UsersCurrentTotpDeleteResponses];
 
 export type PostAuthV1UsersCurrentTotpSetupData = {
   body?: never;
@@ -3938,15 +3015,6 @@ export type PostAuthV1UsersCurrentTotpSetupData = {
   query?: never;
   url: "/auth/v1/users/current/totp/setup";
 };
-
-export type PostAuthV1UsersCurrentTotpSetupErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostAuthV1UsersCurrentTotpSetupError = PostAuthV1UsersCurrentTotpSetupErrors[keyof PostAuthV1UsersCurrentTotpSetupErrors];
 
 export type PostAuthV1UsersCurrentTotpSetupResponses = {
   /**
@@ -3965,15 +3033,6 @@ export type GetAuthV1UsersCurrentTotpStatusData = {
   url: "/auth/v1/users/current/totp/status";
 };
 
-export type GetAuthV1UsersCurrentTotpStatusErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetAuthV1UsersCurrentTotpStatusError = GetAuthV1UsersCurrentTotpStatusErrors[keyof GetAuthV1UsersCurrentTotpStatusErrors];
-
 export type GetAuthV1UsersCurrentTotpStatusResponses = {
   /**
    * OK
@@ -3988,24 +3047,11 @@ export type PostAuthV1UsersCurrentTotpVerifyData = {
   /**
    * TOTP code
    */
-  body: GatewayVerifyOtpBody;
+  body: InternalAuthVerifyOtpBody;
   path?: never;
   query?: never;
   url: "/auth/v1/users/current/totp/verify";
 };
-
-export type PostAuthV1UsersCurrentTotpVerifyErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostAuthV1UsersCurrentTotpVerifyError = PostAuthV1UsersCurrentTotpVerifyErrors[keyof PostAuthV1UsersCurrentTotpVerifyErrors];
 
 export type PostAuthV1UsersCurrentTotpVerifyResponses = {
   /**
@@ -4021,32 +3067,11 @@ export type PatchAuthV1UsersCurrentUsernameData = {
   /**
    * New username
    */
-  body: GatewayUpdateUsernameBody;
+  body: InternalAuthUpdateUsernameBody;
   path?: never;
   query?: never;
   url: "/auth/v1/users/current/username";
 };
-
-export type PatchAuthV1UsersCurrentUsernameErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Conflict
-   */
-  409: ErrorsErrorResponse;
-  /**
-   * Too Many Requests
-   */
-  429: ErrorsErrorResponse;
-};
-
-export type PatchAuthV1UsersCurrentUsernameError = PatchAuthV1UsersCurrentUsernameErrors[keyof PatchAuthV1UsersCurrentUsernameErrors];
 
 export type PatchAuthV1UsersCurrentUsernameResponses = {
   /**
@@ -4062,20 +3087,11 @@ export type PostAuthV1VerifyTotpData = {
   /**
    * TOTP code and login session id
    */
-  body: GatewayVerifyTotpLoginBody;
+  body: InternalAuthVerifyTotpLoginBody;
   path?: never;
   query?: never;
   url: "/auth/v1/verify-totp";
 };
-
-export type PostAuthV1VerifyTotpErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostAuthV1VerifyTotpError = PostAuthV1VerifyTotpErrors[keyof PostAuthV1VerifyTotpErrors];
 
 export type PostAuthV1VerifyTotpResponses = {
   /**
@@ -4093,15 +3109,6 @@ export type GetBillingV1AddressData = {
   url: "/billing/v1/address";
 };
 
-export type GetBillingV1AddressErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetBillingV1AddressError = GetBillingV1AddressErrors[keyof GetBillingV1AddressErrors];
-
 export type GetBillingV1AddressResponses = {
   /**
    * OK
@@ -4115,24 +3122,11 @@ export type PostBillingV1AddressData = {
   /**
    * Billing address
    */
-  body: GatewayBillingAddressBody;
+  body: InternalBillingBillingAddressBody;
   path?: never;
   query?: never;
   url: "/billing/v1/address";
 };
-
-export type PostBillingV1AddressErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostBillingV1AddressError = PostBillingV1AddressErrors[keyof PostBillingV1AddressErrors];
 
 export type PostBillingV1AddressResponses = {
   /**
@@ -4149,19 +3143,6 @@ export type GetBillingV1BandwidthUsageData = {
   query?: never;
   url: "/billing/v1/bandwidth-usage";
 };
-
-export type GetBillingV1BandwidthUsageErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetBillingV1BandwidthUsageError = GetBillingV1BandwidthUsageErrors[keyof GetBillingV1BandwidthUsageErrors];
 
 export type GetBillingV1BandwidthUsageResponses = {
   /**
@@ -4184,15 +3165,6 @@ export type GetBillingV1BandwidthUsageHistoryData = {
   url: "/billing/v1/bandwidth-usage/history";
 };
 
-export type GetBillingV1BandwidthUsageHistoryErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetBillingV1BandwidthUsageHistoryError = GetBillingV1BandwidthUsageHistoryErrors[keyof GetBillingV1BandwidthUsageHistoryErrors];
-
 export type GetBillingV1BandwidthUsageHistoryResponses = {
   /**
    * OK
@@ -4210,16 +3182,6 @@ export type PostBillingV1BandwidthUsageRefreshData = {
   url: "/billing/v1/bandwidth-usage/refresh";
 };
 
-export type PostBillingV1BandwidthUsageRefreshErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostBillingV1BandwidthUsageRefreshError =
-  PostBillingV1BandwidthUsageRefreshErrors[keyof PostBillingV1BandwidthUsageRefreshErrors];
-
 export type PostBillingV1BandwidthUsageRefreshResponses = {
   /**
    * OK
@@ -4234,24 +3196,11 @@ export type PostBillingV1CheckoutData = {
   /**
    * Checkout request
    */
-  body: GatewayCheckoutBody;
+  body: InternalBillingCheckoutBody;
   path?: never;
   query?: never;
   url: "/billing/v1/checkout";
 };
-
-export type PostBillingV1CheckoutErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostBillingV1CheckoutError = PostBillingV1CheckoutErrors[keyof PostBillingV1CheckoutErrors];
 
 export type PostBillingV1CheckoutResponses = {
   /**
@@ -4266,24 +3215,11 @@ export type PostBillingV1ContactSalesData = {
   /**
    * Contact sales request
    */
-  body: GatewayContactSalesBody;
+  body: InternalBillingContactSalesBody;
   path?: never;
   query?: never;
   url: "/billing/v1/contact-sales";
 };
-
-export type PostBillingV1ContactSalesErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostBillingV1ContactSalesError = PostBillingV1ContactSalesErrors[keyof PostBillingV1ContactSalesErrors];
 
 export type PostBillingV1ContactSalesResponses = {
   /**
@@ -4301,19 +3237,6 @@ export type GetBillingV1InvoicesData = {
   url: "/billing/v1/invoices";
 };
 
-export type GetBillingV1InvoicesErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetBillingV1InvoicesError = GetBillingV1InvoicesErrors[keyof GetBillingV1InvoicesErrors];
-
 export type GetBillingV1InvoicesResponses = {
   /**
    * OK
@@ -4327,7 +3250,7 @@ export type PutBillingV1InvoicesByInvoiceIdStatusData = {
   /**
    * New status
    */
-  body: GatewayUpdateInvoiceStatusBody;
+  body: InternalBillingUpdateInvoiceStatusBody;
   path: {
     /**
      * Invoice ID
@@ -4337,24 +3260,6 @@ export type PutBillingV1InvoicesByInvoiceIdStatusData = {
   query?: never;
   url: "/billing/v1/invoices/{invoiceId}/status";
 };
-
-export type PutBillingV1InvoicesByInvoiceIdStatusErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PutBillingV1InvoicesByInvoiceIdStatusError =
-  PutBillingV1InvoicesByInvoiceIdStatusErrors[keyof PutBillingV1InvoicesByInvoiceIdStatusErrors];
 
 export type PutBillingV1InvoicesByInvoiceIdStatusResponses = {
   /**
@@ -4373,25 +3278,12 @@ export type PostBillingV1JobsCleanupBandwidthSnapshotsData = {
   url: "/billing/v1/jobs/cleanup-bandwidth-snapshots";
 };
 
-export type PostBillingV1JobsCleanupBandwidthSnapshotsErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostBillingV1JobsCleanupBandwidthSnapshotsError =
-  PostBillingV1JobsCleanupBandwidthSnapshotsErrors[keyof PostBillingV1JobsCleanupBandwidthSnapshotsErrors];
-
 export type PostBillingV1JobsCleanupBandwidthSnapshotsResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type PostBillingV1JobsCleanupBandwidthSnapshotsResponse =
-  PostBillingV1JobsCleanupBandwidthSnapshotsResponses[keyof PostBillingV1JobsCleanupBandwidthSnapshotsResponses];
 
 export type PostBillingV1JobsDailyBandwidthCalculationData = {
   body?: never;
@@ -4400,25 +3292,12 @@ export type PostBillingV1JobsDailyBandwidthCalculationData = {
   url: "/billing/v1/jobs/daily-bandwidth-calculation";
 };
 
-export type PostBillingV1JobsDailyBandwidthCalculationErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostBillingV1JobsDailyBandwidthCalculationError =
-  PostBillingV1JobsDailyBandwidthCalculationErrors[keyof PostBillingV1JobsDailyBandwidthCalculationErrors];
-
 export type PostBillingV1JobsDailyBandwidthCalculationResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type PostBillingV1JobsDailyBandwidthCalculationResponse =
-  PostBillingV1JobsDailyBandwidthCalculationResponses[keyof PostBillingV1JobsDailyBandwidthCalculationResponses];
 
 export type PostBillingV1JobsMonthlyBandwidthCalculationData = {
   body?: never;
@@ -4427,25 +3306,12 @@ export type PostBillingV1JobsMonthlyBandwidthCalculationData = {
   url: "/billing/v1/jobs/monthly-bandwidth-calculation";
 };
 
-export type PostBillingV1JobsMonthlyBandwidthCalculationErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostBillingV1JobsMonthlyBandwidthCalculationError =
-  PostBillingV1JobsMonthlyBandwidthCalculationErrors[keyof PostBillingV1JobsMonthlyBandwidthCalculationErrors];
-
 export type PostBillingV1JobsMonthlyBandwidthCalculationResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type PostBillingV1JobsMonthlyBandwidthCalculationResponse =
-  PostBillingV1JobsMonthlyBandwidthCalculationResponses[keyof PostBillingV1JobsMonthlyBandwidthCalculationResponses];
 
 export type GetBillingV1PaymentMethodsData = {
   body?: never;
@@ -4453,19 +3319,6 @@ export type GetBillingV1PaymentMethodsData = {
   query?: never;
   url: "/billing/v1/payment-methods";
 };
-
-export type GetBillingV1PaymentMethodsErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetBillingV1PaymentMethodsError = GetBillingV1PaymentMethodsErrors[keyof GetBillingV1PaymentMethodsErrors];
 
 export type GetBillingV1PaymentMethodsResponses = {
   /**
@@ -4480,24 +3333,11 @@ export type PostBillingV1PaymentMethodsData = {
   /**
    * Payment method request
    */
-  body: GatewayUpsertPaymentMethodBody;
+  body: InternalBillingUpsertPaymentMethodBody;
   path?: never;
   query?: never;
   url: "/billing/v1/payment-methods";
 };
-
-export type PostBillingV1PaymentMethodsErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostBillingV1PaymentMethodsError = PostBillingV1PaymentMethodsErrors[keyof PostBillingV1PaymentMethodsErrors];
 
 export type PostBillingV1PaymentMethodsResponses = {
   /**
@@ -4520,25 +3360,12 @@ export type DeleteBillingV1PaymentMethodsByPaymentMethodIdData = {
   url: "/billing/v1/payment-methods/{paymentMethodId}";
 };
 
-export type DeleteBillingV1PaymentMethodsByPaymentMethodIdErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type DeleteBillingV1PaymentMethodsByPaymentMethodIdError =
-  DeleteBillingV1PaymentMethodsByPaymentMethodIdErrors[keyof DeleteBillingV1PaymentMethodsByPaymentMethodIdErrors];
-
 export type DeleteBillingV1PaymentMethodsByPaymentMethodIdResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type DeleteBillingV1PaymentMethodsByPaymentMethodIdResponse =
-  DeleteBillingV1PaymentMethodsByPaymentMethodIdResponses[keyof DeleteBillingV1PaymentMethodsByPaymentMethodIdResponses];
 
 export type GetBillingV1PaymentMethodsFromPaymentIntentData = {
   body?: never;
@@ -4551,16 +3378,6 @@ export type GetBillingV1PaymentMethodsFromPaymentIntentData = {
   };
   url: "/billing/v1/payment-methods/from-payment-intent";
 };
-
-export type GetBillingV1PaymentMethodsFromPaymentIntentErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-};
-
-export type GetBillingV1PaymentMethodsFromPaymentIntentError =
-  GetBillingV1PaymentMethodsFromPaymentIntentErrors[keyof GetBillingV1PaymentMethodsFromPaymentIntentErrors];
 
 export type GetBillingV1PaymentMethodsFromPaymentIntentResponses = {
   /**
@@ -4584,16 +3401,6 @@ export type GetBillingV1PaymentMethodsFromSetupIntentData = {
   url: "/billing/v1/payment-methods/from-setup-intent";
 };
 
-export type GetBillingV1PaymentMethodsFromSetupIntentErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-};
-
-export type GetBillingV1PaymentMethodsFromSetupIntentError =
-  GetBillingV1PaymentMethodsFromSetupIntentErrors[keyof GetBillingV1PaymentMethodsFromSetupIntentErrors];
-
 export type GetBillingV1PaymentMethodsFromSetupIntentResponses = {
   /**
    * OK
@@ -4610,15 +3417,6 @@ export type GetBillingV1PlansData = {
   query?: never;
   url: "/billing/v1/plans";
 };
-
-export type GetBillingV1PlansErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-};
-
-export type GetBillingV1PlansError = GetBillingV1PlansErrors[keyof GetBillingV1PlansErrors];
 
 export type GetBillingV1PlansResponses = {
   /**
@@ -4641,19 +3439,6 @@ export type GetBillingV1PlansByPlanIdData = {
   url: "/billing/v1/plans/{planId}";
 };
 
-export type GetBillingV1PlansByPlanIdErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type GetBillingV1PlansByPlanIdError = GetBillingV1PlansByPlanIdErrors[keyof GetBillingV1PlansByPlanIdErrors];
-
 export type GetBillingV1PlansByPlanIdResponses = {
   /**
    * OK
@@ -4670,15 +3455,6 @@ export type PostBillingV1SetupIntentData = {
   url: "/billing/v1/setup-intent";
 };
 
-export type PostBillingV1SetupIntentErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostBillingV1SetupIntentError = PostBillingV1SetupIntentErrors[keyof PostBillingV1SetupIntentErrors];
-
 export type PostBillingV1SetupIntentResponses = {
   /**
    * OK
@@ -4694,19 +3470,6 @@ export type GetBillingV1StorageUsageData = {
   query?: never;
   url: "/billing/v1/storage-usage";
 };
-
-export type GetBillingV1StorageUsageErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetBillingV1StorageUsageError = GetBillingV1StorageUsageErrors[keyof GetBillingV1StorageUsageErrors];
 
 export type GetBillingV1StorageUsageResponses = {
   /**
@@ -4729,15 +3492,6 @@ export type GetBillingV1StorageUsageHistoryData = {
   url: "/billing/v1/storage-usage/history";
 };
 
-export type GetBillingV1StorageUsageHistoryErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetBillingV1StorageUsageHistoryError = GetBillingV1StorageUsageHistoryErrors[keyof GetBillingV1StorageUsageHistoryErrors];
-
 export type GetBillingV1StorageUsageHistoryResponses = {
   /**
    * OK
@@ -4754,15 +3508,6 @@ export type PostBillingV1StorageUsageRefreshData = {
   query?: never;
   url: "/billing/v1/storage-usage/refresh";
 };
-
-export type PostBillingV1StorageUsageRefreshErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostBillingV1StorageUsageRefreshError = PostBillingV1StorageUsageRefreshErrors[keyof PostBillingV1StorageUsageRefreshErrors];
 
 export type PostBillingV1StorageUsageRefreshResponses = {
   /**
@@ -4781,19 +3526,6 @@ export type GetBillingV1SubscriptionData = {
   url: "/billing/v1/subscription";
 };
 
-export type GetBillingV1SubscriptionErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetBillingV1SubscriptionError = GetBillingV1SubscriptionErrors[keyof GetBillingV1SubscriptionErrors];
-
 export type GetBillingV1SubscriptionResponses = {
   /**
    * OK
@@ -4807,24 +3539,11 @@ export type PostBillingV1SubscriptionData = {
   /**
    * Subscription request
    */
-  body: GatewayCreateSubscriptionBody;
+  body: InternalBillingCreateSubscriptionBody;
   path?: never;
   query?: never;
   url: "/billing/v1/subscription";
 };
-
-export type PostBillingV1SubscriptionErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostBillingV1SubscriptionError = PostBillingV1SubscriptionErrors[keyof PostBillingV1SubscriptionErrors];
 
 export type PostBillingV1SubscriptionResponses = {
   /**
@@ -4842,23 +3561,12 @@ export type PutBillingV1SubscriptionCancelData = {
   url: "/billing/v1/subscription/cancel";
 };
 
-export type PutBillingV1SubscriptionCancelErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PutBillingV1SubscriptionCancelError = PutBillingV1SubscriptionCancelErrors[keyof PutBillingV1SubscriptionCancelErrors];
-
 export type PutBillingV1SubscriptionCancelResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type PutBillingV1SubscriptionCancelResponse = PutBillingV1SubscriptionCancelResponses[keyof PutBillingV1SubscriptionCancelResponses];
 
 export type GetBillingV1SubscriptionHistoryData = {
   body?: never;
@@ -4866,19 +3574,6 @@ export type GetBillingV1SubscriptionHistoryData = {
   query?: never;
   url: "/billing/v1/subscription/history";
 };
-
-export type GetBillingV1SubscriptionHistoryErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetBillingV1SubscriptionHistoryError = GetBillingV1SubscriptionHistoryErrors[keyof GetBillingV1SubscriptionHistoryErrors];
 
 export type GetBillingV1SubscriptionHistoryResponses = {
   /**
@@ -4897,48 +3592,22 @@ export type PutBillingV1SubscriptionReactivateData = {
   url: "/billing/v1/subscription/reactivate";
 };
 
-export type PutBillingV1SubscriptionReactivateErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PutBillingV1SubscriptionReactivateError =
-  PutBillingV1SubscriptionReactivateErrors[keyof PutBillingV1SubscriptionReactivateErrors];
-
 export type PutBillingV1SubscriptionReactivateResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type PutBillingV1SubscriptionReactivateResponse =
-  PutBillingV1SubscriptionReactivateResponses[keyof PutBillingV1SubscriptionReactivateResponses];
 
 export type PostBillingV1SubscriptionUpgradeData = {
   /**
    * Upgrade request
    */
-  body: GatewayUpgradeSubscriptionBody;
+  body: InternalBillingUpgradeSubscriptionBody;
   path?: never;
   query?: never;
   url: "/billing/v1/subscription/upgrade";
 };
-
-export type PostBillingV1SubscriptionUpgradeErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostBillingV1SubscriptionUpgradeError = PostBillingV1SubscriptionUpgradeErrors[keyof PostBillingV1SubscriptionUpgradeErrors];
 
 export type PostBillingV1SubscriptionUpgradeResponses = {
   /**
@@ -4954,24 +3623,11 @@ export type PostBillingV1TaxCalculateData = {
   /**
    * Tax calculation request
    */
-  body: GatewayCalculateTaxBody;
+  body: InternalBillingCalculateTaxBody;
   path?: never;
   query?: never;
   url: "/billing/v1/tax/calculate";
 };
-
-export type PostBillingV1TaxCalculateErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostBillingV1TaxCalculateError = PostBillingV1TaxCalculateErrors[keyof PostBillingV1TaxCalculateErrors];
 
 export type PostBillingV1TaxCalculateResponses = {
   /**
@@ -4983,31 +3639,18 @@ export type PostBillingV1TaxCalculateResponses = {
 export type PostBillingV1TaxCalculateResponse = PostBillingV1TaxCalculateResponses[keyof PostBillingV1TaxCalculateResponses];
 
 export type PostBillingWebhooksStripeData = {
-  body?: {
-    [key: string]: unknown;
-  };
+  body?: never;
   path?: never;
   query?: never;
   url: "/billing/webhooks/stripe";
 };
 
-export type PostBillingWebhooksStripeErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-};
-
-export type PostBillingWebhooksStripeError = PostBillingWebhooksStripeErrors[keyof PostBillingWebhooksStripeErrors];
-
 export type PostBillingWebhooksStripeResponses = {
   /**
    * No Content
    */
-  204: void;
+  204: unknown;
 };
-
-export type PostBillingWebhooksStripeResponse = PostBillingWebhooksStripeResponses[keyof PostBillingWebhooksStripeResponses];
 
 export type GetMediaV1ImagesByImageIdData = {
   body?: never;
@@ -5020,19 +3663,6 @@ export type GetMediaV1ImagesByImageIdData = {
   query?: never;
   url: "/media/v1/images/{imageId}";
 };
-
-export type GetMediaV1ImagesByImageIdErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type GetMediaV1ImagesByImageIdError = GetMediaV1ImagesByImageIdErrors[keyof GetMediaV1ImagesByImageIdErrors];
 
 export type GetMediaV1ImagesByImageIdResponses = {
   /**
@@ -5049,15 +3679,6 @@ export type GetMediaV1LanguagesData = {
   query?: never;
   url: "/media/v1/languages";
 };
-
-export type GetMediaV1LanguagesErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-};
-
-export type GetMediaV1LanguagesError = GetMediaV1LanguagesErrors[keyof GetMediaV1LanguagesErrors];
 
 export type GetMediaV1LanguagesResponses = {
   /**
@@ -5079,16 +3700,6 @@ export type GetMediaV1ProjectsByProjectIdImagesData = {
   query?: never;
   url: "/media/v1/projects/{projectId}/images";
 };
-
-export type GetMediaV1ProjectsByProjectIdImagesErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type GetMediaV1ProjectsByProjectIdImagesError =
-  GetMediaV1ProjectsByProjectIdImagesErrors[keyof GetMediaV1ProjectsByProjectIdImagesErrors];
 
 export type GetMediaV1ProjectsByProjectIdImagesResponses = {
   /**
@@ -5116,24 +3727,6 @@ export type DeleteMediaV1ProjectsByProjectIdImagesByImageIdData = {
   url: "/media/v1/projects/{projectId}/images/{imageId}";
 };
 
-export type DeleteMediaV1ProjectsByProjectIdImagesByImageIdErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type DeleteMediaV1ProjectsByProjectIdImagesByImageIdError =
-  DeleteMediaV1ProjectsByProjectIdImagesByImageIdErrors[keyof DeleteMediaV1ProjectsByProjectIdImagesByImageIdErrors];
-
 export type DeleteMediaV1ProjectsByProjectIdImagesByImageIdResponses = {
   /**
    * OK
@@ -5159,20 +3752,6 @@ export type GetMediaV1ProjectsByProjectIdImagesByImageIdData = {
   query?: never;
   url: "/media/v1/projects/{projectId}/images/{imageId}";
 };
-
-export type GetMediaV1ProjectsByProjectIdImagesByImageIdErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type GetMediaV1ProjectsByProjectIdImagesByImageIdError =
-  GetMediaV1ProjectsByProjectIdImagesByImageIdErrors[keyof GetMediaV1ProjectsByProjectIdImagesByImageIdErrors];
 
 export type GetMediaV1ProjectsByProjectIdImagesByImageIdResponses = {
   /**
@@ -5200,24 +3779,6 @@ export type PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteData = {
   url: "/media/v1/projects/{projectId}/images/{imageId}/upload/complete";
 };
 
-export type PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteError =
-  PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteErrors[keyof PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteErrors];
-
 export type PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteResponses = {
   /**
    * OK
@@ -5232,7 +3793,7 @@ export type PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityData = {
   /**
    * Visibility
    */
-  body: GatewayUpdateVisibilityBody;
+  body: InternalMediaUpdateVisibilityBody;
   path: {
     /**
      * Project ID
@@ -5246,24 +3807,6 @@ export type PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityData = {
   query?: never;
   url: "/media/v1/projects/{projectId}/images/{imageId}/visibility";
 };
-
-export type PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityError =
-  PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityErrors[keyof PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityErrors];
 
 export type PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityResponses = {
   /**
@@ -5279,7 +3822,7 @@ export type PostMediaV1ProjectsByProjectIdImagesUploadData = {
   /**
    * Image upload details
    */
-  body: GatewayCreateImageUploadBody;
+  body: InternalMediaCreateImageUploadBody;
   path: {
     /**
      * Project ID
@@ -5289,24 +3832,6 @@ export type PostMediaV1ProjectsByProjectIdImagesUploadData = {
   query?: never;
   url: "/media/v1/projects/{projectId}/images/upload";
 };
-
-export type PostMediaV1ProjectsByProjectIdImagesUploadErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PostMediaV1ProjectsByProjectIdImagesUploadError =
-  PostMediaV1ProjectsByProjectIdImagesUploadErrors[keyof PostMediaV1ProjectsByProjectIdImagesUploadErrors];
 
 export type PostMediaV1ProjectsByProjectIdImagesUploadResponses = {
   /**
@@ -5329,24 +3854,6 @@ export type GetMediaV1ProjectsByProjectIdVideosData = {
   query?: never;
   url: "/media/v1/projects/{projectId}/videos";
 };
-
-export type GetMediaV1ProjectsByProjectIdVideosErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type GetMediaV1ProjectsByProjectIdVideosError =
-  GetMediaV1ProjectsByProjectIdVideosErrors[keyof GetMediaV1ProjectsByProjectIdVideosErrors];
 
 export type GetMediaV1ProjectsByProjectIdVideosResponses = {
   /**
@@ -5374,24 +3881,6 @@ export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdData = {
   url: "/media/v1/projects/{projectId}/videos/{videoId}";
 };
 
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdError =
-  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdErrors[keyof DeleteMediaV1ProjectsByProjectIdVideosByVideoIdErrors];
-
 export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdResponses = {
   /**
    * OK
@@ -5417,20 +3906,6 @@ export type GetMediaV1ProjectsByProjectIdVideosByVideoIdData = {
   query?: never;
   url: "/media/v1/projects/{projectId}/videos/{videoId}";
 };
-
-export type GetMediaV1ProjectsByProjectIdVideosByVideoIdErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type GetMediaV1ProjectsByProjectIdVideosByVideoIdError =
-  GetMediaV1ProjectsByProjectIdVideosByVideoIdErrors[keyof GetMediaV1ProjectsByProjectIdVideosByVideoIdErrors];
 
 export type GetMediaV1ProjectsByProjectIdVideosByVideoIdResponses = {
   /**
@@ -5458,24 +3933,6 @@ export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksData = {
   url: "/media/v1/projects/{projectId}/videos/{videoId}/audio-tracks";
 };
 
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksError =
-  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksErrors[keyof DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksErrors];
-
 export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses = {
   /**
    * OK
@@ -5501,20 +3958,6 @@ export type GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksData = {
   query?: never;
   url: "/media/v1/projects/{projectId}/videos/{videoId}/audio-tracks";
 };
-
-export type GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksError =
-  GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksErrors[keyof GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksErrors];
 
 export type GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses = {
   /**
@@ -5546,24 +3989,6 @@ export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksByTrackIdD
   url: "/media/v1/projects/{projectId}/videos/{videoId}/audio-tracks/{trackId}";
 };
 
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksByTrackIdErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksByTrackIdError =
-  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksByTrackIdErrors[keyof DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksByTrackIdErrors];
-
 export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksByTrackIdResponses = {
   /**
    * OK
@@ -5594,24 +4019,6 @@ export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksLanguageBy
   url: "/media/v1/projects/{projectId}/videos/{videoId}/audio-tracks/language/{lang}";
 };
 
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksLanguageByLangErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksLanguageByLangError =
-  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksLanguageByLangErrors[keyof DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksLanguageByLangErrors];
-
 export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksLanguageByLangResponses = {
   /**
    * OK
@@ -5626,7 +4033,7 @@ export type PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadData =
   /**
    * Audio tracks to upload
    */
-  body: GatewayInitTrackUploadBody;
+  body: InternalMediaInitTrackUploadBody;
   path: {
     /**
      * Project ID
@@ -5640,24 +4047,6 @@ export type PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadData =
   query?: never;
   url: "/media/v1/projects/{projectId}/videos/{videoId}/audio-tracks/upload";
 };
-
-export type PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadError =
-  PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadErrors[keyof PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadErrors];
 
 export type PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadResponses = {
   /**
@@ -5673,7 +4062,7 @@ export type PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadComple
   /**
    * Uploaded audio tracks
    */
-  body: GatewayCompleteTrackUploadBody;
+  body: InternalMediaCompleteTrackUploadBody;
   path: {
     /**
      * Project ID
@@ -5687,24 +4076,6 @@ export type PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadComple
   query?: never;
   url: "/media/v1/projects/{projectId}/videos/{videoId}/audio-tracks/upload/complete";
 };
-
-export type PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadCompleteErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadCompleteError =
-  PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadCompleteErrors[keyof PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadCompleteErrors];
 
 export type PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadCompleteResponses = {
   /**
@@ -5732,24 +4103,6 @@ export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersData = {
   url: "/media/v1/projects/{projectId}/videos/{videoId}/chapters";
 };
 
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersError =
-  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors[keyof DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors];
-
 export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses = {
   /**
    * OK
@@ -5776,24 +4129,6 @@ export type GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersData = {
   url: "/media/v1/projects/{projectId}/videos/{videoId}/chapters";
 };
 
-export type GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersError =
-  GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors[keyof GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors];
-
 export type GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses = {
   /**
    * OK
@@ -5808,7 +4143,7 @@ export type PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersData = {
   /**
    * Chapters to set
    */
-  body: GatewayUpdateChaptersBody;
+  body: InternalMediaUpdateChaptersBody;
   path: {
     /**
      * Project ID
@@ -5822,24 +4157,6 @@ export type PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersData = {
   query?: never;
   url: "/media/v1/projects/{projectId}/videos/{videoId}/chapters";
 };
-
-export type PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersError =
-  PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors[keyof PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors];
 
 export type PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses = {
   /**
@@ -5871,24 +4188,6 @@ export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersByStartTimeSe
   url: "/media/v1/projects/{projectId}/videos/{videoId}/chapters/{startTimeSec}";
 };
 
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersByStartTimeSecErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersByStartTimeSecError =
-  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersByStartTimeSecErrors[keyof DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersByStartTimeSecErrors];
-
 export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersByStartTimeSecResponses = {
   /**
    * OK
@@ -5915,24 +4214,6 @@ export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesData = {
   url: "/media/v1/projects/{projectId}/videos/{videoId}/subtitles";
 };
 
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesError =
-  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesErrors[keyof DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesErrors];
-
 export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponses = {
   /**
    * OK
@@ -5958,20 +4239,6 @@ export type GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesData = {
   query?: never;
   url: "/media/v1/projects/{projectId}/videos/{videoId}/subtitles";
 };
-
-export type GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesError =
-  GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesErrors[keyof GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesErrors];
 
 export type GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponses = {
   /**
@@ -6003,24 +4270,6 @@ export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleId
   url: "/media/v1/projects/{projectId}/videos/{videoId}/subtitles/{subtitleId}";
 };
 
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleIdErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleIdError =
-  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleIdErrors[keyof DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleIdErrors];
-
 export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleIdResponses = {
   /**
    * OK
@@ -6051,24 +4300,6 @@ export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesLanguageByLa
   url: "/media/v1/projects/{projectId}/videos/{videoId}/subtitles/language/{lang}";
 };
 
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesLanguageByLangErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesLanguageByLangError =
-  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesLanguageByLangErrors[keyof DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesLanguageByLangErrors];
-
 export type DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesLanguageByLangResponses = {
   /**
    * OK
@@ -6083,7 +4314,7 @@ export type PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadData = {
   /**
    * Subtitles to upload
    */
-  body: GatewayInitTrackUploadBody;
+  body: InternalMediaInitTrackUploadBody;
   path: {
     /**
      * Project ID
@@ -6097,24 +4328,6 @@ export type PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadData = {
   query?: never;
   url: "/media/v1/projects/{projectId}/videos/{videoId}/subtitles/upload";
 };
-
-export type PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadError =
-  PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadErrors[keyof PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadErrors];
 
 export type PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadResponses = {
   /**
@@ -6130,7 +4343,7 @@ export type PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadComplete
   /**
    * Uploaded subtitles
    */
-  body: GatewayCompleteTrackUploadBody;
+  body: InternalMediaCompleteTrackUploadBody;
   path: {
     /**
      * Project ID
@@ -6145,24 +4358,6 @@ export type PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadComplete
   url: "/media/v1/projects/{projectId}/videos/{videoId}/subtitles/upload/complete";
 };
 
-export type PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteError =
-  PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteErrors[keyof PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteErrors];
-
 export type PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteResponses = {
   /**
    * OK
@@ -6174,9 +4369,6 @@ export type PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadComplete
   PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteResponses[keyof PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteResponses];
 
 export type PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailData = {
-  /**
-   * Thumbnail image file
-   */
   body: {
     /**
      * Thumbnail image file
@@ -6196,24 +4388,6 @@ export type PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailData = {
   query?: never;
   url: "/media/v1/projects/{projectId}/videos/{videoId}/thumbnail";
 };
-
-export type PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailError =
-  PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailErrors[keyof PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailErrors];
 
 export type PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailResponses = {
   /**
@@ -6241,24 +4415,6 @@ export type PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteData = {
   url: "/media/v1/projects/{projectId}/videos/{videoId}/upload/complete";
 };
 
-export type PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteError =
-  PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteErrors[keyof PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteErrors];
-
 export type PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteResponses = {
   /**
    * OK
@@ -6273,7 +4429,7 @@ export type PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityData = {
   /**
    * Visibility
    */
-  body: GatewayUpdateVisibilityBody;
+  body: InternalMediaUpdateVisibilityBody;
   path: {
     /**
      * Project ID
@@ -6287,24 +4443,6 @@ export type PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityData = {
   query?: never;
   url: "/media/v1/projects/{projectId}/videos/{videoId}/visibility";
 };
-
-export type PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityError =
-  PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityErrors[keyof PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityErrors];
 
 export type PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityResponses = {
   /**
@@ -6320,7 +4458,7 @@ export type PostMediaV1ProjectsByProjectIdVideosUploadData = {
   /**
    * Video upload details
    */
-  body: GatewayCreateVideoUploadBody;
+  body: InternalMediaCreateVideoUploadBody;
   path: {
     /**
      * Project ID
@@ -6330,24 +4468,6 @@ export type PostMediaV1ProjectsByProjectIdVideosUploadData = {
   query?: never;
   url: "/media/v1/projects/{projectId}/videos/upload";
 };
-
-export type PostMediaV1ProjectsByProjectIdVideosUploadErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type PostMediaV1ProjectsByProjectIdVideosUploadError =
-  PostMediaV1ProjectsByProjectIdVideosUploadErrors[keyof PostMediaV1ProjectsByProjectIdVideosUploadErrors];
 
 export type PostMediaV1ProjectsByProjectIdVideosUploadResponses = {
   /**
@@ -6371,19 +4491,6 @@ export type GetMediaV1VideosByVideoIdData = {
   url: "/media/v1/videos/{videoId}";
 };
 
-export type GetMediaV1VideosByVideoIdErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type GetMediaV1VideosByVideoIdError = GetMediaV1VideosByVideoIdErrors[keyof GetMediaV1VideosByVideoIdErrors];
-
 export type GetMediaV1VideosByVideoIdResponses = {
   /**
    * OK
@@ -6404,20 +4511,6 @@ export type GetMediaV1VideosByVideoIdAudioTracksData = {
   query?: never;
   url: "/media/v1/videos/{videoId}/audio-tracks";
 };
-
-export type GetMediaV1VideosByVideoIdAudioTracksErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type GetMediaV1VideosByVideoIdAudioTracksError =
-  GetMediaV1VideosByVideoIdAudioTracksErrors[keyof GetMediaV1VideosByVideoIdAudioTracksErrors];
 
 export type GetMediaV1VideosByVideoIdAudioTracksResponses = {
   /**
@@ -6441,20 +4534,6 @@ export type GetMediaV1VideosByVideoIdSubtitlesData = {
   url: "/media/v1/videos/{videoId}/subtitles";
 };
 
-export type GetMediaV1VideosByVideoIdSubtitlesErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type GetMediaV1VideosByVideoIdSubtitlesError =
-  GetMediaV1VideosByVideoIdSubtitlesErrors[keyof GetMediaV1VideosByVideoIdSubtitlesErrors];
-
 export type GetMediaV1VideosByVideoIdSubtitlesResponses = {
   /**
    * OK
@@ -6464,6 +4543,238 @@ export type GetMediaV1VideosByVideoIdSubtitlesResponses = {
 
 export type GetMediaV1VideosByVideoIdSubtitlesResponse =
   GetMediaV1VideosByVideoIdSubtitlesResponses[keyof GetMediaV1VideosByVideoIdSubtitlesResponses];
+
+export type ListProjectsByOrgidData = {
+  body?: never;
+  path: {
+    /**
+     * Organization ID
+     */
+    orgId: string;
+  };
+  query?: never;
+  url: "/organization/{orgId}/projects";
+};
+
+export type ListProjectsByOrgidResponses = {
+  /**
+   * OK
+   */
+  200: Projectsv1ListProjectsResponse;
+};
+
+export type ListProjectsByOrgidResponse = ListProjectsByOrgidResponses[keyof ListProjectsByOrgidResponses];
+
+export type CreateProjectsByOrgidData = {
+  /**
+   * Project creation payload
+   */
+  body: TypesCreateProjectRequest;
+  path: {
+    /**
+     * Organization ID
+     */
+    orgId: string;
+  };
+  query?: never;
+  url: "/organization/{orgId}/projects";
+};
+
+export type CreateProjectsByOrgidResponses = {
+  /**
+   * Created
+   */
+  201: Projectsv1Project;
+};
+
+export type CreateProjectsByOrgidResponse = CreateProjectsByOrgidResponses[keyof CreateProjectsByOrgidResponses];
+
+export type DeleteProjectsData = {
+  body?: never;
+  path: {
+    /**
+     * Organization ID
+     */
+    orgId: string;
+    /**
+     * Project ID
+     */
+    projectId: string;
+  };
+  query?: never;
+  url: "/organization/{orgId}/projects/{projectId}";
+};
+
+export type DeleteProjectsResponses = {
+  /**
+   * OK
+   */
+  200: Projectsv1Project;
+};
+
+export type DeleteProjectsResponse = DeleteProjectsResponses[keyof DeleteProjectsResponses];
+
+export type GetProjectsData = {
+  body?: never;
+  path: {
+    /**
+     * Organization ID
+     */
+    orgId: string;
+    /**
+     * Project ID
+     */
+    projectId: string;
+  };
+  query?: never;
+  url: "/organization/{orgId}/projects/{projectId}";
+};
+
+export type GetProjectsResponses = {
+  /**
+   * OK
+   */
+  200: Projectsv1Project;
+};
+
+export type GetProjectsResponse = GetProjectsResponses[keyof GetProjectsResponses];
+
+export type DeleteCustomDomainByProjectidData = {
+  body?: never;
+  path: {
+    /**
+     * Organization ID
+     */
+    orgId: string;
+    /**
+     * Project ID
+     */
+    projectId: string;
+  };
+  query?: never;
+  url: "/organization/{orgId}/projects/{projectId}/custom-domain";
+};
+
+export type DeleteCustomDomainByProjectidResponses = {
+  /**
+   * OK
+   */
+  200: Projectsv1Project;
+};
+
+export type DeleteCustomDomainByProjectidResponse = DeleteCustomDomainByProjectidResponses[keyof DeleteCustomDomainByProjectidResponses];
+
+export type UpdateCustomDomainByProjectidData = {
+  /**
+   * Custom domain details
+   */
+  body: TypesCustomDomainRequest;
+  path: {
+    /**
+     * Organization ID
+     */
+    orgId: string;
+    /**
+     * Project ID
+     */
+    projectId: string;
+  };
+  query?: never;
+  url: "/organization/{orgId}/projects/{projectId}/custom-domain";
+};
+
+export type UpdateCustomDomainByProjectidResponses = {
+  /**
+   * OK
+   */
+  200: Projectsv1Project;
+};
+
+export type UpdateCustomDomainByProjectidResponse = UpdateCustomDomainByProjectidResponses[keyof UpdateCustomDomainByProjectidResponses];
+
+export type CreateMoveByProjectidData = {
+  /**
+   * Target organization ID
+   */
+  body: TypesMoveProjectRequest;
+  path: {
+    /**
+     * Organization ID
+     */
+    orgId: string;
+    /**
+     * Project ID
+     */
+    projectId: string;
+  };
+  query?: never;
+  url: "/organization/{orgId}/projects/{projectId}/move";
+};
+
+export type CreateMoveByProjectidResponses = {
+  /**
+   * OK
+   */
+  200: Projectsv1Project;
+};
+
+export type CreateMoveByProjectidResponse = CreateMoveByProjectidResponses[keyof CreateMoveByProjectidResponses];
+
+export type PatchNameByProjectidData = {
+  /**
+   * New project name
+   */
+  body: TypesUpdateProjectNameRequest;
+  path: {
+    /**
+     * Organization ID
+     */
+    orgId: string;
+    /**
+     * Project ID
+     */
+    projectId: string;
+  };
+  query?: never;
+  url: "/organization/{orgId}/projects/{projectId}/name";
+};
+
+export type PatchNameByProjectidResponses = {
+  /**
+   * OK
+   */
+  200: Projectsv1Project;
+};
+
+export type PatchNameByProjectidResponse = PatchNameByProjectidResponses[keyof PatchNameByProjectidResponses];
+
+export type PatchVideoQualityByProjectidData = {
+  /**
+   * New video quality setting
+   */
+  body: TypesUpdateVideoQualityRequest;
+  path: {
+    /**
+     * Organization ID
+     */
+    orgId: string;
+    /**
+     * Project ID
+     */
+    projectId: string;
+  };
+  query?: never;
+  url: "/organization/{orgId}/projects/{projectId}/video-quality";
+};
+
+export type PatchVideoQualityByProjectidResponses = {
+  /**
+   * OK
+   */
+  200: Projectsv1Project;
+};
+
+export type PatchVideoQualityByProjectidResponse = PatchVideoQualityByProjectidResponses[keyof PatchVideoQualityByProjectidResponses];
 
 export type ListApiKeysByOrgidData = {
   body?: never;
@@ -6480,27 +4791,6 @@ export type ListApiKeysByOrgidData = {
   };
   url: "/platform/api-keys";
 };
-
-export type ListApiKeysByOrgidErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Internal Server Error
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type ListApiKeysByOrgidError = ListApiKeysByOrgidErrors[keyof ListApiKeysByOrgidErrors];
 
 export type ListApiKeysByOrgidResponses = {
   /**
@@ -6520,27 +4810,6 @@ export type CreateApiKeyByOrgidData = {
   query?: never;
   url: "/platform/api-keys";
 };
-
-export type CreateApiKeyByOrgidErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Internal Server Error
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type CreateApiKeyByOrgidError = CreateApiKeyByOrgidErrors[keyof CreateApiKeyByOrgidErrors];
 
 export type CreateApiKeyByOrgidResponses = {
   /**
@@ -6563,19 +4832,6 @@ export type DeleteApiKeyByKeyidData = {
   url: "/platform/api-keys/{keyId}";
 };
 
-export type DeleteApiKeyByKeyidErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type DeleteApiKeyByKeyidError = DeleteApiKeyByKeyidErrors[keyof DeleteApiKeyByKeyidErrors];
-
 export type DeleteApiKeyByKeyidResponses = {
   /**
    * OK
@@ -6597,19 +4853,6 @@ export type RotateApiKeyByKeyidData = {
   url: "/platform/api-keys/{keyId}/rotate";
 };
 
-export type RotateApiKeyByKeyidErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type RotateApiKeyByKeyidError = RotateApiKeyByKeyidErrors[keyof RotateApiKeyByKeyidErrors];
-
 export type RotateApiKeyByKeyidResponses = {
   /**
    * OK
@@ -6629,15 +4872,6 @@ export type PostPlatformAuthRefreshData = {
   url: "/platform/auth/refresh";
 };
 
-export type PostPlatformAuthRefreshErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostPlatformAuthRefreshError = PostPlatformAuthRefreshErrors[keyof PostPlatformAuthRefreshErrors];
-
 export type PostPlatformAuthRefreshResponses = {
   /**
    * OK
@@ -6656,15 +4890,6 @@ export type PostPlatformAuthTokenData = {
   query?: never;
   url: "/platform/auth/token";
 };
-
-export type PostPlatformAuthTokenErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-};
-
-export type PostPlatformAuthTokenError = PostPlatformAuthTokenErrors[keyof PostPlatformAuthTokenErrors];
 
 export type PostPlatformAuthTokenResponses = {
   /**
@@ -6691,27 +4916,6 @@ export type ListCredentialsByOrgidData = {
   url: "/platform/clientauth/credentials";
 };
 
-export type ListCredentialsByOrgidErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Internal Server Error
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type ListCredentialsByOrgidError = ListCredentialsByOrgidErrors[keyof ListCredentialsByOrgidErrors];
-
 export type ListCredentialsByOrgidResponses = {
   /**
    * OK
@@ -6730,27 +4934,6 @@ export type CreateCredentialByOrgidData = {
   query?: never;
   url: "/platform/clientauth/credentials";
 };
-
-export type CreateCredentialByOrgidErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Internal Server Error
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type CreateCredentialByOrgidError = CreateCredentialByOrgidErrors[keyof CreateCredentialByOrgidErrors];
 
 export type CreateCredentialByOrgidResponses = {
   /**
@@ -6773,19 +4956,6 @@ export type RevokeCredentialByCredentialidData = {
   url: "/platform/clientauth/credentials/{credentialId}/revoke";
 };
 
-export type RevokeCredentialByCredentialidErrors = {
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type RevokeCredentialByCredentialidError = RevokeCredentialByCredentialidErrors[keyof RevokeCredentialByCredentialidErrors];
-
 export type RevokeCredentialByCredentialidResponses = {
   /**
    * OK
@@ -6804,23 +4974,6 @@ export type CreateTokenData = {
   query?: never;
   url: "/platform/clientauth/token";
 };
-
-export type CreateTokenErrors = {
-  /**
-   * Invalid request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Invalid client credentials
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Internal server error
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type CreateTokenError = CreateTokenErrors[keyof CreateTokenErrors];
 
 export type CreateTokenResponses = {
   /**
@@ -6852,19 +5005,6 @@ export type ListPublicPostsData = {
   url: "/posts/v1/feeds/{feedId}";
 };
 
-export type ListPublicPostsErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Internal Server Error
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type ListPublicPostsError = ListPublicPostsErrors[keyof ListPublicPostsErrors];
-
 export type ListPublicPostsResponses = {
   /**
    * OK
@@ -6889,19 +5029,6 @@ export type GetPublicPostData = {
   query?: never;
   url: "/posts/v1/feeds/{feedId}/{postId}";
 };
-
-export type GetPublicPostErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type GetPublicPostError = GetPublicPostErrors[keyof GetPublicPostErrors];
 
 export type GetPublicPostResponses = {
   /**
@@ -6937,19 +5064,6 @@ export type ListPublicPostsByCreatorData = {
   url: "/posts/v1/feeds/{feedId}/creators/{creatorId}";
 };
 
-export type ListPublicPostsByCreatorErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Internal Server Error
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type ListPublicPostsByCreatorError = ListPublicPostsByCreatorErrors[keyof ListPublicPostsByCreatorErrors];
-
 export type ListPublicPostsByCreatorResponses = {
   /**
    * OK
@@ -6984,23 +5098,6 @@ export type ListPostsData = {
   url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts";
 };
 
-export type ListPostsErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type ListPostsError = ListPostsErrors[keyof ListPostsErrors];
-
 export type ListPostsResponses = {
   /**
    * OK
@@ -7014,7 +5111,7 @@ export type CreatePostData = {
   /**
    * Post to create
    */
-  body: GatewayCreatePostBody;
+  body: InternalPostsCreatePostBody;
   path: {
     /**
      * Project ID
@@ -7028,23 +5125,6 @@ export type CreatePostData = {
   query?: never;
   url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts";
 };
-
-export type CreatePostErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type CreatePostError = CreatePostErrors[keyof CreatePostErrors];
 
 export type CreatePostResponses = {
   /**
@@ -7075,23 +5155,6 @@ export type DeletePostData = {
   url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts/{postId}";
 };
 
-export type DeletePostErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type DeletePostError = DeletePostErrors[keyof DeletePostErrors];
-
 export type DeletePostResponses = {
   /**
    * OK
@@ -7120,23 +5183,6 @@ export type GetPostData = {
   query?: never;
   url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts/{postId}";
 };
-
-export type GetPostErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type GetPostError = GetPostErrors[keyof GetPostErrors];
 
 export type GetPostResponses = {
   /**
@@ -7176,23 +5222,6 @@ export type ListPostsByCreatorData = {
   url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts/creators/{creatorId}";
 };
 
-export type ListPostsByCreatorErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type ListPostsByCreatorError = ListPostsByCreatorErrors[keyof ListPostsByCreatorErrors];
-
 export type ListPostsByCreatorResponses = {
   /**
    * OK
@@ -7206,7 +5235,7 @@ export type CompletePostUploadData = {
   /**
    * Upload completion request
    */
-  body: GatewayCompleteUploadBody;
+  body: InternalPostsCompleteUploadBody;
   path: {
     /**
      * Project ID
@@ -7221,23 +5250,6 @@ export type CompletePostUploadData = {
   url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts/upload/complete";
 };
 
-export type CompletePostUploadErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type CompletePostUploadError = CompletePostUploadErrors[keyof CompletePostUploadErrors];
-
 export type CompletePostUploadResponses = {
   /**
    * OK
@@ -7251,7 +5263,7 @@ export type InitPostUploadData = {
   /**
    * Upload initialization request
    */
-  body: GatewayInitUploadBody;
+  body: InternalPostsInitUploadBody;
   path: {
     /**
      * Project ID
@@ -7266,23 +5278,6 @@ export type InitPostUploadData = {
   url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts/upload/init";
 };
 
-export type InitPostUploadErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type InitPostUploadError = InitPostUploadErrors[keyof InitPostUploadErrors];
-
 export type InitPostUploadResponses = {
   /**
    * Created
@@ -7292,258 +5287,8 @@ export type InitPostUploadResponses = {
 
 export type InitPostUploadResponse = InitPostUploadResponses[keyof InitPostUploadResponses];
 
-export type ListProjectsByOrgidData = {
-  body?: never;
-  path?: never;
-  query?: never;
-  url: "/projects";
-};
-
-export type ListProjectsByOrgidErrors = {
-  /**
-   * Invalid organization ID
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Access denied
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Internal server error
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type ListProjectsByOrgidError = ListProjectsByOrgidErrors[keyof ListProjectsByOrgidErrors];
-
-export type ListProjectsByOrgidResponses = {
-  /**
-   * OK
-   */
-  200: Projectsv1ListProjectsResponse;
-};
-
-export type ListProjectsByOrgidResponse = ListProjectsByOrgidResponses[keyof ListProjectsByOrgidResponses];
-
-export type CreateProjectsByOrgidData = {
-  /**
-   * Project creation payload
-   */
-  body: TypesCreateProjectRequest;
-  path?: never;
-  query?: never;
-  url: "/projects";
-};
-
-export type CreateProjectsByOrgidErrors = {
-  /**
-   * Invalid input or OrgID
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Access denied
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Failed to create project
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type CreateProjectsByOrgidError = CreateProjectsByOrgidErrors[keyof CreateProjectsByOrgidErrors];
-
-export type CreateProjectsByOrgidResponses = {
-  /**
-   * Created
-   */
-  201: Projectsv1Project;
-};
-
-export type CreateProjectsByOrgidResponse = CreateProjectsByOrgidResponses[keyof CreateProjectsByOrgidResponses];
-
-export type DeleteProjectsData = {
-  body?: never;
-  path: {
-    /**
-     * Project ID
-     */
-    projectId: string;
-  };
-  query?: never;
-  url: "/projects/{projectId}";
-};
-
-export type DeleteProjectsErrors = {
-  /**
-   * Invalid IDs
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Access denied
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Failed to delete project
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type DeleteProjectsError = DeleteProjectsErrors[keyof DeleteProjectsErrors];
-
-export type DeleteProjectsResponses = {
-  /**
-   * OK
-   */
-  200: Projectsv1Project;
-};
-
-export type DeleteProjectsResponse = DeleteProjectsResponses[keyof DeleteProjectsResponses];
-
-export type GetProjectsData = {
-  body?: never;
-  path: {
-    /**
-     * Project ID
-     */
-    projectId: string;
-  };
-  query?: never;
-  url: "/projects/{projectId}";
-};
-
-export type GetProjectsErrors = {
-  /**
-   * Invalid input
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Access denied
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Project not found
-   */
-  404: ErrorsErrorResponse;
-};
-
-export type GetProjectsError = GetProjectsErrors[keyof GetProjectsErrors];
-
-export type GetProjectsResponses = {
-  /**
-   * OK
-   */
-  200: Projectsv1Project;
-};
-
-export type GetProjectsResponse = GetProjectsResponses[keyof GetProjectsResponses];
-
-export type DeleteCustomDomainByProjectidData = {
-  body?: never;
-  path: {
-    /**
-     * Project ID
-     */
-    projectId: string;
-  };
-  query?: never;
-  url: "/projects/{projectId}/custom-domain";
-};
-
-export type DeleteCustomDomainByProjectidErrors = {
-  /**
-   * Invalid input
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Access denied
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Failed to remove custom domain
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type DeleteCustomDomainByProjectidError = DeleteCustomDomainByProjectidErrors[keyof DeleteCustomDomainByProjectidErrors];
-
-export type DeleteCustomDomainByProjectidResponses = {
-  /**
-   * OK
-   */
-  200: Projectsv1Project;
-};
-
-export type DeleteCustomDomainByProjectidResponse = DeleteCustomDomainByProjectidResponses[keyof DeleteCustomDomainByProjectidResponses];
-
-export type UpdateCustomDomainByProjectidData = {
-  /**
-   * Custom domain details
-   */
-  body: TypesCustomDomainRequest;
-  path: {
-    /**
-     * Project ID
-     */
-    projectId: string;
-  };
-  query?: never;
-  url: "/projects/{projectId}/custom-domain";
-};
-
-export type UpdateCustomDomainByProjectidErrors = {
-  /**
-   * Invalid input
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Access denied
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Failed to set custom domain
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type UpdateCustomDomainByProjectidError = UpdateCustomDomainByProjectidErrors[keyof UpdateCustomDomainByProjectidErrors];
-
-export type UpdateCustomDomainByProjectidResponses = {
-  /**
-   * OK
-   */
-  200: Projectsv1Project;
-};
-
-export type UpdateCustomDomainByProjectidResponse = UpdateCustomDomainByProjectidResponses[keyof UpdateCustomDomainByProjectidResponses];
-
 export type ListFeedsData = {
-  body?: {
-    [key: string]: unknown;
-  };
+  body?: never;
   path: {
     /**
      * Project ID
@@ -7562,27 +5307,6 @@ export type ListFeedsData = {
   };
   url: "/projects/{projectId}/feeds";
 };
-
-export type ListFeedsErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Internal Server Error
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type ListFeedsError = ListFeedsErrors[keyof ListFeedsErrors];
 
 export type ListFeedsResponses = {
   /**
@@ -7608,27 +5332,6 @@ export type CreateFeedData = {
   url: "/projects/{projectId}/feeds";
 };
 
-export type CreateFeedErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Internal Server Error
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type CreateFeedError = CreateFeedErrors[keyof CreateFeedErrors];
-
 export type CreateFeedResponses = {
   /**
    * Created
@@ -7639,9 +5342,7 @@ export type CreateFeedResponses = {
 export type CreateFeedResponse = CreateFeedResponses[keyof CreateFeedResponses];
 
 export type DeleteFeedData = {
-  body?: {
-    [key: string]: unknown;
-  };
+  body?: never;
   path: {
     /**
      * Project ID
@@ -7655,31 +5356,6 @@ export type DeleteFeedData = {
   query?: never;
   url: "/projects/{projectId}/feeds/{feedId}";
 };
-
-export type DeleteFeedErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-  /**
-   * Internal Server Error
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type DeleteFeedError = DeleteFeedErrors[keyof DeleteFeedErrors];
 
 export type DeleteFeedResponses = {
   /**
@@ -7691,9 +5367,7 @@ export type DeleteFeedResponses = {
 export type DeleteFeedResponse = DeleteFeedResponses[keyof DeleteFeedResponses];
 
 export type GetFeedData = {
-  body?: {
-    [key: string]: unknown;
-  };
+  body?: never;
   path: {
     /**
      * Project ID
@@ -7707,31 +5381,6 @@ export type GetFeedData = {
   query?: never;
   url: "/projects/{projectId}/feeds/{feedId}";
 };
-
-export type GetFeedErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-  /**
-   * Internal Server Error
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type GetFeedError = GetFeedErrors[keyof GetFeedErrors];
 
 export type GetFeedResponses = {
   /**
@@ -7761,31 +5410,6 @@ export type UpdateFeedData = {
   url: "/projects/{projectId}/feeds/{feedId}";
 };
 
-export type UpdateFeedErrors = {
-  /**
-   * Bad Request
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Forbidden
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Not Found
-   */
-  404: ErrorsErrorResponse;
-  /**
-   * Internal Server Error
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type UpdateFeedError = UpdateFeedErrors[keyof UpdateFeedErrors];
-
 export type UpdateFeedResponses = {
   /**
    * OK
@@ -7794,138 +5418,3 @@ export type UpdateFeedResponses = {
 };
 
 export type UpdateFeedResponse = UpdateFeedResponses[keyof UpdateFeedResponses];
-
-export type CreateMoveByProjectidData = {
-  /**
-   * Target organization ID
-   */
-  body: TypesMoveProjectRequest;
-  path: {
-    /**
-     * Project ID
-     */
-    projectId: string;
-  };
-  query?: never;
-  url: "/projects/{projectId}/move";
-};
-
-export type CreateMoveByProjectidErrors = {
-  /**
-   * Invalid input or OrgID
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Access denied
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Failed to move project
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type CreateMoveByProjectidError = CreateMoveByProjectidErrors[keyof CreateMoveByProjectidErrors];
-
-export type CreateMoveByProjectidResponses = {
-  /**
-   * OK
-   */
-  200: Projectsv1Project;
-};
-
-export type CreateMoveByProjectidResponse = CreateMoveByProjectidResponses[keyof CreateMoveByProjectidResponses];
-
-export type PatchNameByProjectidData = {
-  /**
-   * New project name
-   */
-  body: TypesUpdateProjectNameRequest;
-  path: {
-    /**
-     * Project ID
-     */
-    projectId: string;
-  };
-  query?: never;
-  url: "/projects/{projectId}/name";
-};
-
-export type PatchNameByProjectidErrors = {
-  /**
-   * Invalid input
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Access denied
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Failed to update project
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type PatchNameByProjectidError = PatchNameByProjectidErrors[keyof PatchNameByProjectidErrors];
-
-export type PatchNameByProjectidResponses = {
-  /**
-   * OK
-   */
-  200: Projectsv1Project;
-};
-
-export type PatchNameByProjectidResponse = PatchNameByProjectidResponses[keyof PatchNameByProjectidResponses];
-
-export type PatchVideoQualityByProjectidData = {
-  /**
-   * New video quality setting
-   */
-  body: TypesUpdateVideoQualityRequest;
-  path: {
-    /**
-     * Project ID
-     */
-    projectId: string;
-  };
-  query?: never;
-  url: "/projects/{projectId}/video-quality";
-};
-
-export type PatchVideoQualityByProjectidErrors = {
-  /**
-   * Invalid input
-   */
-  400: ErrorsErrorResponse;
-  /**
-   * Unauthorized
-   */
-  401: ErrorsErrorResponse;
-  /**
-   * Access denied
-   */
-  403: ErrorsErrorResponse;
-  /**
-   * Failed to update project video quality
-   */
-  500: ErrorsErrorResponse;
-};
-
-export type PatchVideoQualityByProjectidError = PatchVideoQualityByProjectidErrors[keyof PatchVideoQualityByProjectidErrors];
-
-export type PatchVideoQualityByProjectidResponses = {
-  /**
-   * OK
-   */
-  200: Projectsv1Project;
-};
-
-export type PatchVideoQualityByProjectidResponse = PatchVideoQualityByProjectidResponses[keyof PatchVideoQualityByProjectidResponses];

@@ -6,7 +6,7 @@ import {ApiError} from "../api/error-handlers";
 import {apiCall} from "../api/utils";
 import {HTTP_STATUS} from "../constants";
 import type {LoginErrorResponse, OTPVerificationResponse} from "./types";
-import type {Authv1LoginResponse, ErrorsErrorResponse} from "../../generated/types.gen";
+import type {Authv1LoginResponse} from "../../generated/types.gen";
 
 export const loginWithEmail = async (email: string, password: string): Promise<void | OTPVerificationResponse | LoginErrorResponse> => {
   return apiCall(
@@ -73,8 +73,14 @@ function handleLoginResponse(data: Authv1LoginResponse, email: string): void | O
   }
 }
 
+interface ApiErrorBody {
+  error?: string;
+  details?: string;
+  code?: number;
+}
+
 function handleLoginError(error: unknown, email: string): OTPVerificationResponse | LoginErrorResponse | never {
-  if (isErrorResponse(error)) {
+  if (isApiErrorBody(error)) {
     if (error.error === "email_not_verified") {
       return {
         error_code: "email_not_verified",
@@ -94,6 +100,6 @@ function handleLoginError(error: unknown, email: string): OTPVerificationRespons
   throw error;
 }
 
-function isErrorResponse(error: unknown): error is ErrorsErrorResponse & {code: number} {
+function isApiErrorBody(error: unknown): error is ApiErrorBody {
   return typeof error === "object" && error !== null && "error" in error;
 }
