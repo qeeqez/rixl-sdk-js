@@ -102,6 +102,7 @@ export {
   deletePasskey,
   finishPasskeyRegistration,
   listPasskeys,
+  renamePasskey,
   type Passkey,
   type PasskeyBeginRegistration,
   type PasskeyRegistrationResult,

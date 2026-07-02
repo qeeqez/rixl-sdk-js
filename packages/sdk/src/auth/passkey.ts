@@ -1,6 +1,7 @@
 import {
   deleteAuthV1UsersCurrentPasskeysById,
   getAuthV1UsersCurrentPasskeys,
+  patchAuthV1UsersCurrentPasskeysById,
   postAuthV1UsersCurrentPasskeysRegisterBegin,
   postAuthV1UsersCurrentPasskeysRegisterFinish,
 } from "../generated/sdk.gen";
@@ -72,6 +73,21 @@ export const finishPasskeyRegistration = async (
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid passkey credential"),
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Token is missing or invalid; user is not authenticated."),
+    }
+  );
+};
+
+export const renamePasskey = async (id: string, name: string): Promise<void> => {
+  return apiCall(
+    async () => {
+      await patchAuthV1UsersCurrentPasskeysById({
+        path: {id},
+        body: {name},
+        throwOnError: true,
+      });
+    },
+    {
+      [HTTP_STATUS.NOT_FOUND]: () => new Error("Passkey not found"),
     }
   );
 };
