@@ -1,10 +1,19 @@
-import {getAuthV1UsersCurrentPasskeys, postAuthV1UsersCurrentPasskeysRegisterBegin} from "../generated/sdk.gen";
+import {
+  getAuthV1UsersCurrentPasskeys,
+  postAuthV1UsersCurrentPasskeysRegisterBegin,
+  postAuthV1UsersCurrentPasskeysRegisterFinish,
+} from "../generated/sdk.gen";
 import {apiCall} from "./api/utils";
 import {HTTP_STATUS} from "./constants";
 
 export interface PasskeyBeginRegistration {
   session_id: string;
   options: PublicKeyCredentialCreationOptions;
+}
+
+export interface PasskeyRegistrationResult {
+  passkey_id: string;
+  name: string;
 }
 
 export interface Passkey {
@@ -35,6 +44,32 @@ export const beginPasskeyRegistration = async (): Promise<PasskeyBeginRegistrati
       return {session_id: data.session_id, options};
     },
     {
+      [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Token is missing or invalid; user is not authenticated."),
+    }
+  );
+};
+
+export const finishPasskeyRegistration = async (
+  session_id: string,
+  name: string,
+  credential: Credential
+): Promise<PasskeyRegistrationResult> => {
+  return apiCall(
+    async () => {
+      const encoded = Array.from(new TextEncoder().encode(JSON.stringify(credential)));
+
+      const {data} = await postAuthV1UsersCurrentPasskeysRegisterFinish({
+        body: {session_id, name, credential: encoded},
+        throwOnError: true,
+      });
+
+      return {
+        passkey_id: data.passkey_id ?? "",
+        name: data.name ?? "",
+      };
+    },
+    {
+      [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid passkey credential"),
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Token is missing or invalid; user is not authenticated."),
     }
   );
