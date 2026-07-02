@@ -2,11 +2,17 @@ import {
   deleteAuthV1UsersCurrentPasskeysById,
   getAuthV1UsersCurrentPasskeys,
   patchAuthV1UsersCurrentPasskeysById,
+  postAuthV1PasskeyLoginBegin,
   postAuthV1UsersCurrentPasskeysRegisterBegin,
   postAuthV1UsersCurrentPasskeysRegisterFinish,
 } from "../generated/sdk.gen";
 import {apiCall} from "./api/utils";
 import {HTTP_STATUS} from "./constants";
+
+export interface PasskeyBeginLogin {
+  session_id: string;
+  options: PublicKeyCredentialRequestOptions;
+}
 
 export interface PasskeyBeginRegistration {
   session_id: string;
@@ -28,6 +34,23 @@ export interface Passkey {
   last_used_at: string;
   transports: string[];
 }
+
+export const beginPasskeyLogin = async (): Promise<PasskeyBeginLogin> => {
+  return apiCall(async () => {
+    const {data} = await postAuthV1PasskeyLoginBegin({
+      throwOnError: true,
+    });
+
+    if (!data.session_id || !data.options) {
+      throw new Error("Invalid response from server");
+    }
+
+    const decoded = new TextDecoder().decode(new Uint8Array(data.options));
+    const options = JSON.parse(decoded) as PublicKeyCredentialRequestOptions;
+
+    return {session_id: data.session_id, options};
+  }, {});
+};
 
 export const beginPasskeyRegistration = async (): Promise<PasskeyBeginRegistration> => {
   return apiCall(

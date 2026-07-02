@@ -98,12 +98,14 @@ export {
 export {getBlogSubscriptionStatus, subscribeToBlog, unsubscribeFromBlog, type BlogSubscriptionStatus} from "./blog";
 
 export {
+  beginPasskeyLogin,
   beginPasskeyRegistration,
   deletePasskey,
   finishPasskeyRegistration,
   listPasskeys,
   renamePasskey,
   type Passkey,
+  type PasskeyBeginLogin,
   type PasskeyBeginRegistration,
   type PasskeyRegistrationResult,
 } from "./passkey";
