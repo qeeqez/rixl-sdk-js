@@ -1,4 +1,5 @@
 import {
+  deleteAuthV1UsersCurrentPasskeysById,
   getAuthV1UsersCurrentPasskeys,
   postAuthV1UsersCurrentPasskeysRegisterBegin,
   postAuthV1UsersCurrentPasskeysRegisterFinish,
@@ -71,6 +72,20 @@ export const finishPasskeyRegistration = async (
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid passkey credential"),
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Token is missing or invalid; user is not authenticated."),
+    }
+  );
+};
+
+export const deletePasskey = async (id: string): Promise<void> => {
+  return apiCall(
+    async () => {
+      await deleteAuthV1UsersCurrentPasskeysById({
+        path: {id},
+        throwOnError: true,
+      });
+    },
+    {
+      [HTTP_STATUS.NOT_FOUND]: () => new Error("Passkey not found"),
     }
   );
 };

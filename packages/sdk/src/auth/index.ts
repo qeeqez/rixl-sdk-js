@@ -99,6 +99,7 @@ export {getBlogSubscriptionStatus, subscribeToBlog, unsubscribeFromBlog, type Bl
 
 export {
   beginPasskeyRegistration,
+  deletePasskey,
   finishPasskeyRegistration,
   listPasskeys,
   type Passkey,
