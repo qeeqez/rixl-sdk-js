@@ -4,362 +4,540 @@ import {type Client, formDataBodySerializer, type Options as Options2, type TDat
 import {client} from "./client.gen";
 import type {
   CompletePostUploadData,
+  CompletePostUploadErrors,
   CompletePostUploadResponses,
   CreateApiKeyByOrgidData,
+  CreateApiKeyByOrgidErrors,
   CreateApiKeyByOrgidResponses,
   CreateCredentialByOrgidData,
+  CreateCredentialByOrgidErrors,
   CreateCredentialByOrgidResponses,
   CreateFeedData,
+  CreateFeedErrors,
   CreateFeedResponses,
   CreateMoveByProjectidData,
+  CreateMoveByProjectidErrors,
   CreateMoveByProjectidResponses,
   CreatePostData,
+  CreatePostErrors,
   CreatePostResponses,
   CreateProjectsByOrgidData,
+  CreateProjectsByOrgidErrors,
   CreateProjectsByOrgidResponses,
   CreateTokenData,
+  CreateTokenErrors,
   CreateTokenResponses,
   DeleteApiKeyByKeyidData,
+  DeleteApiKeyByKeyidErrors,
   DeleteApiKeyByKeyidResponses,
   DeleteAuthV1MembershipsByOrgIdDomainData,
+  DeleteAuthV1MembershipsByOrgIdDomainErrors,
   DeleteAuthV1MembershipsByOrgIdDomainResponses,
   DeleteAuthV1MembershipsByOrgIdLeaveData,
+  DeleteAuthV1MembershipsByOrgIdLeaveErrors,
   DeleteAuthV1MembershipsByOrgIdLeaveResponses,
   DeleteAuthV1MembershipsByOrgIdMembersByUserIdData,
+  DeleteAuthV1MembershipsByOrgIdMembersByUserIdErrors,
   DeleteAuthV1MembershipsByOrgIdMembersByUserIdResponses,
   DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachmentIdData,
+  DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachmentIdErrors,
   DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachmentIdResponses,
   DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdData,
+  DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdErrors,
   DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponses,
   DeleteAuthV1ProvidersByProviderData,
+  DeleteAuthV1ProvidersByProviderErrors,
   DeleteAuthV1ProvidersByProviderResponses,
   DeleteAuthV1UsersCurrentPasskeysByIdData,
+  DeleteAuthV1UsersCurrentPasskeysByIdErrors,
   DeleteAuthV1UsersCurrentPasskeysByIdResponses,
   DeleteAuthV1UsersCurrentTotpDeleteData,
+  DeleteAuthV1UsersCurrentTotpDeleteErrors,
   DeleteAuthV1UsersCurrentTotpDeleteResponses,
   DeleteBillingV1PaymentMethodsByPaymentMethodIdData,
+  DeleteBillingV1PaymentMethodsByPaymentMethodIdErrors,
   DeleteBillingV1PaymentMethodsByPaymentMethodIdResponses,
   DeleteCustomDomainByProjectidData,
+  DeleteCustomDomainByProjectidErrors,
   DeleteCustomDomainByProjectidResponses,
   DeleteFeedData,
+  DeleteFeedErrors,
   DeleteFeedResponses,
   DeleteMediaV1ProjectsByProjectIdImagesByImageIdData,
+  DeleteMediaV1ProjectsByProjectIdImagesByImageIdErrors,
   DeleteMediaV1ProjectsByProjectIdImagesByImageIdResponses,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksByTrackIdData,
+  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksByTrackIdErrors,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksByTrackIdResponses,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksData,
+  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksErrors,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksLanguageByLangData,
+  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksLanguageByLangErrors,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksLanguageByLangResponses,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersByStartTimeSecData,
+  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersByStartTimeSecErrors,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersByStartTimeSecResponses,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersData,
+  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdData,
+  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdErrors,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdResponses,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleIdData,
+  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleIdErrors,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleIdResponses,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesData,
+  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesErrors,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesLanguageByLangData,
+  DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesLanguageByLangErrors,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesLanguageByLangResponses,
   DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponses,
   DeletePostData,
+  DeletePostErrors,
   DeletePostResponses,
   DeleteProjectsData,
+  DeleteProjectsErrors,
   DeleteProjectsResponses,
   GetAnalyticsV1DashboardData,
+  GetAnalyticsV1DashboardErrors,
   GetAnalyticsV1DashboardResponses,
   GetAnalyticsV1FeedsByFeedIdStatsData,
+  GetAnalyticsV1FeedsByFeedIdStatsErrors,
   GetAnalyticsV1FeedsByFeedIdStatsResponses,
   GetAnalyticsV1PostsByPostIdStatsData,
+  GetAnalyticsV1PostsByPostIdStatsErrors,
   GetAnalyticsV1PostsByPostIdStatsResponses,
   GetAnalyticsV1RealtimeData,
+  GetAnalyticsV1RealtimeErrors,
   GetAnalyticsV1RealtimeResponses,
   GetAnalyticsV1RetentionData,
+  GetAnalyticsV1RetentionErrors,
   GetAnalyticsV1RetentionResponses,
   GetAnalyticsV1TopFeedsData,
+  GetAnalyticsV1TopFeedsErrors,
   GetAnalyticsV1TopFeedsResponses,
   GetAnalyticsV1TopPostsData,
+  GetAnalyticsV1TopPostsErrors,
   GetAnalyticsV1TopPostsResponses,
   GetAnalyticsV1TopVideosData,
+  GetAnalyticsV1TopVideosErrors,
   GetAnalyticsV1TopVideosResponses,
   GetAnalyticsV1VideosByVideoIdHeatmapData,
+  GetAnalyticsV1VideosByVideoIdHeatmapErrors,
   GetAnalyticsV1VideosByVideoIdHeatmapResponses,
   GetAnalyticsV1VideosByVideoIdHotSegmentsData,
+  GetAnalyticsV1VideosByVideoIdHotSegmentsErrors,
   GetAnalyticsV1VideosByVideoIdHotSegmentsResponses,
   GetAnalyticsV1VideosByVideoIdStatsData,
+  GetAnalyticsV1VideosByVideoIdStatsErrors,
   GetAnalyticsV1VideosByVideoIdStatsResponses,
   GetAuthV1BlogSubscriptionData,
+  GetAuthV1BlogSubscriptionErrors,
   GetAuthV1BlogSubscriptionResponses,
   GetAuthV1MembershipsActiveData,
+  GetAuthV1MembershipsActiveErrors,
   GetAuthV1MembershipsActiveResponses,
   GetAuthV1MembershipsByOrgIdCheckData,
+  GetAuthV1MembershipsByOrgIdCheckErrors,
   GetAuthV1MembershipsByOrgIdCheckResponses,
   GetAuthV1MembershipsByOrgIdDomainAutoJoinData,
+  GetAuthV1MembershipsByOrgIdDomainAutoJoinErrors,
   GetAuthV1MembershipsByOrgIdDomainAutoJoinResponses,
   GetAuthV1MembershipsByOrgIdDomainData,
+  GetAuthV1MembershipsByOrgIdDomainErrors,
   GetAuthV1MembershipsByOrgIdDomainResponses,
   GetAuthV1MembershipsByOrgIdInfoData,
+  GetAuthV1MembershipsByOrgIdInfoErrors,
   GetAuthV1MembershipsByOrgIdInfoResponses,
   GetAuthV1MembershipsByOrgIdMembersByUserIdPoliciesData,
+  GetAuthV1MembershipsByOrgIdMembersByUserIdPoliciesErrors,
   GetAuthV1MembershipsByOrgIdMembersByUserIdPoliciesResponses,
   GetAuthV1MembershipsByOrgIdMembersData,
+  GetAuthV1MembershipsByOrgIdMembersErrors,
   GetAuthV1MembershipsByOrgIdMembersResponses,
   GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsData,
+  GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsErrors,
   GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsResponses,
   GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdData,
+  GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdErrors,
   GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponses,
   GetAuthV1MembershipsByOrgIdPoliciesData,
+  GetAuthV1MembershipsByOrgIdPoliciesErrors,
   GetAuthV1MembershipsByOrgIdPoliciesResponses,
   GetAuthV1MembershipsPendingData,
+  GetAuthV1MembershipsPendingErrors,
   GetAuthV1MembershipsPendingResponses,
   GetAuthV1PoliciesPermissionsData,
+  GetAuthV1PoliciesPermissionsErrors,
   GetAuthV1PoliciesPermissionsResponses,
   GetAuthV1ProvidersData,
+  GetAuthV1ProvidersErrors,
   GetAuthV1ProvidersResponses,
   GetAuthV1UserinfoData,
+  GetAuthV1UserinfoErrors,
   GetAuthV1UserinfoResponses,
   GetAuthV1UsersCurrentData,
   GetAuthV1UsersCurrentEmailsStatusData,
+  GetAuthV1UsersCurrentEmailsStatusErrors,
   GetAuthV1UsersCurrentEmailsStatusResponses,
+  GetAuthV1UsersCurrentErrors,
   GetAuthV1UsersCurrentPasskeysData,
+  GetAuthV1UsersCurrentPasskeysErrors,
   GetAuthV1UsersCurrentPasskeysResponses,
   GetAuthV1UsersCurrentResponses,
   GetAuthV1UsersCurrentTotpStatusData,
+  GetAuthV1UsersCurrentTotpStatusErrors,
   GetAuthV1UsersCurrentTotpStatusResponses,
   GetBillingV1AddressData,
+  GetBillingV1AddressErrors,
   GetBillingV1AddressResponses,
   GetBillingV1BandwidthUsageData,
+  GetBillingV1BandwidthUsageErrors,
   GetBillingV1BandwidthUsageHistoryData,
+  GetBillingV1BandwidthUsageHistoryErrors,
   GetBillingV1BandwidthUsageHistoryResponses,
   GetBillingV1BandwidthUsageResponses,
   GetBillingV1InvoicesData,
+  GetBillingV1InvoicesErrors,
   GetBillingV1InvoicesResponses,
   GetBillingV1PaymentMethodsData,
+  GetBillingV1PaymentMethodsErrors,
   GetBillingV1PaymentMethodsFromPaymentIntentData,
+  GetBillingV1PaymentMethodsFromPaymentIntentErrors,
   GetBillingV1PaymentMethodsFromPaymentIntentResponses,
   GetBillingV1PaymentMethodsFromSetupIntentData,
+  GetBillingV1PaymentMethodsFromSetupIntentErrors,
   GetBillingV1PaymentMethodsFromSetupIntentResponses,
   GetBillingV1PaymentMethodsResponses,
   GetBillingV1PlansByPlanIdData,
+  GetBillingV1PlansByPlanIdErrors,
   GetBillingV1PlansByPlanIdResponses,
   GetBillingV1PlansData,
+  GetBillingV1PlansErrors,
   GetBillingV1PlansResponses,
   GetBillingV1StorageUsageData,
+  GetBillingV1StorageUsageErrors,
   GetBillingV1StorageUsageHistoryData,
+  GetBillingV1StorageUsageHistoryErrors,
   GetBillingV1StorageUsageHistoryResponses,
   GetBillingV1StorageUsageResponses,
   GetBillingV1SubscriptionData,
+  GetBillingV1SubscriptionErrors,
   GetBillingV1SubscriptionHistoryData,
+  GetBillingV1SubscriptionHistoryErrors,
   GetBillingV1SubscriptionHistoryResponses,
   GetBillingV1SubscriptionResponses,
   GetFeedData,
+  GetFeedErrors,
   GetFeedResponses,
   GetMediaV1ImagesByImageIdData,
+  GetMediaV1ImagesByImageIdErrors,
   GetMediaV1ImagesByImageIdResponses,
   GetMediaV1LanguagesData,
+  GetMediaV1LanguagesErrors,
   GetMediaV1LanguagesResponses,
   GetMediaV1ProjectsByProjectIdImagesByImageIdData,
+  GetMediaV1ProjectsByProjectIdImagesByImageIdErrors,
   GetMediaV1ProjectsByProjectIdImagesByImageIdResponses,
   GetMediaV1ProjectsByProjectIdImagesData,
+  GetMediaV1ProjectsByProjectIdImagesErrors,
   GetMediaV1ProjectsByProjectIdImagesResponses,
   GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksData,
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksErrors,
   GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses,
   GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersData,
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors,
   GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses,
   GetMediaV1ProjectsByProjectIdVideosByVideoIdData,
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdErrors,
   GetMediaV1ProjectsByProjectIdVideosByVideoIdResponses,
   GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesData,
+  GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesErrors,
   GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponses,
   GetMediaV1ProjectsByProjectIdVideosData,
+  GetMediaV1ProjectsByProjectIdVideosErrors,
   GetMediaV1ProjectsByProjectIdVideosResponses,
   GetMediaV1VideosByVideoIdAudioTracksData,
+  GetMediaV1VideosByVideoIdAudioTracksErrors,
   GetMediaV1VideosByVideoIdAudioTracksResponses,
   GetMediaV1VideosByVideoIdData,
+  GetMediaV1VideosByVideoIdErrors,
   GetMediaV1VideosByVideoIdResponses,
   GetMediaV1VideosByVideoIdSubtitlesData,
+  GetMediaV1VideosByVideoIdSubtitlesErrors,
   GetMediaV1VideosByVideoIdSubtitlesResponses,
   GetPostData,
+  GetPostErrors,
   GetPostResponses,
   GetProjectsData,
+  GetProjectsErrors,
   GetProjectsResponses,
   GetPublicPostData,
+  GetPublicPostErrors,
   GetPublicPostResponses,
   InitPostUploadData,
+  InitPostUploadErrors,
   InitPostUploadResponses,
   ListApiKeysByOrgidData,
+  ListApiKeysByOrgidErrors,
   ListApiKeysByOrgidResponses,
   ListCredentialsByOrgidData,
+  ListCredentialsByOrgidErrors,
   ListCredentialsByOrgidResponses,
   ListFeedsData,
+  ListFeedsErrors,
   ListFeedsResponses,
   ListPostsByCreatorData,
+  ListPostsByCreatorErrors,
   ListPostsByCreatorResponses,
   ListPostsData,
+  ListPostsErrors,
   ListPostsResponses,
   ListProjectsByOrgidData,
+  ListProjectsByOrgidErrors,
   ListProjectsByOrgidResponses,
   ListPublicPostsByCreatorData,
+  ListPublicPostsByCreatorErrors,
   ListPublicPostsByCreatorResponses,
   ListPublicPostsData,
+  ListPublicPostsErrors,
   ListPublicPostsResponses,
   PatchAuthV1UsersCurrentNameData,
+  PatchAuthV1UsersCurrentNameErrors,
   PatchAuthV1UsersCurrentNameResponses,
   PatchAuthV1UsersCurrentPasskeysByIdData,
+  PatchAuthV1UsersCurrentPasskeysByIdErrors,
   PatchAuthV1UsersCurrentPasskeysByIdResponses,
   PatchAuthV1UsersCurrentUsernameData,
+  PatchAuthV1UsersCurrentUsernameErrors,
   PatchAuthV1UsersCurrentUsernameResponses,
   PatchNameByProjectidData,
+  PatchNameByProjectidErrors,
   PatchNameByProjectidResponses,
   PatchVideoQualityByProjectidData,
+  PatchVideoQualityByProjectidErrors,
   PatchVideoQualityByProjectidResponses,
   PostAnalyticsV1EventsData,
+  PostAnalyticsV1EventsErrors,
   PostAnalyticsV1EventsResponses,
   PostAnalyticsV1FunnelsData,
+  PostAnalyticsV1FunnelsErrors,
   PostAnalyticsV1FunnelsResponses,
   PostAuthV1BlogSubscribeData,
+  PostAuthV1BlogSubscribeErrors,
   PostAuthV1BlogSubscribeResponses,
   PostAuthV1BlogUnsubscribeData,
   PostAuthV1BlogUnsubscribeEmailData,
+  PostAuthV1BlogUnsubscribeEmailErrors,
   PostAuthV1BlogUnsubscribeEmailResponses,
+  PostAuthV1BlogUnsubscribeErrors,
   PostAuthV1BlogUnsubscribeResponses,
   PostAuthV1EmailVerifyData,
+  PostAuthV1EmailVerifyErrors,
   PostAuthV1EmailVerifyResendData,
+  PostAuthV1EmailVerifyResendErrors,
   PostAuthV1EmailVerifyResendResponses,
   PostAuthV1EmailVerifyResponses,
   PostAuthV1InvitationsByTokenAcceptData,
+  PostAuthV1InvitationsByTokenAcceptErrors,
   PostAuthV1InvitationsByTokenAcceptResponses,
   PostAuthV1InvitationsByTokenDeclineData,
+  PostAuthV1InvitationsByTokenDeclineErrors,
   PostAuthV1InvitationsByTokenDeclineResponses,
   PostAuthV1LoginData,
+  PostAuthV1LoginErrors,
   PostAuthV1LoginResponses,
   PostAuthV1LogoutData,
   PostAuthV1LogoutResponses,
   PostAuthV1MembershipsByOrgIdDomainData,
+  PostAuthV1MembershipsByOrgIdDomainErrors,
   PostAuthV1MembershipsByOrgIdDomainResponses,
   PostAuthV1MembershipsByOrgIdDomainVerificationData,
+  PostAuthV1MembershipsByOrgIdDomainVerificationErrors,
   PostAuthV1MembershipsByOrgIdDomainVerificationResponses,
   PostAuthV1MembershipsByOrgIdMembersInviteData,
+  PostAuthV1MembershipsByOrgIdMembersInviteErrors,
   PostAuthV1MembershipsByOrgIdMembersInviteResendData,
+  PostAuthV1MembershipsByOrgIdMembersInviteResendErrors,
   PostAuthV1MembershipsByOrgIdMembersInviteResendResponses,
   PostAuthV1MembershipsByOrgIdMembersInviteResponses,
   PostAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsData,
+  PostAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsErrors,
   PostAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsResponses,
   PostAuthV1MembershipsByOrgIdPoliciesData,
+  PostAuthV1MembershipsByOrgIdPoliciesErrors,
   PostAuthV1MembershipsByOrgIdPoliciesResponses,
   PostAuthV1PasskeyLoginBeginData,
+  PostAuthV1PasskeyLoginBeginErrors,
   PostAuthV1PasskeyLoginBeginResponses,
   PostAuthV1PasskeyLoginFinishData,
+  PostAuthV1PasskeyLoginFinishErrors,
   PostAuthV1PasskeyLoginFinishResponses,
   PostAuthV1PasswordResetConfirmData,
+  PostAuthV1PasswordResetConfirmErrors,
   PostAuthV1PasswordResetConfirmResponses,
   PostAuthV1PasswordResetData,
+  PostAuthV1PasswordResetErrors,
   PostAuthV1PasswordResetResponses,
   PostAuthV1ProvidersConnectData,
+  PostAuthV1ProvidersConnectErrors,
   PostAuthV1ProvidersConnectResponses,
   PostAuthV1RegisterData,
+  PostAuthV1RegisterErrors,
   PostAuthV1RegisterResponses,
   PostAuthV1TokenData,
+  PostAuthV1TokenErrors,
   PostAuthV1TokenResponses,
   PostAuthV1UsersCurrentEmailsData,
+  PostAuthV1UsersCurrentEmailsErrors,
   PostAuthV1UsersCurrentEmailsResponses,
   PostAuthV1UsersCurrentPasskeysRegisterBeginData,
+  PostAuthV1UsersCurrentPasskeysRegisterBeginErrors,
   PostAuthV1UsersCurrentPasskeysRegisterBeginResponses,
   PostAuthV1UsersCurrentPasskeysRegisterFinishData,
+  PostAuthV1UsersCurrentPasskeysRegisterFinishErrors,
   PostAuthV1UsersCurrentPasskeysRegisterFinishResponses,
   PostAuthV1UsersCurrentTotpSetupData,
+  PostAuthV1UsersCurrentTotpSetupErrors,
   PostAuthV1UsersCurrentTotpSetupResponses,
   PostAuthV1UsersCurrentTotpVerifyData,
+  PostAuthV1UsersCurrentTotpVerifyErrors,
   PostAuthV1UsersCurrentTotpVerifyResponses,
   PostAuthV1VerifyTotpData,
+  PostAuthV1VerifyTotpErrors,
   PostAuthV1VerifyTotpResponses,
   PostBillingV1AddressData,
+  PostBillingV1AddressErrors,
   PostBillingV1AddressResponses,
   PostBillingV1BandwidthUsageRefreshData,
+  PostBillingV1BandwidthUsageRefreshErrors,
   PostBillingV1BandwidthUsageRefreshResponses,
   PostBillingV1CheckoutData,
+  PostBillingV1CheckoutErrors,
   PostBillingV1CheckoutResponses,
   PostBillingV1ContactSalesData,
+  PostBillingV1ContactSalesErrors,
   PostBillingV1ContactSalesResponses,
   PostBillingV1JobsCleanupBandwidthSnapshotsData,
+  PostBillingV1JobsCleanupBandwidthSnapshotsErrors,
   PostBillingV1JobsCleanupBandwidthSnapshotsResponses,
   PostBillingV1JobsDailyBandwidthCalculationData,
+  PostBillingV1JobsDailyBandwidthCalculationErrors,
   PostBillingV1JobsDailyBandwidthCalculationResponses,
   PostBillingV1JobsMonthlyBandwidthCalculationData,
+  PostBillingV1JobsMonthlyBandwidthCalculationErrors,
   PostBillingV1JobsMonthlyBandwidthCalculationResponses,
   PostBillingV1PaymentMethodsData,
+  PostBillingV1PaymentMethodsErrors,
   PostBillingV1PaymentMethodsResponses,
   PostBillingV1SetupIntentData,
+  PostBillingV1SetupIntentErrors,
   PostBillingV1SetupIntentResponses,
   PostBillingV1StorageUsageRefreshData,
+  PostBillingV1StorageUsageRefreshErrors,
   PostBillingV1StorageUsageRefreshResponses,
   PostBillingV1SubscriptionData,
+  PostBillingV1SubscriptionErrors,
   PostBillingV1SubscriptionResponses,
   PostBillingV1SubscriptionUpgradeData,
+  PostBillingV1SubscriptionUpgradeErrors,
   PostBillingV1SubscriptionUpgradeResponses,
   PostBillingV1TaxCalculateData,
+  PostBillingV1TaxCalculateErrors,
   PostBillingV1TaxCalculateResponses,
   PostBillingWebhooksStripeData,
+  PostBillingWebhooksStripeErrors,
   PostBillingWebhooksStripeResponses,
   PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteData,
+  PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteErrors,
   PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteResponses,
   PostMediaV1ProjectsByProjectIdImagesUploadData,
+  PostMediaV1ProjectsByProjectIdImagesUploadErrors,
   PostMediaV1ProjectsByProjectIdImagesUploadResponses,
   PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadCompleteData,
+  PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadCompleteErrors,
   PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadCompleteResponses,
   PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadData,
+  PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadErrors,
   PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadResponses,
   PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteData,
+  PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteErrors,
   PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteResponses,
   PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadData,
+  PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadErrors,
   PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadResponses,
   PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteData,
+  PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteErrors,
   PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteResponses,
   PostMediaV1ProjectsByProjectIdVideosUploadData,
+  PostMediaV1ProjectsByProjectIdVideosUploadErrors,
   PostMediaV1ProjectsByProjectIdVideosUploadResponses,
   PostPlatformAuthRefreshData,
+  PostPlatformAuthRefreshErrors,
   PostPlatformAuthRefreshResponses,
   PostPlatformAuthTokenData,
+  PostPlatformAuthTokenErrors,
   PostPlatformAuthTokenResponses,
   PutAuthV1MembershipsByOrgIdActiveData,
+  PutAuthV1MembershipsByOrgIdActiveErrors,
   PutAuthV1MembershipsByOrgIdActiveResponses,
   PutAuthV1MembershipsByOrgIdDomainAutoJoinData,
+  PutAuthV1MembershipsByOrgIdDomainAutoJoinErrors,
   PutAuthV1MembershipsByOrgIdDomainAutoJoinResponses,
   PutAuthV1MembershipsByOrgIdMembersByUserIdRoleData,
+  PutAuthV1MembershipsByOrgIdMembersByUserIdRoleErrors,
   PutAuthV1MembershipsByOrgIdMembersByUserIdRoleResponses,
   PutAuthV1MembershipsByOrgIdMembershipStateData,
+  PutAuthV1MembershipsByOrgIdMembershipStateErrors,
   PutAuthV1MembershipsByOrgIdMembershipStateResponses,
   PutAuthV1MembershipsByOrgIdNameData,
+  PutAuthV1MembershipsByOrgIdNameErrors,
   PutAuthV1MembershipsByOrgIdNameResponses,
   PutAuthV1MembershipsByOrgIdPoliciesByPolicyIdData,
+  PutAuthV1MembershipsByOrgIdPoliciesByPolicyIdErrors,
   PutAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponses,
   PutAuthV1MembershipsByOrgIdUsernameData,
+  PutAuthV1MembershipsByOrgIdUsernameErrors,
   PutAuthV1MembershipsByOrgIdUsernameResponses,
   PutAuthV1UsersCurrentEmailsChangeData,
+  PutAuthV1UsersCurrentEmailsChangeErrors,
   PutAuthV1UsersCurrentEmailsChangeResponses,
   PutBillingV1InvoicesByInvoiceIdStatusData,
+  PutBillingV1InvoicesByInvoiceIdStatusErrors,
   PutBillingV1InvoicesByInvoiceIdStatusResponses,
   PutBillingV1SubscriptionCancelData,
+  PutBillingV1SubscriptionCancelErrors,
   PutBillingV1SubscriptionCancelResponses,
   PutBillingV1SubscriptionReactivateData,
+  PutBillingV1SubscriptionReactivateErrors,
   PutBillingV1SubscriptionReactivateResponses,
   PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityData,
+  PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityErrors,
   PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityResponses,
   PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersData,
+  PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors,
   PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses,
   PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailData,
+  PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailErrors,
   PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailResponses,
   PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityData,
+  PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityErrors,
   PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityResponses,
   RevokeCredentialByCredentialidData,
+  RevokeCredentialByCredentialidErrors,
   RevokeCredentialByCredentialidResponses,
   RotateApiKeyByKeyidData,
+  RotateApiKeyByKeyidErrors,
   RotateApiKeyByKeyidResponses,
   SendBlogBroadcastData,
+  SendBlogBroadcastErrors,
   SendBlogBroadcastResponses,
   UpdateCustomDomainByProjectidData,
+  UpdateCustomDomainByProjectidErrors,
   UpdateCustomDomainByProjectidResponses,
   UpdateFeedData,
+  UpdateFeedErrors,
   UpdateFeedResponses,
 } from "./types.gen";
 
@@ -389,8 +567,8 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
 export const getAnalyticsV1Dashboard = <ThrowOnError extends boolean = false>(
   options: Options<GetAnalyticsV1DashboardData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetAnalyticsV1DashboardResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<GetAnalyticsV1DashboardResponses, GetAnalyticsV1DashboardErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/analytics/v1/dashboard",
     ...options,
   });
@@ -401,8 +579,8 @@ export const getAnalyticsV1Dashboard = <ThrowOnError extends boolean = false>(
  * Ingest a batch of analytics events for the authenticated organization
  */
 export const postAnalyticsV1Events = <ThrowOnError extends boolean = false>(options: Options<PostAnalyticsV1EventsData, ThrowOnError>) =>
-  (options.client ?? client).post<PostAnalyticsV1EventsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<PostAnalyticsV1EventsResponses, PostAnalyticsV1EventsErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/analytics/v1/events",
     ...options,
     headers: {
@@ -419,8 +597,8 @@ export const postAnalyticsV1Events = <ThrowOnError extends boolean = false>(opti
 export const getAnalyticsV1FeedsByFeedIdStats = <ThrowOnError extends boolean = false>(
   options: Options<GetAnalyticsV1FeedsByFeedIdStatsData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetAnalyticsV1FeedsByFeedIdStatsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<GetAnalyticsV1FeedsByFeedIdStatsResponses, GetAnalyticsV1FeedsByFeedIdStatsErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/analytics/v1/feeds/{feedId}/stats",
     ...options,
   });
@@ -431,8 +609,8 @@ export const getAnalyticsV1FeedsByFeedIdStats = <ThrowOnError extends boolean = 
  * Calculate funnel conversion across a sequence of steps
  */
 export const postAnalyticsV1Funnels = <ThrowOnError extends boolean = false>(options: Options<PostAnalyticsV1FunnelsData, ThrowOnError>) =>
-  (options.client ?? client).post<PostAnalyticsV1FunnelsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<PostAnalyticsV1FunnelsResponses, PostAnalyticsV1FunnelsErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/analytics/v1/funnels",
     ...options,
     headers: {
@@ -449,8 +627,8 @@ export const postAnalyticsV1Funnels = <ThrowOnError extends boolean = false>(opt
 export const getAnalyticsV1PostsByPostIdStats = <ThrowOnError extends boolean = false>(
   options: Options<GetAnalyticsV1PostsByPostIdStatsData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetAnalyticsV1PostsByPostIdStatsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<GetAnalyticsV1PostsByPostIdStatsResponses, GetAnalyticsV1PostsByPostIdStatsErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/analytics/v1/posts/{postId}/stats",
     ...options,
   });
@@ -461,8 +639,8 @@ export const getAnalyticsV1PostsByPostIdStats = <ThrowOnError extends boolean = 
  * Returns real-time analytics snapshot
  */
 export const getAnalyticsV1Realtime = <ThrowOnError extends boolean = false>(options?: Options<GetAnalyticsV1RealtimeData, ThrowOnError>) =>
-  (options?.client ?? client).get<GetAnalyticsV1RealtimeResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetAnalyticsV1RealtimeResponses, GetAnalyticsV1RealtimeErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/analytics/v1/realtime",
     ...options,
   });
@@ -475,8 +653,8 @@ export const getAnalyticsV1Realtime = <ThrowOnError extends boolean = false>(opt
 export const getAnalyticsV1Retention = <ThrowOnError extends boolean = false>(
   options?: Options<GetAnalyticsV1RetentionData, ThrowOnError>
 ) =>
-  (options?.client ?? client).get<GetAnalyticsV1RetentionResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetAnalyticsV1RetentionResponses, GetAnalyticsV1RetentionErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/analytics/v1/retention",
     ...options,
   });
@@ -487,8 +665,8 @@ export const getAnalyticsV1Retention = <ThrowOnError extends boolean = false>(
  * Returns the top feeds over a date range
  */
 export const getAnalyticsV1TopFeeds = <ThrowOnError extends boolean = false>(options?: Options<GetAnalyticsV1TopFeedsData, ThrowOnError>) =>
-  (options?.client ?? client).get<GetAnalyticsV1TopFeedsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetAnalyticsV1TopFeedsResponses, GetAnalyticsV1TopFeedsErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/analytics/v1/top/feeds",
     ...options,
   });
@@ -499,8 +677,8 @@ export const getAnalyticsV1TopFeeds = <ThrowOnError extends boolean = false>(opt
  * Returns the top posts over a date range
  */
 export const getAnalyticsV1TopPosts = <ThrowOnError extends boolean = false>(options?: Options<GetAnalyticsV1TopPostsData, ThrowOnError>) =>
-  (options?.client ?? client).get<GetAnalyticsV1TopPostsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetAnalyticsV1TopPostsResponses, GetAnalyticsV1TopPostsErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/analytics/v1/top/posts",
     ...options,
   });
@@ -513,8 +691,8 @@ export const getAnalyticsV1TopPosts = <ThrowOnError extends boolean = false>(opt
 export const getAnalyticsV1TopVideos = <ThrowOnError extends boolean = false>(
   options?: Options<GetAnalyticsV1TopVideosData, ThrowOnError>
 ) =>
-  (options?.client ?? client).get<GetAnalyticsV1TopVideosResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetAnalyticsV1TopVideosResponses, GetAnalyticsV1TopVideosErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/analytics/v1/top/videos",
     ...options,
   });
@@ -527,8 +705,8 @@ export const getAnalyticsV1TopVideos = <ThrowOnError extends boolean = false>(
 export const getAnalyticsV1VideosByVideoIdHeatmap = <ThrowOnError extends boolean = false>(
   options: Options<GetAnalyticsV1VideosByVideoIdHeatmapData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetAnalyticsV1VideosByVideoIdHeatmapResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<GetAnalyticsV1VideosByVideoIdHeatmapResponses, GetAnalyticsV1VideosByVideoIdHeatmapErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/analytics/v1/videos/{videoId}/heatmap",
     ...options,
   });
@@ -541,8 +719,12 @@ export const getAnalyticsV1VideosByVideoIdHeatmap = <ThrowOnError extends boolea
 export const getAnalyticsV1VideosByVideoIdHotSegments = <ThrowOnError extends boolean = false>(
   options: Options<GetAnalyticsV1VideosByVideoIdHotSegmentsData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetAnalyticsV1VideosByVideoIdHotSegmentsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<
+    GetAnalyticsV1VideosByVideoIdHotSegmentsResponses,
+    GetAnalyticsV1VideosByVideoIdHotSegmentsErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/analytics/v1/videos/{videoId}/hot-segments",
     ...options,
   });
@@ -555,8 +737,8 @@ export const getAnalyticsV1VideosByVideoIdHotSegments = <ThrowOnError extends bo
 export const getAnalyticsV1VideosByVideoIdStats = <ThrowOnError extends boolean = false>(
   options: Options<GetAnalyticsV1VideosByVideoIdStatsData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetAnalyticsV1VideosByVideoIdStatsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<GetAnalyticsV1VideosByVideoIdStatsResponses, GetAnalyticsV1VideosByVideoIdStatsErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/analytics/v1/videos/{videoId}/stats",
     ...options,
   });
@@ -567,7 +749,7 @@ export const getAnalyticsV1VideosByVideoIdStats = <ThrowOnError extends boolean 
  * Triggers a blog newsletter broadcast to all subscribers. Internal endpoint guarded by the service API key (X-Api-Key); called by the blog-publishing pipeline.
  */
 export const sendBlogBroadcast = <ThrowOnError extends boolean = false>(options: Options<SendBlogBroadcastData, ThrowOnError>) =>
-  (options.client ?? client).post<SendBlogBroadcastResponses, unknown, ThrowOnError>({
+  (options.client ?? client).post<SendBlogBroadcastResponses, SendBlogBroadcastErrors, ThrowOnError>({
     url: "/auth/v1/blog/broadcast",
     ...options,
     headers: {
@@ -584,8 +766,8 @@ export const sendBlogBroadcast = <ThrowOnError extends boolean = false>(options:
 export const postAuthV1BlogSubscribe = <ThrowOnError extends boolean = false>(
   options?: Options<PostAuthV1BlogSubscribeData, ThrowOnError>
 ) =>
-  (options?.client ?? client).post<PostAuthV1BlogSubscribeResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).post<PostAuthV1BlogSubscribeResponses, PostAuthV1BlogSubscribeErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/blog/subscribe",
     ...options,
   });
@@ -598,8 +780,8 @@ export const postAuthV1BlogSubscribe = <ThrowOnError extends boolean = false>(
 export const getAuthV1BlogSubscription = <ThrowOnError extends boolean = false>(
   options?: Options<GetAuthV1BlogSubscriptionData, ThrowOnError>
 ) =>
-  (options?.client ?? client).get<GetAuthV1BlogSubscriptionResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetAuthV1BlogSubscriptionResponses, GetAuthV1BlogSubscriptionErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/blog/subscription",
     ...options,
   });
@@ -612,8 +794,8 @@ export const getAuthV1BlogSubscription = <ThrowOnError extends boolean = false>(
 export const postAuthV1BlogUnsubscribe = <ThrowOnError extends boolean = false>(
   options?: Options<PostAuthV1BlogUnsubscribeData, ThrowOnError>
 ) =>
-  (options?.client ?? client).post<PostAuthV1BlogUnsubscribeResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).post<PostAuthV1BlogUnsubscribeResponses, PostAuthV1BlogUnsubscribeErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/blog/unsubscribe",
     ...options,
   });
@@ -626,7 +808,7 @@ export const postAuthV1BlogUnsubscribe = <ThrowOnError extends boolean = false>(
 export const postAuthV1BlogUnsubscribeEmail = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1BlogUnsubscribeEmailData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1BlogUnsubscribeEmailResponses, unknown, ThrowOnError>({
+  (options.client ?? client).post<PostAuthV1BlogUnsubscribeEmailResponses, PostAuthV1BlogUnsubscribeEmailErrors, ThrowOnError>({
     url: "/auth/v1/blog/unsubscribe/email",
     ...options,
     headers: {
@@ -641,7 +823,7 @@ export const postAuthV1BlogUnsubscribeEmail = <ThrowOnError extends boolean = fa
  * Verifies a user's email address using a verification id and the code sent to them.
  */
 export const postAuthV1EmailVerify = <ThrowOnError extends boolean = false>(options: Options<PostAuthV1EmailVerifyData, ThrowOnError>) =>
-  (options.client ?? client).post<PostAuthV1EmailVerifyResponses, unknown, ThrowOnError>({
+  (options.client ?? client).post<PostAuthV1EmailVerifyResponses, PostAuthV1EmailVerifyErrors, ThrowOnError>({
     url: "/auth/v1/email/verify",
     ...options,
     headers: {
@@ -658,7 +840,7 @@ export const postAuthV1EmailVerify = <ThrowOnError extends boolean = false>(opti
 export const postAuthV1EmailVerifyResend = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1EmailVerifyResendData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1EmailVerifyResendResponses, unknown, ThrowOnError>({
+  (options.client ?? client).post<PostAuthV1EmailVerifyResendResponses, PostAuthV1EmailVerifyResendErrors, ThrowOnError>({
     url: "/auth/v1/email/verify/resend",
     ...options,
     headers: {
@@ -675,7 +857,7 @@ export const postAuthV1EmailVerifyResend = <ThrowOnError extends boolean = false
 export const postAuthV1InvitationsByTokenAccept = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1InvitationsByTokenAcceptData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1InvitationsByTokenAcceptResponses, unknown, ThrowOnError>({
+  (options.client ?? client).post<PostAuthV1InvitationsByTokenAcceptResponses, PostAuthV1InvitationsByTokenAcceptErrors, ThrowOnError>({
     url: "/auth/v1/invitations/{token}/accept",
     ...options,
   });
@@ -688,7 +870,7 @@ export const postAuthV1InvitationsByTokenAccept = <ThrowOnError extends boolean 
 export const postAuthV1InvitationsByTokenDecline = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1InvitationsByTokenDeclineData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1InvitationsByTokenDeclineResponses, unknown, ThrowOnError>({
+  (options.client ?? client).post<PostAuthV1InvitationsByTokenDeclineResponses, PostAuthV1InvitationsByTokenDeclineErrors, ThrowOnError>({
     url: "/auth/v1/invitations/{token}/decline",
     ...options,
   });
@@ -699,7 +881,7 @@ export const postAuthV1InvitationsByTokenDecline = <ThrowOnError extends boolean
  * Authenticates a user by email and password and issues access and refresh tokens.
  */
 export const postAuthV1Login = <ThrowOnError extends boolean = false>(options: Options<PostAuthV1LoginData, ThrowOnError>) =>
-  (options.client ?? client).post<PostAuthV1LoginResponses, unknown, ThrowOnError>({
+  (options.client ?? client).post<PostAuthV1LoginResponses, PostAuthV1LoginErrors, ThrowOnError>({
     url: "/auth/v1/login",
     ...options,
     headers: {
@@ -724,8 +906,8 @@ export const postAuthV1Logout = <ThrowOnError extends boolean = false>(options?:
 export const putAuthV1MembershipsByOrgIdActive = <ThrowOnError extends boolean = false>(
   options: Options<PutAuthV1MembershipsByOrgIdActiveData, ThrowOnError>
 ) =>
-  (options.client ?? client).put<PutAuthV1MembershipsByOrgIdActiveResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).put<PutAuthV1MembershipsByOrgIdActiveResponses, PutAuthV1MembershipsByOrgIdActiveErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/active",
     ...options,
   });
@@ -738,8 +920,8 @@ export const putAuthV1MembershipsByOrgIdActive = <ThrowOnError extends boolean =
 export const getAuthV1MembershipsByOrgIdCheck = <ThrowOnError extends boolean = false>(
   options: Options<GetAuthV1MembershipsByOrgIdCheckData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetAuthV1MembershipsByOrgIdCheckResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<GetAuthV1MembershipsByOrgIdCheckResponses, GetAuthV1MembershipsByOrgIdCheckErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/check",
     ...options,
   });
@@ -752,8 +934,12 @@ export const getAuthV1MembershipsByOrgIdCheck = <ThrowOnError extends boolean = 
 export const deleteAuthV1MembershipsByOrgIdDomain = <ThrowOnError extends boolean = false>(
   options: Options<DeleteAuthV1MembershipsByOrgIdDomainData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteAuthV1MembershipsByOrgIdDomainResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<
+    DeleteAuthV1MembershipsByOrgIdDomainResponses,
+    DeleteAuthV1MembershipsByOrgIdDomainErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/domain",
     ...options,
   });
@@ -766,8 +952,8 @@ export const deleteAuthV1MembershipsByOrgIdDomain = <ThrowOnError extends boolea
 export const getAuthV1MembershipsByOrgIdDomain = <ThrowOnError extends boolean = false>(
   options: Options<GetAuthV1MembershipsByOrgIdDomainData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetAuthV1MembershipsByOrgIdDomainResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<GetAuthV1MembershipsByOrgIdDomainResponses, GetAuthV1MembershipsByOrgIdDomainErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/domain",
     ...options,
   });
@@ -780,8 +966,8 @@ export const getAuthV1MembershipsByOrgIdDomain = <ThrowOnError extends boolean =
 export const postAuthV1MembershipsByOrgIdDomain = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1MembershipsByOrgIdDomainData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1MembershipsByOrgIdDomainResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<PostAuthV1MembershipsByOrgIdDomainResponses, PostAuthV1MembershipsByOrgIdDomainErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/domain",
     ...options,
     headers: {
@@ -798,8 +984,12 @@ export const postAuthV1MembershipsByOrgIdDomain = <ThrowOnError extends boolean 
 export const getAuthV1MembershipsByOrgIdDomainAutoJoin = <ThrowOnError extends boolean = false>(
   options: Options<GetAuthV1MembershipsByOrgIdDomainAutoJoinData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetAuthV1MembershipsByOrgIdDomainAutoJoinResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<
+    GetAuthV1MembershipsByOrgIdDomainAutoJoinResponses,
+    GetAuthV1MembershipsByOrgIdDomainAutoJoinErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/domain/auto-join",
     ...options,
   });
@@ -812,8 +1002,12 @@ export const getAuthV1MembershipsByOrgIdDomainAutoJoin = <ThrowOnError extends b
 export const putAuthV1MembershipsByOrgIdDomainAutoJoin = <ThrowOnError extends boolean = false>(
   options: Options<PutAuthV1MembershipsByOrgIdDomainAutoJoinData, ThrowOnError>
 ) =>
-  (options.client ?? client).put<PutAuthV1MembershipsByOrgIdDomainAutoJoinResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).put<
+    PutAuthV1MembershipsByOrgIdDomainAutoJoinResponses,
+    PutAuthV1MembershipsByOrgIdDomainAutoJoinErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/domain/auto-join",
     ...options,
     headers: {
@@ -830,8 +1024,12 @@ export const putAuthV1MembershipsByOrgIdDomainAutoJoin = <ThrowOnError extends b
 export const postAuthV1MembershipsByOrgIdDomainVerification = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1MembershipsByOrgIdDomainVerificationData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1MembershipsByOrgIdDomainVerificationResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<
+    PostAuthV1MembershipsByOrgIdDomainVerificationResponses,
+    PostAuthV1MembershipsByOrgIdDomainVerificationErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/domain/verification",
     ...options,
   });
@@ -844,8 +1042,8 @@ export const postAuthV1MembershipsByOrgIdDomainVerification = <ThrowOnError exte
 export const getAuthV1MembershipsByOrgIdInfo = <ThrowOnError extends boolean = false>(
   options: Options<GetAuthV1MembershipsByOrgIdInfoData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetAuthV1MembershipsByOrgIdInfoResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<GetAuthV1MembershipsByOrgIdInfoResponses, GetAuthV1MembershipsByOrgIdInfoErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/info",
     ...options,
   });
@@ -858,8 +1056,8 @@ export const getAuthV1MembershipsByOrgIdInfo = <ThrowOnError extends boolean = f
 export const deleteAuthV1MembershipsByOrgIdLeave = <ThrowOnError extends boolean = false>(
   options: Options<DeleteAuthV1MembershipsByOrgIdLeaveData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteAuthV1MembershipsByOrgIdLeaveResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<DeleteAuthV1MembershipsByOrgIdLeaveResponses, DeleteAuthV1MembershipsByOrgIdLeaveErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/leave",
     ...options,
   });
@@ -872,8 +1070,8 @@ export const deleteAuthV1MembershipsByOrgIdLeave = <ThrowOnError extends boolean
 export const getAuthV1MembershipsByOrgIdMembers = <ThrowOnError extends boolean = false>(
   options: Options<GetAuthV1MembershipsByOrgIdMembersData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetAuthV1MembershipsByOrgIdMembersResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<GetAuthV1MembershipsByOrgIdMembersResponses, GetAuthV1MembershipsByOrgIdMembersErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/members",
     ...options,
   });
@@ -886,8 +1084,12 @@ export const getAuthV1MembershipsByOrgIdMembers = <ThrowOnError extends boolean 
 export const deleteAuthV1MembershipsByOrgIdMembersByUserId = <ThrowOnError extends boolean = false>(
   options: Options<DeleteAuthV1MembershipsByOrgIdMembersByUserIdData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteAuthV1MembershipsByOrgIdMembersByUserIdResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<
+    DeleteAuthV1MembershipsByOrgIdMembersByUserIdResponses,
+    DeleteAuthV1MembershipsByOrgIdMembersByUserIdErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/members/{userId}",
     ...options,
   });
@@ -900,8 +1102,12 @@ export const deleteAuthV1MembershipsByOrgIdMembersByUserId = <ThrowOnError exten
 export const getAuthV1MembershipsByOrgIdMembersByUserIdPolicies = <ThrowOnError extends boolean = false>(
   options: Options<GetAuthV1MembershipsByOrgIdMembersByUserIdPoliciesData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetAuthV1MembershipsByOrgIdMembersByUserIdPoliciesResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<
+    GetAuthV1MembershipsByOrgIdMembersByUserIdPoliciesResponses,
+    GetAuthV1MembershipsByOrgIdMembersByUserIdPoliciesErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/members/{userId}/policies",
     ...options,
   });
@@ -914,8 +1120,12 @@ export const getAuthV1MembershipsByOrgIdMembersByUserIdPolicies = <ThrowOnError 
 export const putAuthV1MembershipsByOrgIdMembersByUserIdRole = <ThrowOnError extends boolean = false>(
   options: Options<PutAuthV1MembershipsByOrgIdMembersByUserIdRoleData, ThrowOnError>
 ) =>
-  (options.client ?? client).put<PutAuthV1MembershipsByOrgIdMembersByUserIdRoleResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).put<
+    PutAuthV1MembershipsByOrgIdMembersByUserIdRoleResponses,
+    PutAuthV1MembershipsByOrgIdMembersByUserIdRoleErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/members/{userId}/role",
     ...options,
     headers: {
@@ -932,8 +1142,12 @@ export const putAuthV1MembershipsByOrgIdMembersByUserIdRole = <ThrowOnError exte
 export const postAuthV1MembershipsByOrgIdMembersInvite = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1MembershipsByOrgIdMembersInviteData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1MembershipsByOrgIdMembersInviteResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<
+    PostAuthV1MembershipsByOrgIdMembersInviteResponses,
+    PostAuthV1MembershipsByOrgIdMembersInviteErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/members/invite",
     ...options,
     headers: {
@@ -950,8 +1164,12 @@ export const postAuthV1MembershipsByOrgIdMembersInvite = <ThrowOnError extends b
 export const postAuthV1MembershipsByOrgIdMembersInviteResend = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1MembershipsByOrgIdMembersInviteResendData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1MembershipsByOrgIdMembersInviteResendResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<
+    PostAuthV1MembershipsByOrgIdMembersInviteResendResponses,
+    PostAuthV1MembershipsByOrgIdMembersInviteResendErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/members/invite/resend",
     ...options,
     headers: {
@@ -968,8 +1186,12 @@ export const postAuthV1MembershipsByOrgIdMembersInviteResend = <ThrowOnError ext
 export const putAuthV1MembershipsByOrgIdMembershipState = <ThrowOnError extends boolean = false>(
   options: Options<PutAuthV1MembershipsByOrgIdMembershipStateData, ThrowOnError>
 ) =>
-  (options.client ?? client).put<PutAuthV1MembershipsByOrgIdMembershipStateResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).put<
+    PutAuthV1MembershipsByOrgIdMembershipStateResponses,
+    PutAuthV1MembershipsByOrgIdMembershipStateErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/membership/state",
     ...options,
     headers: {
@@ -986,8 +1208,8 @@ export const putAuthV1MembershipsByOrgIdMembershipState = <ThrowOnError extends 
 export const putAuthV1MembershipsByOrgIdName = <ThrowOnError extends boolean = false>(
   options: Options<PutAuthV1MembershipsByOrgIdNameData, ThrowOnError>
 ) =>
-  (options.client ?? client).put<PutAuthV1MembershipsByOrgIdNameResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).put<PutAuthV1MembershipsByOrgIdNameResponses, PutAuthV1MembershipsByOrgIdNameErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/name",
     ...options,
     headers: {
@@ -1004,8 +1226,8 @@ export const putAuthV1MembershipsByOrgIdName = <ThrowOnError extends boolean = f
 export const getAuthV1MembershipsByOrgIdPolicies = <ThrowOnError extends boolean = false>(
   options: Options<GetAuthV1MembershipsByOrgIdPoliciesData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetAuthV1MembershipsByOrgIdPoliciesResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<GetAuthV1MembershipsByOrgIdPoliciesResponses, GetAuthV1MembershipsByOrgIdPoliciesErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/policies",
     ...options,
   });
@@ -1018,8 +1240,8 @@ export const getAuthV1MembershipsByOrgIdPolicies = <ThrowOnError extends boolean
 export const postAuthV1MembershipsByOrgIdPolicies = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1MembershipsByOrgIdPoliciesData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1MembershipsByOrgIdPoliciesResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<PostAuthV1MembershipsByOrgIdPoliciesResponses, PostAuthV1MembershipsByOrgIdPoliciesErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/policies",
     ...options,
     headers: {
@@ -1036,8 +1258,12 @@ export const postAuthV1MembershipsByOrgIdPolicies = <ThrowOnError extends boolea
 export const deleteAuthV1MembershipsByOrgIdPoliciesByPolicyId = <ThrowOnError extends boolean = false>(
   options: Options<DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<
+    DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponses,
+    DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/policies/{policyId}",
     ...options,
   });
@@ -1050,8 +1276,12 @@ export const deleteAuthV1MembershipsByOrgIdPoliciesByPolicyId = <ThrowOnError ex
 export const getAuthV1MembershipsByOrgIdPoliciesByPolicyId = <ThrowOnError extends boolean = false>(
   options: Options<GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<
+    GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponses,
+    GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/policies/{policyId}",
     ...options,
   });
@@ -1064,8 +1294,12 @@ export const getAuthV1MembershipsByOrgIdPoliciesByPolicyId = <ThrowOnError exten
 export const putAuthV1MembershipsByOrgIdPoliciesByPolicyId = <ThrowOnError extends boolean = false>(
   options: Options<PutAuthV1MembershipsByOrgIdPoliciesByPolicyIdData, ThrowOnError>
 ) =>
-  (options.client ?? client).put<PutAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).put<
+    PutAuthV1MembershipsByOrgIdPoliciesByPolicyIdResponses,
+    PutAuthV1MembershipsByOrgIdPoliciesByPolicyIdErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/policies/{policyId}",
     ...options,
     headers: {
@@ -1082,8 +1316,12 @@ export const putAuthV1MembershipsByOrgIdPoliciesByPolicyId = <ThrowOnError exten
 export const getAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachments = <ThrowOnError extends boolean = false>(
   options: Options<GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<
+    GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsResponses,
+    GetAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/policies/{policyId}/attachments",
     ...options,
   });
@@ -1096,8 +1334,12 @@ export const getAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachments = <ThrowOn
 export const postAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachments = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<
+    PostAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsResponses,
+    PostAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/policies/{policyId}/attachments",
     ...options,
     headers: {
@@ -1116,10 +1358,10 @@ export const deleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttach
 ) =>
   (options.client ?? client).delete<
     DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachmentIdResponses,
-    unknown,
+    DeleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttachmentIdErrors,
     ThrowOnError
   >({
-    security: [{name: "Authorization", type: "apiKey"}],
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/policies/{policyId}/attachments/{attachmentId}",
     ...options,
   });
@@ -1132,8 +1374,8 @@ export const deleteAuthV1MembershipsByOrgIdPoliciesByPolicyIdAttachmentsByAttach
 export const putAuthV1MembershipsByOrgIdUsername = <ThrowOnError extends boolean = false>(
   options: Options<PutAuthV1MembershipsByOrgIdUsernameData, ThrowOnError>
 ) =>
-  (options.client ?? client).put<PutAuthV1MembershipsByOrgIdUsernameResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).put<PutAuthV1MembershipsByOrgIdUsernameResponses, PutAuthV1MembershipsByOrgIdUsernameErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/{orgId}/username",
     ...options,
     headers: {
@@ -1150,8 +1392,8 @@ export const putAuthV1MembershipsByOrgIdUsername = <ThrowOnError extends boolean
 export const getAuthV1MembershipsActive = <ThrowOnError extends boolean = false>(
   options?: Options<GetAuthV1MembershipsActiveData, ThrowOnError>
 ) =>
-  (options?.client ?? client).get<GetAuthV1MembershipsActiveResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetAuthV1MembershipsActiveResponses, GetAuthV1MembershipsActiveErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/active",
     ...options,
   });
@@ -1164,8 +1406,8 @@ export const getAuthV1MembershipsActive = <ThrowOnError extends boolean = false>
 export const getAuthV1MembershipsPending = <ThrowOnError extends boolean = false>(
   options?: Options<GetAuthV1MembershipsPendingData, ThrowOnError>
 ) =>
-  (options?.client ?? client).get<GetAuthV1MembershipsPendingResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetAuthV1MembershipsPendingResponses, GetAuthV1MembershipsPendingErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/memberships/pending",
     ...options,
   });
@@ -1178,7 +1420,7 @@ export const getAuthV1MembershipsPending = <ThrowOnError extends boolean = false
 export const postAuthV1PasskeyLoginBegin = <ThrowOnError extends boolean = false>(
   options?: Options<PostAuthV1PasskeyLoginBeginData, ThrowOnError>
 ) =>
-  (options?.client ?? client).post<PostAuthV1PasskeyLoginBeginResponses, unknown, ThrowOnError>({
+  (options?.client ?? client).post<PostAuthV1PasskeyLoginBeginResponses, PostAuthV1PasskeyLoginBeginErrors, ThrowOnError>({
     url: "/auth/v1/passkey/login/begin",
     ...options,
   });
@@ -1191,7 +1433,7 @@ export const postAuthV1PasskeyLoginBegin = <ThrowOnError extends boolean = false
 export const postAuthV1PasskeyLoginFinish = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1PasskeyLoginFinishData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1PasskeyLoginFinishResponses, unknown, ThrowOnError>({
+  (options.client ?? client).post<PostAuthV1PasskeyLoginFinishResponses, PostAuthV1PasskeyLoginFinishErrors, ThrowOnError>({
     url: "/auth/v1/passkey/login/finish",
     ...options,
     headers: {
@@ -1208,7 +1450,7 @@ export const postAuthV1PasskeyLoginFinish = <ThrowOnError extends boolean = fals
 export const postAuthV1PasswordReset = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1PasswordResetData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1PasswordResetResponses, unknown, ThrowOnError>({
+  (options.client ?? client).post<PostAuthV1PasswordResetResponses, PostAuthV1PasswordResetErrors, ThrowOnError>({
     url: "/auth/v1/password/reset",
     ...options,
     headers: {
@@ -1225,7 +1467,7 @@ export const postAuthV1PasswordReset = <ThrowOnError extends boolean = false>(
 export const postAuthV1PasswordResetConfirm = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1PasswordResetConfirmData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1PasswordResetConfirmResponses, unknown, ThrowOnError>({
+  (options.client ?? client).post<PostAuthV1PasswordResetConfirmResponses, PostAuthV1PasswordResetConfirmErrors, ThrowOnError>({
     url: "/auth/v1/password/reset/confirm",
     ...options,
     headers: {
@@ -1242,8 +1484,8 @@ export const postAuthV1PasswordResetConfirm = <ThrowOnError extends boolean = fa
 export const getAuthV1PoliciesPermissions = <ThrowOnError extends boolean = false>(
   options?: Options<GetAuthV1PoliciesPermissionsData, ThrowOnError>
 ) =>
-  (options?.client ?? client).get<GetAuthV1PoliciesPermissionsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetAuthV1PoliciesPermissionsResponses, GetAuthV1PoliciesPermissionsErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/policies/permissions",
     ...options,
   });
@@ -1254,8 +1496,8 @@ export const getAuthV1PoliciesPermissions = <ThrowOnError extends boolean = fals
  * Returns the list of social providers connected to the authenticated user's account.
  */
 export const getAuthV1Providers = <ThrowOnError extends boolean = false>(options?: Options<GetAuthV1ProvidersData, ThrowOnError>) =>
-  (options?.client ?? client).get<GetAuthV1ProvidersResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetAuthV1ProvidersResponses, GetAuthV1ProvidersErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/providers",
     ...options,
   });
@@ -1268,8 +1510,8 @@ export const getAuthV1Providers = <ThrowOnError extends boolean = false>(options
 export const deleteAuthV1ProvidersByProvider = <ThrowOnError extends boolean = false>(
   options: Options<DeleteAuthV1ProvidersByProviderData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteAuthV1ProvidersByProviderResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<DeleteAuthV1ProvidersByProviderResponses, DeleteAuthV1ProvidersByProviderErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/providers/{provider}",
     ...options,
   });
@@ -1282,8 +1524,8 @@ export const deleteAuthV1ProvidersByProvider = <ThrowOnError extends boolean = f
 export const postAuthV1ProvidersConnect = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1ProvidersConnectData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1ProvidersConnectResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<PostAuthV1ProvidersConnectResponses, PostAuthV1ProvidersConnectErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/providers/connect",
     ...options,
     headers: {
@@ -1298,7 +1540,7 @@ export const postAuthV1ProvidersConnect = <ThrowOnError extends boolean = false>
  * Registers a new user account from an email and password and starts email verification.
  */
 export const postAuthV1Register = <ThrowOnError extends boolean = false>(options: Options<PostAuthV1RegisterData, ThrowOnError>) =>
-  (options.client ?? client).post<PostAuthV1RegisterResponses, unknown, ThrowOnError>({
+  (options.client ?? client).post<PostAuthV1RegisterResponses, PostAuthV1RegisterErrors, ThrowOnError>({
     url: "/auth/v1/register",
     ...options,
     headers: {
@@ -1313,7 +1555,7 @@ export const postAuthV1Register = <ThrowOnError extends boolean = false>(options
  * Exchanges a valid refresh token for a new access token.
  */
 export const postAuthV1Token = <ThrowOnError extends boolean = false>(options: Options<PostAuthV1TokenData, ThrowOnError>) =>
-  (options.client ?? client).post<PostAuthV1TokenResponses, unknown, ThrowOnError>({url: "/auth/v1/token", ...options});
+  (options.client ?? client).post<PostAuthV1TokenResponses, PostAuthV1TokenErrors, ThrowOnError>({url: "/auth/v1/token", ...options});
 
 /**
  * Get current user info
@@ -1321,8 +1563,8 @@ export const postAuthV1Token = <ThrowOnError extends boolean = false>(options: O
  * Returns the profile information of the authenticated user.
  */
 export const getAuthV1Userinfo = <ThrowOnError extends boolean = false>(options?: Options<GetAuthV1UserinfoData, ThrowOnError>) =>
-  (options?.client ?? client).get<GetAuthV1UserinfoResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetAuthV1UserinfoResponses, GetAuthV1UserinfoErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/userinfo",
     ...options,
   });
@@ -1333,8 +1575,8 @@ export const getAuthV1Userinfo = <ThrowOnError extends boolean = false>(options?
  * Returns the profile information of the authenticated user.
  */
 export const getAuthV1UsersCurrent = <ThrowOnError extends boolean = false>(options?: Options<GetAuthV1UsersCurrentData, ThrowOnError>) =>
-  (options?.client ?? client).get<GetAuthV1UsersCurrentResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetAuthV1UsersCurrentResponses, GetAuthV1UsersCurrentErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/users/current",
     ...options,
   });
@@ -1349,8 +1591,8 @@ export const getAuthV1UsersCurrent = <ThrowOnError extends boolean = false>(opti
 export const postAuthV1UsersCurrentEmails = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1UsersCurrentEmailsData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1UsersCurrentEmailsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<PostAuthV1UsersCurrentEmailsResponses, PostAuthV1UsersCurrentEmailsErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/users/current/emails",
     ...options,
     headers: {
@@ -1369,8 +1611,8 @@ export const postAuthV1UsersCurrentEmails = <ThrowOnError extends boolean = fals
 export const putAuthV1UsersCurrentEmailsChange = <ThrowOnError extends boolean = false>(
   options: Options<PutAuthV1UsersCurrentEmailsChangeData, ThrowOnError>
 ) =>
-  (options.client ?? client).put<PutAuthV1UsersCurrentEmailsChangeResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).put<PutAuthV1UsersCurrentEmailsChangeResponses, PutAuthV1UsersCurrentEmailsChangeErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/users/current/emails/change",
     ...options,
     headers: {
@@ -1388,8 +1630,8 @@ export const putAuthV1UsersCurrentEmailsChange = <ThrowOnError extends boolean =
 export const getAuthV1UsersCurrentEmailsStatus = <ThrowOnError extends boolean = false>(
   options?: Options<GetAuthV1UsersCurrentEmailsStatusData, ThrowOnError>
 ) =>
-  (options?.client ?? client).get<GetAuthV1UsersCurrentEmailsStatusResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetAuthV1UsersCurrentEmailsStatusResponses, GetAuthV1UsersCurrentEmailsStatusErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/users/current/emails/status",
     ...options,
   });
@@ -1402,8 +1644,8 @@ export const getAuthV1UsersCurrentEmailsStatus = <ThrowOnError extends boolean =
 export const patchAuthV1UsersCurrentName = <ThrowOnError extends boolean = false>(
   options: Options<PatchAuthV1UsersCurrentNameData, ThrowOnError>
 ) =>
-  (options.client ?? client).patch<PatchAuthV1UsersCurrentNameResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).patch<PatchAuthV1UsersCurrentNameResponses, PatchAuthV1UsersCurrentNameErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/users/current/name",
     ...options,
     headers: {
@@ -1420,8 +1662,8 @@ export const patchAuthV1UsersCurrentName = <ThrowOnError extends boolean = false
 export const getAuthV1UsersCurrentPasskeys = <ThrowOnError extends boolean = false>(
   options?: Options<GetAuthV1UsersCurrentPasskeysData, ThrowOnError>
 ) =>
-  (options?.client ?? client).get<GetAuthV1UsersCurrentPasskeysResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetAuthV1UsersCurrentPasskeysResponses, GetAuthV1UsersCurrentPasskeysErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/users/current/passkeys",
     ...options,
   });
@@ -1434,8 +1676,12 @@ export const getAuthV1UsersCurrentPasskeys = <ThrowOnError extends boolean = fal
 export const deleteAuthV1UsersCurrentPasskeysById = <ThrowOnError extends boolean = false>(
   options: Options<DeleteAuthV1UsersCurrentPasskeysByIdData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteAuthV1UsersCurrentPasskeysByIdResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<
+    DeleteAuthV1UsersCurrentPasskeysByIdResponses,
+    DeleteAuthV1UsersCurrentPasskeysByIdErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/users/current/passkeys/{id}",
     ...options,
   });
@@ -1448,8 +1694,8 @@ export const deleteAuthV1UsersCurrentPasskeysById = <ThrowOnError extends boolea
 export const patchAuthV1UsersCurrentPasskeysById = <ThrowOnError extends boolean = false>(
   options: Options<PatchAuthV1UsersCurrentPasskeysByIdData, ThrowOnError>
 ) =>
-  (options.client ?? client).patch<PatchAuthV1UsersCurrentPasskeysByIdResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).patch<PatchAuthV1UsersCurrentPasskeysByIdResponses, PatchAuthV1UsersCurrentPasskeysByIdErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/users/current/passkeys/{id}",
     ...options,
     headers: {
@@ -1466,8 +1712,12 @@ export const patchAuthV1UsersCurrentPasskeysById = <ThrowOnError extends boolean
 export const postAuthV1UsersCurrentPasskeysRegisterBegin = <ThrowOnError extends boolean = false>(
   options?: Options<PostAuthV1UsersCurrentPasskeysRegisterBeginData, ThrowOnError>
 ) =>
-  (options?.client ?? client).post<PostAuthV1UsersCurrentPasskeysRegisterBeginResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).post<
+    PostAuthV1UsersCurrentPasskeysRegisterBeginResponses,
+    PostAuthV1UsersCurrentPasskeysRegisterBeginErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/users/current/passkeys/register/begin",
     ...options,
   });
@@ -1480,8 +1730,12 @@ export const postAuthV1UsersCurrentPasskeysRegisterBegin = <ThrowOnError extends
 export const postAuthV1UsersCurrentPasskeysRegisterFinish = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1UsersCurrentPasskeysRegisterFinishData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1UsersCurrentPasskeysRegisterFinishResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<
+    PostAuthV1UsersCurrentPasskeysRegisterFinishResponses,
+    PostAuthV1UsersCurrentPasskeysRegisterFinishErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/users/current/passkeys/register/finish",
     ...options,
     headers: {
@@ -1498,8 +1752,8 @@ export const postAuthV1UsersCurrentPasskeysRegisterFinish = <ThrowOnError extend
 export const deleteAuthV1UsersCurrentTotpDelete = <ThrowOnError extends boolean = false>(
   options?: Options<DeleteAuthV1UsersCurrentTotpDeleteData, ThrowOnError>
 ) =>
-  (options?.client ?? client).delete<DeleteAuthV1UsersCurrentTotpDeleteResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).delete<DeleteAuthV1UsersCurrentTotpDeleteResponses, DeleteAuthV1UsersCurrentTotpDeleteErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/users/current/totp/delete",
     ...options,
   });
@@ -1512,8 +1766,8 @@ export const deleteAuthV1UsersCurrentTotpDelete = <ThrowOnError extends boolean 
 export const postAuthV1UsersCurrentTotpSetup = <ThrowOnError extends boolean = false>(
   options?: Options<PostAuthV1UsersCurrentTotpSetupData, ThrowOnError>
 ) =>
-  (options?.client ?? client).post<PostAuthV1UsersCurrentTotpSetupResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).post<PostAuthV1UsersCurrentTotpSetupResponses, PostAuthV1UsersCurrentTotpSetupErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/users/current/totp/setup",
     ...options,
   });
@@ -1526,8 +1780,8 @@ export const postAuthV1UsersCurrentTotpSetup = <ThrowOnError extends boolean = f
 export const getAuthV1UsersCurrentTotpStatus = <ThrowOnError extends boolean = false>(
   options?: Options<GetAuthV1UsersCurrentTotpStatusData, ThrowOnError>
 ) =>
-  (options?.client ?? client).get<GetAuthV1UsersCurrentTotpStatusResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetAuthV1UsersCurrentTotpStatusResponses, GetAuthV1UsersCurrentTotpStatusErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/users/current/totp/status",
     ...options,
   });
@@ -1540,8 +1794,8 @@ export const getAuthV1UsersCurrentTotpStatus = <ThrowOnError extends boolean = f
 export const postAuthV1UsersCurrentTotpVerify = <ThrowOnError extends boolean = false>(
   options: Options<PostAuthV1UsersCurrentTotpVerifyData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostAuthV1UsersCurrentTotpVerifyResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<PostAuthV1UsersCurrentTotpVerifyResponses, PostAuthV1UsersCurrentTotpVerifyErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/users/current/totp/verify",
     ...options,
     headers: {
@@ -1558,8 +1812,8 @@ export const postAuthV1UsersCurrentTotpVerify = <ThrowOnError extends boolean = 
 export const patchAuthV1UsersCurrentUsername = <ThrowOnError extends boolean = false>(
   options: Options<PatchAuthV1UsersCurrentUsernameData, ThrowOnError>
 ) =>
-  (options.client ?? client).patch<PatchAuthV1UsersCurrentUsernameResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).patch<PatchAuthV1UsersCurrentUsernameResponses, PatchAuthV1UsersCurrentUsernameErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/auth/v1/users/current/username",
     ...options,
     headers: {
@@ -1574,7 +1828,7 @@ export const patchAuthV1UsersCurrentUsername = <ThrowOnError extends boolean = f
  * Verifies the submitted TOTP code for a pending login session and, if valid, completes authentication and returns access tokens.
  */
 export const postAuthV1VerifyTotp = <ThrowOnError extends boolean = false>(options: Options<PostAuthV1VerifyTotpData, ThrowOnError>) =>
-  (options.client ?? client).post<PostAuthV1VerifyTotpResponses, unknown, ThrowOnError>({
+  (options.client ?? client).post<PostAuthV1VerifyTotpResponses, PostAuthV1VerifyTotpErrors, ThrowOnError>({
     url: "/auth/v1/verify-totp",
     ...options,
     headers: {
@@ -1589,8 +1843,8 @@ export const postAuthV1VerifyTotp = <ThrowOnError extends boolean = false>(optio
  * Returns the organization's billing address
  */
 export const getBillingV1Address = <ThrowOnError extends boolean = false>(options?: Options<GetBillingV1AddressData, ThrowOnError>) =>
-  (options?.client ?? client).get<GetBillingV1AddressResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetBillingV1AddressResponses, GetBillingV1AddressErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/address",
     ...options,
   });
@@ -1601,8 +1855,8 @@ export const getBillingV1Address = <ThrowOnError extends boolean = false>(option
  * Create or update the organization's billing address
  */
 export const postBillingV1Address = <ThrowOnError extends boolean = false>(options: Options<PostBillingV1AddressData, ThrowOnError>) =>
-  (options.client ?? client).post<PostBillingV1AddressResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<PostBillingV1AddressResponses, PostBillingV1AddressErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/address",
     ...options,
     headers: {
@@ -1619,8 +1873,8 @@ export const postBillingV1Address = <ThrowOnError extends boolean = false>(optio
 export const getBillingV1BandwidthUsage = <ThrowOnError extends boolean = false>(
   options?: Options<GetBillingV1BandwidthUsageData, ThrowOnError>
 ) =>
-  (options?.client ?? client).get<GetBillingV1BandwidthUsageResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetBillingV1BandwidthUsageResponses, GetBillingV1BandwidthUsageErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/bandwidth-usage",
     ...options,
   });
@@ -1633,8 +1887,8 @@ export const getBillingV1BandwidthUsage = <ThrowOnError extends boolean = false>
 export const getBillingV1BandwidthUsageHistory = <ThrowOnError extends boolean = false>(
   options?: Options<GetBillingV1BandwidthUsageHistoryData, ThrowOnError>
 ) =>
-  (options?.client ?? client).get<GetBillingV1BandwidthUsageHistoryResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetBillingV1BandwidthUsageHistoryResponses, GetBillingV1BandwidthUsageHistoryErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/bandwidth-usage/history",
     ...options,
   });
@@ -1647,8 +1901,8 @@ export const getBillingV1BandwidthUsageHistory = <ThrowOnError extends boolean =
 export const postBillingV1BandwidthUsageRefresh = <ThrowOnError extends boolean = false>(
   options?: Options<PostBillingV1BandwidthUsageRefreshData, ThrowOnError>
 ) =>
-  (options?.client ?? client).post<PostBillingV1BandwidthUsageRefreshResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).post<PostBillingV1BandwidthUsageRefreshResponses, PostBillingV1BandwidthUsageRefreshErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/bandwidth-usage/refresh",
     ...options,
   });
@@ -1659,8 +1913,8 @@ export const postBillingV1BandwidthUsageRefresh = <ThrowOnError extends boolean 
  * Create a Stripe hosted checkout session
  */
 export const postBillingV1Checkout = <ThrowOnError extends boolean = false>(options: Options<PostBillingV1CheckoutData, ThrowOnError>) =>
-  (options.client ?? client).post<PostBillingV1CheckoutResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<PostBillingV1CheckoutResponses, PostBillingV1CheckoutErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/checkout",
     ...options,
     headers: {
@@ -1677,8 +1931,8 @@ export const postBillingV1Checkout = <ThrowOnError extends boolean = false>(opti
 export const postBillingV1ContactSales = <ThrowOnError extends boolean = false>(
   options: Options<PostBillingV1ContactSalesData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostBillingV1ContactSalesResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<PostBillingV1ContactSalesResponses, PostBillingV1ContactSalesErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/contact-sales",
     ...options,
     headers: {
@@ -1693,8 +1947,8 @@ export const postBillingV1ContactSales = <ThrowOnError extends boolean = false>(
  * Returns the organization's invoices.
  */
 export const getBillingV1Invoices = <ThrowOnError extends boolean = false>(options?: Options<GetBillingV1InvoicesData, ThrowOnError>) =>
-  (options?.client ?? client).get<GetBillingV1InvoicesResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetBillingV1InvoicesResponses, GetBillingV1InvoicesErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/invoices",
     ...options,
   });
@@ -1707,15 +1961,17 @@ export const getBillingV1Invoices = <ThrowOnError extends boolean = false>(optio
 export const putBillingV1InvoicesByInvoiceIdStatus = <ThrowOnError extends boolean = false>(
   options: Options<PutBillingV1InvoicesByInvoiceIdStatusData, ThrowOnError>
 ) =>
-  (options.client ?? client).put<PutBillingV1InvoicesByInvoiceIdStatusResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
-    url: "/billing/v1/invoices/{invoiceId}/status",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
+  (options.client ?? client).put<PutBillingV1InvoicesByInvoiceIdStatusResponses, PutBillingV1InvoicesByInvoiceIdStatusErrors, ThrowOnError>(
+    {
+      security: [{name: "X-API-Key", type: "apiKey"}],
+      url: "/billing/v1/invoices/{invoiceId}/status",
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+        ...options.headers,
+      },
+    }
+  );
 
 /**
  * Cleanup old bandwidth snapshots
@@ -1725,8 +1981,12 @@ export const putBillingV1InvoicesByInvoiceIdStatus = <ThrowOnError extends boole
 export const postBillingV1JobsCleanupBandwidthSnapshots = <ThrowOnError extends boolean = false>(
   options?: Options<PostBillingV1JobsCleanupBandwidthSnapshotsData, ThrowOnError>
 ) =>
-  (options?.client ?? client).post<PostBillingV1JobsCleanupBandwidthSnapshotsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).post<
+    PostBillingV1JobsCleanupBandwidthSnapshotsResponses,
+    PostBillingV1JobsCleanupBandwidthSnapshotsErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/jobs/cleanup-bandwidth-snapshots",
     ...options,
   });
@@ -1739,8 +1999,12 @@ export const postBillingV1JobsCleanupBandwidthSnapshots = <ThrowOnError extends 
 export const postBillingV1JobsDailyBandwidthCalculation = <ThrowOnError extends boolean = false>(
   options?: Options<PostBillingV1JobsDailyBandwidthCalculationData, ThrowOnError>
 ) =>
-  (options?.client ?? client).post<PostBillingV1JobsDailyBandwidthCalculationResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).post<
+    PostBillingV1JobsDailyBandwidthCalculationResponses,
+    PostBillingV1JobsDailyBandwidthCalculationErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/jobs/daily-bandwidth-calculation",
     ...options,
   });
@@ -1753,8 +2017,12 @@ export const postBillingV1JobsDailyBandwidthCalculation = <ThrowOnError extends 
 export const postBillingV1JobsMonthlyBandwidthCalculation = <ThrowOnError extends boolean = false>(
   options?: Options<PostBillingV1JobsMonthlyBandwidthCalculationData, ThrowOnError>
 ) =>
-  (options?.client ?? client).post<PostBillingV1JobsMonthlyBandwidthCalculationResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).post<
+    PostBillingV1JobsMonthlyBandwidthCalculationResponses,
+    PostBillingV1JobsMonthlyBandwidthCalculationErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/jobs/monthly-bandwidth-calculation",
     ...options,
   });
@@ -1767,8 +2035,8 @@ export const postBillingV1JobsMonthlyBandwidthCalculation = <ThrowOnError extend
 export const getBillingV1PaymentMethods = <ThrowOnError extends boolean = false>(
   options?: Options<GetBillingV1PaymentMethodsData, ThrowOnError>
 ) =>
-  (options?.client ?? client).get<GetBillingV1PaymentMethodsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetBillingV1PaymentMethodsResponses, GetBillingV1PaymentMethodsErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/payment-methods",
     ...options,
   });
@@ -1781,8 +2049,8 @@ export const getBillingV1PaymentMethods = <ThrowOnError extends boolean = false>
 export const postBillingV1PaymentMethods = <ThrowOnError extends boolean = false>(
   options: Options<PostBillingV1PaymentMethodsData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostBillingV1PaymentMethodsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<PostBillingV1PaymentMethodsResponses, PostBillingV1PaymentMethodsErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/payment-methods",
     ...options,
     headers: {
@@ -1799,8 +2067,12 @@ export const postBillingV1PaymentMethods = <ThrowOnError extends boolean = false
 export const deleteBillingV1PaymentMethodsByPaymentMethodId = <ThrowOnError extends boolean = false>(
   options: Options<DeleteBillingV1PaymentMethodsByPaymentMethodIdData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteBillingV1PaymentMethodsByPaymentMethodIdResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<
+    DeleteBillingV1PaymentMethodsByPaymentMethodIdResponses,
+    DeleteBillingV1PaymentMethodsByPaymentMethodIdErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/payment-methods/{paymentMethodId}",
     ...options,
   });
@@ -1813,8 +2085,12 @@ export const deleteBillingV1PaymentMethodsByPaymentMethodId = <ThrowOnError exte
 export const getBillingV1PaymentMethodsFromPaymentIntent = <ThrowOnError extends boolean = false>(
   options: Options<GetBillingV1PaymentMethodsFromPaymentIntentData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetBillingV1PaymentMethodsFromPaymentIntentResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<
+    GetBillingV1PaymentMethodsFromPaymentIntentResponses,
+    GetBillingV1PaymentMethodsFromPaymentIntentErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/payment-methods/from-payment-intent",
     ...options,
   });
@@ -1827,8 +2103,12 @@ export const getBillingV1PaymentMethodsFromPaymentIntent = <ThrowOnError extends
 export const getBillingV1PaymentMethodsFromSetupIntent = <ThrowOnError extends boolean = false>(
   options: Options<GetBillingV1PaymentMethodsFromSetupIntentData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetBillingV1PaymentMethodsFromSetupIntentResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<
+    GetBillingV1PaymentMethodsFromSetupIntentResponses,
+    GetBillingV1PaymentMethodsFromSetupIntentErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/payment-methods/from-setup-intent",
     ...options,
   });
@@ -1839,7 +2119,10 @@ export const getBillingV1PaymentMethodsFromSetupIntent = <ThrowOnError extends b
  * Returns the available billing plans.
  */
 export const getBillingV1Plans = <ThrowOnError extends boolean = false>(options?: Options<GetBillingV1PlansData, ThrowOnError>) =>
-  (options?.client ?? client).get<GetBillingV1PlansResponses, unknown, ThrowOnError>({url: "/billing/v1/plans", ...options});
+  (options?.client ?? client).get<GetBillingV1PlansResponses, GetBillingV1PlansErrors, ThrowOnError>({
+    url: "/billing/v1/plans",
+    ...options,
+  });
 
 /**
  * Get a billing plan
@@ -1849,7 +2132,7 @@ export const getBillingV1Plans = <ThrowOnError extends boolean = false>(options?
 export const getBillingV1PlansByPlanId = <ThrowOnError extends boolean = false>(
   options: Options<GetBillingV1PlansByPlanIdData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetBillingV1PlansByPlanIdResponses, unknown, ThrowOnError>({
+  (options.client ?? client).get<GetBillingV1PlansByPlanIdResponses, GetBillingV1PlansByPlanIdErrors, ThrowOnError>({
     url: "/billing/v1/plans/{planId}",
     ...options,
   });
@@ -1862,8 +2145,8 @@ export const getBillingV1PlansByPlanId = <ThrowOnError extends boolean = false>(
 export const postBillingV1SetupIntent = <ThrowOnError extends boolean = false>(
   options?: Options<PostBillingV1SetupIntentData, ThrowOnError>
 ) =>
-  (options?.client ?? client).post<PostBillingV1SetupIntentResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).post<PostBillingV1SetupIntentResponses, PostBillingV1SetupIntentErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/setup-intent",
     ...options,
   });
@@ -1876,8 +2159,8 @@ export const postBillingV1SetupIntent = <ThrowOnError extends boolean = false>(
 export const getBillingV1StorageUsage = <ThrowOnError extends boolean = false>(
   options?: Options<GetBillingV1StorageUsageData, ThrowOnError>
 ) =>
-  (options?.client ?? client).get<GetBillingV1StorageUsageResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetBillingV1StorageUsageResponses, GetBillingV1StorageUsageErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/storage-usage",
     ...options,
   });
@@ -1890,8 +2173,8 @@ export const getBillingV1StorageUsage = <ThrowOnError extends boolean = false>(
 export const getBillingV1StorageUsageHistory = <ThrowOnError extends boolean = false>(
   options?: Options<GetBillingV1StorageUsageHistoryData, ThrowOnError>
 ) =>
-  (options?.client ?? client).get<GetBillingV1StorageUsageHistoryResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetBillingV1StorageUsageHistoryResponses, GetBillingV1StorageUsageHistoryErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/storage-usage/history",
     ...options,
   });
@@ -1904,8 +2187,8 @@ export const getBillingV1StorageUsageHistory = <ThrowOnError extends boolean = f
 export const postBillingV1StorageUsageRefresh = <ThrowOnError extends boolean = false>(
   options?: Options<PostBillingV1StorageUsageRefreshData, ThrowOnError>
 ) =>
-  (options?.client ?? client).post<PostBillingV1StorageUsageRefreshResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).post<PostBillingV1StorageUsageRefreshResponses, PostBillingV1StorageUsageRefreshErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/storage-usage/refresh",
     ...options,
   });
@@ -1918,8 +2201,8 @@ export const postBillingV1StorageUsageRefresh = <ThrowOnError extends boolean = 
 export const getBillingV1Subscription = <ThrowOnError extends boolean = false>(
   options?: Options<GetBillingV1SubscriptionData, ThrowOnError>
 ) =>
-  (options?.client ?? client).get<GetBillingV1SubscriptionResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetBillingV1SubscriptionResponses, GetBillingV1SubscriptionErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/subscription",
     ...options,
   });
@@ -1932,8 +2215,8 @@ export const getBillingV1Subscription = <ThrowOnError extends boolean = false>(
 export const postBillingV1Subscription = <ThrowOnError extends boolean = false>(
   options: Options<PostBillingV1SubscriptionData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostBillingV1SubscriptionResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<PostBillingV1SubscriptionResponses, PostBillingV1SubscriptionErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/subscription",
     ...options,
     headers: {
@@ -1950,8 +2233,8 @@ export const postBillingV1Subscription = <ThrowOnError extends boolean = false>(
 export const putBillingV1SubscriptionCancel = <ThrowOnError extends boolean = false>(
   options?: Options<PutBillingV1SubscriptionCancelData, ThrowOnError>
 ) =>
-  (options?.client ?? client).put<PutBillingV1SubscriptionCancelResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).put<PutBillingV1SubscriptionCancelResponses, PutBillingV1SubscriptionCancelErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/subscription/cancel",
     ...options,
   });
@@ -1964,8 +2247,8 @@ export const putBillingV1SubscriptionCancel = <ThrowOnError extends boolean = fa
 export const getBillingV1SubscriptionHistory = <ThrowOnError extends boolean = false>(
   options?: Options<GetBillingV1SubscriptionHistoryData, ThrowOnError>
 ) =>
-  (options?.client ?? client).get<GetBillingV1SubscriptionHistoryResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<GetBillingV1SubscriptionHistoryResponses, GetBillingV1SubscriptionHistoryErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/subscription/history",
     ...options,
   });
@@ -1978,8 +2261,8 @@ export const getBillingV1SubscriptionHistory = <ThrowOnError extends boolean = f
 export const putBillingV1SubscriptionReactivate = <ThrowOnError extends boolean = false>(
   options?: Options<PutBillingV1SubscriptionReactivateData, ThrowOnError>
 ) =>
-  (options?.client ?? client).put<PutBillingV1SubscriptionReactivateResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).put<PutBillingV1SubscriptionReactivateResponses, PutBillingV1SubscriptionReactivateErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/subscription/reactivate",
     ...options,
   });
@@ -1992,8 +2275,8 @@ export const putBillingV1SubscriptionReactivate = <ThrowOnError extends boolean 
 export const postBillingV1SubscriptionUpgrade = <ThrowOnError extends boolean = false>(
   options: Options<PostBillingV1SubscriptionUpgradeData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostBillingV1SubscriptionUpgradeResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<PostBillingV1SubscriptionUpgradeResponses, PostBillingV1SubscriptionUpgradeErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/subscription/upgrade",
     ...options,
     headers: {
@@ -2010,8 +2293,8 @@ export const postBillingV1SubscriptionUpgrade = <ThrowOnError extends boolean = 
 export const postBillingV1TaxCalculate = <ThrowOnError extends boolean = false>(
   options: Options<PostBillingV1TaxCalculateData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostBillingV1TaxCalculateResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<PostBillingV1TaxCalculateResponses, PostBillingV1TaxCalculateErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/billing/v1/tax/calculate",
     ...options,
     headers: {
@@ -2028,9 +2311,13 @@ export const postBillingV1TaxCalculate = <ThrowOnError extends boolean = false>(
 export const postBillingWebhooksStripe = <ThrowOnError extends boolean = false>(
   options?: Options<PostBillingWebhooksStripeData, ThrowOnError>
 ) =>
-  (options?.client ?? client).post<PostBillingWebhooksStripeResponses, unknown, ThrowOnError>({
+  (options?.client ?? client).post<PostBillingWebhooksStripeResponses, PostBillingWebhooksStripeErrors, ThrowOnError>({
     url: "/billing/webhooks/stripe",
     ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
   });
 
 /**
@@ -2041,7 +2328,7 @@ export const postBillingWebhooksStripe = <ThrowOnError extends boolean = false>(
 export const getMediaV1ImagesByImageId = <ThrowOnError extends boolean = false>(
   options: Options<GetMediaV1ImagesByImageIdData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetMediaV1ImagesByImageIdResponses, unknown, ThrowOnError>({
+  (options.client ?? client).get<GetMediaV1ImagesByImageIdResponses, GetMediaV1ImagesByImageIdErrors, ThrowOnError>({
     url: "/media/v1/images/{imageId}",
     ...options,
   });
@@ -2052,7 +2339,10 @@ export const getMediaV1ImagesByImageId = <ThrowOnError extends boolean = false>(
  * Returns the language codes supported for audio tracks and subtitles.
  */
 export const getMediaV1Languages = <ThrowOnError extends boolean = false>(options?: Options<GetMediaV1LanguagesData, ThrowOnError>) =>
-  (options?.client ?? client).get<GetMediaV1LanguagesResponses, unknown, ThrowOnError>({url: "/media/v1/languages", ...options});
+  (options?.client ?? client).get<GetMediaV1LanguagesResponses, GetMediaV1LanguagesErrors, ThrowOnError>({
+    url: "/media/v1/languages",
+    ...options,
+  });
 
 /**
  * List images
@@ -2062,8 +2352,8 @@ export const getMediaV1Languages = <ThrowOnError extends boolean = false>(option
 export const getMediaV1ProjectsByProjectIdImages = <ThrowOnError extends boolean = false>(
   options: Options<GetMediaV1ProjectsByProjectIdImagesData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetMediaV1ProjectsByProjectIdImagesResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<GetMediaV1ProjectsByProjectIdImagesResponses, GetMediaV1ProjectsByProjectIdImagesErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/images",
     ...options,
   });
@@ -2076,8 +2366,12 @@ export const getMediaV1ProjectsByProjectIdImages = <ThrowOnError extends boolean
 export const deleteMediaV1ProjectsByProjectIdImagesByImageId = <ThrowOnError extends boolean = false>(
   options: Options<DeleteMediaV1ProjectsByProjectIdImagesByImageIdData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteMediaV1ProjectsByProjectIdImagesByImageIdResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<
+    DeleteMediaV1ProjectsByProjectIdImagesByImageIdResponses,
+    DeleteMediaV1ProjectsByProjectIdImagesByImageIdErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/images/{imageId}",
     ...options,
   });
@@ -2090,8 +2384,12 @@ export const deleteMediaV1ProjectsByProjectIdImagesByImageId = <ThrowOnError ext
 export const getMediaV1ProjectsByProjectIdImagesByImageId = <ThrowOnError extends boolean = false>(
   options: Options<GetMediaV1ProjectsByProjectIdImagesByImageIdData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetMediaV1ProjectsByProjectIdImagesByImageIdResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<
+    GetMediaV1ProjectsByProjectIdImagesByImageIdResponses,
+    GetMediaV1ProjectsByProjectIdImagesByImageIdErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/images/{imageId}",
     ...options,
   });
@@ -2104,8 +2402,12 @@ export const getMediaV1ProjectsByProjectIdImagesByImageId = <ThrowOnError extend
 export const postMediaV1ProjectsByProjectIdImagesByImageIdUploadComplete = <ThrowOnError extends boolean = false>(
   options: Options<PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<
+    PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteResponses,
+    PostMediaV1ProjectsByProjectIdImagesByImageIdUploadCompleteErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/images/{imageId}/upload/complete",
     ...options,
   });
@@ -2118,8 +2420,12 @@ export const postMediaV1ProjectsByProjectIdImagesByImageIdUploadComplete = <Thro
 export const putMediaV1ProjectsByProjectIdImagesByImageIdVisibility = <ThrowOnError extends boolean = false>(
   options: Options<PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityData, ThrowOnError>
 ) =>
-  (options.client ?? client).put<PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).put<
+    PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityResponses,
+    PutMediaV1ProjectsByProjectIdImagesByImageIdVisibilityErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/images/{imageId}/visibility",
     ...options,
     headers: {
@@ -2136,8 +2442,12 @@ export const putMediaV1ProjectsByProjectIdImagesByImageIdVisibility = <ThrowOnEr
 export const postMediaV1ProjectsByProjectIdImagesUpload = <ThrowOnError extends boolean = false>(
   options: Options<PostMediaV1ProjectsByProjectIdImagesUploadData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostMediaV1ProjectsByProjectIdImagesUploadResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<
+    PostMediaV1ProjectsByProjectIdImagesUploadResponses,
+    PostMediaV1ProjectsByProjectIdImagesUploadErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/images/upload",
     ...options,
     headers: {
@@ -2154,8 +2464,8 @@ export const postMediaV1ProjectsByProjectIdImagesUpload = <ThrowOnError extends 
 export const getMediaV1ProjectsByProjectIdVideos = <ThrowOnError extends boolean = false>(
   options: Options<GetMediaV1ProjectsByProjectIdVideosData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetMediaV1ProjectsByProjectIdVideosResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<GetMediaV1ProjectsByProjectIdVideosResponses, GetMediaV1ProjectsByProjectIdVideosErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos",
     ...options,
   });
@@ -2168,8 +2478,12 @@ export const getMediaV1ProjectsByProjectIdVideos = <ThrowOnError extends boolean
 export const deleteMediaV1ProjectsByProjectIdVideosByVideoId = <ThrowOnError extends boolean = false>(
   options: Options<DeleteMediaV1ProjectsByProjectIdVideosByVideoIdData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteMediaV1ProjectsByProjectIdVideosByVideoIdResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdResponses,
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}",
     ...options,
   });
@@ -2182,8 +2496,12 @@ export const deleteMediaV1ProjectsByProjectIdVideosByVideoId = <ThrowOnError ext
 export const getMediaV1ProjectsByProjectIdVideosByVideoId = <ThrowOnError extends boolean = false>(
   options: Options<GetMediaV1ProjectsByProjectIdVideosByVideoIdData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetMediaV1ProjectsByProjectIdVideosByVideoIdResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<
+    GetMediaV1ProjectsByProjectIdVideosByVideoIdResponses,
+    GetMediaV1ProjectsByProjectIdVideosByVideoIdErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}",
     ...options,
   });
@@ -2196,8 +2514,12 @@ export const getMediaV1ProjectsByProjectIdVideosByVideoId = <ThrowOnError extend
 export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracks = <ThrowOnError extends boolean = false>(
   options: Options<DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses,
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/audio-tracks",
     ...options,
   });
@@ -2210,8 +2532,12 @@ export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracks = <Throw
 export const getMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracks = <ThrowOnError extends boolean = false>(
   options: Options<GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<
+    GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksResponses,
+    GetMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/audio-tracks",
     ...options,
   });
@@ -2224,8 +2550,12 @@ export const getMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracks = <ThrowOnE
 export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksByTrackId = <ThrowOnError extends boolean = false>(
   options: Options<DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksByTrackIdData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksByTrackIdResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksByTrackIdResponses,
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksByTrackIdErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/audio-tracks/{trackId}",
     ...options,
   });
@@ -2240,10 +2570,10 @@ export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksLanguageB
 ) =>
   (options.client ?? client).delete<
     DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksLanguageByLangResponses,
-    unknown,
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksLanguageByLangErrors,
     ThrowOnError
   >({
-    security: [{name: "Authorization", type: "apiKey"}],
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/audio-tracks/language/{lang}",
     ...options,
   });
@@ -2256,8 +2586,12 @@ export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksLanguageB
 export const postMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUpload = <ThrowOnError extends boolean = false>(
   options: Options<PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<
+    PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadResponses,
+    PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/audio-tracks/upload",
     ...options,
     headers: {
@@ -2274,8 +2608,12 @@ export const postMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUpload = <T
 export const postMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadComplete = <ThrowOnError extends boolean = false>(
   options: Options<PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadCompleteData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadCompleteResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<
+    PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadCompleteResponses,
+    PostMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadCompleteErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/audio-tracks/upload/complete",
     ...options,
     headers: {
@@ -2292,8 +2630,12 @@ export const postMediaV1ProjectsByProjectIdVideosByVideoIdAudioTracksUploadCompl
 export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdChapters = <ThrowOnError extends boolean = false>(
   options: Options<DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses,
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/chapters",
     ...options,
   });
@@ -2306,8 +2648,12 @@ export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdChapters = <ThrowOnE
 export const getMediaV1ProjectsByProjectIdVideosByVideoIdChapters = <ThrowOnError extends boolean = false>(
   options: Options<GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<
+    GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses,
+    GetMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/chapters",
     ...options,
   });
@@ -2320,8 +2666,12 @@ export const getMediaV1ProjectsByProjectIdVideosByVideoIdChapters = <ThrowOnErro
 export const putMediaV1ProjectsByProjectIdVideosByVideoIdChapters = <ThrowOnError extends boolean = false>(
   options: Options<PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersData, ThrowOnError>
 ) =>
-  (options.client ?? client).put<PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).put<
+    PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersResponses,
+    PutMediaV1ProjectsByProjectIdVideosByVideoIdChaptersErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/chapters",
     ...options,
     headers: {
@@ -2338,8 +2688,12 @@ export const putMediaV1ProjectsByProjectIdVideosByVideoIdChapters = <ThrowOnErro
 export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersByStartTimeSec = <ThrowOnError extends boolean = false>(
   options: Options<DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersByStartTimeSecData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersByStartTimeSecResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersByStartTimeSecResponses,
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersByStartTimeSecErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/chapters/{startTimeSec}",
     ...options,
   });
@@ -2352,8 +2706,12 @@ export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdChaptersByStartTimeS
 export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitles = <ThrowOnError extends boolean = false>(
   options: Options<DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponses,
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/subtitles",
     ...options,
   });
@@ -2366,8 +2724,12 @@ export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitles = <ThrowOn
 export const getMediaV1ProjectsByProjectIdVideosByVideoIdSubtitles = <ThrowOnError extends boolean = false>(
   options: Options<GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<
+    GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesResponses,
+    GetMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/subtitles",
     ...options,
   });
@@ -2380,8 +2742,12 @@ export const getMediaV1ProjectsByProjectIdVideosByVideoIdSubtitles = <ThrowOnErr
 export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleId = <ThrowOnError extends boolean = false>(
   options: Options<DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleIdData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleIdResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleIdResponses,
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleIdErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/subtitles/{subtitleId}",
     ...options,
   });
@@ -2394,13 +2760,15 @@ export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesBySubtitleI
 export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesLanguageByLang = <ThrowOnError extends boolean = false>(
   options: Options<DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesLanguageByLangData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesLanguageByLangResponses, unknown, ThrowOnError>(
-    {
-      security: [{name: "Authorization", type: "apiKey"}],
-      url: "/media/v1/projects/{projectId}/videos/{videoId}/subtitles/language/{lang}",
-      ...options,
-    }
-  );
+  (options.client ?? client).delete<
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesLanguageByLangResponses,
+    DeleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesLanguageByLangErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
+    url: "/media/v1/projects/{projectId}/videos/{videoId}/subtitles/language/{lang}",
+    ...options,
+  });
 
 /**
  * Initiate subtitle uploads
@@ -2410,8 +2778,12 @@ export const deleteMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesLanguageByL
 export const postMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUpload = <ThrowOnError extends boolean = false>(
   options: Options<PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<
+    PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadResponses,
+    PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/subtitles/upload",
     ...options,
     headers: {
@@ -2428,8 +2800,12 @@ export const postMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUpload = <Thr
 export const postMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadComplete = <ThrowOnError extends boolean = false>(
   options: Options<PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<
+    PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteResponses,
+    PostMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadCompleteErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/subtitles/upload/complete",
     ...options,
     headers: {
@@ -2446,9 +2822,13 @@ export const postMediaV1ProjectsByProjectIdVideosByVideoIdSubtitlesUploadComplet
 export const putMediaV1ProjectsByProjectIdVideosByVideoIdThumbnail = <ThrowOnError extends boolean = false>(
   options: Options<PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailData, ThrowOnError>
 ) =>
-  (options.client ?? client).put<PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailResponses, unknown, ThrowOnError>({
+  (options.client ?? client).put<
+    PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailResponses,
+    PutMediaV1ProjectsByProjectIdVideosByVideoIdThumbnailErrors,
+    ThrowOnError
+  >({
     ...formDataBodySerializer,
-    security: [{name: "Authorization", type: "apiKey"}],
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/thumbnail",
     ...options,
     headers: {
@@ -2465,8 +2845,12 @@ export const putMediaV1ProjectsByProjectIdVideosByVideoIdThumbnail = <ThrowOnErr
 export const postMediaV1ProjectsByProjectIdVideosByVideoIdUploadComplete = <ThrowOnError extends boolean = false>(
   options: Options<PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<
+    PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteResponses,
+    PostMediaV1ProjectsByProjectIdVideosByVideoIdUploadCompleteErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/upload/complete",
     ...options,
   });
@@ -2479,8 +2863,12 @@ export const postMediaV1ProjectsByProjectIdVideosByVideoIdUploadComplete = <Thro
 export const putMediaV1ProjectsByProjectIdVideosByVideoIdVisibility = <ThrowOnError extends boolean = false>(
   options: Options<PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityData, ThrowOnError>
 ) =>
-  (options.client ?? client).put<PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).put<
+    PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityResponses,
+    PutMediaV1ProjectsByProjectIdVideosByVideoIdVisibilityErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/{videoId}/visibility",
     ...options,
     headers: {
@@ -2497,8 +2885,12 @@ export const putMediaV1ProjectsByProjectIdVideosByVideoIdVisibility = <ThrowOnEr
 export const postMediaV1ProjectsByProjectIdVideosUpload = <ThrowOnError extends boolean = false>(
   options: Options<PostMediaV1ProjectsByProjectIdVideosUploadData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostMediaV1ProjectsByProjectIdVideosUploadResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<
+    PostMediaV1ProjectsByProjectIdVideosUploadResponses,
+    PostMediaV1ProjectsByProjectIdVideosUploadErrors,
+    ThrowOnError
+  >({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/media/v1/projects/{projectId}/videos/upload",
     ...options,
     headers: {
@@ -2515,7 +2907,7 @@ export const postMediaV1ProjectsByProjectIdVideosUpload = <ThrowOnError extends 
 export const getMediaV1VideosByVideoId = <ThrowOnError extends boolean = false>(
   options: Options<GetMediaV1VideosByVideoIdData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetMediaV1VideosByVideoIdResponses, unknown, ThrowOnError>({
+  (options.client ?? client).get<GetMediaV1VideosByVideoIdResponses, GetMediaV1VideosByVideoIdErrors, ThrowOnError>({
     url: "/media/v1/videos/{videoId}",
     ...options,
   });
@@ -2528,7 +2920,7 @@ export const getMediaV1VideosByVideoId = <ThrowOnError extends boolean = false>(
 export const getMediaV1VideosByVideoIdAudioTracks = <ThrowOnError extends boolean = false>(
   options: Options<GetMediaV1VideosByVideoIdAudioTracksData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetMediaV1VideosByVideoIdAudioTracksResponses, unknown, ThrowOnError>({
+  (options.client ?? client).get<GetMediaV1VideosByVideoIdAudioTracksResponses, GetMediaV1VideosByVideoIdAudioTracksErrors, ThrowOnError>({
     url: "/media/v1/videos/{videoId}/audio-tracks",
     ...options,
   });
@@ -2541,7 +2933,7 @@ export const getMediaV1VideosByVideoIdAudioTracks = <ThrowOnError extends boolea
 export const getMediaV1VideosByVideoIdSubtitles = <ThrowOnError extends boolean = false>(
   options: Options<GetMediaV1VideosByVideoIdSubtitlesData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<GetMediaV1VideosByVideoIdSubtitlesResponses, unknown, ThrowOnError>({
+  (options.client ?? client).get<GetMediaV1VideosByVideoIdSubtitlesResponses, GetMediaV1VideosByVideoIdSubtitlesErrors, ThrowOnError>({
     url: "/media/v1/videos/{videoId}/subtitles",
     ...options,
   });
@@ -2552,8 +2944,8 @@ export const getMediaV1VideosByVideoIdSubtitles = <ThrowOnError extends boolean 
  * Get all projects for a specific organization
  */
 export const listProjectsByOrgid = <ThrowOnError extends boolean = false>(options: Options<ListProjectsByOrgidData, ThrowOnError>) =>
-  (options.client ?? client).get<ListProjectsByOrgidResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<ListProjectsByOrgidResponses, ListProjectsByOrgidErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/organization/{orgId}/projects",
     ...options,
   });
@@ -2564,8 +2956,8 @@ export const listProjectsByOrgid = <ThrowOnError extends boolean = false>(option
  * Create a new project under the given organization with specified video quality
  */
 export const createProjectsByOrgid = <ThrowOnError extends boolean = false>(options: Options<CreateProjectsByOrgidData, ThrowOnError>) =>
-  (options.client ?? client).post<CreateProjectsByOrgidResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<CreateProjectsByOrgidResponses, CreateProjectsByOrgidErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/organization/{orgId}/projects",
     ...options,
     headers: {
@@ -2580,8 +2972,8 @@ export const createProjectsByOrgid = <ThrowOnError extends boolean = false>(opti
  * Soft delete a project (marks it as deleted)
  */
 export const deleteProjects = <ThrowOnError extends boolean = false>(options: Options<DeleteProjectsData, ThrowOnError>) =>
-  (options.client ?? client).delete<DeleteProjectsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<DeleteProjectsResponses, DeleteProjectsErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/organization/{orgId}/projects/{projectId}",
     ...options,
   });
@@ -2592,8 +2984,8 @@ export const deleteProjects = <ThrowOnError extends boolean = false>(options: Op
  * Retrieve a specific project under an organization
  */
 export const getProjects = <ThrowOnError extends boolean = false>(options: Options<GetProjectsData, ThrowOnError>) =>
-  (options.client ?? client).get<GetProjectsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<GetProjectsResponses, GetProjectsErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/organization/{orgId}/projects/{projectId}",
     ...options,
   });
@@ -2606,8 +2998,8 @@ export const getProjects = <ThrowOnError extends boolean = false>(options: Optio
 export const deleteCustomDomainByProjectid = <ThrowOnError extends boolean = false>(
   options: Options<DeleteCustomDomainByProjectidData, ThrowOnError>
 ) =>
-  (options.client ?? client).delete<DeleteCustomDomainByProjectidResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<DeleteCustomDomainByProjectidResponses, DeleteCustomDomainByProjectidErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/organization/{orgId}/projects/{projectId}/custom-domain",
     ...options,
   });
@@ -2620,8 +3012,8 @@ export const deleteCustomDomainByProjectid = <ThrowOnError extends boolean = fal
 export const updateCustomDomainByProjectid = <ThrowOnError extends boolean = false>(
   options: Options<UpdateCustomDomainByProjectidData, ThrowOnError>
 ) =>
-  (options.client ?? client).put<UpdateCustomDomainByProjectidResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).put<UpdateCustomDomainByProjectidResponses, UpdateCustomDomainByProjectidErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/organization/{orgId}/projects/{projectId}/custom-domain",
     ...options,
     headers: {
@@ -2636,8 +3028,8 @@ export const updateCustomDomainByProjectid = <ThrowOnError extends boolean = fal
  * Move a project from one organization to another (if user has access to both)
  */
 export const createMoveByProjectid = <ThrowOnError extends boolean = false>(options: Options<CreateMoveByProjectidData, ThrowOnError>) =>
-  (options.client ?? client).post<CreateMoveByProjectidResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<CreateMoveByProjectidResponses, CreateMoveByProjectidErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/organization/{orgId}/projects/{projectId}/move",
     ...options,
     headers: {
@@ -2652,8 +3044,8 @@ export const createMoveByProjectid = <ThrowOnError extends boolean = false>(opti
  * Update the name of a specific project
  */
 export const patchNameByProjectid = <ThrowOnError extends boolean = false>(options: Options<PatchNameByProjectidData, ThrowOnError>) =>
-  (options.client ?? client).patch<PatchNameByProjectidResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).patch<PatchNameByProjectidResponses, PatchNameByProjectidErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/organization/{orgId}/projects/{projectId}/name",
     ...options,
     headers: {
@@ -2670,8 +3062,8 @@ export const patchNameByProjectid = <ThrowOnError extends boolean = false>(optio
 export const patchVideoQualityByProjectid = <ThrowOnError extends boolean = false>(
   options: Options<PatchVideoQualityByProjectidData, ThrowOnError>
 ) =>
-  (options.client ?? client).patch<PatchVideoQualityByProjectidResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).patch<PatchVideoQualityByProjectidResponses, PatchVideoQualityByProjectidErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/organization/{orgId}/projects/{projectId}/video-quality",
     ...options,
     headers: {
@@ -2686,8 +3078,8 @@ export const patchVideoQualityByProjectid = <ThrowOnError extends boolean = fals
  * Get all API keys for a specific organization
  */
 export const listApiKeysByOrgid = <ThrowOnError extends boolean = false>(options?: Options<ListApiKeysByOrgidData, ThrowOnError>) =>
-  (options?.client ?? client).get<ListApiKeysByOrgidResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<ListApiKeysByOrgidResponses, ListApiKeysByOrgidErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/platform/api-keys",
     ...options,
   });
@@ -2698,8 +3090,8 @@ export const listApiKeysByOrgid = <ThrowOnError extends boolean = false>(options
  * Create a new API key for a project in the authenticated organization
  */
 export const createApiKeyByOrgid = <ThrowOnError extends boolean = false>(options: Options<CreateApiKeyByOrgidData, ThrowOnError>) =>
-  (options.client ?? client).post<CreateApiKeyByOrgidResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<CreateApiKeyByOrgidResponses, CreateApiKeyByOrgidErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/platform/api-keys",
     ...options,
     headers: {
@@ -2714,8 +3106,8 @@ export const createApiKeyByOrgid = <ThrowOnError extends boolean = false>(option
  * Delete an API key owned by the authenticated organization
  */
 export const deleteApiKeyByKeyid = <ThrowOnError extends boolean = false>(options: Options<DeleteApiKeyByKeyidData, ThrowOnError>) =>
-  (options.client ?? client).delete<DeleteApiKeyByKeyidResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<DeleteApiKeyByKeyidResponses, DeleteApiKeyByKeyidErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/platform/api-keys/{keyId}",
     ...options,
   });
@@ -2726,8 +3118,8 @@ export const deleteApiKeyByKeyid = <ThrowOnError extends boolean = false>(option
  * Rotate an API key, returning a new secret
  */
 export const rotateApiKeyByKeyid = <ThrowOnError extends boolean = false>(options: Options<RotateApiKeyByKeyidData, ThrowOnError>) =>
-  (options.client ?? client).post<RotateApiKeyByKeyidResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<RotateApiKeyByKeyidResponses, RotateApiKeyByKeyidErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/platform/api-keys/{keyId}/rotate",
     ...options,
   });
@@ -2740,7 +3132,7 @@ export const rotateApiKeyByKeyid = <ThrowOnError extends boolean = false>(option
 export const postPlatformAuthRefresh = <ThrowOnError extends boolean = false>(
   options: Options<PostPlatformAuthRefreshData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<PostPlatformAuthRefreshResponses, unknown, ThrowOnError>({
+  (options.client ?? client).post<PostPlatformAuthRefreshResponses, PostPlatformAuthRefreshErrors, ThrowOnError>({
     url: "/platform/auth/refresh",
     ...options,
     headers: {
@@ -2755,7 +3147,7 @@ export const postPlatformAuthRefresh = <ThrowOnError extends boolean = false>(
  * Trades an API key (`<keyId>_<secret>`) for a short-lived platform access token plus a refresh token.
  */
 export const postPlatformAuthToken = <ThrowOnError extends boolean = false>(options: Options<PostPlatformAuthTokenData, ThrowOnError>) =>
-  (options.client ?? client).post<PostPlatformAuthTokenResponses, unknown, ThrowOnError>({
+  (options.client ?? client).post<PostPlatformAuthTokenResponses, PostPlatformAuthTokenErrors, ThrowOnError>({
     url: "/platform/auth/token",
     ...options,
     headers: {
@@ -2770,8 +3162,8 @@ export const postPlatformAuthToken = <ThrowOnError extends boolean = false>(opti
  * List client credentials for the specified organization
  */
 export const listCredentialsByOrgid = <ThrowOnError extends boolean = false>(options?: Options<ListCredentialsByOrgidData, ThrowOnError>) =>
-  (options?.client ?? client).get<ListCredentialsByOrgidResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options?.client ?? client).get<ListCredentialsByOrgidResponses, ListCredentialsByOrgidErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/platform/clientauth/credentials",
     ...options,
   });
@@ -2784,8 +3176,8 @@ export const listCredentialsByOrgid = <ThrowOnError extends boolean = false>(opt
 export const createCredentialByOrgid = <ThrowOnError extends boolean = false>(
   options: Options<CreateCredentialByOrgidData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<CreateCredentialByOrgidResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<CreateCredentialByOrgidResponses, CreateCredentialByOrgidErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/platform/clientauth/credentials",
     ...options,
     headers: {
@@ -2802,8 +3194,8 @@ export const createCredentialByOrgid = <ThrowOnError extends boolean = false>(
 export const revokeCredentialByCredentialid = <ThrowOnError extends boolean = false>(
   options: Options<RevokeCredentialByCredentialidData, ThrowOnError>
 ) =>
-  (options.client ?? client).post<RevokeCredentialByCredentialidResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<RevokeCredentialByCredentialidResponses, RevokeCredentialByCredentialidErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/platform/clientauth/credentials/{credentialId}/revoke",
     ...options,
   });
@@ -2814,7 +3206,7 @@ export const revokeCredentialByCredentialid = <ThrowOnError extends boolean = fa
  * Exchange client_id/client_secret for a short-lived access token. The request subject is an opaque client-defined label and is not treated as authoritative user identity for authorization.
  */
 export const createToken = <ThrowOnError extends boolean = false>(options: Options<CreateTokenData, ThrowOnError>) =>
-  (options.client ?? client).post<CreateTokenResponses, unknown, ThrowOnError>({
+  (options.client ?? client).post<CreateTokenResponses, CreateTokenErrors, ThrowOnError>({
     url: "/platform/clientauth/token",
     ...options,
     headers: {
@@ -2829,7 +3221,10 @@ export const createToken = <ThrowOnError extends boolean = false>(options: Optio
  * Public, unauthenticated listing of posts in a feed, with pagination.
  */
 export const listPublicPosts = <ThrowOnError extends boolean = false>(options: Options<ListPublicPostsData, ThrowOnError>) =>
-  (options.client ?? client).get<ListPublicPostsResponses, unknown, ThrowOnError>({url: "/posts/v1/feeds/{feedId}", ...options});
+  (options.client ?? client).get<ListPublicPostsResponses, ListPublicPostsErrors, ThrowOnError>({
+    url: "/posts/v1/feeds/{feedId}",
+    ...options,
+  });
 
 /**
  * Get a post
@@ -2837,7 +3232,10 @@ export const listPublicPosts = <ThrowOnError extends boolean = false>(options: O
  * Public, unauthenticated retrieval of a single post by ID.
  */
 export const getPublicPost = <ThrowOnError extends boolean = false>(options: Options<GetPublicPostData, ThrowOnError>) =>
-  (options.client ?? client).get<GetPublicPostResponses, unknown, ThrowOnError>({url: "/posts/v1/feeds/{feedId}/{postId}", ...options});
+  (options.client ?? client).get<GetPublicPostResponses, GetPublicPostErrors, ThrowOnError>({
+    url: "/posts/v1/feeds/{feedId}/{postId}",
+    ...options,
+  });
 
 /**
  * List posts by creator
@@ -2847,7 +3245,7 @@ export const getPublicPost = <ThrowOnError extends boolean = false>(options: Opt
 export const listPublicPostsByCreator = <ThrowOnError extends boolean = false>(
   options: Options<ListPublicPostsByCreatorData, ThrowOnError>
 ) =>
-  (options.client ?? client).get<ListPublicPostsByCreatorResponses, unknown, ThrowOnError>({
+  (options.client ?? client).get<ListPublicPostsByCreatorResponses, ListPublicPostsByCreatorErrors, ThrowOnError>({
     url: "/posts/v1/feeds/{feedId}/creators/{creatorId}",
     ...options,
   });
@@ -2858,8 +3256,8 @@ export const listPublicPostsByCreator = <ThrowOnError extends boolean = false>(
  * List posts in a feed
  */
 export const listPosts = <ThrowOnError extends boolean = false>(options: Options<ListPostsData, ThrowOnError>) =>
-  (options.client ?? client).get<ListPostsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<ListPostsResponses, ListPostsErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts",
     ...options,
   });
@@ -2870,8 +3268,8 @@ export const listPosts = <ThrowOnError extends boolean = false>(options: Options
  * Create a new post in a feed
  */
 export const createPost = <ThrowOnError extends boolean = false>(options: Options<CreatePostData, ThrowOnError>) =>
-  (options.client ?? client).post<CreatePostResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<CreatePostResponses, CreatePostErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts",
     ...options,
     headers: {
@@ -2886,8 +3284,8 @@ export const createPost = <ThrowOnError extends boolean = false>(options: Option
  * Delete a post by ID
  */
 export const deletePost = <ThrowOnError extends boolean = false>(options: Options<DeletePostData, ThrowOnError>) =>
-  (options.client ?? client).delete<DeletePostResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<DeletePostResponses, DeletePostErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts/{postId}",
     ...options,
   });
@@ -2898,8 +3296,8 @@ export const deletePost = <ThrowOnError extends boolean = false>(options: Option
  * Get a single post by ID
  */
 export const getPost = <ThrowOnError extends boolean = false>(options: Options<GetPostData, ThrowOnError>) =>
-  (options.client ?? client).get<GetPostResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<GetPostResponses, GetPostErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts/{postId}",
     ...options,
   });
@@ -2910,8 +3308,8 @@ export const getPost = <ThrowOnError extends boolean = false>(options: Options<G
  * List posts in a feed authored by a specific creator
  */
 export const listPostsByCreator = <ThrowOnError extends boolean = false>(options: Options<ListPostsByCreatorData, ThrowOnError>) =>
-  (options.client ?? client).get<ListPostsByCreatorResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<ListPostsByCreatorResponses, ListPostsByCreatorErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts/creators/{creatorId}",
     ...options,
   });
@@ -2922,8 +3320,8 @@ export const listPostsByCreator = <ThrowOnError extends boolean = false>(options
  * Finalize a media upload and publish the post
  */
 export const completePostUpload = <ThrowOnError extends boolean = false>(options: Options<CompletePostUploadData, ThrowOnError>) =>
-  (options.client ?? client).post<CompletePostUploadResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<CompletePostUploadResponses, CompletePostUploadErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts/upload/complete",
     ...options,
     headers: {
@@ -2938,8 +3336,8 @@ export const completePostUpload = <ThrowOnError extends boolean = false>(options
  * Begin a media upload and create a draft post
  */
 export const initPostUpload = <ThrowOnError extends boolean = false>(options: Options<InitPostUploadData, ThrowOnError>) =>
-  (options.client ?? client).post<InitPostUploadResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<InitPostUploadResponses, InitPostUploadErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/posts/v1/projects/{projectId}/feeds/{feedId}/posts/upload/init",
     ...options,
     headers: {
@@ -2954,10 +3352,14 @@ export const initPostUpload = <ThrowOnError extends boolean = false>(options: Op
  * Lists all feeds for the active project with pagination.
  */
 export const listFeeds = <ThrowOnError extends boolean = false>(options: Options<ListFeedsData, ThrowOnError>) =>
-  (options.client ?? client).get<ListFeedsResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<ListFeedsResponses, ListFeedsErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/projects/{projectId}/feeds",
     ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
   });
 
 /**
@@ -2966,8 +3368,8 @@ export const listFeeds = <ThrowOnError extends boolean = false>(options: Options
  * Creates a new feed under the active project.
  */
 export const createFeed = <ThrowOnError extends boolean = false>(options: Options<CreateFeedData, ThrowOnError>) =>
-  (options.client ?? client).post<CreateFeedResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).post<CreateFeedResponses, CreateFeedErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/projects/{projectId}/feeds",
     ...options,
     headers: {
@@ -2982,10 +3384,14 @@ export const createFeed = <ThrowOnError extends boolean = false>(options: Option
  * Deletes a feed in the active project.
  */
 export const deleteFeed = <ThrowOnError extends boolean = false>(options: Options<DeleteFeedData, ThrowOnError>) =>
-  (options.client ?? client).delete<DeleteFeedResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).delete<DeleteFeedResponses, DeleteFeedErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/projects/{projectId}/feeds/{feedId}",
     ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
   });
 
 /**
@@ -2994,10 +3400,14 @@ export const deleteFeed = <ThrowOnError extends boolean = false>(options: Option
  * Retrieves a feed by ID under the active project.
  */
 export const getFeed = <ThrowOnError extends boolean = false>(options: Options<GetFeedData, ThrowOnError>) =>
-  (options.client ?? client).get<GetFeedResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).get<GetFeedResponses, GetFeedErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/projects/{projectId}/feeds/{feedId}",
     ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
   });
 
 /**
@@ -3006,8 +3416,8 @@ export const getFeed = <ThrowOnError extends boolean = false>(options: Options<G
  * Updates an existing feed in the active project.
  */
 export const updateFeed = <ThrowOnError extends boolean = false>(options: Options<UpdateFeedData, ThrowOnError>) =>
-  (options.client ?? client).put<UpdateFeedResponses, unknown, ThrowOnError>({
-    security: [{name: "Authorization", type: "apiKey"}],
+  (options.client ?? client).put<UpdateFeedResponses, UpdateFeedErrors, ThrowOnError>({
+    security: [{name: "X-API-Key", type: "apiKey"}],
     url: "/projects/{projectId}/feeds/{feedId}",
     ...options,
     headers: {
