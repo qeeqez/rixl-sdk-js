@@ -97,4 +97,4 @@ export {
 
 export {getBlogSubscriptionStatus, subscribeToBlog, unsubscribeFromBlog, type BlogSubscriptionStatus} from "./blog";
 
-export {listPasskeys, type Passkey} from "./passkey";
+export {beginPasskeyRegistration, listPasskeys, type Passkey, type PasskeyBeginRegistration} from "./passkey";

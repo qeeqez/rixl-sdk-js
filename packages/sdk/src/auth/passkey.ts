@@ -1,6 +1,11 @@
-import {getAuthV1UsersCurrentPasskeys} from "../generated/sdk.gen";
+import {getAuthV1UsersCurrentPasskeys, postAuthV1UsersCurrentPasskeysRegisterBegin} from "../generated/sdk.gen";
 import {apiCall} from "./api/utils";
 import {HTTP_STATUS} from "./constants";
+
+export interface PasskeyBeginRegistration {
+  session_id: string;
+  options: PublicKeyCredentialCreationOptions;
+}
 
 export interface Passkey {
   id: string;
@@ -12,6 +17,28 @@ export interface Passkey {
   last_used_at: string;
   transports: string[];
 }
+
+export const beginPasskeyRegistration = async (): Promise<PasskeyBeginRegistration> => {
+  return apiCall(
+    async () => {
+      const {data} = await postAuthV1UsersCurrentPasskeysRegisterBegin({
+        throwOnError: true,
+      });
+
+      if (!data.session_id || !data.options) {
+        throw new Error("Invalid response from server");
+      }
+
+      const decoded = new TextDecoder().decode(new Uint8Array(data.options));
+      const options = JSON.parse(decoded) as PublicKeyCredentialCreationOptions;
+
+      return {session_id: data.session_id, options};
+    },
+    {
+      [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Token is missing or invalid; user is not authenticated."),
+    }
+  );
+};
 
 export const listPasskeys = async (): Promise<Passkey[]> => {
   return apiCall(
