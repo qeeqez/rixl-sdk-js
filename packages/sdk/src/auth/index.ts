@@ -96,3 +96,5 @@ export {
 } from "./domain";
 
 export {getBlogSubscriptionStatus, subscribeToBlog, unsubscribeFromBlog, type BlogSubscriptionStatus} from "./blog";
+
+export {listPasskeys, type Passkey} from "./passkey";
