@@ -101,6 +101,7 @@ export {
   beginPasskeyLogin,
   beginPasskeyRegistration,
   deletePasskey,
+  finishPasskeyLogin,
   finishPasskeyRegistration,
   listPasskeys,
   renamePasskey,

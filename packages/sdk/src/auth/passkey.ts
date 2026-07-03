@@ -3,11 +3,56 @@ import {
   getAuthV1UsersCurrentPasskeys,
   patchAuthV1UsersCurrentPasskeysById,
   postAuthV1PasskeyLoginBegin,
+  postAuthV1PasskeyLoginFinish,
   postAuthV1UsersCurrentPasskeysRegisterBegin,
   postAuthV1UsersCurrentPasskeysRegisterFinish,
 } from "../generated/sdk.gen";
+import {setTokens} from "./authStore";
 import {apiCall} from "./api/utils";
 import {HTTP_STATUS} from "./constants";
+
+function base64urlToBuffer(base64url: string): ArrayBuffer {
+  const base64 = base64url.replace(/-/g, "+").replace(/_/g, "/");
+  const padded = base64.padEnd(base64.length + ((4 - (base64.length % 4)) % 4), "=");
+  const binary = atob(padded);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes.buffer;
+}
+
+function bufferToBase64url(buffer: ArrayBuffer): string {
+  const bytes = new Uint8Array(buffer);
+  let binary = "";
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+function decodeCreationOptions(raw: any): PublicKeyCredentialCreationOptions {
+  const pk = raw.publicKey ?? raw;
+  return {
+    ...pk,
+    challenge: base64urlToBuffer(pk.challenge),
+    user: {...pk.user, id: base64urlToBuffer(pk.user.id)},
+    excludeCredentials: (pk.excludeCredentials ?? []).map((c: any) => ({
+      ...c,
+      id: base64urlToBuffer(c.id),
+    })),
+  };
+}
+
+function decodeRequestOptions(raw: any): PublicKeyCredentialRequestOptions {
+  const pk = raw.publicKey ?? raw;
+  return {
+    ...pk,
+    challenge: base64urlToBuffer(pk.challenge),
+    allowCredentials: (pk.allowCredentials ?? []).map((c: any) => ({
+      ...c,
+      id: base64urlToBuffer(c.id),
+    })),
+  };
+}
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export interface PasskeyBeginLogin {
   session_id: string;
@@ -35,6 +80,56 @@ export interface Passkey {
   transports: string[];
 }
 
+function serializeLoginCredential(cred: PublicKeyCredential): object {
+  const response = cred.response as AuthenticatorAssertionResponse;
+  return {
+    id: cred.id,
+    rawId: bufferToBase64url(cred.rawId),
+    type: cred.type,
+    response: {
+      authenticatorData: bufferToBase64url(response.authenticatorData),
+      clientDataJSON: bufferToBase64url(response.clientDataJSON),
+      signature: bufferToBase64url(response.signature),
+      userHandle: response.userHandle ? bufferToBase64url(response.userHandle) : null,
+    },
+  };
+}
+
+function serializeRegistrationCredential(cred: PublicKeyCredential): object {
+  const response = cred.response as AuthenticatorAttestationResponse;
+  return {
+    id: cred.id,
+    rawId: bufferToBase64url(cred.rawId),
+    type: cred.type,
+    response: {
+      attestationObject: bufferToBase64url(response.attestationObject),
+      clientDataJSON: bufferToBase64url(response.clientDataJSON),
+    },
+  };
+}
+
+export const finishPasskeyLogin = async (session_id: string, credential: PublicKeyCredential): Promise<void> => {
+  return apiCall(
+    async () => {
+      const serialized = serializeLoginCredential(credential);
+
+      const {data} = await postAuthV1PasskeyLoginFinish({
+        // @ts-expect-error credential is json.RawMessage on server, not Array<number>
+        body: {session_id, credential: serialized},
+        throwOnError: true,
+      });
+
+      if (data.access_token && data.refresh_token && data.expires_in) {
+        setTokens(data.access_token, data.refresh_token, data.expires_in);
+      }
+    },
+    {
+      [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid passkey credential"),
+      [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Passkey authentication failed"),
+    }
+  );
+};
+
 export const beginPasskeyLogin = async (): Promise<PasskeyBeginLogin> => {
   return apiCall(async () => {
     const {data} = await postAuthV1PasskeyLoginBegin({
@@ -42,12 +137,10 @@ export const beginPasskeyLogin = async (): Promise<PasskeyBeginLogin> => {
     });
 
     if (!data.session_id || !data.options) {
-      throw new Error("Invalid response from server");
+      throw new Error("No passkeys available for this account");
     }
 
-    const decoded = new TextDecoder().decode(new Uint8Array(data.options));
-    const options = JSON.parse(decoded) as PublicKeyCredentialRequestOptions;
-
+    const options = decodeRequestOptions(data.options);
     return {session_id: data.session_id, options};
   }, {});
 };
@@ -63,9 +156,7 @@ export const beginPasskeyRegistration = async (): Promise<PasskeyBeginRegistrati
         throw new Error("Invalid response from server");
       }
 
-      const decoded = new TextDecoder().decode(new Uint8Array(data.options));
-      const options = JSON.parse(decoded) as PublicKeyCredentialCreationOptions;
-
+      const options = decodeCreationOptions(data.options);
       return {session_id: data.session_id, options};
     },
     {
@@ -77,14 +168,15 @@ export const beginPasskeyRegistration = async (): Promise<PasskeyBeginRegistrati
 export const finishPasskeyRegistration = async (
   session_id: string,
   name: string,
-  credential: Credential
+  credential: PublicKeyCredential
 ): Promise<PasskeyRegistrationResult> => {
   return apiCall(
     async () => {
-      const encoded = Array.from(new TextEncoder().encode(JSON.stringify(credential)));
+      const serialized = serializeRegistrationCredential(credential);
 
       const {data} = await postAuthV1UsersCurrentPasskeysRegisterFinish({
-        body: {session_id, name, credential: encoded},
+        // @ts-expect-error credential is json.RawMessage on server, not Array<number>
+        body: {session_id, name, credential: serialized},
         throwOnError: true,
       });
 
