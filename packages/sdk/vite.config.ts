@@ -1,9 +1,9 @@
-import { defineConfig } from "vite-plus";
-import { heyApiPlugin } from "@hey-api/vite-plugin";
+import {defineConfig} from "vite-plus";
+import {heyApiPlugin} from "@hey-api/vite-plugin";
 
 export default defineConfig({
   pack: {
-    entry: { index: "index.ts" },
+    entry: {index: "index.ts"},
     exports: true,
     dts: true,
     format: "esm",
@@ -27,7 +27,7 @@ export default defineConfig({
   plugins: [
     heyApiPlugin({
       config: {
-        input: "./swagger.yaml",
+        input: "https://raw.githubusercontent.com/rixlhq/openapi/refs/heads/main/openapi.yaml",
         output: "src/generated",
       },
     }),

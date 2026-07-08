@@ -1,10 +1,3 @@
-/** Interface for Login OTPVerificationResponse */
-export interface OTPVerificationResponse {
-  message: string;
-  session_id: string;
-  totp_required: boolean;
-}
-
 /** Interface for login verify OTP*/
 export interface LoginOTPVerifyRequest {
   code: string;
@@ -59,4 +52,13 @@ export interface LoginErrorResponse {
 export interface OAuth2ErrorResponse {
   error: "invalid_grant" | string;
   error_description: string;
+}
+
+export type TwoFactorAuthMethod = "passkey" | "totp";
+
+export interface TwoFactorResponse {
+  session_id: string;
+  email: string;
+  authentication: TwoFactorAuthMethod[];
+  passkey_options?: object;
 }

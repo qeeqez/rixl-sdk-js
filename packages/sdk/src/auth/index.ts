@@ -74,11 +74,12 @@ export {
   type VerifyStatusResponse,
   type RegistrationResponse,
   type VerificationSentResponse,
-  type OTPVerificationResponse,
   type LoginOTPVerifyRequest,
   type LoginErrorResponse,
   type LoginErrorCode,
   type OAuth2ErrorResponse,
+  type TwoFactorResponse,
+  type TwoFactorAuthMethod,
 } from "./auth";
 
 // Domain verification exports
@@ -100,11 +101,13 @@ export {getBlogSubscriptionStatus, subscribeToBlog, unsubscribeFromBlog, type Bl
 export {
   beginPasskeyLogin,
   beginPasskeyRegistration,
+  decodeRequestOptions,
   deletePasskey,
   finishPasskeyLogin,
   finishPasskeyRegistration,
   listPasskeys,
   renamePasskey,
+  verifyPasskeyForLogin,
   type Passkey,
   type PasskeyBeginLogin,
   type PasskeyBeginRegistration,

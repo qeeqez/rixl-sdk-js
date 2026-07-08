@@ -56,9 +56,9 @@ describe("Login Functions", () => {
       const result = await loginWithEmail("test@example.com", "Password123");
 
       expect(result).toEqual({
-        message: "OTP verification required",
         session_id: "session-123",
-        totp_required: true,
+        email: "test@example.com",
+        authentication: ["totp"],
       });
       expect(mocks.setTokensSpy).not.toHaveBeenCalled();
     });

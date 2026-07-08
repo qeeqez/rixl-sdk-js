@@ -6,6 +6,7 @@ import {
   postAuthV1PasskeyLoginFinish,
   postAuthV1UsersCurrentPasskeysRegisterBegin,
   postAuthV1UsersCurrentPasskeysRegisterFinish,
+  postAuthV1VerifyPasskey,
 } from "../generated/sdk.gen";
 import {setTokens} from "./authStore";
 import {apiCall} from "./api/utils";
@@ -41,7 +42,7 @@ function decodeCreationOptions(raw: any): PublicKeyCredentialCreationOptions {
   };
 }
 
-function decodeRequestOptions(raw: any): PublicKeyCredentialRequestOptions {
+export function decodeRequestOptions(raw: any): PublicKeyCredentialRequestOptions {
   const pk = raw.publicKey ?? raw;
   return {
     ...pk,
@@ -241,6 +242,29 @@ export const listPasskeys = async (): Promise<Passkey[]> => {
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Token is missing or invalid; user is not authenticated."),
+    }
+  );
+};
+
+export const verifyPasskeyForLogin = async (session_id: string, credential: PublicKeyCredential): Promise<void> => {
+  return apiCall(
+    async () => {
+      const serialized = serializeLoginCredential(credential);
+
+      const {data} = await postAuthV1VerifyPasskey({
+        // @ts-expect-error credential is json.RawMessage on server, not Array<number>
+        body: {session_id, credential: serialized},
+        throwOnError: true,
+      });
+
+      if (data.access_token && data.refresh_token && data.expires_in) {
+        setTokens(data.access_token, data.refresh_token, data.expires_in);
+      }
+    },
+    {
+      [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid passkey credential"),
+      [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Passkey verification failed"),
+      [HTTP_STATUS.NOT_FOUND]: () => new Error("Session not found"),
     }
   );
 };

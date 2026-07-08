@@ -5,10 +5,10 @@ import {validateInput} from "../validation/base";
 import {ApiError} from "../api/error-handlers";
 import {apiCall} from "../api/utils";
 import {HTTP_STATUS} from "../constants";
-import type {LoginErrorResponse, OTPVerificationResponse} from "./types";
+import type {LoginErrorResponse, TwoFactorResponse} from "./types";
 import type {Authv1LoginResponse} from "../../generated/types.gen";
 
-export const loginWithEmail = async (email: string, password: string): Promise<void | OTPVerificationResponse | LoginErrorResponse> => {
+export const loginWithEmail = async (email: string, password: string): Promise<void | TwoFactorResponse | LoginErrorResponse> => {
   return apiCall(
     async () => {
       const validatedInput = validateInput(EmailAuthRequestSchema, {email, password});
@@ -49,19 +49,32 @@ export const verifyTOTPForLogin = async (code: string, session_id: string): Prom
   );
 };
 
-function handleLoginResponse(data: Authv1LoginResponse, email: string): void | OTPVerificationResponse | LoginErrorResponse {
+function handleLoginResponse(data: Authv1LoginResponse, email: string): void | TwoFactorResponse | LoginErrorResponse {
   switch (data.status) {
     case "ok":
       if (data.access_token && data.refresh_token && data.expires_in) {
         setTokens(data.access_token, data.refresh_token, data.expires_in);
       }
       return;
+    case "2fa_required": {
+      const response = data as unknown as {
+        session_id: string;
+        authentication: string[];
+        passkey_options?: object;
+      };
+      return {
+        session_id: response.session_id,
+        email: email,
+        authentication: response.authentication as TwoFactorResponse["authentication"],
+        passkey_options: response.passkey_options,
+      };
+    }
     case "otp_required":
       return {
-        message: "OTP verification required",
         session_id: data.session_id!,
-        totp_required: true,
-      };
+        email: email,
+        authentication: ["totp"],
+      } satisfies TwoFactorResponse;
     case "email_not_verified":
       return {
         error_code: "email_not_verified",
@@ -79,7 +92,7 @@ interface ApiErrorBody {
   code?: number;
 }
 
-function handleLoginError(error: unknown, email: string): OTPVerificationResponse | LoginErrorResponse | never {
+function handleLoginError(error: unknown, email: string): TwoFactorResponse | LoginErrorResponse | never {
   if (isApiErrorBody(error)) {
     if (error.error === "email_not_verified") {
       return {
