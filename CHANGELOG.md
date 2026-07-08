@@ -1,5 +1,36 @@
 # Changelog
 
+## [0.5.0](https://github.com/rixlhq/rixl-js/compare/v0.4.1...v0.5.0) (2026-07-08)
+
+
+### Features
+
+* finish adding auth to sdk ([aa9adf2](https://github.com/rixlhq/rixl-js/commit/aa9adf286affc8f19ed3b1e736c2ba623ca9fcd3))
+* **repo:** add @rixlhq/auth-lib-react as packages/react ([15327eb](https://github.com/rixlhq/rixl-js/commit/15327eb35c21e685d9c2a9aa0318c8fcec916261))
+* **repo:** wire workspace deps, tooling, and shared SDK client with token interceptor ([6a6491f](https://github.com/rixlhq/rixl-js/commit/6a6491ffbbd8ec6997f04163b3363f797e1c44ed))
+* **sdk:** add auth runtime dependencies ([2a9ef5e](https://github.com/rixlhq/rixl-js/commit/2a9ef5e6bd6acdb464a0d08716eb42ddaa1b61b9))
+* **sdk:** add beginPasskeyLogin function ([cce04ec](https://github.com/rixlhq/rixl-js/commit/cce04ec4b6d878393a4b64849666663c8b317378))
+* **sdk:** add beginPasskeyRegistration function ([12f04d1](https://github.com/rixlhq/rixl-js/commit/12f04d1c52d9004027478b5718306a783ddcac9d))
+* **sdk:** add deletePasskey function ([a31c0a7](https://github.com/rixlhq/rixl-js/commit/a31c0a7766a0efbd19f984b97abb7d7d57c88575))
+* **sdk:** add finishPasskeyRegistration function ([a7a83de](https://github.com/rixlhq/rixl-js/commit/a7a83de6521f70f8f6eaecba3ea79b0df345320d))
+* **sdk:** add listPasskeys function for passkey management ([4590a8c](https://github.com/rixlhq/rixl-js/commit/4590a8c7ad2cd2bf78270a235989c3b5238ccbba))
+* **sdk:** add renamePasskey function ([6529643](https://github.com/rixlhq/rixl-js/commit/6529643db65b83dd8e8fd3beb0a482651dee451b))
+* **sdk:** curate public surface, hide internal billing ops ([0c40481](https://github.com/rixlhq/rixl-js/commit/0c4048195e0ddc2cc317a748615d52617e9dc754))
+* **sdk:** regenerate @rixl/sdk from RIXL API Gateway spec ([73c2059](https://github.com/rixlhq/rixl-js/commit/73c2059a682d83c93b0a2c0b6d888a811bfb66af))
+
+
+### Bug Fixes
+
+* **auth:** align auth function schemas with updated swagger spec ([97455ed](https://github.com/rixlhq/rixl-js/commit/97455edc5e6353661ea89f09ad635e975cb259a8))
+* **auth:** align SDK call schemas with swagger definitions ([f2f552d](https://github.com/rixlhq/rixl-js/commit/f2f552dd0000698000a5210e651dcc3f5ca3803a))
+* fix build error ([03991c4](https://github.com/rixlhq/rixl-js/commit/03991c4d1af8994dfe036d6e58c35cef037b0fc7))
+* passkey ([f157803](https://github.com/rixlhq/rixl-js/commit/f1578038700e46cf15f1f6a00571036b66994946))
+* regenerated sdk ([10de668](https://github.com/rixlhq/rixl-js/commit/10de6681db9db3a004935272975c3c99e9e0b2cf))
+* **sdk:** add type modifiers to auth imports for rolldown compatibility ([d99a39a](https://github.com/rixlhq/rixl-js/commit/d99a39a9316c9da80d4aac5d39a61d56de874eb7))
+* update release-please ([dc058cd](https://github.com/rixlhq/rixl-js/commit/dc058cde3df3db7d7cd304315049904f2b5b7758))
+* update release-please ([a44b130](https://github.com/rixlhq/rixl-js/commit/a44b1300196083780da4ee3b2fed1ec1c474cfce))
+* use the right input for sdk gen ([d27c77f](https://github.com/rixlhq/rixl-js/commit/d27c77f29de2a264ddfdee8db49013efac8919be))
+
 ## [0.4.1](https://github.com/rixlhq/rixl-js/compare/sdk-v0.5.0...sdk-v0.4.1) (2026-07-08)
 
 
