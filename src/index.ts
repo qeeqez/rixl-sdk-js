@@ -1,10 +1,10 @@
-export {createClient} from "./src/generated/client";
-export {client} from "./src/generated/client.gen";
-export * from "./src/generated/types.gen";
-export * from "./src/generated/sdk.gen";
+export {createClient} from "./generated/client";
+export {client} from "./generated/client.gen";
+export * from "./generated/types.gen";
+export * from "./generated/sdk.gen";
 
 // Unified entry point
-export {connect, type ConnectConfig, type AuthConfig} from "./src/connect";
+export {connect, type ConnectConfig, type AuthConfig} from "./connect";
 
 // Auth surface — state machine, stores, and domain functions
 export {
@@ -107,4 +107,4 @@ export {
   type TokenResponse,
   type LimitedScopeTokenResponse,
   type RequiresAction,
-} from "./src/auth";
+} from "./auth";

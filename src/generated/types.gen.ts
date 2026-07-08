@@ -406,12 +406,6 @@ export type Authv1ResendVerificationResponse = {
     verification_id?: string;
 };
 
-export type Authv1SendBlogBroadcastResponse = {
-    broadcast_id?: string;
-    scheduled_at?: string;
-    sent_at?: string;
-};
-
 export type Authv1SetupOtpResponse = {
     qr_code_url?: string;
     secret?: string;
@@ -932,16 +926,6 @@ export type GatewayResendInviteBody = {
 export type GatewayResetPasswordBody = {
     new_password: string;
     token: string;
-};
-
-export type GatewaySendBlogBroadcastBody = {
-    category?: string;
-    commit_sha?: string;
-    description: string;
-    published_at?: string;
-    read_more_url: string;
-    slug?: string;
-    title: string;
 };
 
 export type GatewayTaxLineItemBody = {
@@ -1700,31 +1684,6 @@ export type GetAnalyticsV1VideosByVideoIdStatsResponses = {
 };
 
 export type GetAnalyticsV1VideosByVideoIdStatsResponse = GetAnalyticsV1VideosByVideoIdStatsResponses[keyof GetAnalyticsV1VideosByVideoIdStatsResponses];
-
-export type SendBlogBroadcastData = {
-    /**
-     * Broadcast payload
-     */
-    body: GatewaySendBlogBroadcastBody;
-    headers: {
-        /**
-         * Internal service key
-         */
-        'X-Api-Key': string;
-    };
-    path?: never;
-    query?: never;
-    url: '/auth/v1/blog/broadcast';
-};
-
-export type SendBlogBroadcastResponses = {
-    /**
-     * OK
-     */
-    200: Authv1SendBlogBroadcastResponse;
-};
-
-export type SendBlogBroadcastResponse = SendBlogBroadcastResponses[keyof SendBlogBroadcastResponses];
 
 export type PostAuthV1BlogSubscribeData = {
     body?: never;

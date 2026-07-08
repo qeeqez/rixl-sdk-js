@@ -2,7 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "@rixl/sdk": ["../index.ts"]
+      "@rixl/sdk": ["../src/index.ts"]
     },
     "types": ["node"]
   },

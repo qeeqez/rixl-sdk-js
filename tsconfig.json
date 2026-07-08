@@ -23,6 +23,6 @@
       "@/*": ["./src/auth/*"]
     }
   },
-  "include": ["index.ts", "src"],
+  "include": ["src"],
   "exclude": ["examples", "src/__tests__"]
 }
