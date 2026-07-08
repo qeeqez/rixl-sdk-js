@@ -1,7 +1,7 @@
 {
   "name": "@rixl/sdk",
-  "version": "0.4.1",
-  "description": "Official TypeScript/JavaScript SDK for the Rixl REST API — typed client for managing images, videos, and feeds.",
+  "version": "0.5.0",
+  "description": "Official TypeScript/JavaScript SDK for the Rixl platform — typed API client, authentication, and reactive state.",
   "keywords": [
     "media",
     "rixl",
@@ -30,24 +30,38 @@
     "./package.json": "./package.json"
   },
   "scripts": {
+    "dev": "vp pack --watch",
+    "build": "vp pack",
+    "generate": "RIXL_GENERATE=true vp pack",
+    "check": "vp check",
+    "lint": "vp lint",
+    "fmt": "vp fmt",
+    "test": "vp test",
+    "test:ui": "vp test --ui",
+    "test:coverage": "vp test --coverage",
+    "typecheck": "tsc --noEmit",
     "examples:check": "tsc --noEmit -p examples/tsconfig.json",
-    "pack": "vp pack && vp fmt ./src",
-    "prepare": "vp config && vp fmt ./src",
-    "ci:release": "vp pack && npm publish --access public"
+    "prepare": "vp config",
+    "ci:release": "vp check && vp pack && npm publish --access public"
+  },
+  "dependencies": {
+    "jose": "^6.2.3",
+    "ky": "^2.0.2",
+    "nanostores": "^1.3.0",
+    "valibot": "^1.4.1"
   },
   "devDependencies": {
     "@hey-api/vite-plugin": "0.3.1",
-    "@types/node": "^25.9.1",
+    "@types/node": "^26.0.0",
+    "@vitest/coverage-v8": "4.1.10",
+    "@vitest/ui": "4.1.10",
+    "jsdom": "^29.1.1",
     "typescript": "^6.0.3",
     "vite": "npm:@voidzero-dev/vite-plus-core@latest",
-    "vite-plus": "0.1.24"
-  },
-  "overrides": {
-    "vite": "npm:@voidzero-dev/vite-plus-core@latest",
-    "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
+    "vite-plus": "^0.2.4"
   },
   "engines": {
     "node": ">=22"
   },
-  "packageManager": "bun@1.3.13"
+  "packageManager": "bun@1.3.14"
 }
