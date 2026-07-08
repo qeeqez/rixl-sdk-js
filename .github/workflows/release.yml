@@ -13,20 +13,19 @@ permissions:
 jobs:
   build-release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      id-token: write
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: googleapis/release-please-action@v5
+        id: release
+        with:
+          release-type: node
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v7
-
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Set up vite-plus
-        uses: voidzero-dev/setup-vp@v1
+      - uses: actions/checkout@v7
+      - uses: voidzero-dev/setup-vp@v1
         with:
           cache: "true"
           run-install: "false"
