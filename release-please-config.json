@@ -2,16 +2,8 @@
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "release-type": "node",
   "packages": {
-    "packages/sdk": {
-      "package-name": "@rixl/sdk",
-      "component": "sdk"
+    ".": {
+      "package-name": "@rixl/sdk"
     }
-  },
-  "plugins": [
-    {
-      "type": "node-workspace",
-      "merge": false,
-      "updateAllPackages": true
-    }
-  ]
+  }
 }

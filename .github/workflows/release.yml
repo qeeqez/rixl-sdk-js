@@ -18,26 +18,19 @@ jobs:
       tag_name: ${{ steps.release.outputs.tag_name }}
     steps:
       - uses: actions/checkout@v7
-      - uses: googleapis/release-please-action@v5
-        id: release
-        with:
-          release-type: node
-
-    steps:
-      - uses: actions/checkout@v7
       - uses: voidzero-dev/setup-vp@v1
         with:
           cache: "true"
           run-install: "false"
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: vp install
 
       - name: Build SDK
-        run: cd packages/sdk && bun run pack
+        run: vp pack
 
       - name: Run tests with coverage
-        run: bun run test:coverage --run
+        run: vp test --coverage --run
 
       - name: Report coverage to PR
         if: github.event_name == 'pull_request'
@@ -45,7 +38,7 @@ jobs:
         with:
           json-summary-path: ./coverage/coverage-summary.json
           json-final-path: ./coverage/coverage-final.json
-          vite-config-path: ./vitest.config.ts
+          vite-config-path: ./vite.config.ts
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Release Please
@@ -58,7 +51,7 @@ jobs:
           manifest-file: .release-please-manifest.json
 
       - name: Publish SDK to npm
-        if: ${{ steps.release.outputs['packages/sdk--release_created'] == 'true' }}
-        run: cd packages/sdk && vp pack && npm publish --access public
+        if: ${{ steps.release.outputs['.--release_created'] == 'true' }}
+        run: vp pack && npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
