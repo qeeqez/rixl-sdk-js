@@ -1,4 +1,5 @@
 import {client} from "./generated/client.gen";
+import {initClient} from "./auth/init";
 import type {GoogleProviderConfig, AppleProviderConfig, MicrosoftProviderConfig, TelegramProviderConfig} from "./auth/providers";
 
 export interface AuthConfig {
@@ -26,7 +27,6 @@ export const connect = async (config: ConnectConfig): Promise<string | undefined
   }
 
   if (config.auth) {
-    const {initClient} = await import("./auth/init");
     return initClient({
       apiUrl: config.baseUrl,
       loginRedirectUrl: config.auth.loginRedirectUrl,

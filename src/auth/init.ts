@@ -71,7 +71,6 @@ const initConfig = async (config: AuthClientConfig) => {
   setTokenRefreshFunction(async () => {
     const currentRefreshToken = refreshToken.get();
     if (currentRefreshToken) {
-      const {AuthProvider} = await import("./providers");
       const result = await refreshTokens(AuthProvider.BEARER, currentRefreshToken);
       // Store new tokens if full response (not limited scope)
       if (result && !("requires_action" in result)) {
