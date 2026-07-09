@@ -154,14 +154,14 @@ describe("Integration Scenario - Dashboard Usage", () => {
     }
   });
 
-  it("documents the migration from ky to @rixl/sdk", () => {
+  it("documents the migration from ky to @rixlhq/sdk", () => {
     /**
      * BEFORE (ky-based):
      *   initClient({ apiUrl: "http://localhost:8081" })
      *   publicFetch("auth/login", { method: "POST", body: {...} })
      *   → http://localhost:8081/auth/login
      *
-     * AFTER (@rixl/sdk-based):
+     * AFTER (@rixlhq/sdk-based):
      *   initClient({ apiUrl: "http://localhost:8081" })
      *   postAuthV1Login({ body: {...}, throwOnError: true })
      *   → http://localhost:8081/auth/v1/login

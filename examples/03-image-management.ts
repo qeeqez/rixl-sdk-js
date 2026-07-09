@@ -1,4 +1,4 @@
-import {createClient, deleteImagesByImageId, getImages, getImagesByImageId} from "@rixl/sdk";
+import {createClient, deleteImagesByImageId, getImages, getImagesByImageId} from "@rixlhq/sdk";
 
 import {assertDestructiveEnabled, optionalEnv, requiredEnv} from "./shared";
 

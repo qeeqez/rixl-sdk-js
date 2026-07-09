@@ -5,7 +5,7 @@ import {
   deleteVideosByVideoIdAudioTracksLanguageByLangCode,
   postVideosByVideoIdAudioTracks,
   putVideosByVideoIdAudioTracksLanguageByLangCode,
-} from "@rixl/sdk";
+} from "@rixlhq/sdk";
 
 import {assertDestructiveEnabled, fileFromPath, optionalEnv, requiredEnv} from "./shared";
 

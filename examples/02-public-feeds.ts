@@ -1,4 +1,4 @@
-import {createClient, getFeedsByFeedId, getFeedsByFeedIdByPostId, getFeedsByFeedIdCreatorsByCreatorId} from "@rixl/sdk";
+import {createClient, getFeedsByFeedId, getFeedsByFeedIdByPostId, getFeedsByFeedIdCreatorsByCreatorId} from "@rixlhq/sdk";
 
 import {optionalEnv, requiredEnv} from "./shared";
 

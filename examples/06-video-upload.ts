@@ -1,8 +1,8 @@
 import {readFile} from "node:fs/promises";
 import {basename, extname} from "node:path";
 
-import type {GithubComRixlhqApiDbSqlcVideoQuality} from "@rixl/sdk";
-import {createClient, postVideosUploadComplete, postVideosUploadInit} from "@rixl/sdk";
+import type {GithubComRixlhqApiDbSqlcVideoQuality} from "@rixlhq/sdk";
+import {createClient, postVideosUploadComplete, postVideosUploadInit} from "@rixlhq/sdk";
 
 import {optionalEnv, requiredEnv} from "./shared";
 

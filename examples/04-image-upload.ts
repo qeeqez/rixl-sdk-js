@@ -1,7 +1,7 @@
 import {readFile} from "node:fs/promises";
 import {basename, extname} from "node:path";
 
-import {createClient, postImagesUploadComplete, postImagesUploadInit} from "@rixl/sdk";
+import {createClient, postImagesUploadComplete, postImagesUploadInit} from "@rixlhq/sdk";
 
 import {optionalEnv, requiredEnv} from "./shared";
 

@@ -1,26 +1,26 @@
-# @rixl/sdk
+# @rixlhq/sdk
 
 Official TypeScript / JavaScript SDK for the [Rixl](https://rixl.com) REST API.
 
-Published on npm as [`@rixl/sdk`](https://www.npmjs.com/package/@rixl/sdk).
+Published on npm as [`@rixlhq/sdk`](https://www.npmjs.com/package/@rixlhq/sdk).
 
-[![npm](https://img.shields.io/npm/v/@rixl/sdk.svg)](https://www.npmjs.com/package/@rixl/sdk)
+[![npm](https://img.shields.io/npm/v/@rixlhq/sdk.svg)](https://www.npmjs.com/package/@rixlhq/sdk)
 
 ## Install
 
-| **Tool**  | **Command**        |
-| --------- | ------------------ |
-| npm       | `npm i @rixl/sdk`  |
-| pnpm      | `pnpm i @rixl/sdk` |
-| bun       | `bun i @rixl/sdk`  |
-| vite plus | `vp i @rixl/sdk`   |
+| **Tool**  | **Command**          |
+| --------- | -------------------- |
+| npm       | `npm i @rixlhq/sdk`  |
+| pnpm      | `pnpm i @rixlhq/sdk` |
+| bun       | `bun i @rixlhq/sdk`  |
+| vite plus | `vp i @rixlhq/sdk`   |
 
 Requires Node.js 18+. ESM only.
 
 ## Quick Start
 
 ```ts
-import {createClient, getImages} from "@rixl/sdk";
+import {createClient, getImages} from "@rixlhq/sdk";
 
 const client = createClient({
   baseUrl: "https://api.rixl.com",
@@ -43,7 +43,7 @@ console.log(page.data?.map((image) => image.id));
 Fetch a feed and read posts:
 
 ```ts
-import {createClient, getFeedsByFeedId} from "@rixl/sdk";
+import {createClient, getFeedsByFeedId} from "@rixlhq/sdk";
 
 const client = createClient({
   baseUrl: "https://api.rixl.com",
@@ -67,7 +67,7 @@ for (const post of feed.data ?? []) {
 List images and fetch one by ID:
 
 ```ts
-import {createClient, getImages, getImagesByImageId} from "@rixl/sdk";
+import {createClient, getImages, getImagesByImageId} from "@rixlhq/sdk";
 
 const client = createClient({
   baseUrl: "https://api.rixl.com",
@@ -91,7 +91,7 @@ console.log(page.data?.length, image.id, image.width, image.height);
 Initialize an upload, PUT the bytes to storage, then complete the upload:
 
 ```ts
-import {createClient, postImagesUploadComplete, postImagesUploadInit} from "@rixl/sdk";
+import {createClient, postImagesUploadComplete, postImagesUploadInit} from "@rixlhq/sdk";
 
 const client = createClient({
   baseUrl: "https://api.rixl.com",
@@ -129,7 +129,7 @@ console.log(image.id);
 List videos and fetch one by ID:
 
 ```ts
-import {createClient, getVideos, getVideosByVideoId} from "@rixl/sdk";
+import {createClient, getVideos, getVideosByVideoId} from "@rixlhq/sdk";
 
 const client = createClient({
   baseUrl: "https://api.rixl.com",
@@ -153,7 +153,7 @@ console.log(page.data?.length, video.id, video.duration);
 Video uploads follow the same pattern, but `init` returns both video and poster upload URLs:
 
 ```ts
-import {createClient, postVideosUploadComplete, postVideosUploadInit} from "@rixl/sdk";
+import {createClient, postVideosUploadComplete, postVideosUploadInit} from "@rixlhq/sdk";
 
 const client = createClient({
   baseUrl: "https://api.rixl.com",
