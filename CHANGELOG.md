@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/rixlhq/rixl-js/compare/v0.6.0...v0.6.1) (2026-07-09)
+
+
+### Bug Fixes
+
+* publish @rixl/sdk to npm via CI with trusted publishing ([99b790c](https://github.com/rixlhq/rixl-js/commit/99b790cf85a2c3af7456a551fe3857f5a66d231a))
+
 ## [0.6.0](https://github.com/rixlhq/rixl-js/compare/v0.5.0...v0.6.0) (2026-07-09)
 
 ### Features
