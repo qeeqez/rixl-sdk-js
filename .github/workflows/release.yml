@@ -14,6 +14,7 @@ jobs:
   build-release:
     runs-on: ubuntu-latest
     permissions:
+      id-token: write # Required for NPMJS OIDC
       contents: write
       pull-requests: write
       packages: write
@@ -51,8 +52,18 @@ jobs:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
 
-      - name: Publish SDK to GitHub Packages
+      # Bun can't publish with NPM OIDC (Trusted Publishing) yet, so we pack with
+      # vp and publish with npm.
+      - name: Setup Node for npm publish
         if: ${{ steps.release.outputs.releases_created == 'true' }}
-        run: vp pack && bun publish
+        uses: actions/setup-node@v6
+        with:
+          node-version: 25
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Publish to npm
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
+        run: vp pack && npm publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,6 +1,6 @@
 # Rixl SDK examples
 
-Runnable TypeScript examples for `@rixlhq/sdk`.
+Runnable TypeScript examples for `@rixl/sdk`.
 
 Each example is a small, self-contained script. The client is constructed inline and the Hey API `{ data, error, response }` result tuple is handled inline — copy any example into your own project and it will work with minimal edits.
 

@@ -1,4 +1,4 @@
-import {createClient, deleteVideosByVideoIdDelete, getVideos, getVideosByVideoId, putVideosByVideoIdThumbnail} from "@rixlhq/sdk";
+import {createClient, deleteVideosByVideoIdDelete, getVideos, getVideosByVideoId, putVideosByVideoIdThumbnail} from "@rixl/sdk";
 
 import {assertDestructiveEnabled, fileFromPath, optionalEnv, requiredEnv} from "./shared";
 

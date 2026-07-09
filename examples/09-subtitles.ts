@@ -6,7 +6,7 @@ import {
   getVideosLanguages,
   postVideosByVideoIdSubtitles,
   putVideosByVideoIdSubtitlesLanguageByLangCode,
-} from "@rixlhq/sdk";
+} from "@rixl/sdk";
 
 import {assertDestructiveEnabled, fileFromPath, optionalEnv, requiredEnv} from "./shared";
 

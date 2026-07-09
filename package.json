@@ -1,5 +1,5 @@
 {
-  "name": "@rixlhq/sdk",
+  "name": "@rixl/sdk",
   "version": "0.6.0",
   "description": "Official TypeScript/JavaScript SDK for the Rixl platform — typed API client, authentication, and reactive state.",
   "keywords": [
@@ -30,7 +30,7 @@
     "./package.json": "./package.json"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
   },
   "scripts": {
     "dev": "vp pack --watch",
@@ -45,7 +45,7 @@
     "typecheck": "tsc --noEmit",
     "examples:check": "tsc --noEmit -p examples/tsconfig.json",
     "prepare": "vp config",
-    "ci:release": "vp check && vp pack && bun publish"
+    "ci:release": "vp check && vp pack && npm publish"
   },
   "dependencies": {
     "jose": "^6.2.3",

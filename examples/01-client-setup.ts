@@ -1,4 +1,4 @@
-import {createClient, getImages} from "@rixlhq/sdk";
+import {createClient, getImages} from "@rixl/sdk";
 
 import {optionalEnv, requiredEnv} from "./shared";
 
