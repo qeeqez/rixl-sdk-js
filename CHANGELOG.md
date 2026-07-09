@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/rixlhq/rixl-js/compare/v0.5.0...v0.6.0) (2026-07-09)
+
+
+### Features
+
+* change publish to github scope ([9eb821e](https://github.com/rixlhq/rixl-js/commit/9eb821ef6728de1dd61b88ece5858657098fc38d))
+
 ## [0.5.0](https://github.com/rixlhq/rixl-js/compare/v0.4.1...v0.5.0) (2026-07-08)
 
 ### Features
