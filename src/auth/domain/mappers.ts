@@ -1,54 +1,27 @@
+import type {AuthV1DomainResponse, AuthV1AutoJoinSetting} from "../../generated/types.gen";
 import {DomainStatus, type DomainResponse, type AutoJoinSetting} from "./types";
 
-// The gateway serializes responses in snake_case, while the generated types
-// model them in camelCase. DomainStatus is a nested oneOf (pending | verified)
-// plus a shared auto_join flag; flatten it into the library's DomainResponse.
-interface WirePendingDomain {
-  verification_token?: string;
-  expires_at?: string;
-}
-
-interface WireVerifiedDomain {
-  verified_at?: string;
-}
-
-interface WireDomainStatus {
-  auto_join?: boolean;
-  pending?: WirePendingDomain;
-  verified?: WireVerifiedDomain;
-}
-
-interface WireDomainResponse {
-  present?: boolean;
-  id?: string;
-  domain?: string;
-  status?: WireDomainStatus;
-}
-
-interface WireAutoJoinSetting {
-  present?: boolean;
-  enabled?: boolean;
-}
-
-export function toDomainResponse(data: unknown): DomainResponse {
-  const wire = (data ?? {}) as WireDomainResponse;
-  const status = wire.status ?? {};
+// DomainStatus is a nested oneOf (pending | verified) plus a shared auto_join
+// flag; flatten it into the library's DomainResponse.
+export function toDomainResponse(data: AuthV1DomainResponse): DomainResponse {
+  const status = data.status;
+  const verified = status && "verified" in status ? status.verified : undefined;
+  const pending = status && "pending" in status ? status.pending : undefined;
   return {
-    present: wire.present,
-    id: wire.id ?? "",
-    domain: wire.domain ?? "",
-    status: status.verified ? DomainStatus.VERIFIED : DomainStatus.PENDING,
-    verification_token: status.pending?.verification_token,
-    expires_at: status.pending?.expires_at,
-    verified_at: status.verified?.verified_at,
-    auto_join: status.auto_join,
+    present: data.present,
+    id: data.id ?? "",
+    domain: data.domain ?? "",
+    status: verified ? DomainStatus.VERIFIED : DomainStatus.PENDING,
+    verification_token: pending?.verification_token,
+    expires_at: pending?.expires_at,
+    verified_at: verified?.verified_at,
+    auto_join: status?.auto_join,
   };
 }
 
-export function toAutoJoinSetting(data: unknown): AutoJoinSetting {
-  const wire = (data ?? {}) as WireAutoJoinSetting;
+export function toAutoJoinSetting(data: AuthV1AutoJoinSetting): AutoJoinSetting {
   return {
-    enabled: wire.enabled ?? false,
-    present: wire.present,
+    enabled: data.enabled ?? false,
+    present: data.present,
   };
 }
