@@ -1,6 +1,7 @@
 import {
   authV1UserServiceUpdateName,
   authV1UserServiceUpdateUsername,
+  authV1UserServiceGetUserInfo,
   authV1OtpServiceGetOtpStatus,
   authV1OtpServiceSetupOtp,
   authV1OtpServiceVerifyOtp,
@@ -29,6 +30,62 @@ export interface OTPVerification {
   refresh_token?: string;
   expires_in?: number;
 }
+
+export interface UserInfo {
+  id: string;
+  username: string;
+  email: string;
+  email_verified: boolean;
+  first_name: string;
+  last_name: string;
+  image_url: string;
+  language_code: string;
+  country_code: string;
+  active_org_id: string;
+}
+
+// The gateway serializes responses in snake_case, but the generated types model
+// them in camelCase. Read the wire shape directly for the fields we consume.
+interface WireUserInfo {
+  id?: string;
+  username?: string;
+  email?: string;
+  email_verified?: boolean;
+  first_name?: string;
+  last_name?: string;
+  image_url?: string;
+  language_code?: string;
+  country_code?: string;
+  active_org_id?: string;
+}
+
+export const getUserInfo = async (userId?: string): Promise<UserInfo> => {
+  return apiCall(
+    async () => {
+      const {data} = await authV1UserServiceGetUserInfo({
+        query: userId ? {userId} : undefined,
+        throwOnError: true,
+      });
+
+      const wire = data as WireUserInfo;
+      return {
+        id: wire.id ?? "",
+        username: wire.username ?? "",
+        email: wire.email ?? "",
+        email_verified: wire.email_verified ?? false,
+        first_name: wire.first_name ?? "",
+        last_name: wire.last_name ?? "",
+        image_url: wire.image_url ?? "",
+        language_code: wire.language_code ?? "",
+        country_code: wire.country_code ?? "",
+        active_org_id: wire.active_org_id ?? "",
+      };
+    },
+    {
+      [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Token is missing or invalid; user is not authenticated."),
+    }
+  );
+};
 
 export const updateFullName = async (fullName: string): Promise<void> => {
   return apiCall(

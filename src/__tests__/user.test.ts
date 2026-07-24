@@ -1,9 +1,10 @@
 import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
-import {updateFullName, updateUsername, getOTPStatus, setupUserOTP, verifyUserOTP, deleteUserOTP} from "../auth/user";
+import {updateFullName, updateUsername, getUserInfo, getOTPStatus, setupUserOTP, verifyUserOTP, deleteUserOTP} from "../auth/user";
 import {setupAuthTest, cleanupAuthMocks} from "./utils/auth-test-helpers";
 
 const mockPatchAuthV1UsersCurrentName = vi.fn();
 const mockPatchAuthV1UsersCurrentUsername = vi.fn();
+const mockGetAuthV1Userinfo = vi.fn();
 const mockGetAuthV1UsersCurrentTotpStatus = vi.fn();
 const mockPostAuthV1UsersCurrentTotpSetup = vi.fn();
 const mockPostAuthV1UsersCurrentTotpVerify = vi.fn();
@@ -12,6 +13,7 @@ const mockDeleteAuthV1UsersCurrentTotpDelete = vi.fn();
 vi.mock("../generated/sdk.gen", () => ({
   authV1UserServiceUpdateName: (...args: unknown[]) => mockPatchAuthV1UsersCurrentName(...args),
   authV1UserServiceUpdateUsername: (...args: unknown[]) => mockPatchAuthV1UsersCurrentUsername(...args),
+  authV1UserServiceGetUserInfo: (...args: unknown[]) => mockGetAuthV1Userinfo(...args),
   authV1OtpServiceGetOtpStatus: (...args: unknown[]) => mockGetAuthV1UsersCurrentTotpStatus(...args),
   authV1OtpServiceSetupOtp: (...args: unknown[]) => mockPostAuthV1UsersCurrentTotpSetup(...args),
   authV1OtpServiceVerifyOtp: (...args: unknown[]) => mockPostAuthV1UsersCurrentTotpVerify(...args),
@@ -25,6 +27,7 @@ describe("User Management", () => {
     mocks = setupAuthTest();
     mockPatchAuthV1UsersCurrentName.mockReset();
     mockPatchAuthV1UsersCurrentUsername.mockReset();
+    mockGetAuthV1Userinfo.mockReset();
     mockGetAuthV1UsersCurrentTotpStatus.mockReset();
     mockPostAuthV1UsersCurrentTotpSetup.mockReset();
     mockPostAuthV1UsersCurrentTotpVerify.mockReset();
@@ -108,6 +111,81 @@ describe("User Management", () => {
       });
 
       await expect(updateUsername("taken_user")).rejects.toThrow();
+    });
+  });
+
+  describe("getUserInfo", () => {
+    it("should map the snake_case wire response to UserInfo", async () => {
+      mockGetAuthV1Userinfo.mockResolvedValue({
+        data: {
+          id: "user-123",
+          username: "janedoe",
+          email: "jane@example.com",
+          email_verified: true,
+          first_name: "Jane",
+          last_name: "Doe",
+          image_url: "https://example.com/jane.jpg",
+          language_code: "en",
+          country_code: "NG",
+          active_org_id: "org-789",
+        },
+      });
+
+      const result = await getUserInfo();
+
+      expect(mockGetAuthV1Userinfo).toHaveBeenCalledWith({
+        query: undefined,
+        throwOnError: true,
+      });
+      expect(result).toEqual({
+        id: "user-123",
+        username: "janedoe",
+        email: "jane@example.com",
+        email_verified: true,
+        first_name: "Jane",
+        last_name: "Doe",
+        image_url: "https://example.com/jane.jpg",
+        language_code: "en",
+        country_code: "NG",
+        active_org_id: "org-789",
+      });
+    });
+
+    it("should pass userId as a query param when provided", async () => {
+      mockGetAuthV1Userinfo.mockResolvedValue({data: {id: "user-456"}});
+
+      const result = await getUserInfo("user-456");
+
+      expect(mockGetAuthV1Userinfo).toHaveBeenCalledWith({
+        query: {userId: "user-456"},
+        throwOnError: true,
+      });
+      expect(result.id).toBe("user-456");
+    });
+
+    it("should default missing fields to empty values", async () => {
+      mockGetAuthV1Userinfo.mockResolvedValue({data: {id: "user-789"}});
+
+      const result = await getUserInfo();
+
+      expect(result).toEqual({
+        id: "user-789",
+        username: "",
+        email: "",
+        email_verified: false,
+        first_name: "",
+        last_name: "",
+        image_url: "",
+        language_code: "",
+        country_code: "",
+        active_org_id: "",
+      });
+    });
+
+    it("should throw on unauthorized", async () => {
+      mockGetAuthV1Userinfo.mockRejectedValue({error: "unauthorized", code: 401});
+
+      await expect(getUserInfo()).rejects.toThrow();
     });
   });
 

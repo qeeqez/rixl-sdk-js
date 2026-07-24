@@ -49,12 +49,14 @@ export {
 export {
   updateFullName,
   updateUsername,
+  getUserInfo,
   verifyUserOTP,
   setupUserOTP,
   deleteUserOTP,
   getOTPStatus,
   type OTPSetup,
   type OTPStatusResponse,
+  type UserInfo,
 } from "./user";
 export {updateOrgName, updateOrgUsername} from "./organization";
 
