@@ -21,7 +21,7 @@ export const updateActiveMembership = async (orgId: string): Promise<void> => {
   return apiCall(
     async () => {
       await authV1MembershipServiceUpdateActiveMembership({
-        body: {user: {orgId}},
+        body: {user: {org_id: orgId}},
         throwOnError: true,
       });
       accessToken.set(undefined);

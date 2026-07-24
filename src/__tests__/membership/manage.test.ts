@@ -38,7 +38,7 @@ describe("Membership Manage Module", () => {
       await updateActiveMembership("org123");
 
       expect(mockAuthV1MembershipServiceUpdateActiveMembership).toHaveBeenCalledWith({
-        body: {user: {orgId: "org123"}},
+        body: {user: {org_id: "org123"}},
         throwOnError: true,
       });
     });
@@ -49,7 +49,7 @@ describe("Membership Manage Module", () => {
       await updateActiveMembership("org456");
 
       expect(mockAuthV1MembershipServiceUpdateActiveMembership).toHaveBeenCalledWith({
-        body: {user: {orgId: "org456"}},
+        body: {user: {org_id: "org456"}},
         throwOnError: true,
       });
     });

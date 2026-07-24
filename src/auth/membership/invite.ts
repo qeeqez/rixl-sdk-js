@@ -46,7 +46,7 @@ export const resendMemberInvite = async (orgId: string, userId: string): Promise
       validateInput(ResendInviteSchema, {user_id: userId});
       await authV1MembershipServiceResendInvitation({
         path: {"user.org_id": orgId},
-        body: {userId},
+        body: {user_id: userId},
         throwOnError: true,
       });
     },

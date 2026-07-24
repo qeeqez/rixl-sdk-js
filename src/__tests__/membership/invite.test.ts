@@ -94,7 +94,7 @@ describe("Membership Invite Module", () => {
 
       expect(mockResendInvitation).toHaveBeenCalledWith({
         path: {"user.org_id": "org123"},
-        body: {userId: "user456"},
+        body: {user_id: "user456"},
         throwOnError: true,
       });
     });
