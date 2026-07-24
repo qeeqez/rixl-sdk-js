@@ -39,7 +39,7 @@ describe("verifyPasskeyForLogin", () => {
     await verifyPasskeyForLogin("session-1", fakeAssertionCredential());
 
     const body = mockVerifyPasskey.mock.calls[0][0].body;
-    expect(body.sessionId).toBe("session-1");
+    expect(body.session_id).toBe("session-1");
     expect(typeof body.credential).toBe("string");
 
     const decoded = JSON.parse(atob(body.credential));

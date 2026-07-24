@@ -88,17 +88,6 @@ export interface Passkey {
   transports: string[];
 }
 
-interface WirePasskey {
-  id?: string;
-  name?: string;
-  credential_id?: string;
-  aaguid?: string;
-  backup_state?: boolean;
-  created_at?: string;
-  last_used_at?: string;
-  transports?: string[];
-}
-
 // The server's `credential` field is `bytes` (spec `format: byte`), so the
 // WebAuthn credential JSON must be sent as a base64-encoded string, not an object.
 function encodeCredential(credential: object): string {
@@ -139,7 +128,7 @@ export const finishPasskeyLogin = async (session_id: string, credential: PublicK
       const serialized = serializeLoginCredential(credential);
 
       const {data} = await authV1PasskeyServicePasskeyLoginFinish({
-        body: {sessionId: session_id, credential: serialized},
+        body: {session_id, credential: serialized},
         throwOnError: true,
       });
 
@@ -201,14 +190,13 @@ export const finishPasskeyRegistration = async (
       const serialized = serializeRegistrationCredential(credential);
 
       const {data} = await authV1PasskeyServicePasskeyRegisterFinish({
-        body: {sessionId: session_id, name, credential: serialized},
+        body: {session_id, name, credential: serialized},
         throwOnError: true,
       });
 
-      const wire = data as {passkey_id?: string; name?: string};
       return {
-        passkey_id: wire.passkey_id ?? "",
-        name: wire.name ?? "",
+        passkey_id: data.passkey_id ?? "",
+        name: data.name ?? "",
       };
     },
     {
@@ -254,10 +242,7 @@ export const listPasskeys = async (): Promise<Passkey[]> => {
         throwOnError: true,
       });
 
-      // The gateway serializes passkeys in snake_case, while the generated types
-      // model them in camelCase. Read the wire shape directly.
-      const wirePasskeys = (data.passkeys ?? []) as WirePasskey[];
-      return wirePasskeys.map((p) => ({
+      return (data.passkeys ?? []).map((p) => ({
         id: p.id ?? "",
         name: p.name ?? "",
         credential_id: p.credential_id ?? "",
@@ -280,7 +265,7 @@ export const verifyPasskeyForLogin = async (session_id: string, credential: Publ
       const serialized = serializeLoginCredential(credential);
 
       const {data} = await authV1PasskeyServiceVerifyPasskeyForLogin({
-        body: {sessionId: session_id, credential: serialized},
+        body: {session_id, credential: serialized},
         throwOnError: true,
       });
 
