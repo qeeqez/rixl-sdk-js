@@ -27,7 +27,7 @@ describe("Registration Functions", () => {
     it("should register user successfully", async () => {
       mockPostAuthV1Register.mockResolvedValue({
         data: {
-          verificationId: "verify-123",
+          verification_id: "verify-123",
           message: "Registration successful",
         },
       });
@@ -39,7 +39,7 @@ describe("Registration Functions", () => {
         throwOnError: true,
       });
       expect(result).toEqual({
-        verificationId: "verify-123",
+        verification_id: "verify-123",
         message: "Registration successful",
       });
     });
@@ -47,7 +47,7 @@ describe("Registration Functions", () => {
     it("includes subscribeToBlog: true when opted in", async () => {
       mockPostAuthV1Register.mockResolvedValue({
         data: {
-          verificationId: "verify-123",
+          verification_id: "verify-123",
           message: "Registration successful",
         },
       });
@@ -63,7 +63,7 @@ describe("Registration Functions", () => {
     it("includes subscribeToBlog: false when opted out", async () => {
       mockPostAuthV1Register.mockResolvedValue({
         data: {
-          verificationId: "verify-123",
+          verification_id: "verify-123",
           message: "Registration successful",
         },
       });
@@ -79,7 +79,7 @@ describe("Registration Functions", () => {
     it("omits subscribeToBlog when not provided", async () => {
       mockPostAuthV1Register.mockResolvedValue({
         data: {
-          verificationId: "verify-123",
+          verification_id: "verify-123",
           message: "Registration successful",
         },
       });
@@ -123,7 +123,7 @@ describe("Registration Functions", () => {
     it("should resend verification code successfully", async () => {
       mockPostAuthV1EmailVerifyResend.mockResolvedValue({
         data: {
-          verificationId: "verify-456",
+          verification_id: "verify-456",
           message: "Code resent",
         },
       });

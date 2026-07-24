@@ -6,9 +6,9 @@ export interface LoginOTPVerifyRequest {
 
 export interface RegistrationResponse {
   message: string;
-  verificationId: string;
-  emailVerificationSent?: boolean;
-  userId?: string;
+  verification_id: string;
+  email_verification_sent?: boolean;
+  user_id?: string;
 }
 
 export interface VerificationSentResponse {
