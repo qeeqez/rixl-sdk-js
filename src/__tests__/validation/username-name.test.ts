@@ -42,10 +42,10 @@ describe("UpdateNameSchema", () => {
   describe("Valid inputs", () => {
     it("should accept valid name formats", () => {
       testValidInputs(UpdateNameSchema, [
-        {fullName: "John Doe"},
-        {fullName: "A"}, // single character (minimum)
-        {fullName: "a".repeat(30)}, // exactly 30 characters (maximum)
-        {fullName: "Jean-Paul O'Brien"}, // with special characters
+        {full_name: "John Doe"},
+        {full_name: "A"}, // single character (minimum)
+        {full_name: "a".repeat(30)}, // exactly 30 characters (maximum)
+        {full_name: "Jean-Paul O'Brien"}, // with special characters
       ]);
     });
   });
@@ -53,8 +53,8 @@ describe("UpdateNameSchema", () => {
   describe("Invalid inputs", () => {
     it("should reject invalid name formats", () => {
       testInvalidInputs(UpdateNameSchema, [
-        {fullName: "a".repeat(31)}, // too long
-        {fullName: ""}, // empty
+        {full_name: "a".repeat(31)}, // too long
+        {full_name: ""}, // empty
       ]);
     });
   });

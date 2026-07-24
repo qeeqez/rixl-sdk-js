@@ -26,7 +26,7 @@ describe("Organization Management", () => {
 
       expect(mockAuthV1MembershipServiceUpdateOrgName).toHaveBeenCalledWith({
         path: {"user.org_id": "org123"},
-        body: {fullName: "New Org Name"},
+        body: {full_name: "New Org Name"},
         throwOnError: true,
       });
     });
@@ -50,7 +50,7 @@ describe("Organization Management", () => {
 
       expect(mockAuthV1MembershipServiceUpdateOrgName).toHaveBeenCalledWith({
         path: {"user.org_id": "org-abc-123"},
-        body: {fullName: "Org Name"},
+        body: {full_name: "Org Name"},
         throwOnError: true,
       });
     });

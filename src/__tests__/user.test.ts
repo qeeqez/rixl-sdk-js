@@ -47,7 +47,7 @@ describe("User Management", () => {
       await updateFullName("John Doe");
 
       expect(mockPatchAuthV1UsersCurrentName).toHaveBeenCalledWith({
-        body: {fullName: "John Doe"},
+        body: {full_name: "John Doe"},
         throwOnError: true,
       });
     });
@@ -157,7 +157,7 @@ describe("User Management", () => {
       const result = await getUserInfo("user-456");
 
       expect(mockGetAuthV1Userinfo).toHaveBeenCalledWith({
-        query: {userId: "user-456"},
+        query: {user_id: "user-456"},
         throwOnError: true,
       });
       expect(result.id).toBe("user-456");

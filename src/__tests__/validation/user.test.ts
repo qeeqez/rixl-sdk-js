@@ -17,13 +17,13 @@ describe("User Validation Schemas", () => {
 
   describe("UpdateNameSchema", () => {
     it("should validate valid name update", () => {
-      const data = {fullName: "John Doe"};
+      const data = {full_name: "John Doe"};
       const result = validateInput(UpdateNameSchema, data);
       expect(result).toEqual(data);
     });
 
     it("should reject invalid names", () => {
-      expect(() => validateInput(UpdateNameSchema, {fullName: ""})).toThrow();
+      expect(() => validateInput(UpdateNameSchema, {full_name: ""})).toThrow();
     });
   });
 });

@@ -44,41 +44,25 @@ export interface UserInfo {
   active_org_id: string;
 }
 
-// The gateway serializes responses in snake_case, but the generated types model
-// them in camelCase. Read the wire shape directly for the fields we consume.
-interface WireUserInfo {
-  id?: string;
-  username?: string;
-  email?: string;
-  email_verified?: boolean;
-  first_name?: string;
-  last_name?: string;
-  image_url?: string;
-  language_code?: string;
-  country_code?: string;
-  active_org_id?: string;
-}
-
 export const getUserInfo = async (userId?: string): Promise<UserInfo> => {
   return apiCall(
     async () => {
       const {data} = await authV1UserServiceGetUserInfo({
-        query: userId ? {userId} : undefined,
+        query: userId ? {user_id: userId} : undefined,
         throwOnError: true,
       });
 
-      const wire = data as WireUserInfo;
       return {
-        id: wire.id ?? "",
-        username: wire.username ?? "",
-        email: wire.email ?? "",
-        email_verified: wire.email_verified ?? false,
-        first_name: wire.first_name ?? "",
-        last_name: wire.last_name ?? "",
-        image_url: wire.image_url ?? "",
-        language_code: wire.language_code ?? "",
-        country_code: wire.country_code ?? "",
-        active_org_id: wire.active_org_id ?? "",
+        id: data.id ?? "",
+        username: data.username ?? "",
+        email: data.email ?? "",
+        email_verified: data.email_verified ?? false,
+        first_name: data.first_name ?? "",
+        last_name: data.last_name ?? "",
+        image_url: data.image_url ?? "",
+        language_code: data.language_code ?? "",
+        country_code: data.country_code ?? "",
+        active_org_id: data.active_org_id ?? "",
       };
     },
     {
@@ -90,7 +74,7 @@ export const getUserInfo = async (userId?: string): Promise<UserInfo> => {
 export const updateFullName = async (fullName: string): Promise<void> => {
   return apiCall(
     async () => {
-      const validatedInput = validateInput(UpdateNameSchema, {fullName});
+      const validatedInput = validateInput(UpdateNameSchema, {full_name: fullName});
       await authV1UserServiceUpdateName({
         body: validatedInput,
         throwOnError: true,
@@ -129,10 +113,9 @@ export const getOTPStatus = async (): Promise<OTPStatusResponse> => {
         throwOnError: true,
       });
 
-      const wire = data as {is_setup?: boolean; created_at?: string};
       return {
-        is_setup: wire.is_setup ?? false,
-        created_at: wire.created_at,
+        is_setup: data.is_setup ?? false,
+        created_at: data.created_at,
       };
     },
     {
@@ -148,10 +131,9 @@ export const setupUserOTP = async (): Promise<OTPSetup> => {
         throwOnError: true,
       });
 
-      const wire = data as {qr_code_url?: string; secret?: string};
       return {
-        qrCodeUrl: wire.qr_code_url || "",
-        secret: wire.secret || "",
+        qrCodeUrl: data.qr_code_url || "",
+        secret: data.secret || "",
       };
     },
     {

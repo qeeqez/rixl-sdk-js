@@ -7,7 +7,7 @@ import {UpdateNameSchema, UpdateUsernameSchema} from "./validation/user";
 export const updateOrgName = async (fullName: string, orgId: string): Promise<void> => {
   return apiCall(
     async () => {
-      const requestBody = validateInput(UpdateNameSchema, {fullName});
+      const requestBody = validateInput(UpdateNameSchema, {full_name: fullName});
       await authV1MembershipServiceUpdateOrgName({
         path: {"user.org_id": orgId},
         body: requestBody,
