@@ -15,7 +15,12 @@ export const refreshTokens = async (
   options?: RefreshTokenOptions
 ): Promise<TokenResponse | LimitedScopeTokenResponse> => {
   const {data} = await authV1TokenServiceRefreshToken({
-    body: {tokenType: provider, refreshToken: token, ...options},
+    body: {
+      token_type: provider,
+      refresh_token: token,
+      country_code: options?.countryCode,
+      origin: options?.origin,
+    },
     throwOnError: true,
   });
   return data as TokenResponse | LimitedScopeTokenResponse;

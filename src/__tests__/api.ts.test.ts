@@ -44,7 +44,7 @@ describe("API Module", () => {
       const result = await refreshTokens(AuthProvider.BEARER, "old-refresh-token");
 
       expect(mockPostAuthV1Token).toHaveBeenCalledWith({
-        body: {tokenType: "Bearer", refreshToken: "old-refresh-token"},
+        body: {token_type: "Bearer", refresh_token: "old-refresh-token"},
         throwOnError: true,
       });
       expect(result).toEqual(mockResponse);
@@ -74,7 +74,7 @@ describe("API Module", () => {
       await refreshTokens(AuthProvider.GOOGLE, "google-token");
 
       expect(mockPostAuthV1Token).toHaveBeenCalledWith({
-        body: {tokenType: "google", refreshToken: "google-token"},
+        body: {token_type: "google", refresh_token: "google-token"},
         throwOnError: true,
       });
     });
@@ -88,9 +88,9 @@ describe("API Module", () => {
 
       expect(mockPostAuthV1Token).toHaveBeenCalledWith({
         body: {
-          tokenType: "Bearer",
-          refreshToken: "token",
-          countryCode: "NG",
+          token_type: "Bearer",
+          refresh_token: "token",
+          country_code: "NG",
           origin: "https://app.example.com",
         },
         throwOnError: true,
