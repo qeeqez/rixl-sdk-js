@@ -87,22 +87,28 @@ interface ApiErrorBody {
 }
 
 function handleLoginError(error: unknown, email: string): TwoFactorResponse | LoginErrorResponse | never {
-  if (isApiErrorBody(error)) {
-    if (error.error === "email_not_verified") {
+  // The client error interceptor wraps thrown bodies into ApiError; tests and
+  // legacy paths may still surface the raw body directly.
+  const body = error instanceof ApiError ? error.data : error;
+  if (isApiErrorBody(body)) {
+    if (body.error === "email_not_verified") {
       return {
         error_code: "email_not_verified",
-        message: error.details || "Email not verified",
+        message: body.details || "Email not verified",
         email,
       };
     }
-    if (error.error === "provider_conflict") {
+    if (body.error === "provider_conflict") {
       return {
         error_code: "provider_conflict",
-        message: error.details || "Email registered with different provider",
+        message: body.details || "Email registered with different provider",
         email,
       };
     }
-    throw new ApiError(error.error || "Login failed", error.code || 500, "/auth/v1/login", error);
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    throw new ApiError(body.error || "Login failed", body.code || 500, "/auth/v1/login", body);
   }
   throw error;
 }

@@ -1,6 +1,17 @@
 import {client} from "../../generated/client.gen";
 import {apiURL} from "../api-url";
 import {getToken} from "../authStore";
+import {ApiError} from "./types";
+
+interface WireErrorBody {
+  error?: string;
+  details?: string;
+  code?: number;
+}
+
+function isWireErrorBody(error: unknown): error is WireErrorBody {
+  return typeof error === "object" && error !== null;
+}
 
 let configured = false;
 
@@ -28,5 +39,20 @@ export function configureSdkClient(): void {
       request.headers.set("Authorization", `Bearer ${token}`);
     }
     return request;
+  });
+
+  // The generated client throws the parsed error body (a plain object or string),
+  // which defeats every instanceof-based status mapping downstream. Wrap it into
+  // an ApiError carrying the HTTP status so apiCall error maps and consumers can
+  // handle errors by code.
+  client.interceptors.error.use((error, response, request) => {
+    if (error instanceof Error) {
+      return error;
+    }
+    const body = isWireErrorBody(error) ? error : undefined;
+    const status = response?.status ?? body?.code ?? 0;
+    const message = body?.error || body?.details || (typeof error === "string" ? error : "Request failed");
+    const endpoint = request ? new URL(request.url).pathname : "";
+    return new ApiError(message, status, endpoint, error);
   });
 }
