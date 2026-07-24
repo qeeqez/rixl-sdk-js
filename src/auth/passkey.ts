@@ -9,7 +9,7 @@ import {
   authV1PasskeyServiceVerifyPasskeyForLogin,
 } from "../generated/sdk.gen";
 import {apiCall} from "./api/utils";
-import {setTokensFromWire, readWireSessionId} from "./api/wire-tokens";
+import {persistTokens} from "./api/tokens";
 import {HTTP_STATUS} from "./constants";
 
 function base64urlToBuffer(base64url: string): ArrayBuffer {
@@ -143,7 +143,7 @@ export const finishPasskeyLogin = async (session_id: string, credential: PublicK
         throwOnError: true,
       });
 
-      setTokensFromWire(data);
+      persistTokens(data);
     },
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid passkey credential"),
@@ -159,7 +159,7 @@ export const beginPasskeyLogin = async (): Promise<PasskeyBeginLogin> => {
       throwOnError: true,
     });
 
-    const sessionId = readWireSessionId(data);
+    const sessionId = data.session_id;
     if (!sessionId || !data.options) {
       throw new Error("No passkeys available for this account");
     }
@@ -177,7 +177,7 @@ export const beginPasskeyRegistration = async (): Promise<PasskeyBeginRegistrati
         throwOnError: true,
       });
 
-      const sessionId = readWireSessionId(data);
+      const sessionId = data.session_id;
       if (!sessionId || !data.options) {
         throw new Error("Invalid response from server");
       }
@@ -284,7 +284,7 @@ export const verifyPasskeyForLogin = async (session_id: string, credential: Publ
         throwOnError: true,
       });
 
-      setTokensFromWire(data);
+      persistTokens(data);
     },
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid passkey credential"),

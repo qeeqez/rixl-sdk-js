@@ -8,7 +8,7 @@ import {login} from "../authStore";
 import {AuthProvider} from "../providers/types";
 import {setSocialConnectAttempt} from "./socialState";
 import {apiCall} from "../api/utils";
-import {setTokensFromWire} from "../api/wire-tokens";
+import {persistTokens} from "../api/tokens";
 import {HTTP_STATUS} from "../constants";
 import {validateInput} from "../validation/base";
 import {ConnectProviderSchema} from "../validation/auth";
@@ -102,7 +102,7 @@ export const connectSocialInternal = async (provider: string, token: string): Pr
         },
         throwOnError: true,
       });
-      setTokensFromWire(data);
+      persistTokens(data);
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("User is not authorized to connect provider!"),

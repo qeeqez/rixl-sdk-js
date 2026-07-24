@@ -3,7 +3,7 @@ import {EmailAuthRequestSchema, LoginOTPVerifyRequestSchema} from "../validation
 import {validateInput} from "../validation/base";
 import {ApiError} from "../api/error-handlers";
 import {apiCall} from "../api/utils";
-import {setTokensFromWire} from "../api/wire-tokens";
+import {persistTokens} from "../api/tokens";
 import {HTTP_STATUS} from "../constants";
 import type {LoginErrorResponse, TwoFactorResponse} from "./types";
 import type {AuthV1LoginResponse} from "../../generated/types.gen";
@@ -39,7 +39,7 @@ export const verifyTOTPForLogin = async (code: string, session_id: string): Prom
         throwOnError: true,
       });
 
-      setTokensFromWire(data);
+      persistTokens(data);
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Invalid or expired TOTP code"),
@@ -60,7 +60,7 @@ function handleLoginResponse(data: AuthV1LoginResponse, email: string): void | T
   const wire = data as WireLoginResponse;
   switch (data.status) {
     case "ok":
-      setTokensFromWire(data);
+      persistTokens(data);
       return;
     case "2fa_required":
       return {

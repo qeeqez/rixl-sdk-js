@@ -7,7 +7,7 @@ import {
 import {ChangeEmailRequestSchema, ResendEmailRequestSchema, verifyEmailChangeRequestSchema} from "../validation/auth";
 import {validateInput} from "../validation/base";
 import {apiCall} from "../api/utils";
-import {setTokensFromWire, type WireTokens} from "../api/wire-tokens";
+import {persistTokens} from "../api/tokens";
 import {HTTP_STATUS} from "../constants";
 import type {VerificationSentResponse, VerifyEmailResponse, VerifyStatusResponse} from "./types";
 import type {EmailVerificationType} from "../types";
@@ -116,18 +116,18 @@ export const verifyEmailWithCode = async (
         throwOnError: true,
       });
 
-      const wireTokens = data.tokens as WireTokens | undefined;
-      setTokensFromWire(wireTokens);
+      const tokens = data.tokens;
+      persistTokens(tokens);
 
       return {
         email: data.email || "",
         message: data.message || "Email verified",
         verified: data.verified || false,
-        tokens: wireTokens
+        tokens: tokens
           ? {
-              access_token: wireTokens.access_token!,
-              refresh_token: wireTokens.refresh_token!,
-              expires_in: Number(wireTokens.expires_in!),
+              access_token: tokens.access_token!,
+              refresh_token: tokens.refresh_token!,
+              expires_in: Number(tokens.expires_in!),
             }
           : undefined,
       };

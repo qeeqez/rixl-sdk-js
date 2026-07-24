@@ -16,7 +16,7 @@ export type AnalyticsV1AnalyticsEvent = {
     /**
      * content_view
      */
-    contentView: AnalyticsV1ContentViewEvent;
+    content_view: AnalyticsV1ContentViewEvent;
 } | {
     /**
      * engagement
@@ -36,7 +36,7 @@ export type AnalyticsV1AnalyticsEvent = {
     /**
      * session_start
      */
-    sessionStart: AnalyticsV1SessionStartEvent;
+    session_start: AnalyticsV1SessionStartEvent;
 });
 
 /**
@@ -46,27 +46,27 @@ export type AnalyticsV1ContentViewEvent = {
     /**
      * content_id
      */
-    contentId?: string;
+    content_id?: string;
     /**
      * content_type
      */
-    contentType?: AnalyticscommonV1MediaType;
+    content_type?: AnalyticscommonV1MediaType;
     /**
      * feed_id
      */
-    feedId?: string;
+    feed_id?: string;
     /**
      * post_id
      */
-    postId?: string;
+    post_id?: string;
     /**
      * view_type
      */
-    viewType?: 'start' | 'watch' | 'end';
+    view_type?: 'start' | 'watch' | 'end';
     /**
      * watch_duration_ms
      */
-    watchDurationMs?: GoogleProtobufDuration;
+    watch_duration_ms?: GoogleProtobufDuration;
     /**
      * page
      */
@@ -74,11 +74,11 @@ export type AnalyticsV1ContentViewEvent = {
     /**
      * video_position_ms
      */
-    videoPositionMs?: GoogleProtobufDuration;
+    video_position_ms?: GoogleProtobufDuration;
     /**
      * video_total_duration_ms
      */
-    videoTotalDurationMs?: GoogleProtobufDuration;
+    video_total_duration_ms?: GoogleProtobufDuration;
     /**
      * segments
      */
@@ -86,7 +86,7 @@ export type AnalyticsV1ContentViewEvent = {
     /**
      * device_id
      */
-    deviceId?: string;
+    device_id?: string;
     /**
      * country
      */
@@ -122,7 +122,7 @@ export type AnalyticsV1DashboardPoint = {
     /**
      * unique_users
      */
-    uniqueUsers?: number | string;
+    unique_users?: number | string;
 };
 
 /**
@@ -132,11 +132,11 @@ export type AnalyticsV1DashboardStatsRequest = {
     /**
      * time_start
      */
-    timeStart: string;
+    time_start: string;
     /**
      * time_end
      */
-    timeEnd: string;
+    time_end: string;
     /**
      * interval
      */
@@ -174,15 +174,15 @@ export type AnalyticsV1EngagementEvent = {
     /**
      * engagement_type
      */
-    engagementType?: string;
+    engagement_type?: string;
     /**
      * resource_type
      */
-    resourceType?: string;
+    resource_type?: string;
     /**
      * resource_id
      */
-    resourceId?: string;
+    resource_id?: string;
     /**
      * page
      */
@@ -190,11 +190,11 @@ export type AnalyticsV1EngagementEvent = {
     /**
      * comment_text
      */
-    commentText?: string;
+    comment_text?: string;
     /**
      * share_platform
      */
-    sharePlatform?: string;
+    share_platform?: string;
     /**
      * country
      */
@@ -202,7 +202,7 @@ export type AnalyticsV1EngagementEvent = {
     /**
      * device_type
      */
-    deviceType?: string;
+    device_type?: string;
 };
 
 /**
@@ -212,27 +212,27 @@ export type AnalyticsV1ErrorEvent = {
     /**
      * error_type
      */
-    errorType?: string;
+    error_type?: string;
     /**
      * error_code
      */
-    errorCode?: string;
+    error_code?: string;
     /**
      * error_message
      */
-    errorMessage?: string;
+    error_message?: string;
     /**
      * stack_trace
      */
-    stackTrace?: string;
+    stack_trace?: string;
     /**
      * resource_type
      */
-    resourceType?: string;
+    resource_type?: string;
     /**
      * resource_id
      */
-    resourceId?: string;
+    resource_id?: string;
     /**
      * endpoint
      */
@@ -240,11 +240,11 @@ export type AnalyticsV1ErrorEvent = {
     /**
      * session_id
      */
-    sessionId?: string;
+    session_id?: string;
     /**
      * device_type
      */
-    deviceType?: string;
+    device_type?: string;
     /**
      * browser
      */
@@ -262,7 +262,7 @@ export type AnalyticsV1EventCount = {
     /**
      * event_type
      */
-    eventType?: string;
+    event_type?: string;
     /**
      * count
      */
@@ -276,27 +276,27 @@ export type AnalyticsV1FeedStats = {
     /**
      * feed_id
      */
-    feedId?: string;
+    feed_id?: string;
     /**
      * total_views
      */
-    totalViews?: number | string;
+    total_views?: number | string;
     /**
      * unique_viewers
      */
-    uniqueViewers?: number | string;
+    unique_viewers?: number | string;
     /**
      * total_posts
      */
-    totalPosts?: number | string;
+    total_posts?: number | string;
     /**
      * avg_time_per_visit_ms
      */
-    avgTimePerVisitMs?: number;
+    avg_time_per_visit_ms?: number;
     /**
      * total_watch_time_ms
      */
-    totalWatchTimeMs?: number;
+    total_watch_time_ms?: number;
 };
 
 /**
@@ -306,15 +306,15 @@ export type AnalyticsV1FunnelAnalytics = {
     /**
      * total_users
      */
-    totalUsers?: number;
+    total_users?: number;
     /**
      * completed_users
      */
-    completedUsers?: number;
+    completed_users?: number;
     /**
      * completion_rate
      */
-    completionRate?: number;
+    completion_rate?: number;
     /**
      * steps
      */
@@ -322,7 +322,7 @@ export type AnalyticsV1FunnelAnalytics = {
     /**
      * average_time_hours
      */
-    averageTimeHours?: number;
+    average_time_hours?: number;
 };
 
 /**
@@ -336,7 +336,7 @@ export type AnalyticsV1FunnelRequest = {
     /**
      * time_window
      */
-    timeWindow?: number;
+    time_window?: number;
     /**
      * range
      */
@@ -354,11 +354,11 @@ export type AnalyticsV1FunnelStep = {
     /**
      * event_type
      */
-    eventType?: string;
+    event_type?: string;
     /**
      * page_type
      */
-    pageType?: string;
+    page_type?: string;
     /**
      * filters
      */
@@ -388,19 +388,19 @@ export type AnalyticsV1FunnelStepResult = {
     /**
      * step_name
      */
-    stepName?: string;
+    step_name?: string;
     /**
      * user_count
      */
-    userCount?: number;
+    user_count?: number;
     /**
      * conversion_rate
      */
-    conversionRate?: number;
+    conversion_rate?: number;
     /**
      * dropoff_rate
      */
-    dropoffRate?: number;
+    dropoff_rate?: number;
 };
 
 /**
@@ -410,7 +410,7 @@ export type AnalyticsV1GetFeedStatsRequest = {
     /**
      * feed_id
      */
-    feedId: string;
+    feed_id: string;
     /**
      * range
      */
@@ -424,7 +424,7 @@ export type AnalyticsV1GetHotSegmentsRequest = {
     /**
      * video_id
      */
-    videoId: string;
+    video_id: string;
     /**
      * range
      */
@@ -438,7 +438,7 @@ export type AnalyticsV1GetPostStatsRequest = {
     /**
      * post_id
      */
-    postId: string;
+    post_id: string;
     /**
      * range
      */
@@ -452,15 +452,15 @@ export type AnalyticsV1GetPostStatsResponse = {
     /**
      * post_id
      */
-    postId?: string;
+    post_id?: string;
     /**
      * total_views
      */
-    totalViews?: number | string;
+    total_views?: number | string;
     /**
      * unique_viewers
      */
-    uniqueViewers?: number | string;
+    unique_viewers?: number | string;
 };
 
 /**
@@ -513,7 +513,7 @@ export type AnalyticsV1GetTopPostsRequest = {
     /**
      * feed_id
      */
-    feedId?: string;
+    feed_id?: string;
 };
 
 /**
@@ -537,7 +537,7 @@ export type AnalyticsV1GetVideoHeatmapRequest = {
     /**
      * video_id
      */
-    videoId: string;
+    video_id: string;
     /**
      * buckets
      */
@@ -555,7 +555,7 @@ export type AnalyticsV1GetVideoStatsRequest = {
     /**
      * video_id
      */
-    videoId: string;
+    video_id: string;
     /**
      * range
      */
@@ -569,11 +569,11 @@ export type AnalyticsV1HotSegment = {
     /**
      * start_second
      */
-    startSecond?: number;
+    start_second?: number;
     /**
      * end_second
      */
-    endSecond?: number;
+    end_second?: number;
     /**
      * multiplier
      */
@@ -597,19 +597,19 @@ export type AnalyticsV1InteractionEvent = {
     /**
      * interaction_type
      */
-    interactionType?: string;
+    interaction_type?: string;
     /**
      * element_type
      */
-    elementType?: string;
+    element_type?: string;
     /**
      * element_id
      */
-    elementId?: string;
+    element_id?: string;
     /**
      * session_id
      */
-    sessionId?: string;
+    session_id?: string;
     /**
      * page
      */
@@ -617,27 +617,27 @@ export type AnalyticsV1InteractionEvent = {
     /**
      * page_url
      */
-    pageUrl?: string;
+    page_url?: string;
     /**
      * scroll_depth
      */
-    scrollDepth?: number;
+    scroll_depth?: number;
     /**
      * search_query
      */
-    searchQuery?: string;
+    search_query?: string;
     /**
      * click_x
      */
-    clickX?: number;
+    click_x?: number;
     /**
      * click_y
      */
-    clickY?: number;
+    click_y?: number;
     /**
      * device_type
      */
-    deviceType?: string;
+    device_type?: string;
     /**
      * browser
      */
@@ -651,31 +651,31 @@ export type AnalyticsV1PostStats = {
     /**
      * post_id
      */
-    postId?: string;
+    post_id?: string;
     /**
      * feed_id
      */
-    feedId?: string;
+    feed_id?: string;
     /**
      * content_type
      */
-    contentType?: AnalyticscommonV1MediaType;
+    content_type?: AnalyticscommonV1MediaType;
     /**
      * total_views
      */
-    totalViews?: number | string;
+    total_views?: number | string;
     /**
      * unique_viewers
      */
-    uniqueViewers?: number | string;
+    unique_viewers?: number | string;
     /**
      * avg_watch_time_ms
      */
-    avgWatchTimeMs?: number;
+    avg_watch_time_ms?: number;
     /**
      * total_watch_time_ms
      */
-    totalWatchTimeMs?: number | string;
+    total_watch_time_ms?: number | string;
     /**
      * starts
      */
@@ -687,11 +687,11 @@ export type AnalyticsV1PostStats = {
     /**
      * completion_rate
      */
-    completionRate?: number;
+    completion_rate?: number;
     /**
      * views_by_page
      */
-    viewsByPage?: {
+    views_by_page?: {
         [key: string]: number | string;
     };
 };
@@ -721,23 +721,23 @@ export type AnalyticsV1RealtimeStats = {
     /**
      * active_users
      */
-    activeUsers?: number | string;
+    active_users?: number | string;
     /**
      * events_per_minute
      */
-    eventsPerMinute?: number | string;
+    events_per_minute?: number | string;
     /**
      * top_events
      */
-    topEvents?: Array<AnalyticsV1EventCount>;
+    top_events?: Array<AnalyticsV1EventCount>;
     /**
      * top_countries
      */
-    topCountries?: Array<AnalyticsV1CountryCount>;
+    top_countries?: Array<AnalyticsV1CountryCount>;
     /**
      * recent_events
      */
-    recentEvents?: Array<AnalyticsV1RecentEvent>;
+    recent_events?: Array<AnalyticsV1RecentEvent>;
 };
 
 /**
@@ -747,15 +747,15 @@ export type AnalyticsV1RecentEvent = {
     /**
      * event_type
      */
-    eventType?: string;
+    event_type?: string;
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * content_id
      */
-    contentId?: string;
+    content_id?: string;
     /**
      * timestamp
      */
@@ -783,15 +783,15 @@ export type AnalyticsV1RetentionCohort = {
     /**
      * cohort_date
      */
-    cohortDate?: string;
+    cohort_date?: string;
     /**
      * cohort_size
      */
-    cohortSize?: number;
+    cohort_size?: number;
     /**
      * retention_data
      */
-    retentionData?: Array<number>;
+    retention_data?: Array<number>;
 };
 
 /**
@@ -801,11 +801,11 @@ export type AnalyticsV1Segment = {
     /**
      * start_ms
      */
-    startMs?: GoogleProtobufDuration;
+    start_ms?: GoogleProtobufDuration;
     /**
      * end_ms
      */
-    endMs?: GoogleProtobufDuration;
+    end_ms?: GoogleProtobufDuration;
     /**
      * speed
      */
@@ -819,11 +819,11 @@ export type AnalyticsV1SessionStartEvent = {
     /**
      * utm_source
      */
-    utmSource?: string;
+    utm_source?: string;
     /**
      * utm_campaign
      */
-    utmCampaign?: string;
+    utm_campaign?: string;
     /**
      * browser
      */
@@ -835,7 +835,7 @@ export type AnalyticsV1SessionStartEvent = {
     /**
      * screen_resolution
      */
-    screenResolution?: string;
+    screen_resolution?: string;
     /**
      * platform
      */
@@ -843,11 +843,11 @@ export type AnalyticsV1SessionStartEvent = {
     /**
      * tg_platform
      */
-    tgPlatform?: string;
+    tg_platform?: string;
     /**
      * tg_version
      */
-    tgVersion?: string;
+    tg_version?: string;
     /**
      * timezone
      */
@@ -855,15 +855,15 @@ export type AnalyticsV1SessionStartEvent = {
     /**
      * timezone_offset
      */
-    timezoneOffset?: number;
+    timezone_offset?: number;
     /**
      * color_depth
      */
-    colorDepth?: number;
+    color_depth?: number;
     /**
      * touch_support
      */
-    touchSupport?: boolean;
+    touch_support?: boolean;
     /**
      * country
      */
@@ -871,7 +871,7 @@ export type AnalyticsV1SessionStartEvent = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
 };
 
 /**
@@ -911,7 +911,7 @@ export type AnalyticsV1TrackEventsRequest = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * country
      */
@@ -929,11 +929,11 @@ export type AnalyticsV1VideoHeatmap = {
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * total_duration_ms
      */
-    totalDurationMs?: number | string;
+    total_duration_ms?: number | string;
     /**
      * data
      */
@@ -947,23 +947,23 @@ export type AnalyticsV1VideoStats = {
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * total_views
      */
-    totalViews?: number | string;
+    total_views?: number | string;
     /**
      * unique_viewers
      */
-    uniqueViewers?: number | string;
+    unique_viewers?: number | string;
     /**
      * avg_watch_time_ms
      */
-    avgWatchTimeMs?: number;
+    avg_watch_time_ms?: number;
     /**
      * total_watch_time_ms
      */
-    totalWatchTimeMs?: number;
+    total_watch_time_ms?: number;
     /**
      * starts
      */
@@ -979,7 +979,7 @@ export type AnalyticsV1VideoStats = {
     /**
      * completion_rate
      */
-    completionRate?: number;
+    completion_rate?: number;
 };
 
 /**
@@ -998,7 +998,7 @@ export type ApikeysV1ApiKey = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * name
      */
@@ -1006,23 +1006,23 @@ export type ApikeysV1ApiKey = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * project_name
      */
-    projectName?: string;
+    project_name?: string;
     /**
      * created_at
      */
-    createdAt?: GoogleProtobufTimestamp;
+    created_at?: GoogleProtobufTimestamp;
     /**
      * expiring_at
      */
-    expiringAt?: GoogleProtobufTimestamp;
+    expiring_at?: GoogleProtobufTimestamp;
     /**
      * last_used
      */
-    lastUsed?: GoogleProtobufTimestamp;
+    last_used?: GoogleProtobufTimestamp;
     /**
      * secret
      */
@@ -1036,7 +1036,7 @@ export type ApikeysV1CreateApiKeyRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * name
      */
@@ -1044,11 +1044,11 @@ export type ApikeysV1CreateApiKeyRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * expiring_at
      */
-    expiringAt?: GoogleProtobufTimestamp;
+    expiring_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -1058,7 +1058,7 @@ export type ApikeysV1CreateApiKeyResponse = {
     /**
      * api_key
      */
-    apiKey?: ApikeysV1ApiKey;
+    api_key?: ApikeysV1ApiKey;
 };
 
 /**
@@ -1068,11 +1068,11 @@ export type ApikeysV1DeleteApiKeyRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * key_id
      */
-    keyId: string;
+    key_id: string;
 };
 
 /**
@@ -1082,7 +1082,7 @@ export type ApikeysV1ListApiKeysRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * pagination
      */
@@ -1096,7 +1096,7 @@ export type ApikeysV1ListApiKeysResponse = {
     /**
      * api_keys
      */
-    apiKeys?: Array<ApikeysV1ApiKey>;
+    api_keys?: Array<ApikeysV1ApiKey>;
     /**
      * total
      */
@@ -1110,7 +1110,7 @@ export type ApikeysV1MarkApiKeyUsedRequest = {
     /**
      * key_id
      */
-    keyId: string;
+    key_id: string;
 };
 
 /**
@@ -1120,11 +1120,11 @@ export type ApikeysV1RotateApiKeyRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * key_id
      */
-    keyId: string;
+    key_id: string;
 };
 
 /**
@@ -1134,7 +1134,7 @@ export type ApikeysV1RotateApiKeyResponse = {
     /**
      * api_key
      */
-    apiKey?: ApikeysV1ApiKey;
+    api_key?: ApikeysV1ApiKey;
 };
 
 /**
@@ -1144,7 +1144,7 @@ export type ApikeysV1ValidateApiKeyRequest = {
     /**
      * key_id
      */
-    keyId: string;
+    key_id: string;
     /**
      * secret
      */
@@ -1162,11 +1162,11 @@ export type ApikeysV1ValidateApiKeyResponse = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * name
      */
@@ -1190,11 +1190,11 @@ export type AuthV1AcceptInvitationResponse = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * org_name
      */
-    orgName?: string;
+    org_name?: string;
     /**
      * role
      */
@@ -1208,11 +1208,11 @@ export type AuthV1ActorOrgRequest = {
     /**
      * actor_id
      */
-    actorId?: string;
+    actor_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -1222,7 +1222,7 @@ export type AuthV1AddEmailRequest = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * email
      */
@@ -1240,15 +1240,15 @@ export type AuthV1AttachPolicyRequest = {
     /**
      * policy_id
      */
-    policyId?: string;
+    policy_id?: string;
     /**
      * identity_type
      */
-    identityType?: AuthV1PolicyIdentityType;
+    identity_type?: AuthV1PolicyIdentityType;
     /**
      * identity_id
      */
-    identityId?: string;
+    identity_id?: string;
 };
 
 /**
@@ -1281,7 +1281,7 @@ export type AuthV1BlogSubscriptionResponse = {
     /**
      * subscribed_at
      */
-    subscribedAt?: GoogleProtobufTimestamp;
+    subscribed_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -1291,11 +1291,11 @@ export type AuthV1CheckIsAdminResponse = {
     /**
      * is_admin
      */
-    isAdmin?: boolean;
+    is_admin?: boolean;
     /**
      * organization_email
      */
-    organizationEmail?: string;
+    organization_email?: string;
 };
 
 /**
@@ -1305,7 +1305,7 @@ export type AuthV1CheckMembershipResponse = {
     /**
      * is_member
      */
-    isMember?: boolean;
+    is_member?: boolean;
 };
 
 /**
@@ -1327,7 +1327,7 @@ export type AuthV1ConnectProviderRequest = {
     /**
      * country_code
      */
-    countryCode?: string;
+    country_code?: string;
     /**
      * origin
      */
@@ -1349,19 +1349,19 @@ export type AuthV1ConnectedProvider = {
     /**
      * first_name
      */
-    firstName?: string;
+    first_name?: string;
     /**
      * last_name
      */
-    lastName?: string;
+    last_name?: string;
     /**
      * email_address
      */
-    emailAddress?: string;
+    email_address?: string;
     /**
      * image_url
      */
-    imageUrl?: string;
+    image_url?: string;
 };
 
 /**
@@ -1417,7 +1417,7 @@ export type AuthV1DeletePasskeyRequest = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * id
      */
@@ -1435,7 +1435,7 @@ export type AuthV1DetachPolicyRequest = {
     /**
      * attachment_id
      */
-    attachmentId?: string;
+    attachment_id?: string;
 };
 
 /**
@@ -1481,7 +1481,7 @@ export type AuthV1DomainStatus = {
     /**
      * auto_join
      */
-    autoJoin?: boolean;
+    auto_join?: boolean;
 } & ({
     /**
      * pending
@@ -1501,7 +1501,7 @@ export type AuthV1EmailStatusResponse = {
     /**
      * has_email
      */
-    hasEmail?: boolean;
+    has_email?: boolean;
     /**
      * email
      */
@@ -1534,7 +1534,7 @@ export type AuthV1GetUserEmailStatusRequest = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
 };
 
 /**
@@ -1544,7 +1544,7 @@ export type AuthV1GetUserResponse = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * email
      */
@@ -1552,7 +1552,7 @@ export type AuthV1GetUserResponse = {
     /**
      * email_verified
      */
-    emailVerified?: boolean;
+    email_verified?: boolean;
 };
 
 /**
@@ -1562,11 +1562,11 @@ export type AuthV1InitiateEmailChangeRequest = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * new_email
      */
-    newEmail?: string;
+    new_email?: string;
 };
 
 /**
@@ -1664,7 +1664,7 @@ export type AuthV1ListPasskeysRequest = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
 };
 
 /**
@@ -1715,7 +1715,7 @@ export type AuthV1ListUserPoliciesRequest = {
     /**
      * member_id
      */
-    memberId?: string;
+    member_id?: string;
 };
 
 /**
@@ -1745,7 +1745,7 @@ export type AuthV1LoginResponse = {
     /**
      * session_id
      */
-    sessionId?: string;
+    session_id?: string;
     /**
      * email
      */
@@ -1753,23 +1753,23 @@ export type AuthV1LoginResponse = {
     /**
      * access_token
      */
-    accessToken?: string;
+    access_token?: string;
     /**
      * refresh_token
      */
-    refreshToken?: string;
+    refresh_token?: string;
     /**
      * expires_in
      */
-    expiresIn?: number | string;
+    expires_in?: number | string;
     /**
      * token_type
      */
-    tokenType?: string;
+    token_type?: string;
     /**
      * requires_action
      */
-    requiresAction?: string;
+    requires_action?: string;
     /**
      * authentication
      *
@@ -1784,7 +1784,7 @@ export type AuthV1LoginResponse = {
      * passkey_options is the WebAuthn PublicKeyCredentialRequestOptions as JSON,
      * present only when "passkey" is one of the authentication methods.
      */
-    passkeyOptions?: string;
+    passkey_options?: string;
 };
 
 /**
@@ -1822,11 +1822,11 @@ export type AuthV1Membership = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * role
      */
@@ -1838,19 +1838,19 @@ export type AuthV1Membership = {
     /**
      * organization_username
      */
-    organizationUsername?: string;
+    organization_username?: string;
     /**
      * organization_first_name
      */
-    organizationFirstName?: string;
+    organization_first_name?: string;
     /**
      * organization_last_name
      */
-    organizationLastName?: string;
+    organization_last_name?: string;
     /**
      * joined_at
      */
-    joinedAt?: GoogleProtobufTimestamp;
+    joined_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -1860,11 +1860,11 @@ export type AuthV1MembershipMutation = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * role
      */
@@ -1876,11 +1876,11 @@ export type AuthV1MembershipMutation = {
     /**
      * org_name
      */
-    orgName?: string;
+    org_name?: string;
     /**
      * joined_at
      */
-    joinedAt?: GoogleProtobufTimestamp;
+    joined_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -1900,11 +1900,11 @@ export type AuthV1OtpStatusResponse = {
     /**
      * is_setup
      */
-    isSetup?: boolean;
+    is_setup?: boolean;
     /**
      * created_at
      */
-    createdAt?: GoogleProtobufTimestamp;
+    created_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -1918,11 +1918,11 @@ export type AuthV1OrgMember = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * role
      */
@@ -1938,19 +1938,19 @@ export type AuthV1OrgMember = {
     /**
      * first_name
      */
-    firstName?: string;
+    first_name?: string;
     /**
      * last_name
      */
-    lastName?: string;
+    last_name?: string;
     /**
      * invitation_expires_at
      */
-    invitationExpiresAt?: GoogleProtobufTimestamp;
+    invitation_expires_at?: GoogleProtobufTimestamp;
     /**
      * joined_at
      */
-    joinedAt?: GoogleProtobufTimestamp;
+    joined_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -1968,7 +1968,7 @@ export type AuthV1Passkey = {
     /**
      * credential_id
      */
-    credentialId?: string;
+    credential_id?: string;
     /**
      * aaguid
      */
@@ -1980,15 +1980,15 @@ export type AuthV1Passkey = {
     /**
      * backup_state
      */
-    backupState?: boolean;
+    backup_state?: boolean;
     /**
      * created_at
      */
-    createdAt?: string;
+    created_at?: string;
     /**
      * last_used_at
      */
-    lastUsedAt?: string;
+    last_used_at?: string;
 };
 
 /**
@@ -1998,7 +1998,7 @@ export type AuthV1PasskeyBeginResponse = {
     /**
      * session_id
      */
-    sessionId?: string;
+    session_id?: string;
     /**
      * options
      */
@@ -2022,7 +2022,7 @@ export type AuthV1PasskeyLoginFinishRequest = {
     /**
      * session_id
      */
-    sessionId?: string;
+    session_id?: string;
     /**
      * credential
      */
@@ -2036,7 +2036,7 @@ export type AuthV1PasskeyRegisterBeginRequest = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
 };
 
 /**
@@ -2046,11 +2046,11 @@ export type AuthV1PasskeyRegisterFinishRequest = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * session_id
      */
-    sessionId?: string;
+    session_id?: string;
     /**
      * name
      */
@@ -2068,7 +2068,7 @@ export type AuthV1PasskeyRegisterFinishResponse = {
     /**
      * passkey_id
      */
-    passkeyId?: string;
+    passkey_id?: string;
     /**
      * name
      */
@@ -2082,11 +2082,11 @@ export type AuthV1PendingDomain = {
     /**
      * verification_token
      */
-    verificationToken?: string;
+    verification_token?: string;
     /**
      * expires_at
      */
-    expiresAt?: GoogleProtobufTimestamp;
+    expires_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -2124,7 +2124,7 @@ export type AuthV1Policy = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * name
      */
@@ -2140,15 +2140,15 @@ export type AuthV1Policy = {
     /**
      * created_by
      */
-    createdBy?: string;
+    created_by?: string;
     /**
      * created_at
      */
-    createdAt?: GoogleProtobufTimestamp;
+    created_at?: GoogleProtobufTimestamp;
     /**
      * updated_at
      */
-    updatedAt?: GoogleProtobufTimestamp;
+    updated_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -2162,19 +2162,19 @@ export type AuthV1PolicyAttachment = {
     /**
      * policy_id
      */
-    policyId?: string;
+    policy_id?: string;
     /**
      * identity_type
      */
-    identityType?: AuthV1PolicyIdentityType;
+    identity_type?: AuthV1PolicyIdentityType;
     /**
      * identity_id
      */
-    identityId?: string;
+    identity_id?: string;
     /**
      * created_at
      */
-    createdAt?: GoogleProtobufTimestamp;
+    created_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -2193,7 +2193,7 @@ export type AuthV1PolicyRequest = {
     /**
      * policy_id
      */
-    policyId?: string;
+    policy_id?: string;
 };
 
 /**
@@ -2203,15 +2203,15 @@ export type AuthV1RefreshTokenRequest = {
     /**
      * token_type
      */
-    tokenType?: string;
+    token_type?: string;
     /**
      * refresh_token
      */
-    refreshToken?: string;
+    refresh_token?: string;
     /**
      * country_code
      */
-    countryCode?: string;
+    country_code?: string;
     /**
      * origin
      */
@@ -2243,11 +2243,11 @@ export type AuthV1RegisterRequest = {
     /**
      * country_code
      */
-    countryCode?: string;
+    country_code?: string;
     /**
      * subscribe_to_blog
      */
-    subscribeToBlog?: boolean;
+    subscribe_to_blog?: boolean;
 };
 
 /**
@@ -2261,15 +2261,15 @@ export type AuthV1RegisterResponse = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * email_verification_sent
      */
-    emailVerificationSent?: boolean;
+    email_verification_sent?: boolean;
     /**
      * verification_id
      */
-    verificationId?: string;
+    verification_id?: string;
 };
 
 /**
@@ -2283,7 +2283,7 @@ export type AuthV1RemoveMemberRequest = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
 };
 
 /**
@@ -2293,7 +2293,7 @@ export type AuthV1RenamePasskeyRequest = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * id
      */
@@ -2315,7 +2315,7 @@ export type AuthV1ResendInvitationRequest = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
 };
 
 /**
@@ -2339,11 +2339,11 @@ export type AuthV1ResendVerificationResponse = {
     /**
      * code_sent
      */
-    codeSent?: boolean;
+    code_sent?: boolean;
     /**
      * verification_id
      */
-    verificationId?: string;
+    verification_id?: string;
 };
 
 /**
@@ -2357,7 +2357,7 @@ export type AuthV1ResetPasswordRequest = {
     /**
      * new_password
      */
-    newPassword?: string;
+    new_password?: string;
 };
 
 /**
@@ -2367,15 +2367,15 @@ export type AuthV1ResolveIdentityPermissionsRequest = {
     /**
      * identity_type
      */
-    identityType?: AuthV1PolicyIdentityType;
+    identity_type?: AuthV1PolicyIdentityType;
     /**
      * identity_id
      */
-    identityId?: string;
+    identity_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -2415,11 +2415,11 @@ export type AuthV1SendBlogBroadcastRequest = {
     /**
      * published_at
      */
-    publishedAt?: GoogleProtobufTimestamp;
+    published_at?: GoogleProtobufTimestamp;
     /**
      * commit_sha
      */
-    commitSha?: string;
+    commit_sha?: string;
 };
 
 /**
@@ -2429,15 +2429,15 @@ export type AuthV1SendBlogBroadcastResponse = {
     /**
      * broadcast_id
      */
-    broadcastId?: string;
+    broadcast_id?: string;
     /**
      * scheduled_at
      */
-    scheduledAt?: GoogleProtobufTimestamp;
+    scheduled_at?: GoogleProtobufTimestamp;
     /**
      * sent_at
      */
-    sentAt?: GoogleProtobufTimestamp;
+    sent_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -2475,7 +2475,7 @@ export type AuthV1SetupOtpResponse = {
     /**
      * qr_code_url
      */
-    qrCodeUrl?: string;
+    qr_code_url?: string;
 };
 
 /**
@@ -2485,23 +2485,23 @@ export type AuthV1TokenResponse = {
     /**
      * access_token
      */
-    accessToken?: string;
+    access_token?: string;
     /**
      * refresh_token
      */
-    refreshToken?: string;
+    refresh_token?: string;
     /**
      * expires_in
      */
-    expiresIn?: number | string;
+    expires_in?: number | string;
     /**
      * token_type
      */
-    tokenType?: string;
+    token_type?: string;
     /**
      * requires_action
      */
-    requiresAction?: string;
+    requires_action?: string;
 };
 
 /**
@@ -2529,7 +2529,7 @@ export type AuthV1UpdateActiveMembershipRequest = {
     /**
      * membership_id
      */
-    membershipId?: string;
+    membership_id?: string;
 };
 
 /**
@@ -2543,7 +2543,7 @@ export type AuthV1UpdateMemberRoleRequest = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * role
      */
@@ -2571,11 +2571,11 @@ export type AuthV1UpdateNameRequest = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * full_name
      */
-    fullName?: string;
+    full_name?: string;
 };
 
 /**
@@ -2585,11 +2585,11 @@ export type AuthV1UpdateNameResponse = {
     /**
      * first_name
      */
-    firstName?: string;
+    first_name?: string;
     /**
      * last_name
      */
-    lastName?: string;
+    last_name?: string;
 };
 
 /**
@@ -2603,7 +2603,7 @@ export type AuthV1UpdateOrgNameRequest = {
     /**
      * full_name
      */
-    fullName?: string;
+    full_name?: string;
 };
 
 /**
@@ -2613,11 +2613,11 @@ export type AuthV1UpdateOrgNameResponse = {
     /**
      * first_name
      */
-    firstName?: string;
+    first_name?: string;
     /**
      * last_name
      */
-    lastName?: string;
+    last_name?: string;
 };
 
 /**
@@ -2655,7 +2655,7 @@ export type AuthV1UpdatePolicyRequest = {
     /**
      * policy_id
      */
-    policyId?: string;
+    policy_id?: string;
     /**
      * name
      */
@@ -2677,7 +2677,7 @@ export type AuthV1UpdateUsernameRequest = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * username
      */
@@ -2713,31 +2713,31 @@ export type AuthV1UserInfo = {
     /**
      * email_verified
      */
-    emailVerified?: boolean;
+    email_verified?: boolean;
     /**
      * first_name
      */
-    firstName?: string;
+    first_name?: string;
     /**
      * last_name
      */
-    lastName?: string;
+    last_name?: string;
     /**
      * image_url
      */
-    imageUrl?: string;
+    image_url?: string;
     /**
      * language_code
      */
-    languageCode?: string;
+    language_code?: string;
     /**
      * country_code
      */
-    countryCode?: string;
+    country_code?: string;
     /**
      * active_org_id
      */
-    activeOrgId?: string;
+    active_org_id?: string;
 };
 
 /**
@@ -2747,11 +2747,11 @@ export type AuthV1UserOrgRequest = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -2761,7 +2761,7 @@ export type AuthV1UserRequest = {
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
 };
 
 /**
@@ -2775,15 +2775,15 @@ export type AuthV1VerificationSentResponse = {
     /**
      * code_sent
      */
-    codeSent?: boolean;
+    code_sent?: boolean;
     /**
      * can_resend_at
      */
-    canResendAt?: string;
+    can_resend_at?: string;
     /**
      * verification_id
      */
-    verificationId?: string;
+    verification_id?: string;
 };
 
 /**
@@ -2793,7 +2793,7 @@ export type AuthV1VerifiedDomain = {
     /**
      * verified_at
      */
-    verifiedAt?: GoogleProtobufTimestamp;
+    verified_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -2803,7 +2803,7 @@ export type AuthV1VerifyEmailRequest = {
     /**
      * verification_id
      */
-    verificationId?: string;
+    verification_id?: string;
     /**
      * code
      */
@@ -2853,7 +2853,7 @@ export type AuthV1VerifyPasskeyForLoginRequest = {
     /**
      * session_id
      */
-    sessionId?: string;
+    session_id?: string;
     /**
      * credential
      */
@@ -2867,7 +2867,7 @@ export type AuthV1VerifyTotpForLoginRequest = {
     /**
      * session_id
      */
-    sessionId?: string;
+    session_id?: string;
     /**
      * code
      */
@@ -2881,51 +2881,51 @@ export type BillingV1BandwidthUsage = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * snapshot_date
      */
-    snapshotDate?: GoogleProtobufTimestamp;
+    snapshot_date?: GoogleProtobufTimestamp;
     /**
      * total_bandwidth_bytes
      */
-    totalBandwidthBytes?: number | string;
+    total_bandwidth_bytes?: number | string;
     /**
      * video_bandwidth_bytes
      */
-    videoBandwidthBytes?: number | string;
+    video_bandwidth_bytes?: number | string;
     /**
      * image_bandwidth_bytes
      */
-    imageBandwidthBytes?: number | string;
+    image_bandwidth_bytes?: number | string;
     /**
      * total_requests
      */
-    totalRequests?: number | string;
+    total_requests?: number | string;
     /**
      * unique_visitors
      */
-    uniqueVisitors?: number | string;
+    unique_visitors?: number | string;
     /**
      * snapshot_type
      */
-    snapshotType?: string;
+    snapshot_type?: string;
     /**
      * video_requests
      */
-    videoRequests?: number | string;
+    video_requests?: number | string;
     /**
      * image_requests
      */
-    imageRequests?: number | string;
+    image_requests?: number | string;
     /**
      * data_source
      */
-    dataSource?: string;
+    data_source?: string;
     /**
      * created_at
      */
-    createdAt?: GoogleProtobufTimestamp;
+    created_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -2955,7 +2955,7 @@ export type BillingV1BillingAddress = {
     /**
      * postal_code
      */
-    postalCode: string;
+    postal_code: string;
     /**
      * country
      */
@@ -2982,7 +2982,7 @@ export type BillingV1CalculateGenericTaxRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * amount
      */
@@ -2994,11 +2994,11 @@ export type BillingV1CalculateGenericTaxRequest = {
     /**
      * billing_address
      */
-    billingAddress?: BillingV1BillingAddress;
+    billing_address?: BillingV1BillingAddress;
     /**
      * line_items
      */
-    lineItems?: Array<BillingV1TaxLineItem>;
+    line_items?: Array<BillingV1TaxLineItem>;
 };
 
 /**
@@ -3008,15 +3008,15 @@ export type BillingV1CalculateTaxRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * plan_id
      */
-    planId: string;
+    plan_id: string;
     /**
      * plan_name
      */
-    planName: string;
+    plan_name: string;
     /**
      * amount
      */
@@ -3028,19 +3028,19 @@ export type BillingV1CalculateTaxRequest = {
     /**
      * billing_cycle
      */
-    billingCycle?: BillingV1BillingCycle;
+    billing_cycle?: BillingV1BillingCycle;
     /**
      * interval_count
      */
-    intervalCount?: number | string;
+    interval_count?: number | string;
     /**
      * billing_address
      */
-    billingAddress?: BillingV1BillingAddress;
+    billing_address?: BillingV1BillingAddress;
     /**
      * line_items
      */
-    lineItems?: Array<BillingV1TaxLineItem>;
+    line_items?: Array<BillingV1TaxLineItem>;
     /**
      * metadata
      */
@@ -3070,7 +3070,7 @@ export type BillingV1CancelSubscriptionRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -3080,7 +3080,7 @@ export type BillingV1CheckPlanRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -3090,19 +3090,19 @@ export type BillingV1CheckPlanResponse = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * has_enterprise_plan
      */
-    hasEnterprisePlan?: boolean;
+    has_enterprise_plan?: boolean;
     /**
      * plan_type
      */
-    planType?: BillingV1PlanType;
+    plan_type?: BillingV1PlanType;
     /**
      * plan_name
      */
-    planName?: string;
+    plan_name?: string;
 };
 
 /**
@@ -3112,15 +3112,15 @@ export type BillingV1ContactSalesRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * first_name
      */
-    firstName?: string;
+    first_name?: string;
     /**
      * last_name
      */
-    lastName?: string;
+    last_name?: string;
     /**
      * email
      */
@@ -3132,7 +3132,7 @@ export type BillingV1ContactSalesRequest = {
     /**
      * job_title
      */
-    jobTitle?: string;
+    job_title?: string;
     /**
      * phone
      */
@@ -3154,19 +3154,19 @@ export type BillingV1CreateCheckoutSessionRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * stripe_price_id
      */
-    stripePriceId: string;
+    stripe_price_id: string;
     /**
      * success_url
      */
-    successUrl: string;
+    success_url: string;
     /**
      * cancel_url
      */
-    cancelUrl: string;
+    cancel_url: string;
 };
 
 /**
@@ -3176,7 +3176,7 @@ export type BillingV1CreateSetupIntentRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -3186,19 +3186,19 @@ export type BillingV1CreateSubscriptionRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * stripe_price_id
      */
-    stripePriceId: string;
+    stripe_price_id: string;
     /**
      * payment_method_id
      */
-    paymentMethodId?: string;
+    payment_method_id?: string;
     /**
      * billing_address
      */
-    billingAddress?: BillingV1BillingAddress;
+    billing_address?: BillingV1BillingAddress;
 };
 
 /**
@@ -3212,11 +3212,11 @@ export type BillingV1CreateSubscriptionResponse = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * plan_id
      */
-    planId?: string;
+    plan_id?: string;
     /**
      * status
      */
@@ -3224,19 +3224,19 @@ export type BillingV1CreateSubscriptionResponse = {
     /**
      * current_period_end
      */
-    currentPeriodEnd?: GoogleProtobufTimestamp;
+    current_period_end?: GoogleProtobufTimestamp;
     /**
      * cancel_at_period_end
      */
-    cancelAtPeriodEnd?: boolean;
+    cancel_at_period_end?: boolean;
     /**
      * stripe_subscription_id
      */
-    stripeSubscriptionId?: string;
+    stripe_subscription_id?: string;
     /**
      * stripe_customer_id
      */
-    stripeCustomerId?: string;
+    stripe_customer_id?: string;
 };
 
 /**
@@ -3246,11 +3246,11 @@ export type BillingV1DeletePaymentMethodRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * payment_method_id
      */
-    paymentMethodId?: string;
+    payment_method_id?: string;
 };
 
 /**
@@ -3260,7 +3260,7 @@ export type BillingV1GetBandwidthUsageHistoryRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * days
      */
@@ -3288,7 +3288,7 @@ export type BillingV1GetBandwidthUsageRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -3298,7 +3298,7 @@ export type BillingV1GetBillingAddressRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -3308,7 +3308,7 @@ export type BillingV1GetPaymentMethodFromPaymentIntentRequest = {
     /**
      * payment_intent_id
      */
-    paymentIntentId?: string;
+    payment_intent_id?: string;
 };
 
 /**
@@ -3318,7 +3318,7 @@ export type BillingV1GetPaymentMethodFromSetupIntentRequest = {
     /**
      * setup_intent_id
      */
-    setupIntentId?: string;
+    setup_intent_id?: string;
 };
 
 /**
@@ -3331,7 +3331,7 @@ export type BillingV1GetPlanRequest = {
      * string.prefix = "price_"
      *
      */
-    planId: string;
+    plan_id: string;
 };
 
 /**
@@ -3371,7 +3371,7 @@ export type BillingV1GetStorageUsageHistoryRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * days
      */
@@ -3399,7 +3399,7 @@ export type BillingV1GetStorageUsageRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -3409,7 +3409,7 @@ export type BillingV1GetSubscriptionHistoryRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * pagination
      */
@@ -3433,7 +3433,7 @@ export type BillingV1GetSubscriptionRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -3443,11 +3443,11 @@ export type BillingV1HostedCheckoutSessionResponse = {
     /**
      * session_id
      */
-    sessionId?: string;
+    session_id?: string;
     /**
      * session_url
      */
-    sessionUrl?: string;
+    session_url?: string;
     /**
      * amount
      */
@@ -3469,11 +3469,11 @@ export type BillingV1Invoice = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * subscription_id
      */
-    subscriptionId?: string;
+    subscription_id?: string;
     /**
      * amount
      */
@@ -3489,15 +3489,15 @@ export type BillingV1Invoice = {
     /**
      * due_date
      */
-    dueDate?: GoogleProtobufTimestamp;
+    due_date?: GoogleProtobufTimestamp;
     /**
      * paid_at
      */
-    paidAt?: GoogleProtobufTimestamp;
+    paid_at?: GoogleProtobufTimestamp;
     /**
      * created_at
      */
-    createdAt?: GoogleProtobufTimestamp;
+    created_at?: GoogleProtobufTimestamp;
     /**
      * description
      */
@@ -3516,7 +3516,7 @@ export type BillingV1ListInvoicesRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * pagination
      */
@@ -3540,7 +3540,7 @@ export type BillingV1ListPaymentMethodsRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * refresh
      */
@@ -3554,7 +3554,7 @@ export type BillingV1ListPaymentMethodsResponse = {
     /**
      * payment_methods
      */
-    paymentMethods?: Array<BillingV1PaymentMethod>;
+    payment_methods?: Array<BillingV1PaymentMethod>;
 };
 
 /**
@@ -3596,7 +3596,7 @@ export type BillingV1PaymentMethod = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * type
      */
@@ -3612,11 +3612,11 @@ export type BillingV1PaymentMethod = {
     /**
      * is_default
      */
-    isDefault?: boolean;
+    is_default?: boolean;
     /**
      * created_at
      */
-    createdAt?: GoogleProtobufTimestamp;
+    created_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -3642,15 +3642,15 @@ export type BillingV1PaymentMethodDetails = {
     /**
      * exp_month
      */
-    expMonth?: number | string;
+    exp_month?: number | string;
     /**
      * exp_year
      */
-    expYear?: number | string;
+    exp_year?: number | string;
     /**
      * is_default
      */
-    isDefault?: boolean;
+    is_default?: boolean;
 };
 
 /**
@@ -3660,7 +3660,7 @@ export type BillingV1PaymentMethodIdResponse = {
     /**
      * payment_method_id
      */
-    paymentMethodId?: string;
+    payment_method_id?: string;
 };
 
 /**
@@ -3694,15 +3694,15 @@ export type BillingV1Plan = {
     /**
      * plan_type
      */
-    planType?: BillingV1PlanType;
+    plan_type?: BillingV1PlanType;
     /**
      * interval_count
      */
-    intervalCount?: number;
+    interval_count?: number;
     /**
      * sort_order
      */
-    sortOrder?: number;
+    sort_order?: number;
 };
 
 /**
@@ -3712,35 +3712,35 @@ export type BillingV1PlanTaxCalculationResponse = {
     /**
      * calculation_id
      */
-    calculationId?: string;
+    calculation_id?: string;
     /**
      * plan_id
      */
-    planId?: string;
+    plan_id?: string;
     /**
      * plan_name
      */
-    planName?: string;
+    plan_name?: string;
     /**
      * billing_cycle
      */
-    billingCycle?: BillingV1BillingCycle;
+    billing_cycle?: BillingV1BillingCycle;
     /**
      * base_amount
      */
-    baseAmount?: number | string;
+    base_amount?: number | string;
     /**
      * amount_total
      */
-    amountTotal?: number | string;
+    amount_total?: number | string;
     /**
      * tax_amount_exclusive
      */
-    taxAmountExclusive?: number | string;
+    tax_amount_exclusive?: number | string;
     /**
      * tax_amount_inclusive
      */
-    taxAmountInclusive?: number | string;
+    tax_amount_inclusive?: number | string;
     /**
      * currency
      */
@@ -3748,15 +3748,15 @@ export type BillingV1PlanTaxCalculationResponse = {
     /**
      * tax_percentage
      */
-    taxPercentage?: number;
+    tax_percentage?: number;
     /**
      * billing_address
      */
-    billingAddress?: BillingV1BillingAddress;
+    billing_address?: BillingV1BillingAddress;
     /**
      * calculated_at
      */
-    calculatedAt?: GoogleProtobufTimestamp;
+    calculated_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -3785,7 +3785,7 @@ export type BillingV1ReactivateSubscriptionRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -3795,7 +3795,7 @@ export type BillingV1RefreshBandwidthUsageRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -3805,7 +3805,7 @@ export type BillingV1RefreshStorageUsageRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -3826,19 +3826,19 @@ export type BillingV1SalesLead = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * user_id
      */
-    userId?: string;
+    user_id?: string;
     /**
      * first_name
      */
-    firstName?: string;
+    first_name?: string;
     /**
      * last_name
      */
-    lastName?: string;
+    last_name?: string;
     /**
      * email
      */
@@ -3850,7 +3850,7 @@ export type BillingV1SalesLead = {
     /**
      * job_title
      */
-    jobTitle?: string;
+    job_title?: string;
     /**
      * phone
      */
@@ -3870,7 +3870,7 @@ export type BillingV1SalesLead = {
     /**
      * created_at
      */
-    createdAt?: GoogleProtobufTimestamp;
+    created_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -3885,11 +3885,11 @@ export type BillingV1SetupIntentResponse = {
     /**
      * setup_intent_id
      */
-    setupIntentId?: string;
+    setup_intent_id?: string;
     /**
      * client_secret
      */
-    clientSecret?: string;
+    client_secret?: string;
 };
 
 /**
@@ -3899,59 +3899,59 @@ export type BillingV1StorageUsage = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * snapshot_date
      */
-    snapshotDate?: GoogleProtobufTimestamp;
+    snapshot_date?: GoogleProtobufTimestamp;
     /**
      * total_storage_bytes
      */
-    totalStorageBytes?: number | string;
+    total_storage_bytes?: number | string;
     /**
      * video_storage_bytes
      */
-    videoStorageBytes?: number | string;
+    video_storage_bytes?: number | string;
     /**
      * image_storage_bytes
      */
-    imageStorageBytes?: number | string;
+    image_storage_bytes?: number | string;
     /**
      * total_video_minutes
      */
-    totalVideoMinutes?: string;
+    total_video_minutes?: string;
     /**
      * total_file_count
      */
-    totalFileCount?: number;
+    total_file_count?: number;
     /**
      * video_file_count
      */
-    videoFileCount?: number;
+    video_file_count?: number;
     /**
      * image_file_count
      */
-    imageFileCount?: number;
+    image_file_count?: number;
     /**
      * project_count
      */
-    projectCount?: number;
+    project_count?: number;
     /**
      * max_video_count
      */
-    maxVideoCount?: number;
+    max_video_count?: number;
     /**
      * max_image_count
      */
-    maxImageCount?: number;
+    max_image_count?: number;
     /**
      * max_project_count
      */
-    maxProjectCount?: number;
+    max_project_count?: number;
     /**
      * last_updated
      */
-    lastUpdated?: GoogleProtobufTimestamp;
+    last_updated?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -3965,19 +3965,19 @@ export type BillingV1Subscription = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * plan_id
      */
-    planId?: string;
+    plan_id?: string;
     /**
      * plan_name
      */
-    planName?: string;
+    plan_name?: string;
     /**
      * plan_type
      */
-    planType?: BillingV1PlanType;
+    plan_type?: BillingV1PlanType;
     /**
      * status
      */
@@ -3985,11 +3985,11 @@ export type BillingV1Subscription = {
     /**
      * current_period_end
      */
-    currentPeriodEnd?: GoogleProtobufTimestamp;
+    current_period_end?: GoogleProtobufTimestamp;
     /**
      * cancel_at_period_end
      */
-    cancelAtPeriodEnd?: boolean;
+    cancel_at_period_end?: boolean;
     /**
      * price
      */
@@ -4001,11 +4001,11 @@ export type BillingV1Subscription = {
     /**
      * expiring_soon
      */
-    expiringSoon?: boolean;
+    expiring_soon?: boolean;
     /**
      * trials_ending_soon
      */
-    trialsEndingSoon?: boolean;
+    trials_ending_soon?: boolean;
 };
 
 /**
@@ -4019,15 +4019,15 @@ export type BillingV1SubscriptionHistoryItem = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * plan_id
      */
-    planId?: string;
+    plan_id?: string;
     /**
      * plan_name
      */
-    planName?: string;
+    plan_name?: string;
     /**
      * status
      */
@@ -4043,23 +4043,23 @@ export type BillingV1SubscriptionHistoryItem = {
     /**
      * start_date
      */
-    startDate?: GoogleProtobufTimestamp;
+    start_date?: GoogleProtobufTimestamp;
     /**
      * current_period_end
      */
-    currentPeriodEnd?: GoogleProtobufTimestamp;
+    current_period_end?: GoogleProtobufTimestamp;
     /**
      * end_date
      */
-    endDate?: GoogleProtobufTimestamp;
+    end_date?: GoogleProtobufTimestamp;
     /**
      * cancel_at_period_end
      */
-    cancelAtPeriodEnd?: boolean;
+    cancel_at_period_end?: boolean;
     /**
      * created_at
      */
-    createdAt?: GoogleProtobufTimestamp;
+    created_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -4074,19 +4074,19 @@ export type BillingV1TaxCalculationResponse = {
     /**
      * calculation_id
      */
-    calculationId?: string;
+    calculation_id?: string;
     /**
      * amount_total
      */
-    amountTotal?: number | string;
+    amount_total?: number | string;
     /**
      * tax_amount_exclusive
      */
-    taxAmountExclusive?: number | string;
+    tax_amount_exclusive?: number | string;
     /**
      * tax_amount_inclusive
      */
-    taxAmountInclusive?: number | string;
+    tax_amount_inclusive?: number | string;
     /**
      * currency
      */
@@ -4108,7 +4108,7 @@ export type BillingV1TaxLineItem = {
     /**
      * tax_code
      */
-    taxCode?: string;
+    tax_code?: string;
 };
 
 /**
@@ -4118,7 +4118,7 @@ export type BillingV1UpdateInvoiceStatusRequest = {
     /**
      * invoice_id
      */
-    invoiceId: string;
+    invoice_id: string;
     /**
      * status
      */
@@ -4132,11 +4132,11 @@ export type BillingV1UpgradeSubscriptionRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * stripe_price_id
      */
-    stripePriceId: string;
+    stripe_price_id: string;
 };
 
 /**
@@ -4146,7 +4146,7 @@ export type BillingV1UpgradeSubscriptionResponse = {
     /**
      * client_secret
      */
-    clientSecret?: string;
+    client_secret?: string;
 };
 
 /**
@@ -4156,7 +4156,7 @@ export type BillingV1UpsertBillingAddressRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * address
      */
@@ -4170,15 +4170,15 @@ export type BillingV1UpsertPaymentMethodRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * payment_method_id
      */
-    paymentMethodId?: string;
+    payment_method_id?: string;
     /**
      * set_as_default
      */
-    setAsDefault?: boolean;
+    set_as_default?: boolean;
 };
 
 /**
@@ -4196,7 +4196,7 @@ export type ClientauthV1ClientCredential = {
     /**
      * client_id
      */
-    clientId?: string;
+    client_id?: string;
     /**
      * kid
      */
@@ -4212,11 +4212,11 @@ export type ClientauthV1ClientCredential = {
     /**
      * created_at
      */
-    createdAt?: GoogleProtobufTimestamp;
+    created_at?: GoogleProtobufTimestamp;
     /**
      * last_used_at
      */
-    lastUsedAt?: GoogleProtobufTimestamp;
+    last_used_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -4231,7 +4231,7 @@ export type ClientauthV1CreateClientCredentialRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * name
      */
@@ -4253,7 +4253,7 @@ export type ClientauthV1CreateClientCredentialResponse = {
     /**
      * client_secret
      */
-    clientSecret?: string;
+    client_secret?: string;
 };
 
 /**
@@ -4263,7 +4263,7 @@ export type ClientauthV1ListClientCredentialsRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * pagination
      */
@@ -4315,11 +4315,11 @@ export type ClientauthV1MintClientTokenRequest = {
     /**
      * client_id
      */
-    clientId: string;
+    client_id: string;
     /**
      * client_secret
      */
-    clientSecret: string;
+    client_secret: string;
     /**
      * subject
      */
@@ -4327,11 +4327,11 @@ export type ClientauthV1MintClientTokenRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * ttl_minutes
      */
-    ttlMinutes?: number | null;
+    ttl_minutes?: number | null;
 };
 
 /**
@@ -4341,19 +4341,19 @@ export type ClientauthV1MintClientTokenResponse = {
     /**
      * access_token
      */
-    accessToken?: string;
+    access_token?: string;
     /**
      * token_type
      */
-    tokenType?: string;
+    token_type?: string;
     /**
      * expires_in
      */
-    expiresIn?: number | string;
+    expires_in?: number | string;
     /**
      * expires_at
      */
-    expiresAt?: GoogleProtobufTimestamp;
+    expires_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -4363,11 +4363,11 @@ export type ClientauthV1RevokeClientCredentialRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * credential_id
      */
-    credentialId?: string;
+    credential_id?: string;
 };
 
 /**
@@ -4425,7 +4425,7 @@ export type FeedsV1CreateFeedRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * name
      */
@@ -4437,23 +4437,23 @@ export type FeedsV1CreateFeedRequest = {
     /**
      * allow_images
      */
-    allowImages?: boolean;
+    allow_images?: boolean;
     /**
      * allow_videos
      */
-    allowVideos?: boolean;
+    allow_videos?: boolean;
     /**
      * has_likes
      */
-    hasLikes?: boolean | null;
+    has_likes?: boolean | null;
     /**
      * has_shares
      */
-    hasShares?: boolean | null;
+    has_shares?: boolean | null;
     /**
      * has_comments
      */
-    hasComments?: boolean | null;
+    has_comments?: boolean | null;
 };
 
 /**
@@ -4463,11 +4463,11 @@ export type FeedsV1DeleteFeedRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * feed_id
      */
-    feedId?: string;
+    feed_id?: string;
 };
 
 /**
@@ -4481,7 +4481,7 @@ export type FeedsV1Feed = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * name
      */
@@ -4493,31 +4493,31 @@ export type FeedsV1Feed = {
     /**
      * allow_images
      */
-    allowImages?: boolean;
+    allow_images?: boolean;
     /**
      * allow_videos
      */
-    allowVideos?: boolean;
+    allow_videos?: boolean;
     /**
      * has_likes
      */
-    hasLikes?: boolean;
+    has_likes?: boolean;
     /**
      * has_shares
      */
-    hasShares?: boolean;
+    has_shares?: boolean;
     /**
      * has_comments
      */
-    hasComments?: boolean;
+    has_comments?: boolean;
     /**
      * created_at
      */
-    createdAt?: GoogleProtobufTimestamp;
+    created_at?: GoogleProtobufTimestamp;
     /**
      * updated_at
      */
-    updatedAt?: GoogleProtobufTimestamp;
+    updated_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -4527,11 +4527,11 @@ export type FeedsV1GetFeedRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * feed_id
      */
-    feedId?: string;
+    feed_id?: string;
 };
 
 /**
@@ -4541,7 +4541,7 @@ export type FeedsV1ListFeedsRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * pagination
      */
@@ -4569,11 +4569,11 @@ export type FeedsV1UpdateFeedRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * feed_id
      */
-    feedId?: string;
+    feed_id?: string;
     /**
      * name
      */
@@ -4585,23 +4585,23 @@ export type FeedsV1UpdateFeedRequest = {
     /**
      * allow_images
      */
-    allowImages?: boolean;
+    allow_images?: boolean;
     /**
      * allow_videos
      */
-    allowVideos?: boolean;
+    allow_videos?: boolean;
     /**
      * has_likes
      */
-    hasLikes?: boolean;
+    has_likes?: boolean;
     /**
      * has_shares
      */
-    hasShares?: boolean;
+    has_shares?: boolean;
     /**
      * has_comments
      */
-    hasComments?: boolean;
+    has_comments?: boolean;
 };
 
 /**
@@ -4779,19 +4779,19 @@ export type ImagesV1CompleteImageUploadRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * image_id
      */
-    imageId?: string;
+    image_id?: string;
     /**
      * attached_to_video
      */
-    attachedToVideo?: boolean;
+    attached_to_video?: boolean;
 };
 
 /**
@@ -4801,11 +4801,11 @@ export type ImagesV1CreateImageUploadRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * name
      */
@@ -4823,11 +4823,11 @@ export type ImagesV1DeleteImageRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * image_id
      */
-    imageId?: string;
+    image_id?: string;
 };
 
 /**
@@ -4837,7 +4837,7 @@ export type ImagesV1GetImageRequest = {
     /**
      * image_id
      */
-    imageId?: string;
+    image_id?: string;
 };
 
 /**
@@ -4863,7 +4863,7 @@ export type ImagesV1GetImageResponse = {
     /**
      * attached_to_video
      */
-    attachedToVideo?: boolean;
+    attached_to_video?: boolean;
     /**
      * file
      */
@@ -4885,7 +4885,7 @@ export type ImagesV1ImageFile = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * format
      */
@@ -4943,7 +4943,7 @@ export type ImagesV1ImageSummary = {
     /**
      * created_at
      */
-    createdAt?: GoogleProtobufTimestamp;
+    created_at?: GoogleProtobufTimestamp;
     /**
      * url
      */
@@ -4961,15 +4961,15 @@ export type ImagesV1ImageUploadInit = {
     /**
      * image_id
      */
-    imageId?: string;
+    image_id?: string;
     /**
      * upload_url
      */
-    uploadUrl?: string;
+    upload_url?: string;
     /**
      * expires_at
      */
-    expiresAt?: GoogleProtobufTimestamp;
+    expires_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -4979,7 +4979,7 @@ export type ImagesV1ListImagesRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * pagination
      */
@@ -4987,11 +4987,11 @@ export type ImagesV1ListImagesRequest = {
     /**
      * sort_field
      */
-    sortField?: string;
+    sort_field?: string;
     /**
      * sort_direction
      */
-    sortDirection?: string;
+    sort_direction?: string;
 };
 
 /**
@@ -5011,7 +5011,7 @@ export type ImagesV1MarkImageFailedRequest = {
     /**
      * file_id
      */
-    fileId?: string;
+    file_id?: string;
 };
 
 /**
@@ -5021,7 +5021,7 @@ export type ImagesV1MarkImageProcessedRequest = {
     /**
      * file_id
      */
-    fileId?: string;
+    file_id?: string;
     /**
      * size
      */
@@ -5046,7 +5046,7 @@ export type ImagesV1UnprocessedImage = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * format
      */
@@ -5054,7 +5054,7 @@ export type ImagesV1UnprocessedImage = {
     /**
      * s3_path
      */
-    s3Path?: string;
+    s3_path?: string;
     /**
      * name
      */
@@ -5076,11 +5076,11 @@ export type ImagesV1UpdateImageVisibilityRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * image_id
      */
-    imageId?: string;
+    image_id?: string;
     /**
      * visibility
      */
@@ -5094,7 +5094,7 @@ export type ImagesV1UpdateProcessedImageDataRequest = {
     /**
      * file_id
      */
-    fileId?: string;
+    file_id?: string;
     /**
      * thumbhash
      */
@@ -5124,7 +5124,7 @@ export type PlatformauthV1ExchangeApiKeyRequest = {
     /**
      * api_key
      */
-    apiKey: string;
+    api_key: string;
 };
 
 /**
@@ -5134,7 +5134,7 @@ export type PlatformauthV1RefreshPlatformTokenRequest = {
     /**
      * refresh_token
      */
-    refreshToken: string;
+    refresh_token: string;
 };
 
 /**
@@ -5144,23 +5144,23 @@ export type PlatformauthV1TokenResponse = {
     /**
      * access_token
      */
-    accessToken?: string;
+    access_token?: string;
     /**
      * refresh_token
      */
-    refreshToken?: string;
+    refresh_token?: string;
     /**
      * token_type
      */
-    tokenType?: string;
+    token_type?: string;
     /**
      * expires_in
      */
-    expiresIn?: number | string;
+    expires_in?: number | string;
     /**
      * expires_at
      */
-    expiresAt?: GoogleProtobufTimestamp;
+    expires_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -5170,19 +5170,19 @@ export type PostsV1CompletePostUploadRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * feed_id
      */
-    feedId?: string;
+    feed_id?: string;
     /**
      * post_id
      */
-    postId?: string;
+    post_id?: string;
 };
 
 /**
@@ -5192,19 +5192,19 @@ export type PostsV1CreatePostRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * feed_id
      */
-    feedId?: string;
+    feed_id?: string;
     /**
      * creator_id
      */
-    creatorId?: string;
+    creator_id?: string;
     /**
      * type
      */
@@ -5217,12 +5217,12 @@ export type PostsV1CreatePostRequest = {
     /**
      * image_id
      */
-    imageId: string;
+    image_id: string;
 } | {
     /**
      * video_id
      */
-    videoId: string;
+    video_id: string;
 });
 
 /**
@@ -5232,18 +5232,18 @@ export type PostsV1DeletePostRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * post_id
      */
-    postId?: string;
+    post_id?: string;
     /**
      * feed_id
      *
      * feed_id is accepted from the feed-scoped delete path but not used by the
      * backend (deletion is keyed by post_id).
      */
-    feedId?: string;
+    feed_id?: string;
 };
 
 /**
@@ -5253,18 +5253,18 @@ export type PostsV1GetPostRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * post_id
      */
-    postId?: string;
+    post_id?: string;
     /**
      * feed_id
      *
      * Populated from feed-scoped routes; the handler resolves by post_id, so this
      * is used only for path binding / optional validation.
      */
-    feedId?: string;
+    feed_id?: string;
 };
 
 /**
@@ -5274,19 +5274,19 @@ export type PostsV1InitPostUploadRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * feed_id
      */
-    feedId?: string;
+    feed_id?: string;
     /**
      * creator_id
      */
-    creatorId?: string;
+    creator_id?: string;
     /**
      * description
      */
@@ -5294,11 +5294,11 @@ export type PostsV1InitPostUploadRequest = {
     /**
      * content_type
      */
-    contentType?: CommonV1MediaType;
+    content_type?: CommonV1MediaType;
     /**
      * file_name
      */
-    fileName?: string;
+    file_name?: string;
     /**
      * format
      */
@@ -5306,11 +5306,11 @@ export type PostsV1InitPostUploadRequest = {
     /**
      * video_quality
      */
-    videoQuality?: CommonV1VideoQuality;
+    video_quality?: CommonV1VideoQuality;
     /**
      * image_format
      */
-    imageFormat?: CommonV1ImageFormat;
+    image_format?: CommonV1ImageFormat;
 };
 
 /**
@@ -5320,11 +5320,11 @@ export type PostsV1ListPostsRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * feed_id
      */
-    feedId?: string;
+    feed_id?: string;
     /**
      * pagination
      */
@@ -5332,7 +5332,7 @@ export type PostsV1ListPostsRequest = {
     /**
      * creator_id
      */
-    creatorId?: string;
+    creator_id?: string;
 };
 
 /**
@@ -5360,11 +5360,11 @@ export type PostsV1Post = {
     /**
      * feed_id
      */
-    feedId?: string;
+    feed_id?: string;
     /**
      * creator_id
      */
-    creatorId?: string;
+    creator_id?: string;
     /**
      * type
      */
@@ -5376,7 +5376,7 @@ export type PostsV1Post = {
     /**
      * created_at
      */
-    createdAt?: GoogleProtobufTimestamp;
+    created_at?: GoogleProtobufTimestamp;
 } & ({
     /**
      * image
@@ -5400,7 +5400,7 @@ export type PostsV1PostFile = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * format
      */
@@ -5446,7 +5446,7 @@ export type PostsV1PostImage = {
     /**
      * attached_to_video
      */
-    attachedToVideo?: boolean;
+    attached_to_video?: boolean;
     /**
      * file
      */
@@ -5460,27 +5460,27 @@ export type PostsV1PostUploadInit = {
     /**
      * post_id
      */
-    postId?: string;
+    post_id?: string;
     /**
      * content_id
      */
-    contentId?: string;
+    content_id?: string;
     /**
      * poster_id
      */
-    posterId?: string;
+    poster_id?: string;
     /**
      * content_upload_url
      */
-    contentUploadUrl?: string;
+    content_upload_url?: string;
     /**
      * poster_upload_url
      */
-    posterUploadUrl?: string;
+    poster_upload_url?: string;
     /**
      * upload_expires
      */
-    uploadExpires?: GoogleProtobufTimestamp;
+    upload_expires?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -5536,7 +5536,7 @@ export type ProjectV1CreateProjectRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * name
      */
@@ -5548,7 +5548,7 @@ export type ProjectV1CreateProjectRequest = {
     /**
      * video_quality
      */
-    videoQuality?: CommonV1VideoQuality;
+    video_quality?: CommonV1VideoQuality;
 };
 
 /**
@@ -5558,11 +5558,11 @@ export type ProjectV1DeleteProjectRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -5572,11 +5572,11 @@ export type ProjectV1GetProjectRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -5586,7 +5586,7 @@ export type ProjectV1ListProjectsRequest = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -5606,15 +5606,15 @@ export type ProjectV1MoveProjectRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * target_organization_id
      */
-    targetOrganizationId?: string;
+    target_organization_id?: string;
 };
 
 /**
@@ -5628,7 +5628,7 @@ export type ProjectV1Project = {
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * name
      */
@@ -5640,19 +5640,19 @@ export type ProjectV1Project = {
     /**
      * video_quality
      */
-    videoQuality?: CommonV1VideoQuality;
+    video_quality?: CommonV1VideoQuality;
     /**
      * custom_domain
      */
-    customDomain?: string;
+    custom_domain?: string;
     /**
      * created_at
      */
-    createdAt?: GoogleProtobufTimestamp;
+    created_at?: GoogleProtobufTimestamp;
     /**
      * updated_at
      */
-    updatedAt?: GoogleProtobufTimestamp;
+    updated_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -5662,11 +5662,11 @@ export type ProjectV1RemoveCustomDomainRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
 };
 
 /**
@@ -5676,15 +5676,15 @@ export type ProjectV1SetCustomDomainRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * custom_domain
      */
-    customDomain?: string;
+    custom_domain?: string;
 };
 
 /**
@@ -5694,11 +5694,11 @@ export type ProjectV1UpdateProjectNameRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * name
      */
@@ -5712,15 +5712,15 @@ export type ProjectV1UpdateVideoQualityRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * video_quality
      */
-    videoQuality: CommonV1VideoQuality;
+    video_quality: CommonV1VideoQuality;
 };
 
 /**
@@ -5734,11 +5734,11 @@ export type VideosV1AudioTrack = {
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * language_code
      */
-    languageCode?: string;
+    language_code?: string;
     /**
      * codec
      */
@@ -5760,7 +5760,7 @@ export type VideosV1Chapter = {
     /**
      * start_time_sec
      */
-    startTimeSec?: number;
+    start_time_sec?: number;
 };
 
 /**
@@ -5774,7 +5774,7 @@ export type VideosV1CompleteTrackUploadItem = {
     /**
      * object_key
      */
-    objectKey?: string;
+    object_key?: string;
     /**
      * size
      */
@@ -5788,11 +5788,11 @@ export type VideosV1CompleteTrackUploadRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * items
      */
@@ -5806,15 +5806,15 @@ export type VideosV1CompleteVideoUploadRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
 };
 
 /**
@@ -5844,11 +5844,11 @@ export type VideosV1CreateVideoUploadRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * name
      */
@@ -5856,11 +5856,11 @@ export type VideosV1CreateVideoUploadRequest = {
     /**
      * image_format
      */
-    imageFormat?: CommonV1ImageFormat;
+    image_format?: CommonV1ImageFormat;
     /**
      * video_quality
      */
-    videoQuality?: CommonV1VideoQuality;
+    video_quality?: CommonV1VideoQuality;
 };
 
 /**
@@ -5870,15 +5870,15 @@ export type VideosV1DeleteAudioTrackRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * track_id
      */
-    trackId?: string;
+    track_id?: string;
 };
 
 /**
@@ -5888,15 +5888,15 @@ export type VideosV1DeleteByLanguageRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * language_code
      */
-    languageCode?: string;
+    language_code?: string;
 };
 
 /**
@@ -5906,15 +5906,15 @@ export type VideosV1DeleteSubtitleRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * subtitle_id
      */
-    subtitleId?: string;
+    subtitle_id?: string;
 };
 
 /**
@@ -5924,15 +5924,15 @@ export type VideosV1DeleteVideoChapterRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * start_time_sec
      */
-    startTimeSec?: number | string;
+    start_time_sec?: number | string;
 };
 
 /**
@@ -5942,11 +5942,11 @@ export type VideosV1DeleteVideoRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
 };
 
 /**
@@ -5960,7 +5960,7 @@ export type VideosV1File = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * format
      */
@@ -5968,7 +5968,7 @@ export type VideosV1File = {
     /**
      * s3_path
      */
-    s3Path?: string;
+    s3_path?: string;
     /**
      * name
      */
@@ -6000,11 +6000,11 @@ export type VideosV1GetVideoChaptersRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
 };
 
 /**
@@ -6014,7 +6014,7 @@ export type VideosV1GetVideoRequest = {
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
 };
 
 /**
@@ -6066,15 +6066,15 @@ export type VideosV1InitTrackUploadRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * org_id
      */
-    orgId?: string;
+    org_id?: string;
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * items
      */
@@ -6102,7 +6102,7 @@ export type VideosV1ListAudioTracksRequest = {
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
 };
 
 /**
@@ -6112,7 +6112,7 @@ export type VideosV1ListAudioTracksResponse = {
     /**
      * audio_tracks
      */
-    audioTracks?: Array<VideosV1AudioTrack>;
+    audio_tracks?: Array<VideosV1AudioTrack>;
 };
 
 /**
@@ -6139,7 +6139,7 @@ export type VideosV1ListSubtitlesRequest = {
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
 };
 
 /**
@@ -6159,7 +6159,7 @@ export type VideosV1ListVideosRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * pagination
      */
@@ -6167,11 +6167,11 @@ export type VideosV1ListVideosRequest = {
     /**
      * sort_field
      */
-    sortField?: string;
+    sort_field?: string;
     /**
      * sort_direction
      */
-    sortDirection?: string;
+    sort_direction?: string;
 };
 
 /**
@@ -6191,7 +6191,7 @@ export type VideosV1MarkVideoFailedRequest = {
     /**
      * file_id
      */
-    fileId?: string;
+    file_id?: string;
 };
 
 /**
@@ -6201,7 +6201,7 @@ export type VideosV1MarkVideoProcessedRequest = {
     /**
      * file_id
      */
-    fileId?: string;
+    file_id?: string;
     /**
      * size
      */
@@ -6219,7 +6219,7 @@ export type VideosV1Rendition = {
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * resolution
      */
@@ -6227,7 +6227,7 @@ export type VideosV1Rendition = {
     /**
      * resolution_value
      */
-    resolutionValue?: string;
+    resolution_value?: string;
     /**
      * fps
      */
@@ -6251,27 +6251,27 @@ export type VideosV1Rendition = {
     /**
      * s3_path
      */
-    s3Path?: string | null;
+    s3_path?: string | null;
     /**
      * m3u8_url
      */
-    m3u8Url?: string | null;
+    m3u8_url?: string | null;
     /**
      * dash_url
      */
-    dashUrl?: string | null;
+    dash_url?: string | null;
     /**
      * error_message
      */
-    errorMessage?: string | null;
+    error_message?: string | null;
     /**
      * is_lowest_resolution
      */
-    isLowestResolution?: boolean;
+    is_lowest_resolution?: boolean;
     /**
      * retry_count
      */
-    retryCount?: number | null;
+    retry_count?: number | null;
 };
 
 /**
@@ -6283,7 +6283,7 @@ export type VideosV1RenditionInput = {
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * resolution
      */
@@ -6291,7 +6291,7 @@ export type VideosV1RenditionInput = {
     /**
      * resolution_value
      */
-    resolutionValue?: string;
+    resolution_value?: string;
     /**
      * fps
      */
@@ -6315,7 +6315,7 @@ export type VideosV1RenditionInput = {
     /**
      * is_lowest_resolution
      */
-    isLowestResolution?: boolean;
+    is_lowest_resolution?: boolean;
 };
 
 /**
@@ -6339,11 +6339,11 @@ export type VideosV1Subtitle = {
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * language_code
      */
-    languageCode?: string;
+    language_code?: string;
     /**
      * format
      */
@@ -6355,7 +6355,7 @@ export type VideosV1Subtitle = {
     /**
      * vtt_path
      */
-    vttPath?: string;
+    vtt_path?: string;
 };
 
 /**
@@ -6371,11 +6371,11 @@ export type VideosV1SubtitleRow = {
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * language_code
      */
-    languageCode?: string;
+    language_code?: string;
     /**
      * label
      */
@@ -6383,11 +6383,11 @@ export type VideosV1SubtitleRow = {
     /**
      * s3_path
      */
-    s3Path?: string;
+    s3_path?: string;
     /**
      * vtt_path
      */
-    vttPath?: string | null;
+    vtt_path?: string | null;
 };
 
 /**
@@ -6411,7 +6411,7 @@ export type VideosV1TrackUploadInit = {
     /**
      * expires_at
      */
-    expiresAt?: GoogleProtobufTimestamp;
+    expires_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -6421,7 +6421,7 @@ export type VideosV1TrackUploadItem = {
     /**
      * language_code
      */
-    languageCode?: string;
+    language_code?: string;
     /**
      * label
      */
@@ -6429,7 +6429,7 @@ export type VideosV1TrackUploadItem = {
     /**
      * file_name
      */
-    fileName?: string;
+    file_name?: string;
     /**
      * format
      */
@@ -6451,15 +6451,15 @@ export type VideosV1TrackUploadTarget = {
     /**
      * language_code
      */
-    languageCode?: string;
+    language_code?: string;
     /**
      * object_key
      */
-    objectKey?: string;
+    object_key?: string;
     /**
      * upload_url
      */
-    uploadUrl?: string;
+    upload_url?: string;
 };
 
 /**
@@ -6473,7 +6473,7 @@ export type VideosV1UpdateFileForHlsRequest = {
     /**
      * s3_path
      */
-    s3Path?: string;
+    s3_path?: string;
 };
 
 /**
@@ -6501,7 +6501,7 @@ export type VideosV1UpdateRenditionErrorRequest = {
     /**
      * error_message
      */
-    errorMessage?: string | null;
+    error_message?: string | null;
 };
 
 /**
@@ -6515,15 +6515,15 @@ export type VideosV1UpdateRenditionPathsRequest = {
     /**
      * s3_path
      */
-    s3Path?: string | null;
+    s3_path?: string | null;
     /**
      * m3u8_url
      */
-    m3u8Url?: string | null;
+    m3u8_url?: string | null;
     /**
      * dash_url
      */
-    dashUrl?: string | null;
+    dash_url?: string | null;
 };
 
 /**
@@ -6547,11 +6547,11 @@ export type VideosV1UpdateVideoChaptersRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * chapters
      */
@@ -6603,11 +6603,11 @@ export type VideosV1UpdateVideoVisibilityRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * visibility
      */
@@ -6621,11 +6621,11 @@ export type VideosV1UploadVideoThumbnailRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * image
      */
@@ -6636,7 +6636,7 @@ export type VideosV1UploadVideoThumbnailRequest = {
      * string.prefix = "image/"
      *
      */
-    contentType?: string;
+    content_type?: string;
 };
 
 /**
@@ -6646,7 +6646,7 @@ export type VideosV1UploadVideoThumbnailResponse = {
     /**
      * thumbnail_url
      */
-    thumbnailUrl?: string;
+    thumbnail_url?: string;
 };
 
 /**
@@ -6660,7 +6660,7 @@ export type VideosV1Video = {
     /**
      * poster_id
      */
-    posterId?: string;
+    poster_id?: string;
     /**
      * duration
      */
@@ -6692,11 +6692,11 @@ export type VideosV1Video = {
     /**
      * video_quality
      */
-    videoQuality?: string;
+    video_quality?: string;
     /**
      * in_feed
      */
-    inFeed?: boolean;
+    in_feed?: boolean;
 };
 
 /**
@@ -6706,7 +6706,7 @@ export type VideosV1VideoChapters = {
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * chapters
      */
@@ -6730,7 +6730,7 @@ export type VideosV1VideoIdRequest = {
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
 };
 
 /**
@@ -6740,11 +6740,11 @@ export type VideosV1VideoScopeRequest = {
     /**
      * project_id
      */
-    projectId?: string;
+    project_id?: string;
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
 };
 
 /**
@@ -6782,7 +6782,7 @@ export type VideosV1VideoSummary = {
     /**
      * created_at
      */
-    createdAt?: GoogleProtobufTimestamp;
+    created_at?: GoogleProtobufTimestamp;
     /**
      * visibility
      */
@@ -6796,23 +6796,23 @@ export type VideosV1VideoUploadInit = {
     /**
      * video_id
      */
-    videoId?: string;
+    video_id?: string;
     /**
      * poster_id
      */
-    posterId?: string;
+    poster_id?: string;
     /**
      * video_upload_url
      */
-    videoUploadUrl?: string;
+    video_upload_url?: string;
     /**
      * poster_upload_url
      */
-    posterUploadUrl?: string;
+    poster_upload_url?: string;
     /**
      * expires_at
      */
-    expiresAt?: GoogleProtobufTimestamp;
+    expires_at?: GoogleProtobufTimestamp;
 };
 
 /**
@@ -6836,11 +6836,11 @@ export type AnalyticsV1DashboardServiceGetDashboardStatsData = {
         /**
          * time_start
          */
-        timeStart: string;
+        time_start: string;
         /**
          * time_end
          */
-        timeEnd: string;
+        time_end: string;
         /**
          * interval
          */
@@ -7078,7 +7078,7 @@ export type AnalyticsV1PostsServiceGetTopPostsData = {
         /**
          * feed_id
          */
-        feedId?: string;
+        feed_id?: string;
     };
     url: '/analytics/v1/top/posts';
 };
@@ -7207,17 +7207,21 @@ export type ApikeysV1ApiKeyServiceCreateApiKeyData = {
      */
     body: {
         /**
+         * org_id
+         */
+        org_id?: string;
+        /**
          * name
          */
         name?: string;
         /**
          * project_id
          */
-        projectId?: string;
+        project_id?: string;
         /**
          * expiring_at
          */
-        expiringAt?: GoogleProtobufTimestamp;
+        expiring_at?: GoogleProtobufTimestamp;
     };
     path: {
         /**
@@ -7311,7 +7315,7 @@ export type AuthV1BlogServiceSubscribeBlogData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/blog/subscribe';
 };
@@ -7332,7 +7336,7 @@ export type AuthV1BlogServiceGetBlogSubscriptionData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/blog/subscription';
 };
@@ -7353,7 +7357,7 @@ export type AuthV1BlogServiceUnsubscribeBlogData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/blog/unsubscribe';
 };
@@ -7395,7 +7399,7 @@ export type AuthV1DomainServiceRemoveDomainData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/memberships/{org_id}/domain';
 };
@@ -7421,7 +7425,7 @@ export type AuthV1DomainServiceGetDomainStatusData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/memberships/{org_id}/domain';
 };
@@ -7447,7 +7451,7 @@ export type AuthV1DomainServiceGetDomainAutoJoinData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/memberships/{org_id}/domain/auto-join';
 };
@@ -7473,7 +7477,7 @@ export type AuthV1DomainServiceCheckDomainVerificationData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/memberships/{org_id}/domain/verify';
 };
@@ -7602,7 +7606,7 @@ export type AuthV1MembershipServiceListMembershipsData = {
         /**
          * user_id
          */
-        'user.userId'?: string;
+        'user.user_id'?: string;
         /**
          * limit
          */
@@ -7656,7 +7660,7 @@ export type AuthV1MembershipServiceCheckMembershipData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/memberships/{org_id}/check';
 };
@@ -7682,7 +7686,7 @@ export type AuthV1MembershipServiceGetInternalMembershipInfoData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/memberships/{org_id}/info';
 };
@@ -7708,7 +7712,7 @@ export type AuthV1MembershipServiceLeaveOrganizationData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/memberships/{org_id}/leave';
 };
@@ -7771,7 +7775,7 @@ export type AuthV1MembershipServiceResendInvitationData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     path: {
         /**
@@ -7804,7 +7808,7 @@ export type AuthV1MembershipServiceListOrganizationMembersData = {
         /**
          * user_id
          */
-        'user.userId'?: string;
+        'user.user_id'?: string;
         /**
          * limit
          */
@@ -7842,7 +7846,7 @@ export type AuthV1MembershipServiceRemoveMemberData = {
         /**
          * actor_id
          */
-        'user.actorId'?: string;
+        'user.actor_id'?: string;
     };
     url: '/auth/v1/memberships/{user.org_id}/members/{user_id}';
 };
@@ -7865,6 +7869,10 @@ export type AuthV1MembershipServiceUpdateMemberRoleData = {
          * user
          */
         user?: AuthV1ActorOrgRequest;
+        /**
+         * user_id
+         */
+        user_id?: string;
         /**
          * role
          */
@@ -7905,7 +7913,7 @@ export type AuthV1MembershipServiceUpdateOrgNameData = {
         /**
          * full_name
          */
-        fullName?: string;
+        full_name?: string;
     };
     path: {
         /**
@@ -7999,7 +8007,7 @@ export type AuthV1OtpServiceDeleteOtpData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/users/current/totp/delete';
 };
@@ -8020,7 +8028,7 @@ export type AuthV1OtpServiceSetupOtpData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/users/current/totp/setup';
 };
@@ -8041,7 +8049,7 @@ export type AuthV1OtpServiceGetOtpStatusData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/users/current/totp/status';
 };
@@ -8126,7 +8134,7 @@ export type AuthV1PasskeyServiceListPasskeysData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/users/current/passkeys';
 };
@@ -8184,7 +8192,7 @@ export type AuthV1PasskeyServiceDeletePasskeyData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/users/current/passkeys/{id}';
 };
@@ -8206,7 +8214,7 @@ export type AuthV1PasskeyServiceRenamePasskeyData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
         /**
          * name
          */
@@ -8259,7 +8267,7 @@ export type AuthV1PolicyServiceListPoliciesData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/memberships/{org_id}/policies';
 };
@@ -8289,7 +8297,7 @@ export type AuthV1PolicyServiceListUserPoliciesData = {
         /**
          * user_id
          */
-        'user.userId'?: string;
+        'user.user_id'?: string;
     };
     url: '/auth/v1/memberships/{user.org_id}/members/{member_id}/policies';
 };
@@ -8360,7 +8368,7 @@ export type AuthV1PolicyServiceDetachPolicyData = {
         /**
          * user_id
          */
-        'user.userId'?: string;
+        'user.user_id'?: string;
     };
     url: '/auth/v1/memberships/{user.org_id}/policies/attachments/{attachment_id}';
 };
@@ -8390,7 +8398,7 @@ export type AuthV1PolicyServiceDeletePolicyData = {
         /**
          * user_id
          */
-        'user.userId'?: string;
+        'user.user_id'?: string;
     };
     url: '/auth/v1/memberships/{user.org_id}/policies/{policy_id}';
 };
@@ -8420,7 +8428,7 @@ export type AuthV1PolicyServiceGetPolicyData = {
         /**
          * user_id
          */
-        'user.userId'?: string;
+        'user.user_id'?: string;
     };
     url: '/auth/v1/memberships/{user.org_id}/policies/{policy_id}';
 };
@@ -8443,6 +8451,10 @@ export type AuthV1PolicyServiceUpdatePolicyData = {
          * user
          */
         user?: AuthV1UserOrgRequest;
+        /**
+         * policy_id
+         */
+        policy_id?: string;
         /**
          * name
          */
@@ -8495,7 +8507,7 @@ export type AuthV1PolicyServiceListPolicyAttachmentsData = {
         /**
          * user_id
          */
-        'user.userId'?: string;
+        'user.user_id'?: string;
     };
     url: '/auth/v1/memberships/{user.org_id}/policies/{policy_id}/attachments';
 };
@@ -8519,13 +8531,17 @@ export type AuthV1PolicyServiceAttachPolicyData = {
          */
         user?: AuthV1UserOrgRequest;
         /**
+         * policy_id
+         */
+        policy_id?: string;
+        /**
          * identity_type
          */
-        identityType?: AuthV1PolicyIdentityType;
+        identity_type?: AuthV1PolicyIdentityType;
         /**
          * identity_id
          */
-        identityId?: string;
+        identity_id?: string;
     };
     path: {
         /**
@@ -8573,7 +8589,7 @@ export type AuthV1ProvidersServiceListProvidersData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/providers';
 };
@@ -8615,7 +8631,7 @@ export type AuthV1ProvidersServiceDisconnectProviderData = {
         /**
          * user_id
          */
-        'user.userId'?: string;
+        'user.user_id'?: string;
     };
     url: '/auth/v1/providers/{provider}';
 };
@@ -8796,7 +8812,7 @@ export type AuthV1EmailServiceGetUserEmailStatusData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/users/current/emails/status';
 };
@@ -8817,7 +8833,7 @@ export type AuthV1UserServiceGetUserInfoData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/userinfo';
 };
@@ -8838,7 +8854,7 @@ export type AuthV1UserServiceGetUserData = {
         /**
          * user_id
          */
-        userId?: string;
+        user_id?: string;
     };
     url: '/auth/v1/users/current';
 };
@@ -8891,7 +8907,7 @@ export type BillingV1InvoiceServiceListInvoicesData = {
         /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
         /**
          * limit
          *
@@ -8923,6 +8939,10 @@ export type BillingV1InvoiceServiceUpdateInvoiceStatusData = {
      */
     body: {
         /**
+         * invoice_id
+         */
+        invoice_id: string;
+        /**
          * status
          */
         status?: BillingV1InvoiceStatus;
@@ -8953,7 +8973,7 @@ export type BillingV1PaymentServiceGetBillingAddressData = {
         /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
     };
     url: '/billing/v1/address';
 };
@@ -9006,7 +9026,7 @@ export type BillingV1PaymentServiceListPaymentMethodsData = {
         /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
         /**
          * refresh
          */
@@ -9047,7 +9067,7 @@ export type BillingV1PaymentServiceGetPaymentMethodFromPaymentIntentData = {
         /**
          * payment_intent_id
          */
-        paymentIntentId?: string;
+        payment_intent_id?: string;
     };
     url: '/billing/v1/payment-methods/from-payment-intent';
 };
@@ -9068,7 +9088,7 @@ export type BillingV1PaymentServiceGetPaymentMethodFromSetupIntentData = {
         /**
          * setup_intent_id
          */
-        setupIntentId?: string;
+        setup_intent_id?: string;
     };
     url: '/billing/v1/payment-methods/from-setup-intent';
 };
@@ -9094,7 +9114,7 @@ export type BillingV1PaymentServiceDeletePaymentMethodData = {
         /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
     };
     url: '/billing/v1/payment-methods/{payment_method_id}';
 };
@@ -9248,7 +9268,7 @@ export type BillingV1SubscriptionServiceGetSubscriptionData = {
         /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
     };
     url: '/billing/v1/subscription';
 };
@@ -9285,7 +9305,7 @@ export type BillingV1SubscriptionServiceCancelSubscriptionData = {
         /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
     };
     url: '/billing/v1/subscription/cancel';
 };
@@ -9306,7 +9326,7 @@ export type BillingV1SubscriptionServiceGetSubscriptionHistoryData = {
         /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
         /**
          * limit
          *
@@ -9339,7 +9359,7 @@ export type BillingV1SubscriptionServiceReactivateSubscriptionData = {
         /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
     };
     url: '/billing/v1/subscription/reactivate';
 };
@@ -9360,7 +9380,7 @@ export type BillingV1UsageServiceGetBandwidthUsageData = {
         /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
     };
     url: '/billing/v1/bandwidth-usage';
 };
@@ -9381,7 +9401,7 @@ export type BillingV1UsageServiceGetBandwidthUsageHistoryData = {
         /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
         /**
          * days
          */
@@ -9406,7 +9426,7 @@ export type BillingV1UsageServiceRefreshBandwidthUsageData = {
         /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
     };
     url: '/billing/v1/bandwidth-usage/refresh';
 };
@@ -9427,7 +9447,7 @@ export type BillingV1UsageServiceGetStorageUsageData = {
         /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
     };
     url: '/billing/v1/storage-usage';
 };
@@ -9448,7 +9468,7 @@ export type BillingV1UsageServiceGetStorageUsageHistoryData = {
         /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
         /**
          * days
          */
@@ -9473,7 +9493,7 @@ export type BillingV1UsageServiceRefreshStorageUsageData = {
         /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
     };
     url: '/billing/v1/storage-usage/refresh';
 };
@@ -9494,7 +9514,7 @@ export type ClientauthV1ClientCredentialServiceListClientCredentialsData = {
         /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
         /**
          * limit
          *
@@ -9548,7 +9568,7 @@ export type ClientauthV1ClientCredentialServiceRevokeClientCredentialData = {
         /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
     };
     url: '/platform/clientauth/v1/credentials/{credential_id}/revoke';
 };
@@ -9618,6 +9638,10 @@ export type FeedsV1FeedServiceCreateFeedData = {
      */
     body: {
         /**
+         * project_id
+         */
+        project_id?: string;
+        /**
          * name
          */
         name?: string;
@@ -9628,23 +9652,23 @@ export type FeedsV1FeedServiceCreateFeedData = {
         /**
          * allow_images
          */
-        allowImages?: boolean;
+        allow_images?: boolean;
         /**
          * allow_videos
          */
-        allowVideos?: boolean;
+        allow_videos?: boolean;
         /**
          * has_likes
          */
-        hasLikes?: boolean | null;
+        has_likes?: boolean | null;
         /**
          * has_shares
          */
-        hasShares?: boolean | null;
+        has_shares?: boolean | null;
         /**
          * has_comments
          */
-        hasComments?: boolean | null;
+        has_comments?: boolean | null;
     };
     path: {
         /**
@@ -9721,6 +9745,14 @@ export type FeedsV1FeedServiceUpdateFeedData = {
      */
     body: {
         /**
+         * project_id
+         */
+        project_id?: string;
+        /**
+         * feed_id
+         */
+        feed_id?: string;
+        /**
          * name
          */
         name?: string;
@@ -9731,23 +9763,23 @@ export type FeedsV1FeedServiceUpdateFeedData = {
         /**
          * allow_images
          */
-        allowImages?: boolean;
+        allow_images?: boolean;
         /**
          * allow_videos
          */
-        allowVideos?: boolean;
+        allow_videos?: boolean;
         /**
          * has_likes
          */
-        hasLikes?: boolean;
+        has_likes?: boolean;
         /**
          * has_shares
          */
-        hasShares?: boolean;
+        has_shares?: boolean;
         /**
          * has_comments
          */
-        hasComments?: boolean;
+        has_comments?: boolean;
     };
     path: {
         /**
@@ -9865,11 +9897,11 @@ export type ImagesV1ImageServiceListImagesData = {
         /**
          * sort_field
          */
-        sortField?: string;
+        sort_field?: string;
         /**
          * sort_direction
          */
-        sortDirection?: string;
+        sort_direction?: string;
     };
     url: '/media/v1/projects/{project_id}/images';
 };
@@ -9889,9 +9921,13 @@ export type ImagesV1ImageServiceCreateImageUploadData = {
      */
     body: {
         /**
+         * project_id
+         */
+        project_id?: string;
+        /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
         /**
          * name
          */
@@ -9951,13 +9987,21 @@ export type ImagesV1ImageServiceCompleteImageUploadData = {
      */
     body: {
         /**
+         * project_id
+         */
+        project_id?: string;
+        /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
+        /**
+         * image_id
+         */
+        image_id?: string;
         /**
          * attached_to_video
          */
-        attachedToVideo?: boolean;
+        attached_to_video?: boolean;
     };
     path: {
         /**
@@ -9987,6 +10031,14 @@ export type ImagesV1ImageServiceUpdateImageVisibilityData = {
      * UpdateImageVisibilityRequest
      */
     body: {
+        /**
+         * project_id
+         */
+        project_id?: string;
+        /**
+         * image_id
+         */
+        image_id?: string;
         /**
          * visibility
          */
@@ -10059,7 +10111,7 @@ export type PostsV1PostServiceListPosts3Data = {
         /**
          * project_id
          */
-        projectId?: string;
+        project_id?: string;
         /**
          * limit
          *
@@ -10075,7 +10127,7 @@ export type PostsV1PostServiceListPosts3Data = {
         /**
          * creator_id
          */
-        creatorId?: string;
+        creator_id?: string;
     };
     url: '/posts/v1/feeds/{feed_id}';
 };
@@ -10105,7 +10157,7 @@ export type PostsV1PostServiceListPosts4Data = {
         /**
          * project_id
          */
-        projectId?: string;
+        project_id?: string;
         /**
          * limit
          *
@@ -10150,7 +10202,7 @@ export type PostsV1PostServiceGetPost3Data = {
         /**
          * project_id
          */
-        projectId?: string;
+        project_id?: string;
     };
     url: '/posts/v1/feeds/{feed_id}/{post_id}';
 };
@@ -10192,7 +10244,7 @@ export type PostsV1PostServiceListPostsData = {
         /**
          * creator_id
          */
-        creatorId?: string;
+        creator_id?: string;
     };
     url: '/posts/v1/projects/{project_id}/feeds/{feed_id}/posts';
 };
@@ -10212,13 +10264,21 @@ export type PostsV1PostServiceCreatePostData = {
      */
     body: {
         /**
+         * project_id
+         */
+        project_id?: string;
+        /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
+        /**
+         * feed_id
+         */
+        feed_id?: string;
         /**
          * creator_id
          */
-        creatorId?: string;
+        creator_id?: string;
         /**
          * type
          */
@@ -10231,12 +10291,12 @@ export type PostsV1PostServiceCreatePostData = {
         /**
          * image_id
          */
-        imageId: string;
+        image_id: string;
     } | {
         /**
          * video_id
          */
-        videoId: string;
+        video_id: string;
     });
     path: {
         /**
@@ -10309,13 +10369,21 @@ export type PostsV1PostServiceCompletePostUploadData = {
      */
     body: {
         /**
+         * project_id
+         */
+        project_id?: string;
+        /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
+        /**
+         * feed_id
+         */
+        feed_id?: string;
         /**
          * post_id
          */
-        postId?: string;
+        post_id?: string;
     };
     path: {
         /**
@@ -10346,13 +10414,21 @@ export type PostsV1PostServiceInitPostUploadData = {
      */
     body: {
         /**
+         * project_id
+         */
+        project_id?: string;
+        /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
+        /**
+         * feed_id
+         */
+        feed_id?: string;
         /**
          * creator_id
          */
-        creatorId?: string;
+        creator_id?: string;
         /**
          * description
          */
@@ -10360,11 +10436,11 @@ export type PostsV1PostServiceInitPostUploadData = {
         /**
          * content_type
          */
-        contentType?: CommonV1MediaType;
+        content_type?: CommonV1MediaType;
         /**
          * file_name
          */
-        fileName?: string;
+        file_name?: string;
         /**
          * format
          */
@@ -10372,11 +10448,11 @@ export type PostsV1PostServiceInitPostUploadData = {
         /**
          * video_quality
          */
-        videoQuality?: CommonV1VideoQuality;
+        video_quality?: CommonV1VideoQuality;
         /**
          * image_format
          */
-        imageFormat?: CommonV1ImageFormat;
+        image_format?: CommonV1ImageFormat;
     };
     path: {
         /**
@@ -10484,7 +10560,7 @@ export type PostsV1PostServiceDeletePostData = {
          * feed_id is accepted from the feed-scoped delete path but not used by the
          * backend (deletion is keyed by post_id).
          */
-        feedId?: string;
+        feed_id?: string;
     };
     url: '/posts/v1/projects/{project_id}/posts/{post_id}';
 };
@@ -10517,7 +10593,7 @@ export type PostsV1PostServiceGetPostData = {
          * Populated from feed-scoped routes; the handler resolves by post_id, so this
          * is used only for path binding / optional validation.
          */
-        feedId?: string;
+        feed_id?: string;
     };
     url: '/posts/v1/projects/{project_id}/posts/{post_id}';
 };
@@ -10558,6 +10634,10 @@ export type ProjectV1ProjectServiceCreateProjectData = {
      */
     body: {
         /**
+         * org_id
+         */
+        org_id?: string;
+        /**
          * name
          */
         name?: string;
@@ -10568,7 +10648,7 @@ export type ProjectV1ProjectServiceCreateProjectData = {
         /**
          * video_quality
          */
-        videoQuality?: CommonV1VideoQuality;
+        video_quality?: CommonV1VideoQuality;
     };
     path: {
         /**
@@ -10670,9 +10750,17 @@ export type ProjectV1ProjectServiceSetCustomDomainData = {
      */
     body: {
         /**
+         * project_id
+         */
+        project_id?: string;
+        /**
+         * org_id
+         */
+        org_id?: string;
+        /**
          * custom_domain
          */
-        customDomain?: string;
+        custom_domain?: string;
     };
     path: {
         /**
@@ -10703,9 +10791,17 @@ export type ProjectV1ProjectServiceMoveProjectData = {
      */
     body: {
         /**
+         * project_id
+         */
+        project_id?: string;
+        /**
+         * org_id
+         */
+        org_id?: string;
+        /**
          * target_organization_id
          */
-        targetOrganizationId?: string;
+        target_organization_id?: string;
     };
     path: {
         /**
@@ -10735,6 +10831,14 @@ export type ProjectV1ProjectServiceUpdateProjectNameData = {
      * UpdateProjectNameRequest
      */
     body: {
+        /**
+         * project_id
+         */
+        project_id?: string;
+        /**
+         * org_id
+         */
+        org_id?: string;
         /**
          * name
          */
@@ -10769,9 +10873,17 @@ export type ProjectV1ProjectServiceUpdateVideoQualityData = {
      */
     body: {
         /**
+         * project_id
+         */
+        project_id?: string;
+        /**
+         * org_id
+         */
+        org_id?: string;
+        /**
          * video_quality
          */
-        videoQuality: CommonV1VideoQuality;
+        video_quality: CommonV1VideoQuality;
     };
     path: {
         /**
@@ -10856,9 +10968,17 @@ export type VideosV1AudioTrackServiceInitAudioTrackUploadData = {
      */
     body: {
         /**
+         * project_id
+         */
+        project_id?: string;
+        /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
+        /**
+         * video_id
+         */
+        video_id?: string;
         /**
          * items
          */
@@ -10892,6 +11012,14 @@ export type VideosV1AudioTrackServiceCompleteAudioTrackUploadData = {
      * CompleteTrackUploadRequest
      */
     body: {
+        /**
+         * project_id
+         */
+        project_id?: string;
+        /**
+         * video_id
+         */
+        video_id?: string;
         /**
          * items
          */
@@ -10990,7 +11118,7 @@ export type VideosV1ChapterServiceUpdateVideoChaptersData = {
         /**
          * start_time_sec
          */
-        'chapters.startTimeSec'?: number;
+        'chapters.start_time_sec'?: number;
     };
     url: '/media/v1/projects/{project_id}/videos/{video_id}/chapters';
 };
@@ -11166,9 +11294,17 @@ export type VideosV1SubtitleServiceInitSubtitleUploadData = {
      */
     body: {
         /**
+         * project_id
+         */
+        project_id?: string;
+        /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
+        /**
+         * video_id
+         */
+        video_id?: string;
         /**
          * items
          */
@@ -11202,6 +11338,14 @@ export type VideosV1SubtitleServiceCompleteSubtitleUploadData = {
      * CompleteTrackUploadRequest
      */
     body: {
+        /**
+         * project_id
+         */
+        project_id?: string;
+        /**
+         * video_id
+         */
+        video_id?: string;
         /**
          * items
          */
@@ -11304,11 +11448,11 @@ export type VideosV1VideoServiceListVideosData = {
         /**
          * sort_field
          */
-        sortField?: string;
+        sort_field?: string;
         /**
          * sort_direction
          */
-        sortDirection?: string;
+        sort_direction?: string;
     };
     url: '/media/v1/projects/{project_id}/videos';
 };
@@ -11328,9 +11472,13 @@ export type VideosV1VideoServiceCreateVideoUploadData = {
      */
     body: {
         /**
+         * project_id
+         */
+        project_id?: string;
+        /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
         /**
          * name
          */
@@ -11338,11 +11486,11 @@ export type VideosV1VideoServiceCreateVideoUploadData = {
         /**
          * image_format
          */
-        imageFormat?: CommonV1ImageFormat;
+        image_format?: CommonV1ImageFormat;
         /**
          * video_quality
          */
-        videoQuality?: CommonV1VideoQuality;
+        video_quality?: CommonV1VideoQuality;
     };
     path: {
         /**
@@ -11394,9 +11542,17 @@ export type VideosV1VideoServiceCompleteVideoUploadData = {
      */
     body: {
         /**
+         * project_id
+         */
+        project_id?: string;
+        /**
          * org_id
          */
-        orgId?: string;
+        org_id?: string;
+        /**
+         * video_id
+         */
+        video_id?: string;
     };
     path: {
         /**
@@ -11426,6 +11582,14 @@ export type VideosV1VideoServiceUpdateVideoVisibilityData = {
      * UpdateVideoVisibilityRequest
      */
     body: {
+        /**
+         * project_id
+         */
+        project_id?: string;
+        /**
+         * video_id
+         */
+        video_id?: string;
         /**
          * visibility
          */

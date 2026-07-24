@@ -11,7 +11,7 @@ import {validateInput} from "./validation/base";
 import {UpdateNameSchema, UpdateUsernameSchema} from "./validation/user";
 import {VerifyOTPCodeSchema} from "./validation/auth";
 import {apiCall} from "./api/utils";
-import {setTokensFromWire} from "./api/wire-tokens";
+import {persistTokens} from "./api/tokens";
 import {HTTP_STATUS} from "./constants";
 
 export interface OTPSetup {
@@ -169,7 +169,7 @@ export const verifyUserOTP = async (code: string): Promise<void> => {
         throwOnError: true,
       });
 
-      setTokensFromWire(data);
+      persistTokens(data);
     },
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid request format"),
