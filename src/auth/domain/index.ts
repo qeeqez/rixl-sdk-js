@@ -9,6 +9,7 @@ import {apiCall} from "../api/utils";
 import {HTTP_STATUS} from "../constants";
 import {validateInput} from "../validation/base";
 import {AddDomainSchema, UpdateAutoJoinSchema} from "../validation/domain";
+import {toDomainResponse, toAutoJoinSetting} from "./mappers";
 import type {DomainResponse, AutoJoinSetting} from "./types";
 
 export * from "./types";
@@ -21,7 +22,7 @@ export const getDomainStatus = async (orgId: string): Promise<DomainResponse | n
           path: {org_id: orgId},
           throwOnError: true,
         });
-        return data as unknown as DomainResponse;
+        return toDomainResponse(data);
       } catch (error: any) {
         if (error?.code === HTTP_STATUS.NOT_FOUND) {
           return null;
@@ -44,7 +45,7 @@ export const initiateDomainVerification = async (orgId: string, domain: string):
         body: requestBody,
         throwOnError: true,
       });
-      return data as unknown as DomainResponse;
+      return toDomainResponse(data);
     },
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid domain format or public domains like gmail.com are not allowed"),
@@ -60,7 +61,7 @@ export const checkDomainVerification = async (orgId: string): Promise<DomainResp
         path: {org_id: orgId},
         throwOnError: true,
       });
-      return data as unknown as DomainResponse;
+      return toDomainResponse(data);
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Not authorized to check domain verification"),
@@ -77,7 +78,7 @@ export const updateAutoJoin = async (orgId: string, enabled: boolean): Promise<A
         body: requestBody,
         throwOnError: true,
       });
-      return data as unknown as AutoJoinSetting;
+      return toAutoJoinSetting(data);
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Not authorized to update auto-join settings"),

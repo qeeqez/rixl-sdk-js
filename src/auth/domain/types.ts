@@ -5,15 +5,14 @@ export enum DomainStatus {
 }
 
 export interface DomainResponse {
+  present?: boolean;
   id: string;
   domain: string;
-  status: string;
+  status: DomainStatus;
   verification_token?: string;
-  verified_at?: string;
   expires_at?: string;
+  verified_at?: string;
   auto_join?: boolean;
-  message?: string;
-  present?: boolean;
 }
 
 export interface AddDomainRequest {

@@ -31,14 +31,17 @@ describe("Domain Management Module", () => {
 
   describe("getDomainStatus", () => {
     it("should get domain status successfully", async () => {
-      const mockResponse = {
+      // The gateway nests pending/verified under status with a shared auto_join flag
+      const wireResponse = {
+        present: true,
         id: "domain123",
         domain: "company.com",
-        status: DomainStatus.VERIFIED,
-        verified_at: "2026-01-20T00:00:00Z",
-        auto_join: true,
+        status: {
+          auto_join: true,
+          verified: {verified_at: "2026-01-20T00:00:00Z"},
+        },
       };
-      mockAuthV1DomainServiceGetDomainStatus.mockResolvedValue({data: mockResponse});
+      mockAuthV1DomainServiceGetDomainStatus.mockResolvedValue({data: wireResponse});
 
       const result = await getDomainStatus("org123");
 
@@ -46,7 +49,14 @@ describe("Domain Management Module", () => {
         path: {org_id: "org123"},
         throwOnError: true,
       });
-      expect(result).toEqual(mockResponse);
+      expect(result).toEqual({
+        present: true,
+        id: "domain123",
+        domain: "company.com",
+        status: DomainStatus.VERIFIED,
+        verified_at: "2026-01-20T00:00:00Z",
+        auto_join: true,
+      });
     });
 
     it("should return null when no domain is found (404)", async () => {
@@ -61,18 +71,31 @@ describe("Domain Management Module", () => {
     });
 
     it("should return pending domain with verification token", async () => {
-      const mockResponse = {
+      const wireResponse = {
+        present: true,
+        id: "domain123",
+        domain: "company.com",
+        status: {
+          auto_join: false,
+          pending: {
+            verification_token: "rixl-domain-verification=abc123",
+            expires_at: "2026-01-30T00:00:00Z",
+          },
+        },
+      };
+      mockAuthV1DomainServiceGetDomainStatus.mockResolvedValue({data: wireResponse});
+
+      const result = await getDomainStatus("org123");
+
+      expect(result).toEqual({
+        present: true,
         id: "domain123",
         domain: "company.com",
         status: DomainStatus.PENDING,
         verification_token: "rixl-domain-verification=abc123",
         expires_at: "2026-01-30T00:00:00Z",
-      };
-      mockAuthV1DomainServiceGetDomainStatus.mockResolvedValue({data: mockResponse});
-
-      const result = await getDomainStatus("org123");
-
-      expect(result).toEqual(mockResponse);
+        auto_join: false,
+      });
       expect(result?.verification_token).toBe("rixl-domain-verification=abc123");
     });
 
@@ -88,14 +111,19 @@ describe("Domain Management Module", () => {
 
   describe("initiateDomainVerification", () => {
     it("should initiate domain verification successfully", async () => {
-      const mockResponse = {
+      const wireResponse = {
+        present: true,
         id: "domain123",
         domain: "company.com",
-        status: DomainStatus.PENDING,
-        verification_token: "rixl-domain-verification=abc123",
-        expires_at: "2026-01-30T00:00:00Z",
+        status: {
+          auto_join: false,
+          pending: {
+            verification_token: "rixl-domain-verification=abc123",
+            expires_at: "2026-01-30T00:00:00Z",
+          },
+        },
       };
-      mockAuthV1DomainServiceCreateDomainVerification.mockResolvedValue({data: mockResponse});
+      mockAuthV1DomainServiceCreateDomainVerification.mockResolvedValue({data: wireResponse});
 
       const result = await initiateDomainVerification("org123", "company.com");
 
@@ -104,7 +132,15 @@ describe("Domain Management Module", () => {
         body: {domain: "company.com"},
         throwOnError: true,
       });
-      expect(result).toEqual(mockResponse);
+      expect(result).toEqual({
+        present: true,
+        id: "domain123",
+        domain: "company.com",
+        status: DomainStatus.PENDING,
+        verification_token: "rixl-domain-verification=abc123",
+        expires_at: "2026-01-30T00:00:00Z",
+        auto_join: false,
+      });
     });
 
     it("should handle validation error for invalid domain format", async () => {
@@ -150,15 +186,17 @@ describe("Domain Management Module", () => {
 
   describe("checkDomainVerification", () => {
     it("should check domain verification successfully and return verified status", async () => {
-      const mockResponse = {
+      const wireResponse = {
+        present: true,
         id: "domain123",
         domain: "company.com",
-        status: DomainStatus.VERIFIED,
-        verified_at: "2026-01-20T00:00:00Z",
-        auto_join: false,
+        status: {
+          auto_join: false,
+          verified: {verified_at: "2026-01-20T00:00:00Z"},
+        },
       };
       mockAuthV1DomainServiceCheckDomainVerification.mockResolvedValue({
-        data: mockResponse,
+        data: wireResponse,
       });
 
       const result = await checkDomainVerification("org123");
@@ -167,20 +205,31 @@ describe("Domain Management Module", () => {
         path: {org_id: "org123"},
         throwOnError: true,
       });
-      expect(result).toEqual(mockResponse);
+      expect(result).toEqual({
+        present: true,
+        id: "domain123",
+        domain: "company.com",
+        status: DomainStatus.VERIFIED,
+        verified_at: "2026-01-20T00:00:00Z",
+        auto_join: false,
+      });
       expect(result.status).toBe(DomainStatus.VERIFIED);
     });
 
     it("should return pending status when DNS check fails", async () => {
-      const mockResponse = {
+      const wireResponse = {
+        present: true,
         id: "domain123",
         domain: "company.com",
-        status: DomainStatus.PENDING,
-        verification_token: "rixl-domain-verification=abc123",
-        expires_at: "2026-01-30T00:00:00Z",
+        status: {
+          pending: {
+            verification_token: "rixl-domain-verification=abc123",
+            expires_at: "2026-01-30T00:00:00Z",
+          },
+        },
       };
       mockAuthV1DomainServiceCheckDomainVerification.mockResolvedValue({
-        data: mockResponse,
+        data: wireResponse,
       });
 
       const result = await checkDomainVerification("org123");
