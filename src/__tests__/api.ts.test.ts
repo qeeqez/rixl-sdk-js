@@ -44,8 +44,7 @@ describe("API Module", () => {
       const result = await refreshTokens(AuthProvider.BEARER, "old-refresh-token");
 
       expect(mockPostAuthV1Token).toHaveBeenCalledWith({
-        body: {},
-        headers: {Authorization: "Bearer old-refresh-token"},
+        body: {tokenType: "Bearer", refreshToken: "old-refresh-token"},
         throwOnError: true,
       });
       expect(result).toEqual(mockResponse);
@@ -75,8 +74,25 @@ describe("API Module", () => {
       await refreshTokens(AuthProvider.GOOGLE, "google-token");
 
       expect(mockPostAuthV1Token).toHaveBeenCalledWith({
-        body: {},
-        headers: {Authorization: "google google-token"},
+        body: {tokenType: "google", refreshToken: "google-token"},
+        throwOnError: true,
+      });
+    });
+
+    it("should include countryCode and origin when provided", async () => {
+      mockPostAuthV1Token.mockResolvedValue({
+        data: {access_token: "token", refresh_token: "refresh", expires_in: 3600},
+      });
+
+      await refreshTokens(AuthProvider.BEARER, "token", {countryCode: "NG", origin: "https://app.example.com"});
+
+      expect(mockPostAuthV1Token).toHaveBeenCalledWith({
+        body: {
+          tokenType: "Bearer",
+          refreshToken: "token",
+          countryCode: "NG",
+          origin: "https://app.example.com",
+        },
         throwOnError: true,
       });
     });

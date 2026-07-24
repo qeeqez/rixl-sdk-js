@@ -4,10 +4,18 @@ import type {TokenResponse, LimitedScopeTokenResponse} from "../types";
 
 export type {TokenResponse, LimitedScopeTokenResponse};
 
-export const refreshTokens = async (provider: AuthProvider, token: string): Promise<TokenResponse | LimitedScopeTokenResponse> => {
+export interface RefreshTokenOptions {
+  countryCode?: string;
+  origin?: string;
+}
+
+export const refreshTokens = async (
+  provider: AuthProvider,
+  token: string,
+  options?: RefreshTokenOptions
+): Promise<TokenResponse | LimitedScopeTokenResponse> => {
   const {data} = await authV1TokenServiceRefreshToken({
-    body: {},
-    headers: {Authorization: `${provider} ${token}`},
+    body: {tokenType: provider, refreshToken: token, ...options},
     throwOnError: true,
   });
   return data as TokenResponse | LimitedScopeTokenResponse;

@@ -18,6 +18,11 @@ export function configureSdkClient(): void {
     if (request.headers.has("Authorization")) {
       return request;
     }
+    // The token endpoint authenticates via the refresh token in its body;
+    // calling getToken() here would await the very refresh request being sent.
+    if (new URL(request.url).pathname.endsWith("/auth/v1/token")) {
+      return request;
+    }
     const token = await getToken();
     if (token) {
       request.headers.set("Authorization", `Bearer ${token}`);
