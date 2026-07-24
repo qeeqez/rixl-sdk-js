@@ -60,5 +60,6 @@ export interface TwoFactorResponse {
   session_id: string;
   email: string;
   authentication: TwoFactorAuthMethod[];
-  passkey_options?: object;
+  /** WebAuthn PublicKeyCredentialRequestOptions as base64-encoded JSON (spec `format: byte`). */
+  passkey_options?: string;
 }

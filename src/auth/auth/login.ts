@@ -52,7 +52,7 @@ export const verifyTOTPForLogin = async (code: string, session_id: string): Prom
 interface WireLoginResponse {
   session_id?: string;
   authentication?: string[];
-  passkey_options?: object;
+  passkey_options?: string;
   email?: string;
 }
 
@@ -69,12 +69,6 @@ function handleLoginResponse(data: AuthV1LoginResponse, email: string): void | T
         authentication: wire.authentication as TwoFactorResponse["authentication"],
         passkey_options: wire.passkey_options,
       };
-    case "otp_required":
-      return {
-        session_id: wire.session_id!,
-        email: email,
-        authentication: ["totp"],
-      } satisfies TwoFactorResponse;
     case "email_not_verified":
       return {
         error_code: "email_not_verified",
