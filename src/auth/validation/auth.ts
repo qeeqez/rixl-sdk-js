@@ -6,12 +6,12 @@ export const EmailAuthRequestSchema = v.object({
   password: PasswordSchema,
 });
 
-// Matches auth.v1.RegisterRequest: email, password, countryCode?, subscribeToBlog?
+// Matches auth.v1.RegisterRequest: email, password, country_code?, subscribe_to_blog?
 export const RegisterRequestSchema = v.object({
   email: EmailSchema,
   password: PasswordSchema,
-  countryCode: v.optional(v.string()),
-  subscribeToBlog: v.optional(v.boolean()),
+  country_code: v.optional(v.string()),
+  subscribe_to_blog: v.optional(v.boolean()),
 });
 
 export const ResetPasswordRequestSchema = v.object({

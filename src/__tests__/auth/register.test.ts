@@ -55,7 +55,7 @@ describe("Registration Functions", () => {
       await registerWithEmail("newuser@example.com", "Password123", true);
 
       expect(mockPostAuthV1Register).toHaveBeenCalledWith({
-        body: {email: "newuser@example.com", password: "Password123", subscribeToBlog: true},
+        body: {email: "newuser@example.com", password: "Password123", subscribe_to_blog: true},
         throwOnError: true,
       });
     });
@@ -71,7 +71,23 @@ describe("Registration Functions", () => {
       await registerWithEmail("newuser@example.com", "Password123", false);
 
       expect(mockPostAuthV1Register).toHaveBeenCalledWith({
-        body: {email: "newuser@example.com", password: "Password123", subscribeToBlog: false},
+        body: {email: "newuser@example.com", password: "Password123", subscribe_to_blog: false},
+        throwOnError: true,
+      });
+    });
+
+    it("sends countryCode as country_code", async () => {
+      mockPostAuthV1Register.mockResolvedValue({
+        data: {
+          verification_id: "verify-123",
+          message: "Registration successful",
+        },
+      });
+
+      await registerWithEmail("newuser@example.com", "Password123", true, "NG");
+
+      expect(mockPostAuthV1Register).toHaveBeenCalledWith({
+        body: {email: "newuser@example.com", password: "Password123", subscribe_to_blog: true, country_code: "NG"},
         throwOnError: true,
       });
     });

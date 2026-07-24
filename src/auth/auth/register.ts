@@ -5,21 +5,6 @@ import {apiCall} from "../api/utils";
 import {HTTP_STATUS} from "../constants";
 import type {RegistrationResponse, VerificationSentResponse} from "./types";
 
-// The gateway serializes responses in snake_case, but the generated types model
-// them in camelCase. Read the wire shape directly for the fields we consume.
-interface WireRegisterResponse {
-  message?: string;
-  verification_id?: string;
-  email_verification_sent?: boolean;
-  user_id?: string;
-}
-
-interface WireVerificationSent {
-  message?: string;
-  verification_id?: string;
-  code_sent?: boolean;
-}
-
 export const registerWithEmail = async (
   email: string,
   password: string,
@@ -31,21 +16,20 @@ export const registerWithEmail = async (
       const validatedInput = validateInput(RegisterRequestSchema, {
         email,
         password,
-        countryCode,
-        subscribeToBlog,
+        country_code: countryCode,
+        subscribe_to_blog: subscribeToBlog,
       });
       const {data} = await authV1EmailServiceRegister({
         body: validatedInput,
         throwOnError: true,
       });
 
-      const wire = data as WireRegisterResponse;
-      if (wire.verification_id) {
+      if (data.verification_id) {
         return {
-          message: wire.message || "Registration successful",
-          verification_id: wire.verification_id,
-          email_verification_sent: wire.email_verification_sent,
-          user_id: wire.user_id,
+          message: data.message || "Registration successful",
+          verification_id: data.verification_id,
+          email_verification_sent: data.email_verification_sent,
+          user_id: data.user_id,
         };
       }
     },
@@ -64,12 +48,11 @@ export const resendEmailVerificationCode = async (email: string): Promise<void |
         throwOnError: true,
       });
 
-      const wire = data as WireVerificationSent;
-      if (wire.verification_id) {
+      if (data.verification_id) {
         return {
-          message: wire.message || "Verification code resent",
-          verification_id: wire.verification_id,
-          code_sent: wire.code_sent,
+          message: data.message || "Verification code resent",
+          verification_id: data.verification_id,
+          code_sent: data.code_sent,
         };
       }
     },
