@@ -196,7 +196,7 @@ describe("Login Functions", () => {
       await verifyTOTPForLogin("123456", "session-123");
 
       expect(mockPostAuthV1VerifyTotp).toHaveBeenCalledWith({
-        body: {code: "123456", sessionId: "session-123"},
+        body: {code: "123456", session_id: "session-123"},
         throwOnError: true,
       });
       expect(mocks.setTokensSpy).toHaveBeenCalledWith(mockToken, "refresh-123", 3600);

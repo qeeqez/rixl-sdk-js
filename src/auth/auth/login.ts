@@ -33,7 +33,7 @@ export const loginWithEmail = async (email: string, password: string): Promise<v
 export const verifyTOTPForLogin = async (code: string, session_id: string): Promise<void> => {
   return apiCall(
     async () => {
-      const validatedInput = validateInput(LoginOTPVerifyRequestSchema, {code, sessionId: session_id});
+      const validatedInput = validateInput(LoginOTPVerifyRequestSchema, {code, session_id});
       const {data} = await authV1OtpServiceVerifyTotpForLogin({
         body: validatedInput,
         throwOnError: true,
@@ -47,33 +47,25 @@ export const verifyTOTPForLogin = async (code: string, session_id: string): Prom
   );
 };
 
-// The gateway serializes responses in snake_case, but the generated types model
-// them in camelCase. Read the wire shape directly for the fields we consume.
-interface WireLoginResponse {
-  session_id?: string;
-  authentication?: string[];
-  passkey_options?: string;
-  email?: string;
-}
-
 function handleLoginResponse(data: AuthV1LoginResponse, email: string): void | TwoFactorResponse | LoginErrorResponse {
-  const wire = data as WireLoginResponse;
   switch (data.status) {
     case "ok":
       persistTokens(data);
       return;
     case "2fa_required":
       return {
-        session_id: wire.session_id!,
+        session_id: data.session_id!,
         email: email,
-        authentication: wire.authentication as TwoFactorResponse["authentication"],
-        passkey_options: wire.passkey_options,
+        // The wire renders auth methods as lowercase "passkey" | "totp", which
+        // the generated AuthV1AuthMethod enum does not model.
+        authentication: data.authentication as unknown as TwoFactorResponse["authentication"],
+        passkey_options: data.passkey_options,
       };
     case "email_not_verified":
       return {
         error_code: "email_not_verified",
         message: "Email not verified",
-        email: wire.email || email,
+        email: data.email || email,
       };
     default:
       return;

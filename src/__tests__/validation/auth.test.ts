@@ -32,7 +32,7 @@ describe("Auth Validation Schemas", () => {
 
   describe("LoginOTPVerifyRequestSchema", () => {
     it("should validate valid OTP code and session ID", () => {
-      const data = {code: "123456", sessionId: "session-abc-123"};
+      const data = {code: "123456", session_id: "session-abc-123"};
       const result = validateInput(LoginOTPVerifyRequestSchema, data);
       expect(result).toEqual(data);
     });

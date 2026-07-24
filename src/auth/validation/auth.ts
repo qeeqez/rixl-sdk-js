@@ -25,7 +25,7 @@ export const LoginOTPVerifyRequestSchema = v.object({
     v.maxLength(8, "OTP code must be at most 6 characters"),
     v.regex(/^\d+$/, "OTP code must contain only numbers")
   ),
-  sessionId: v.pipe(v.string("Session ID must be text"), v.minLength(1, "Session ID is required")),
+  session_id: v.pipe(v.string("Session ID must be text"), v.minLength(1, "Session ID is required")),
 });
 
 export const ResendEmailRequestSchema = v.object({
