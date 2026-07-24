@@ -6,8 +6,8 @@ const mockPostAuthV1PasswordReset = vi.fn();
 const mockPostAuthV1PasswordResetConfirm = vi.fn();
 
 vi.mock("../../generated/sdk.gen", () => ({
-  postAuthV1PasswordReset: (...args: unknown[]) => mockPostAuthV1PasswordReset(...args),
-  postAuthV1PasswordResetConfirm: (...args: unknown[]) => mockPostAuthV1PasswordResetConfirm(...args),
+  authV1EmailServiceSendPasswordReset: (...args: unknown[]) => mockPostAuthV1PasswordReset(...args),
+  authV1EmailServiceResetPassword: (...args: unknown[]) => mockPostAuthV1PasswordResetConfirm(...args),
 }));
 
 describe("Password Functions", () => {
@@ -60,7 +60,7 @@ describe("Password Functions", () => {
       await confirmPasswordReset("reset-token-123", "NewPassword123");
 
       expect(mockPostAuthV1PasswordResetConfirm).toHaveBeenCalledWith({
-        body: {token: "reset-token-123", new_password: "NewPassword123"},
+        body: {token: "reset-token-123", newPassword: "NewPassword123"},
         throwOnError: true,
       });
     });

@@ -10,12 +10,12 @@ const mockPostAuthV1UsersCurrentTotpVerify = vi.fn();
 const mockDeleteAuthV1UsersCurrentTotpDelete = vi.fn();
 
 vi.mock("../generated/sdk.gen", () => ({
-  patchAuthV1UsersCurrentName: (...args: unknown[]) => mockPatchAuthV1UsersCurrentName(...args),
-  patchAuthV1UsersCurrentUsername: (...args: unknown[]) => mockPatchAuthV1UsersCurrentUsername(...args),
-  getAuthV1UsersCurrentTotpStatus: (...args: unknown[]) => mockGetAuthV1UsersCurrentTotpStatus(...args),
-  postAuthV1UsersCurrentTotpSetup: (...args: unknown[]) => mockPostAuthV1UsersCurrentTotpSetup(...args),
-  postAuthV1UsersCurrentTotpVerify: (...args: unknown[]) => mockPostAuthV1UsersCurrentTotpVerify(...args),
-  deleteAuthV1UsersCurrentTotpDelete: (...args: unknown[]) => mockDeleteAuthV1UsersCurrentTotpDelete(...args),
+  authV1UserServiceUpdateName: (...args: unknown[]) => mockPatchAuthV1UsersCurrentName(...args),
+  authV1UserServiceUpdateUsername: (...args: unknown[]) => mockPatchAuthV1UsersCurrentUsername(...args),
+  authV1OtpServiceGetOtpStatus: (...args: unknown[]) => mockGetAuthV1UsersCurrentTotpStatus(...args),
+  authV1OtpServiceSetupOtp: (...args: unknown[]) => mockPostAuthV1UsersCurrentTotpSetup(...args),
+  authV1OtpServiceVerifyOtp: (...args: unknown[]) => mockPostAuthV1UsersCurrentTotpVerify(...args),
+  authV1OtpServiceDeleteOtp: (...args: unknown[]) => mockDeleteAuthV1UsersCurrentTotpDelete(...args),
 }));
 
 describe("User Management", () => {
@@ -44,7 +44,7 @@ describe("User Management", () => {
       await updateFullName("John Doe");
 
       expect(mockPatchAuthV1UsersCurrentName).toHaveBeenCalledWith({
-        body: {full_name: "John Doe"},
+        body: {fullName: "John Doe"},
         throwOnError: true,
       });
     });
@@ -117,7 +117,6 @@ describe("User Management", () => {
         data: {
           is_setup: true,
           created_at: "2024-01-01",
-          message: "OTP is enabled",
         },
       });
 
@@ -126,7 +125,6 @@ describe("User Management", () => {
       expect(result).toEqual({
         is_setup: true,
         created_at: "2024-01-01",
-        message: "OTP is enabled",
       });
       expect(mockGetAuthV1UsersCurrentTotpStatus).toHaveBeenCalledWith({
         throwOnError: true,
@@ -137,7 +135,6 @@ describe("User Management", () => {
       mockGetAuthV1UsersCurrentTotpStatus.mockResolvedValue({
         data: {
           is_setup: false,
-          message: "OTP not enabled",
         },
       });
 

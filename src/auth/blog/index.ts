@@ -1,4 +1,8 @@
-import {getAuthV1BlogSubscription, postAuthV1BlogSubscribe, postAuthV1BlogUnsubscribe} from "../../generated/sdk.gen";
+import {
+  authV1BlogServiceGetBlogSubscription,
+  authV1BlogServiceSubscribeBlog,
+  authV1BlogServiceUnsubscribeBlog,
+} from "../../generated/sdk.gen";
 import {apiCall} from "../api/utils";
 import {HTTP_STATUS} from "../constants";
 
@@ -15,7 +19,7 @@ const BLOG_SUBSCRIPTION_ERRORS = {
 
 export const getBlogSubscriptionStatus = async (): Promise<BlogSubscriptionStatus> => {
   return apiCall(async () => {
-    const {data} = await getAuthV1BlogSubscription({
+    const {data} = await authV1BlogServiceGetBlogSubscription({
       throwOnError: true,
     });
     return data as unknown as BlogSubscriptionStatus;
@@ -25,7 +29,7 @@ export const getBlogSubscriptionStatus = async (): Promise<BlogSubscriptionStatu
 export const subscribeToBlog = async (): Promise<void> => {
   return apiCall(
     async () => {
-      await postAuthV1BlogSubscribe({
+      await authV1BlogServiceSubscribeBlog({
         throwOnError: true,
       });
     },
@@ -39,7 +43,7 @@ export const subscribeToBlog = async (): Promise<void> => {
 export const unsubscribeFromBlog = async (): Promise<void> => {
   return apiCall(
     async () => {
-      await postAuthV1BlogUnsubscribe({
+      await authV1BlogServiceUnsubscribeBlog({
         throwOnError: true,
       });
     },

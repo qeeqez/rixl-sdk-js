@@ -2,55 +2,55 @@ import {describe, it, expect, beforeEach, vi} from "vitest";
 import {updateOrgName, updateOrgUsername} from "../auth/organization";
 import * as initialization from "../auth/initialization";
 
-const mockPutAuthV1MembershipsByOrgIdName = vi.fn();
-const mockPutAuthV1MembershipsByOrgIdUsername = vi.fn();
+const mockAuthV1MembershipServiceUpdateOrgName = vi.fn();
+const mockAuthV1MembershipServiceUpdateOrgUsername = vi.fn();
 
 vi.mock("../generated/sdk.gen", () => ({
-  putAuthV1MembershipsByOrgIdName: (...args: unknown[]) => mockPutAuthV1MembershipsByOrgIdName(...args),
-  putAuthV1MembershipsByOrgIdUsername: (...args: unknown[]) => mockPutAuthV1MembershipsByOrgIdUsername(...args),
+  authV1MembershipServiceUpdateOrgName: (...args: unknown[]) => mockAuthV1MembershipServiceUpdateOrgName(...args),
+  authV1MembershipServiceUpdateOrgUsername: (...args: unknown[]) => mockAuthV1MembershipServiceUpdateOrgUsername(...args),
 }));
 
 describe("Organization Management", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     initialization.initDeferred.promise = Promise.resolve();
-    mockPutAuthV1MembershipsByOrgIdName.mockReset();
-    mockPutAuthV1MembershipsByOrgIdUsername.mockReset();
+    mockAuthV1MembershipServiceUpdateOrgName.mockReset();
+    mockAuthV1MembershipServiceUpdateOrgUsername.mockReset();
   });
 
   describe("updateOrgName", () => {
     it("should update org name successfully", async () => {
-      mockPutAuthV1MembershipsByOrgIdName.mockResolvedValue({data: {}});
+      mockAuthV1MembershipServiceUpdateOrgName.mockResolvedValue({data: {}});
 
       await updateOrgName("New Org Name", "org123");
 
-      expect(mockPutAuthV1MembershipsByOrgIdName).toHaveBeenCalledWith({
-        path: {orgId: "org123"},
-        body: {full_name: "New Org Name"},
+      expect(mockAuthV1MembershipServiceUpdateOrgName).toHaveBeenCalledWith({
+        path: {"user.org_id": "org123"},
+        body: {fullName: "New Org Name"},
         throwOnError: true,
       });
     });
 
     it("should handle valid organization names", async () => {
-      mockPutAuthV1MembershipsByOrgIdName.mockResolvedValue({data: {}});
+      mockAuthV1MembershipServiceUpdateOrgName.mockResolvedValue({data: {}});
 
       await expect(updateOrgName("Valid Organization", "org456")).resolves.toBeUndefined();
     });
 
     it("should handle errors", async () => {
-      mockPutAuthV1MembershipsByOrgIdName.mockRejectedValue({error: "unauthorized", code: 401});
+      mockAuthV1MembershipServiceUpdateOrgName.mockRejectedValue({error: "unauthorized", code: 401});
 
       await expect(updateOrgName("Test Org", "org789")).rejects.toThrow();
     });
 
     it("should handle different organization IDs", async () => {
-      mockPutAuthV1MembershipsByOrgIdName.mockResolvedValue({data: {}});
+      mockAuthV1MembershipServiceUpdateOrgName.mockResolvedValue({data: {}});
 
       await updateOrgName("Org Name", "org-abc-123");
 
-      expect(mockPutAuthV1MembershipsByOrgIdName).toHaveBeenCalledWith({
-        path: {orgId: "org-abc-123"},
-        body: {full_name: "Org Name"},
+      expect(mockAuthV1MembershipServiceUpdateOrgName).toHaveBeenCalledWith({
+        path: {"user.org_id": "org-abc-123"},
+        body: {fullName: "Org Name"},
         throwOnError: true,
       });
     });
@@ -62,36 +62,36 @@ describe("Organization Management", () => {
 
   describe("updateOrgUsername", () => {
     it("should update org username successfully", async () => {
-      mockPutAuthV1MembershipsByOrgIdUsername.mockResolvedValue({data: {}});
+      mockAuthV1MembershipServiceUpdateOrgUsername.mockResolvedValue({data: {}});
 
       await updateOrgUsername("neworgusername", "org123");
 
-      expect(mockPutAuthV1MembershipsByOrgIdUsername).toHaveBeenCalledWith({
-        path: {orgId: "org123"},
+      expect(mockAuthV1MembershipServiceUpdateOrgUsername).toHaveBeenCalledWith({
+        path: {"user.org_id": "org123"},
         body: {username: "neworgusername"},
         throwOnError: true,
       });
     });
 
     it("should handle valid organization usernames", async () => {
-      mockPutAuthV1MembershipsByOrgIdUsername.mockResolvedValue({data: {}});
+      mockAuthV1MembershipServiceUpdateOrgUsername.mockResolvedValue({data: {}});
 
       await expect(updateOrgUsername("valid_org_user", "org456")).resolves.toBeUndefined();
     });
 
     it("should handle errors", async () => {
-      mockPutAuthV1MembershipsByOrgIdUsername.mockRejectedValue({error: "conflict", code: 409});
+      mockAuthV1MembershipServiceUpdateOrgUsername.mockRejectedValue({error: "conflict", code: 409});
 
       await expect(updateOrgUsername("takenusername", "org789")).rejects.toThrow();
     });
 
     it("should handle different organization IDs", async () => {
-      mockPutAuthV1MembershipsByOrgIdUsername.mockResolvedValue({data: {}});
+      mockAuthV1MembershipServiceUpdateOrgUsername.mockResolvedValue({data: {}});
 
       await updateOrgUsername("orguser", "org-xyz-789");
 
-      expect(mockPutAuthV1MembershipsByOrgIdUsername).toHaveBeenCalledWith({
-        path: {orgId: "org-xyz-789"},
+      expect(mockAuthV1MembershipServiceUpdateOrgUsername).toHaveBeenCalledWith({
+        path: {"user.org_id": "org-xyz-789"},
         body: {username: "orguser"},
         throwOnError: true,
       });

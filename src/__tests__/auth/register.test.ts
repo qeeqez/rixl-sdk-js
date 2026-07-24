@@ -6,8 +6,8 @@ const mockPostAuthV1Register = vi.fn();
 const mockPostAuthV1EmailVerifyResend = vi.fn();
 
 vi.mock("../../generated/sdk.gen", () => ({
-  postAuthV1Register: (...args: unknown[]) => mockPostAuthV1Register(...args),
-  postAuthV1EmailVerifyResend: (...args: unknown[]) => mockPostAuthV1EmailVerifyResend(...args),
+  authV1EmailServiceRegister: (...args: unknown[]) => mockPostAuthV1Register(...args),
+  authV1EmailServiceResendVerification: (...args: unknown[]) => mockPostAuthV1EmailVerifyResend(...args),
 }));
 
 describe("Registration Functions", () => {
@@ -27,7 +27,7 @@ describe("Registration Functions", () => {
     it("should register user successfully", async () => {
       mockPostAuthV1Register.mockResolvedValue({
         data: {
-          verification_id: "verify-123",
+          verificationId: "verify-123",
           message: "Registration successful",
         },
       });
@@ -39,15 +39,15 @@ describe("Registration Functions", () => {
         throwOnError: true,
       });
       expect(result).toEqual({
-        verification_id: "verify-123",
+        verificationId: "verify-123",
         message: "Registration successful",
       });
     });
 
-    it("includes subscribe_to_blog: true when opted in", async () => {
+    it("includes subscribeToBlog: true when opted in", async () => {
       mockPostAuthV1Register.mockResolvedValue({
         data: {
-          verification_id: "verify-123",
+          verificationId: "verify-123",
           message: "Registration successful",
         },
       });
@@ -55,15 +55,15 @@ describe("Registration Functions", () => {
       await registerWithEmail("newuser@example.com", "Password123", true);
 
       expect(mockPostAuthV1Register).toHaveBeenCalledWith({
-        body: {email: "newuser@example.com", password: "Password123", subscribe_to_blog: true},
+        body: {email: "newuser@example.com", password: "Password123", subscribeToBlog: true},
         throwOnError: true,
       });
     });
 
-    it("includes subscribe_to_blog: false when opted out", async () => {
+    it("includes subscribeToBlog: false when opted out", async () => {
       mockPostAuthV1Register.mockResolvedValue({
         data: {
-          verification_id: "verify-123",
+          verificationId: "verify-123",
           message: "Registration successful",
         },
       });
@@ -71,15 +71,15 @@ describe("Registration Functions", () => {
       await registerWithEmail("newuser@example.com", "Password123", false);
 
       expect(mockPostAuthV1Register).toHaveBeenCalledWith({
-        body: {email: "newuser@example.com", password: "Password123", subscribe_to_blog: false},
+        body: {email: "newuser@example.com", password: "Password123", subscribeToBlog: false},
         throwOnError: true,
       });
     });
 
-    it("omits subscribe_to_blog when not provided", async () => {
+    it("omits subscribeToBlog when not provided", async () => {
       mockPostAuthV1Register.mockResolvedValue({
         data: {
-          verification_id: "verify-123",
+          verificationId: "verify-123",
           message: "Registration successful",
         },
       });
@@ -123,7 +123,7 @@ describe("Registration Functions", () => {
     it("should resend verification code successfully", async () => {
       mockPostAuthV1EmailVerifyResend.mockResolvedValue({
         data: {
-          verification_id: "verify-456",
+          verificationId: "verify-456",
           message: "Code resent",
         },
       });

@@ -1,6 +1,6 @@
-import {postAuthV1Register, postAuthV1EmailVerifyResend} from "../../generated/sdk.gen";
+import {authV1EmailServiceRegister, authV1EmailServiceResendVerification} from "../../generated/sdk.gen";
 import {validateInput} from "../validation/base";
-import {EmailAuthRequestSchema, ResendEmailRequestSchema} from "../validation/auth";
+import {RegisterRequestSchema, ResendEmailRequestSchema} from "../validation/auth";
 import {apiCall} from "../api/utils";
 import {HTTP_STATUS} from "../constants";
 import type {RegistrationResponse, VerificationSentResponse} from "./types";
@@ -8,26 +8,28 @@ import type {RegistrationResponse, VerificationSentResponse} from "./types";
 export const registerWithEmail = async (
   email: string,
   password: string,
-  subscribeToBlog?: boolean
+  subscribeToBlog?: boolean,
+  countryCode?: string
 ): Promise<void | RegistrationResponse> => {
   return apiCall(
     async () => {
-      const validatedInput = validateInput(EmailAuthRequestSchema, {
+      const validatedInput = validateInput(RegisterRequestSchema, {
         email,
         password,
-        subscribe_to_blog: subscribeToBlog,
+        countryCode,
+        subscribeToBlog,
       });
-      const {data} = await postAuthV1Register({
+      const {data} = await authV1EmailServiceRegister({
         body: validatedInput,
         throwOnError: true,
       });
 
-      if (data.verification_id) {
+      if (data.verificationId) {
         return {
           message: data.message || "Registration successful",
-          verification_id: data.verification_id,
-          email_verification_sent: data.email_verification_sent,
-          user_id: data.user_id,
+          verificationId: data.verificationId,
+          emailVerificationSent: data.emailVerificationSent,
+          userId: data.userId,
         };
       }
     },
@@ -41,16 +43,16 @@ export const resendEmailVerificationCode = async (email: string): Promise<void |
   return apiCall(
     async () => {
       const validatedInput = validateInput(ResendEmailRequestSchema, {email});
-      const {data} = await postAuthV1EmailVerifyResend({
+      const {data} = await authV1EmailServiceResendVerification({
         body: validatedInput,
         throwOnError: true,
       });
 
-      if (data.verification_id) {
+      if (data.verificationId) {
         return {
           message: data.message || "Verification code resent",
-          verification_id: data.verification_id,
-          code_sent: data.code_sent,
+          verification_id: data.verificationId,
+          code_sent: data.codeSent,
         };
       }
     },

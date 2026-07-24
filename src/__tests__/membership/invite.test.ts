@@ -2,18 +2,18 @@ import {describe, it, expect, beforeEach, vi} from "vitest";
 import {MembershipRole, MembershipState} from "@/membership";
 import * as initialization from "../../auth/initialization";
 
-const mockPostAuthV1MembershipsByOrgIdMembersInvite = vi.fn();
-const mockPostAuthV1MembershipsByOrgIdMembersInviteResend = vi.fn();
-const mockPostAuthV1InvitationsByTokenAccept = vi.fn();
-const mockPostAuthV1InvitationsByTokenDecline = vi.fn();
-const mockPutAuthV1MembershipsByOrgIdMembershipState = vi.fn();
+const mockInviteMember = vi.fn();
+const mockResendInvitation = vi.fn();
+const mockAcceptInvitation = vi.fn();
+const mockDeclineInvitation = vi.fn();
+const mockUpdateMembershipState = vi.fn();
 
 vi.mock("../../generated/sdk.gen", () => ({
-  postAuthV1MembershipsByOrgIdMembersInvite: (...args: unknown[]) => mockPostAuthV1MembershipsByOrgIdMembersInvite(...args),
-  postAuthV1MembershipsByOrgIdMembersInviteResend: (...args: unknown[]) => mockPostAuthV1MembershipsByOrgIdMembersInviteResend(...args),
-  postAuthV1InvitationsByTokenAccept: (...args: unknown[]) => mockPostAuthV1InvitationsByTokenAccept(...args),
-  postAuthV1InvitationsByTokenDecline: (...args: unknown[]) => mockPostAuthV1InvitationsByTokenDecline(...args),
-  putAuthV1MembershipsByOrgIdMembershipState: (...args: unknown[]) => mockPutAuthV1MembershipsByOrgIdMembershipState(...args),
+  authV1MembershipServiceInviteMember: (...args: unknown[]) => mockInviteMember(...args),
+  authV1MembershipServiceResendInvitation: (...args: unknown[]) => mockResendInvitation(...args),
+  authV1MembershipServiceAcceptInvitation: (...args: unknown[]) => mockAcceptInvitation(...args),
+  authV1MembershipServiceDeclineInvitation: (...args: unknown[]) => mockDeclineInvitation(...args),
+  authV1MembershipServiceUpdateMembershipState: (...args: unknown[]) => mockUpdateMembershipState(...args),
 }));
 
 vi.mock("../../auth/authStore", () => ({
@@ -26,28 +26,28 @@ describe("Membership Invite Module", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     initialization.initDeferred.promise = Promise.resolve();
-    mockPostAuthV1MembershipsByOrgIdMembersInvite.mockReset();
-    mockPostAuthV1MembershipsByOrgIdMembersInviteResend.mockReset();
-    mockPostAuthV1InvitationsByTokenAccept.mockReset();
-    mockPostAuthV1InvitationsByTokenDecline.mockReset();
-    mockPutAuthV1MembershipsByOrgIdMembershipState.mockReset();
+    mockInviteMember.mockReset();
+    mockResendInvitation.mockReset();
+    mockAcceptInvitation.mockReset();
+    mockDeclineInvitation.mockReset();
+    mockUpdateMembershipState.mockReset();
   });
 
   describe("inviteMember", () => {
     it("should invite a member successfully", async () => {
-      mockPostAuthV1MembershipsByOrgIdMembersInvite.mockResolvedValue({data: {}});
+      mockInviteMember.mockResolvedValue({data: {}});
 
       await inviteMember("org123", "newuser", MembershipRole.MEMBER);
 
-      expect(mockPostAuthV1MembershipsByOrgIdMembersInvite).toHaveBeenCalledWith({
-        path: {orgId: "org123"},
-        body: {username: "newuser", role: MembershipRole.MEMBER},
+      expect(mockInviteMember).toHaveBeenCalledWith({
+        path: {"user.org_id": "org123"},
+        body: {username: "newuser", role: "MEMBERSHIP_ROLE_MEMBER"},
         throwOnError: true,
       });
     });
 
     it("should handle unauthorized error", async () => {
-      mockPostAuthV1MembershipsByOrgIdMembersInvite.mockRejectedValue({
+      mockInviteMember.mockRejectedValue({
         error: "unauthorized",
         code: 401,
       });
@@ -56,7 +56,7 @@ describe("Membership Invite Module", () => {
     });
 
     it("should handle user not found error", async () => {
-      mockPostAuthV1MembershipsByOrgIdMembersInvite.mockRejectedValue({
+      mockInviteMember.mockRejectedValue({
         error: "not_found",
         code: 404,
       });
@@ -65,7 +65,7 @@ describe("Membership Invite Module", () => {
     });
 
     it("should handle user already exists error", async () => {
-      mockPostAuthV1MembershipsByOrgIdMembersInvite.mockRejectedValue({
+      mockInviteMember.mockRejectedValue({
         error: "conflict",
         code: 409,
       });
@@ -74,13 +74,13 @@ describe("Membership Invite Module", () => {
     });
 
     it("should work with different roles", async () => {
-      mockPostAuthV1MembershipsByOrgIdMembersInvite.mockResolvedValue({data: {}});
+      mockInviteMember.mockResolvedValue({data: {}});
 
       await inviteMember("org123", "admin", MembershipRole.ADMIN);
 
-      expect(mockPostAuthV1MembershipsByOrgIdMembersInvite).toHaveBeenCalledWith({
-        path: {orgId: "org123"},
-        body: {username: "admin", role: MembershipRole.ADMIN},
+      expect(mockInviteMember).toHaveBeenCalledWith({
+        path: {"user.org_id": "org123"},
+        body: {username: "admin", role: "MEMBERSHIP_ROLE_ADMIN"},
         throwOnError: true,
       });
     });
@@ -88,19 +88,19 @@ describe("Membership Invite Module", () => {
 
   describe("resendMemberInvite", () => {
     it("should resend invite successfully", async () => {
-      mockPostAuthV1MembershipsByOrgIdMembersInviteResend.mockResolvedValue({data: {}});
+      mockResendInvitation.mockResolvedValue({data: {}});
 
       await resendMemberInvite("org123", "user456");
 
-      expect(mockPostAuthV1MembershipsByOrgIdMembersInviteResend).toHaveBeenCalledWith({
-        path: {orgId: "org123"},
-        body: {user_id: "user456"},
+      expect(mockResendInvitation).toHaveBeenCalledWith({
+        path: {"user.org_id": "org123"},
+        body: {userId: "user456"},
         throwOnError: true,
       });
     });
 
     it("should handle unauthorized error", async () => {
-      mockPostAuthV1MembershipsByOrgIdMembersInviteResend.mockRejectedValue({
+      mockResendInvitation.mockRejectedValue({
         error: "unauthorized",
         code: 401,
       });
@@ -109,7 +109,7 @@ describe("Membership Invite Module", () => {
     });
 
     it("should handle user not found error", async () => {
-      mockPostAuthV1MembershipsByOrgIdMembersInviteResend.mockRejectedValue({
+      mockResendInvitation.mockRejectedValue({
         error: "not_found",
         code: 404,
       });
@@ -118,7 +118,7 @@ describe("Membership Invite Module", () => {
     });
 
     it("should handle conflict error", async () => {
-      mockPostAuthV1MembershipsByOrgIdMembersInviteResend.mockRejectedValue({
+      mockResendInvitation.mockRejectedValue({
         error: "conflict",
         code: 409,
       });
@@ -129,37 +129,37 @@ describe("Membership Invite Module", () => {
 
   describe("respondToInvitation", () => {
     it("should accept invitation successfully", async () => {
-      mockPutAuthV1MembershipsByOrgIdMembershipState.mockResolvedValue({data: {}});
+      mockUpdateMembershipState.mockResolvedValue({data: {}});
 
       await respondToInvitation("org123", MembershipState.ACCEPTED);
 
-      expect(mockPutAuthV1MembershipsByOrgIdMembershipState).toHaveBeenCalledWith({
-        path: {orgId: "org123"},
-        body: {state: MembershipState.ACCEPTED},
+      expect(mockUpdateMembershipState).toHaveBeenCalledWith({
+        path: {"user.org_id": "org123"},
+        body: {state: "MEMBERSHIP_STATE_ACCEPTED"},
         throwOnError: true,
       });
     });
 
     it("should decline invitation successfully", async () => {
-      mockPutAuthV1MembershipsByOrgIdMembershipState.mockResolvedValue({data: {}});
+      mockUpdateMembershipState.mockResolvedValue({data: {}});
 
       await respondToInvitation("org123", MembershipState.DECLINED);
 
-      expect(mockPutAuthV1MembershipsByOrgIdMembershipState).toHaveBeenCalledWith({
-        path: {orgId: "org123"},
-        body: {state: MembershipState.DECLINED},
+      expect(mockUpdateMembershipState).toHaveBeenCalledWith({
+        path: {"user.org_id": "org123"},
+        body: {state: "MEMBERSHIP_STATE_DECLINED"},
         throwOnError: true,
       });
     });
 
     it("should handle unauthorized error", async () => {
-      mockPutAuthV1MembershipsByOrgIdMembershipState.mockRejectedValue({error: "unauthorized", code: 401});
+      mockUpdateMembershipState.mockRejectedValue({error: "unauthorized", code: 401});
 
       await expect(respondToInvitation("org123", MembershipState.ACCEPTED)).rejects.toThrow();
     });
 
     it("should handle invite not found error", async () => {
-      mockPutAuthV1MembershipsByOrgIdMembershipState.mockRejectedValue({error: "not_found", code: 404});
+      mockUpdateMembershipState.mockRejectedValue({error: "not_found", code: 404});
 
       await expect(respondToInvitation("org123", MembershipState.ACCEPTED)).rejects.toThrow();
     });
@@ -167,29 +167,29 @@ describe("Membership Invite Module", () => {
 
   describe("publicRespondToInvitation", () => {
     it("should accept public invitation successfully", async () => {
-      mockPostAuthV1InvitationsByTokenAccept.mockResolvedValue({data: {}});
+      mockAcceptInvitation.mockResolvedValue({data: {}});
 
       await publicRespondToInvitation("invite-token-123", MembershipState.ACCEPT);
 
-      expect(mockPostAuthV1InvitationsByTokenAccept).toHaveBeenCalledWith({
+      expect(mockAcceptInvitation).toHaveBeenCalledWith({
         path: {token: "invite-token-123"},
         throwOnError: true,
       });
     });
 
     it("should decline public invitation successfully", async () => {
-      mockPostAuthV1InvitationsByTokenDecline.mockResolvedValue({data: {}});
+      mockDeclineInvitation.mockResolvedValue({data: {}});
 
       await publicRespondToInvitation("invite-token-456", MembershipState.DECLINE);
 
-      expect(mockPostAuthV1InvitationsByTokenDecline).toHaveBeenCalledWith({
+      expect(mockDeclineInvitation).toHaveBeenCalledWith({
         path: {token: "invite-token-456"},
         throwOnError: true,
       });
     });
 
     it("should handle invalid token error", async () => {
-      mockPostAuthV1InvitationsByTokenAccept.mockRejectedValue({
+      mockAcceptInvitation.mockRejectedValue({
         error: "bad_request",
         code: 400,
       });
@@ -198,11 +198,11 @@ describe("Membership Invite Module", () => {
     });
 
     it("should work with different tokens", async () => {
-      mockPostAuthV1InvitationsByTokenAccept.mockResolvedValue({data: {}});
+      mockAcceptInvitation.mockResolvedValue({data: {}});
 
       await publicRespondToInvitation("another-token-789", MembershipState.ACCEPT);
 
-      expect(mockPostAuthV1InvitationsByTokenAccept).toHaveBeenCalledWith({
+      expect(mockAcceptInvitation).toHaveBeenCalledWith({
         path: {token: "another-token-789"},
         throwOnError: true,
       });

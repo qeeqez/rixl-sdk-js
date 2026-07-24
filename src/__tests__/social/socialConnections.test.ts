@@ -7,9 +7,9 @@ const mockPostAuthV1ProvidersConnect = vi.fn();
 const mockDeleteAuthV1ProvidersByProvider = vi.fn();
 
 vi.mock("../../generated/sdk.gen", () => ({
-  getAuthV1Providers: (...args: unknown[]) => mockGetAuthV1Providers(...args),
-  postAuthV1ProvidersConnect: (...args: unknown[]) => mockPostAuthV1ProvidersConnect(...args),
-  deleteAuthV1ProvidersByProvider: (...args: unknown[]) => mockDeleteAuthV1ProvidersByProvider(...args),
+  authV1ProvidersServiceListProviders: (...args: unknown[]) => mockGetAuthV1Providers(...args),
+  authV1ProvidersServiceConnectProvider: (...args: unknown[]) => mockPostAuthV1ProvidersConnect(...args),
+  authV1ProvidersServiceDisconnectProvider: (...args: unknown[]) => mockDeleteAuthV1ProvidersByProvider(...args),
 }));
 
 vi.mock("../../auth/authStore", () => ({

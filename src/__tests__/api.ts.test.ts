@@ -6,7 +6,7 @@ import {AuthProvider} from "@/providers";
 const mockPostAuthV1Token = vi.fn();
 
 vi.mock("../generated/sdk.gen", () => ({
-  postAuthV1Token: (...args: unknown[]) => mockPostAuthV1Token(...args),
+  authV1TokenServiceRefreshToken: (...args: unknown[]) => mockPostAuthV1Token(...args),
 }));
 
 describe("API Module", () => {
@@ -44,6 +44,7 @@ describe("API Module", () => {
       const result = await refreshTokens(AuthProvider.BEARER, "old-refresh-token");
 
       expect(mockPostAuthV1Token).toHaveBeenCalledWith({
+        body: {},
         headers: {Authorization: "Bearer old-refresh-token"},
         throwOnError: true,
       });
@@ -74,6 +75,7 @@ describe("API Module", () => {
       await refreshTokens(AuthProvider.GOOGLE, "google-token");
 
       expect(mockPostAuthV1Token).toHaveBeenCalledWith({
+        body: {},
         headers: {Authorization: "google google-token"},
         throwOnError: true,
       });

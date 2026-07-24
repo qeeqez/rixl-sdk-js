@@ -1,4 +1,4 @@
-import {postAuthV1PasswordReset, postAuthV1PasswordResetConfirm} from "../../generated/sdk.gen";
+import {authV1EmailServiceSendPasswordReset, authV1EmailServiceResetPassword} from "../../generated/sdk.gen";
 import {ResendEmailRequestSchema, ResetPasswordRequestSchema} from "../validation/auth";
 import {validateInput} from "../validation/base";
 import {apiCall} from "../api/utils";
@@ -8,7 +8,7 @@ export const sendPasswordResetEmail = async (email: string): Promise<void> => {
   return apiCall(
     async () => {
       const validatedInput = validateInput(ResendEmailRequestSchema, {email});
-      await postAuthV1PasswordReset({
+      await authV1EmailServiceSendPasswordReset({
         body: validatedInput,
         throwOnError: true,
       });
@@ -24,9 +24,9 @@ export const confirmPasswordReset = async (token: string, password: string): Pro
     async () => {
       const validatedInput = validateInput(ResetPasswordRequestSchema, {
         token: token,
-        new_password: password,
+        newPassword: password,
       });
-      await postAuthV1PasswordResetConfirm({
+      await authV1EmailServiceResetPassword({
         body: validatedInput,
         throwOnError: true,
       });

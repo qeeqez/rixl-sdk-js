@@ -12,5 +12,5 @@ export const UpdateUsernameSchema = v.object({
  * Update name request schema
  */
 export const UpdateNameSchema = v.object({
-  full_name: NameSchema,
+  fullName: NameSchema,
 });

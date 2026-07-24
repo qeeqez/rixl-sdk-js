@@ -24,7 +24,7 @@ describe("Auth Validation Schemas", () => {
 
   describe("ResetPasswordRequestSchema", () => {
     it("should validate valid token and password", () => {
-      const data = {token: "reset-token-123", new_password: "NewPassword1"};
+      const data = {token: "reset-token-123", newPassword: "NewPassword1"};
       const result = validateInput(ResetPasswordRequestSchema, data);
       expect(result).toEqual(data);
     });
@@ -32,7 +32,7 @@ describe("Auth Validation Schemas", () => {
 
   describe("LoginOTPVerifyRequestSchema", () => {
     it("should validate valid OTP code and session ID", () => {
-      const data = {code: "123456", session_id: "session-abc-123"};
+      const data = {code: "123456", sessionId: "session-abc-123"};
       const result = validateInput(LoginOTPVerifyRequestSchema, data);
       expect(result).toEqual(data);
     });

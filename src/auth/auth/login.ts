@@ -1,19 +1,19 @@
-import {postAuthV1Login, postAuthV1VerifyTotp} from "../../generated/sdk.gen";
-import {setTokens} from "../authStore";
+import {authV1EmailServiceLogin, authV1OtpServiceVerifyTotpForLogin} from "../../generated/sdk.gen";
 import {EmailAuthRequestSchema, LoginOTPVerifyRequestSchema} from "../validation/auth";
 import {validateInput} from "../validation/base";
 import {ApiError} from "../api/error-handlers";
 import {apiCall} from "../api/utils";
+import {setTokensFromWire} from "../api/wire-tokens";
 import {HTTP_STATUS} from "../constants";
 import type {LoginErrorResponse, TwoFactorResponse} from "./types";
-import type {Authv1LoginResponse} from "../../generated/types.gen";
+import type {AuthV1LoginResponse} from "../../generated/types.gen";
 
 export const loginWithEmail = async (email: string, password: string): Promise<void | TwoFactorResponse | LoginErrorResponse> => {
   return apiCall(
     async () => {
       const validatedInput = validateInput(EmailAuthRequestSchema, {email, password});
       try {
-        const {data} = await postAuthV1Login({
+        const {data} = await authV1EmailServiceLogin({
           body: validatedInput,
           throwOnError: true,
         });
@@ -33,15 +33,13 @@ export const loginWithEmail = async (email: string, password: string): Promise<v
 export const verifyTOTPForLogin = async (code: string, session_id: string): Promise<void> => {
   return apiCall(
     async () => {
-      const validatedInput = validateInput(LoginOTPVerifyRequestSchema, {code, session_id});
-      const {data} = await postAuthV1VerifyTotp({
+      const validatedInput = validateInput(LoginOTPVerifyRequestSchema, {code, sessionId: session_id});
+      const {data} = await authV1OtpServiceVerifyTotpForLogin({
         body: validatedInput,
         throwOnError: true,
       });
 
-      if (data.access_token && data.refresh_token && data.expires_in) {
-        setTokens(data.access_token, data.refresh_token, data.expires_in);
-      }
+      setTokensFromWire(data);
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Invalid or expired TOTP code"),
@@ -49,29 +47,31 @@ export const verifyTOTPForLogin = async (code: string, session_id: string): Prom
   );
 };
 
-function handleLoginResponse(data: Authv1LoginResponse, email: string): void | TwoFactorResponse | LoginErrorResponse {
+// The gateway serializes responses in snake_case, but the generated types model
+// them in camelCase. Read the wire shape directly for the fields we consume.
+interface WireLoginResponse {
+  session_id?: string;
+  authentication?: string[];
+  passkey_options?: object;
+  email?: string;
+}
+
+function handleLoginResponse(data: AuthV1LoginResponse, email: string): void | TwoFactorResponse | LoginErrorResponse {
+  const wire = data as WireLoginResponse;
   switch (data.status) {
     case "ok":
-      if (data.access_token && data.refresh_token && data.expires_in) {
-        setTokens(data.access_token, data.refresh_token, data.expires_in);
-      }
+      setTokensFromWire(data);
       return;
-    case "2fa_required": {
-      const response = data as unknown as {
-        session_id: string;
-        authentication: string[];
-        passkey_options?: object;
-      };
+    case "2fa_required":
       return {
-        session_id: response.session_id,
+        session_id: wire.session_id!,
         email: email,
-        authentication: response.authentication as TwoFactorResponse["authentication"],
-        passkey_options: response.passkey_options,
+        authentication: wire.authentication as TwoFactorResponse["authentication"],
+        passkey_options: wire.passkey_options,
       };
-    }
     case "otp_required":
       return {
-        session_id: data.session_id!,
+        session_id: wire.session_id!,
         email: email,
         authentication: ["totp"],
       } satisfies TwoFactorResponse;
@@ -79,7 +79,7 @@ function handleLoginResponse(data: Authv1LoginResponse, email: string): void | T
       return {
         error_code: "email_not_verified",
         message: "Email not verified",
-        email: data.email || email,
+        email: wire.email || email,
       };
     default:
       return;

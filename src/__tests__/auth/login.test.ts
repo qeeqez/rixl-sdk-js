@@ -7,8 +7,8 @@ const mockPostAuthV1Login = vi.fn();
 const mockPostAuthV1VerifyTotp = vi.fn();
 
 vi.mock("../../generated/sdk.gen", () => ({
-  postAuthV1Login: (...args: unknown[]) => mockPostAuthV1Login(...args),
-  postAuthV1VerifyTotp: (...args: unknown[]) => mockPostAuthV1VerifyTotp(...args),
+  authV1EmailServiceLogin: (...args: unknown[]) => mockPostAuthV1Login(...args),
+  authV1OtpServiceVerifyTotpForLogin: (...args: unknown[]) => mockPostAuthV1VerifyTotp(...args),
 }));
 
 describe("Login Functions", () => {
@@ -173,7 +173,7 @@ describe("Login Functions", () => {
       await verifyTOTPForLogin("123456", "session-123");
 
       expect(mockPostAuthV1VerifyTotp).toHaveBeenCalledWith({
-        body: {code: "123456", session_id: "session-123"},
+        body: {code: "123456", sessionId: "session-123"},
         throwOnError: true,
       });
       expect(mocks.setTokensSpy).toHaveBeenCalledWith(mockToken, "refresh-123", 3600);

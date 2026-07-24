@@ -1,7 +1,12 @@
-import {getAuthV1Providers, postAuthV1ProvidersConnect, deleteAuthV1ProvidersByProvider} from "../../generated/sdk.gen";
-import {login, setTokens} from "../authStore";
+import {
+  authV1ProvidersServiceListProviders,
+  authV1ProvidersServiceConnectProvider,
+  authV1ProvidersServiceDisconnectProvider,
+} from "../../generated/sdk.gen";
+import {login} from "../authStore";
 import {setSocialConnectAttempt} from "./socialState";
 import {apiCall} from "../api/utils";
+import {setTokensFromWire} from "../api/wire-tokens";
 import {HTTP_STATUS} from "../constants";
 import {validateInput} from "../validation/base";
 import {ConnectProviderSchema} from "../validation/auth";
@@ -20,7 +25,7 @@ export interface ConnectedProvider {
 export const listSocials = async (): Promise<ConnectedProvider[]> => {
   return apiCall(
     async () => {
-      const {data} = await getAuthV1Providers({
+      const {data} = await authV1ProvidersServiceListProviders({
         throwOnError: true,
       });
       return (data.providers ?? []) as unknown as ConnectedProvider[];
@@ -38,13 +43,12 @@ export const connectSocialInternal = async (provider: string, token: string): Pr
         provider: "google" | "apple" | "microsoft" | "tgAuthResult";
         token: string;
       };
-      const {data} = await postAuthV1ProvidersConnect({
-        body: requestBody,
+      const {data} = await authV1ProvidersServiceConnectProvider({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        body: requestBody as any,
         throwOnError: true,
       });
-      if (data.access_token && data.refresh_token && data.expires_in) {
-        setTokens(data.access_token, data.refresh_token, data.expires_in);
-      }
+      setTokensFromWire(data);
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("User is not authorized to connect provider!"),
@@ -55,8 +59,9 @@ export const connectSocialInternal = async (provider: string, token: string): Pr
 export const disconnectSocial = async (providerId: string): Promise<void> => {
   return apiCall(
     async () => {
-      await deleteAuthV1ProvidersByProvider({
-        path: {provider: providerId},
+      await authV1ProvidersServiceDisconnectProvider({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        path: {provider: providerId as any},
         throwOnError: true,
       });
     },

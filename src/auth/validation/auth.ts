@@ -4,12 +4,19 @@ import {EmailSchema, PasswordSchema} from "./base";
 export const EmailAuthRequestSchema = v.object({
   email: EmailSchema,
   password: PasswordSchema,
-  subscribe_to_blog: v.optional(v.boolean()),
+});
+
+// Matches auth.v1.RegisterRequest: email, password, countryCode?, subscribeToBlog?
+export const RegisterRequestSchema = v.object({
+  email: EmailSchema,
+  password: PasswordSchema,
+  countryCode: v.optional(v.string()),
+  subscribeToBlog: v.optional(v.boolean()),
 });
 
 export const ResetPasswordRequestSchema = v.object({
   token: v.string(),
-  new_password: PasswordSchema,
+  newPassword: PasswordSchema,
 });
 
 export const LoginOTPVerifyRequestSchema = v.object({
@@ -18,7 +25,7 @@ export const LoginOTPVerifyRequestSchema = v.object({
     v.maxLength(8, "OTP code must be at most 6 characters"),
     v.regex(/^\d+$/, "OTP code must contain only numbers")
   ),
-  session_id: v.pipe(v.string("Session ID must be text"), v.minLength(1, "Session ID is required")),
+  sessionId: v.pipe(v.string("Session ID must be text"), v.minLength(1, "Session ID is required")),
 });
 
 export const ResendEmailRequestSchema = v.object({
@@ -26,7 +33,7 @@ export const ResendEmailRequestSchema = v.object({
 });
 
 export const ChangeEmailRequestSchema = v.object({
-  new_email: EmailSchema,
+  newEmail: EmailSchema,
 });
 
 export const verifyEmailChangeRequestSchema = v.object({

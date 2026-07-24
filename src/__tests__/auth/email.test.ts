@@ -9,10 +9,10 @@ const mockPostAuthV1EmailVerify = vi.fn();
 const mockGetAuthV1UsersCurrentEmailsStatus = vi.fn();
 
 vi.mock("../../generated/sdk.gen", () => ({
-  putAuthV1UsersCurrentEmailsChange: (...args: unknown[]) => mockPutAuthV1UsersCurrentEmailsChange(...args),
-  postAuthV1UsersCurrentEmails: (...args: unknown[]) => mockPostAuthV1UsersCurrentEmails(...args),
-  postAuthV1EmailVerify: (...args: unknown[]) => mockPostAuthV1EmailVerify(...args),
-  getAuthV1UsersCurrentEmailsStatus: (...args: unknown[]) => mockGetAuthV1UsersCurrentEmailsStatus(...args),
+  authV1EmailServiceInitiateEmailChange: (...args: unknown[]) => mockPutAuthV1UsersCurrentEmailsChange(...args),
+  authV1EmailServiceAddEmail: (...args: unknown[]) => mockPostAuthV1UsersCurrentEmails(...args),
+  authV1EmailServiceVerifyEmail: (...args: unknown[]) => mockPostAuthV1EmailVerify(...args),
+  authV1EmailServiceGetUserEmailStatus: (...args: unknown[]) => mockGetAuthV1UsersCurrentEmailsStatus(...args),
 }));
 
 describe("Email Functions", () => {
@@ -42,7 +42,7 @@ describe("Email Functions", () => {
       const result = await initiateEmailChange("newemail@example.com");
 
       expect(mockPutAuthV1UsersCurrentEmailsChange).toHaveBeenCalledWith({
-        body: {new_email: "newemail@example.com"},
+        body: {newEmail: "newemail@example.com"},
         throwOnError: true,
       });
       expect(result).toEqual({
@@ -87,7 +87,7 @@ describe("Email Functions", () => {
       const result = await verifyEmailWithCode("123456", "email_change", "verify-123", "test@example.com");
 
       expect(mockPostAuthV1EmailVerify).toHaveBeenCalledWith({
-        body: {code: "123456", verification_id: "verify-123"},
+        body: {code: "123456", verificationId: "verify-123"},
         throwOnError: true,
       });
       expect(result).toEqual({
@@ -158,7 +158,7 @@ describe("Email Functions", () => {
       });
 
       expect(mockPostAuthV1EmailVerify).toHaveBeenCalledWith({
-        body: {code: "123456", verification_id: "verify-123"},
+        body: {code: "123456", verificationId: "verify-123"},
         throwOnError: true,
       });
     });

@@ -1,32 +1,47 @@
 import {
-  putAuthV1UsersCurrentEmailsChange,
-  postAuthV1UsersCurrentEmails,
-  postAuthV1EmailVerify,
-  getAuthV1UsersCurrentEmailsStatus,
+  authV1EmailServiceInitiateEmailChange,
+  authV1EmailServiceAddEmail,
+  authV1EmailServiceVerifyEmail,
+  authV1EmailServiceGetUserEmailStatus,
 } from "../../generated/sdk.gen";
-import {setTokens} from "../authStore";
 import {ChangeEmailRequestSchema, ResendEmailRequestSchema, verifyEmailChangeRequestSchema} from "../validation/auth";
 import {validateInput} from "../validation/base";
 import {apiCall} from "../api/utils";
+import {setTokensFromWire, type WireTokens} from "../api/wire-tokens";
 import {HTTP_STATUS} from "../constants";
 import type {VerificationSentResponse, VerifyEmailResponse, VerifyStatusResponse} from "./types";
 import type {EmailVerificationType} from "../types";
 
+// The gateway serializes responses in snake_case; the generated types are camelCase.
+interface WireVerificationSent {
+  message?: string;
+  verification_id?: string;
+  can_resend_at?: string;
+  code_sent?: boolean;
+}
+
+interface WireEmailStatus {
+  email?: string;
+  has_email?: boolean;
+  verified?: boolean;
+}
+
 export const initiateEmailChange = async (email: string): Promise<void | VerificationSentResponse> => {
   return apiCall(
     async () => {
-      const validatedInput = validateInput(ChangeEmailRequestSchema, {new_email: email});
-      const {data} = await putAuthV1UsersCurrentEmailsChange({
+      const validatedInput = validateInput(ChangeEmailRequestSchema, {newEmail: email});
+      const {data} = await authV1EmailServiceInitiateEmailChange({
         body: validatedInput,
         throwOnError: true,
       });
 
-      if (data.verification_id) {
+      const wire = data as WireVerificationSent;
+      if (wire.verification_id) {
         return {
-          message: data.message || "Verification code sent",
-          verification_id: data.verification_id,
-          can_resend_at: data.can_resend_at,
-          code_sent: data.code_sent,
+          message: wire.message || "Verification code sent",
+          verification_id: wire.verification_id,
+          can_resend_at: wire.can_resend_at,
+          code_sent: wire.code_sent,
         };
       }
     },
@@ -42,17 +57,18 @@ export const addEmail = async (email: string): Promise<void | VerificationSentRe
   return apiCall(
     async () => {
       const validatedInput = validateInput(ResendEmailRequestSchema, {email});
-      const {data} = await postAuthV1UsersCurrentEmails({
+      const {data} = await authV1EmailServiceAddEmail({
         body: validatedInput,
         throwOnError: true,
       });
 
-      if (data.verification_id) {
+      const wire = data as WireVerificationSent;
+      if (wire.verification_id) {
         return {
-          message: data.message || "Verification code sent",
-          verification_id: data.verification_id,
-          can_resend_at: data.can_resend_at,
-          code_sent: data.code_sent,
+          message: wire.message || "Verification code sent",
+          verification_id: wire.verification_id,
+          can_resend_at: wire.can_resend_at,
+          code_sent: wire.code_sent,
         };
       }
     },
@@ -95,24 +111,23 @@ export const verifyEmailWithCode = async (
       const payload = normalizeVerifyEmailArgs(args);
 
       validateInput(verifyEmailChangeRequestSchema, payload);
-      const {data} = await postAuthV1EmailVerify({
-        body: {code: payload.code, verification_id: payload.verification_id},
+      const {data} = await authV1EmailServiceVerifyEmail({
+        body: {code: payload.code, verificationId: payload.verification_id},
         throwOnError: true,
       });
 
-      if (data.tokens?.access_token && data.tokens?.refresh_token && data.tokens?.expires_in) {
-        setTokens(data.tokens.access_token, data.tokens.refresh_token, data.tokens.expires_in);
-      }
+      const wireTokens = data.tokens as WireTokens | undefined;
+      setTokensFromWire(wireTokens);
 
       return {
         email: data.email || "",
         message: data.message || "Email verified",
         verified: data.verified || false,
-        tokens: data.tokens
+        tokens: wireTokens
           ? {
-              access_token: data.tokens.access_token!,
-              refresh_token: data.tokens.refresh_token!,
-              expires_in: data.tokens.expires_in!,
+              access_token: wireTokens.access_token!,
+              refresh_token: wireTokens.refresh_token!,
+              expires_in: Number(wireTokens.expires_in!),
             }
           : undefined,
       };
@@ -126,14 +141,15 @@ export const verifyEmailWithCode = async (
 export const getEmailVerificationStatus = async (): Promise<void | VerifyStatusResponse> => {
   return apiCall(
     async () => {
-      const {data} = await getAuthV1UsersCurrentEmailsStatus({
+      const {data} = await authV1EmailServiceGetUserEmailStatus({
         throwOnError: true,
       });
 
+      const wire = data as WireEmailStatus;
       return {
-        email: data.email || "",
-        has_email: data.has_email ?? false,
-        verified: data.verified || false,
+        email: wire.email || "",
+        has_email: wire.has_email ?? false,
+        verified: wire.verified || false,
       };
     },
     {

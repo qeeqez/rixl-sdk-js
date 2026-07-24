@@ -163,7 +163,7 @@ describe("Integration Scenario - Dashboard Usage", () => {
      *
      * AFTER (@rixl/sdk-based):
      *   initClient({ apiUrl: "http://localhost:8081" })
-     *   postAuthV1Login({ body: {...}, throwOnError: true })
+     *   authV1EmailServiceLogin({ body: {...}, throwOnError: true })
      *   → http://localhost:8081/auth/v1/login
      *
      * The SDK client gets baseUrl from apiURL nanostore subscription.

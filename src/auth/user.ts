@@ -1,16 +1,16 @@
 import {
-  patchAuthV1UsersCurrentName,
-  patchAuthV1UsersCurrentUsername,
-  getAuthV1UsersCurrentTotpStatus,
-  postAuthV1UsersCurrentTotpSetup,
-  postAuthV1UsersCurrentTotpVerify,
-  deleteAuthV1UsersCurrentTotpDelete,
+  authV1UserServiceUpdateName,
+  authV1UserServiceUpdateUsername,
+  authV1OtpServiceGetOtpStatus,
+  authV1OtpServiceSetupOtp,
+  authV1OtpServiceVerifyOtp,
+  authV1OtpServiceDeleteOtp,
 } from "../generated/sdk.gen";
-import {setTokens} from "./authStore";
 import {validateInput} from "./validation/base";
 import {UpdateNameSchema, UpdateUsernameSchema} from "./validation/user";
 import {VerifyOTPCodeSchema} from "./validation/auth";
 import {apiCall} from "./api/utils";
+import {setTokensFromWire} from "./api/wire-tokens";
 import {HTTP_STATUS} from "./constants";
 
 export interface OTPSetup {
@@ -33,8 +33,8 @@ export interface OTPVerification {
 export const updateFullName = async (fullName: string): Promise<void> => {
   return apiCall(
     async () => {
-      const validatedInput = validateInput(UpdateNameSchema, {full_name: fullName});
-      await patchAuthV1UsersCurrentName({
+      const validatedInput = validateInput(UpdateNameSchema, {fullName});
+      await authV1UserServiceUpdateName({
         body: validatedInput,
         throwOnError: true,
       });
@@ -51,7 +51,7 @@ export const updateUsername = async (username: string): Promise<void> => {
   return apiCall(
     async () => {
       const validatedInput = validateInput(UpdateUsernameSchema, {username});
-      await patchAuthV1UsersCurrentUsername({
+      await authV1UserServiceUpdateUsername({
         body: validatedInput,
         throwOnError: true,
       });
@@ -68,14 +68,14 @@ export const updateUsername = async (username: string): Promise<void> => {
 export const getOTPStatus = async (): Promise<OTPStatusResponse> => {
   return apiCall(
     async () => {
-      const {data} = await getAuthV1UsersCurrentTotpStatus({
+      const {data} = await authV1OtpServiceGetOtpStatus({
         throwOnError: true,
       });
 
+      const wire = data as {is_setup?: boolean; created_at?: string};
       return {
-        is_setup: data.is_setup ?? false,
-        created_at: data.created_at,
-        message: data.message,
+        is_setup: wire.is_setup ?? false,
+        created_at: wire.created_at,
       };
     },
     {
@@ -87,13 +87,14 @@ export const getOTPStatus = async (): Promise<OTPStatusResponse> => {
 export const setupUserOTP = async (): Promise<OTPSetup> => {
   return apiCall(
     async () => {
-      const {data} = await postAuthV1UsersCurrentTotpSetup({
+      const {data} = await authV1OtpServiceSetupOtp({
         throwOnError: true,
       });
 
+      const wire = data as {qr_code_url?: string; secret?: string};
       return {
-        qrCodeUrl: data.qr_code_url || "",
-        secret: data.secret || "",
+        qrCodeUrl: wire.qr_code_url || "",
+        secret: wire.secret || "",
       };
     },
     {
@@ -106,14 +107,12 @@ export const verifyUserOTP = async (code: string): Promise<void> => {
   return apiCall(
     async () => {
       const validatedBody = validateInput(VerifyOTPCodeSchema, {code});
-      const {data} = await postAuthV1UsersCurrentTotpVerify({
+      const {data} = await authV1OtpServiceVerifyOtp({
         body: validatedBody,
         throwOnError: true,
       });
 
-      if (data.access_token && data.refresh_token && data.expires_in) {
-        setTokens(data.access_token, data.refresh_token, data.expires_in);
-      }
+      setTokensFromWire(data);
     },
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid request format"),
@@ -125,7 +124,7 @@ export const verifyUserOTP = async (code: string): Promise<void> => {
 export const deleteUserOTP = async (): Promise<void> => {
   return apiCall(
     async () => {
-      await deleteAuthV1UsersCurrentTotpDelete({
+      await authV1OtpServiceDeleteOtp({
         throwOnError: true,
       });
     },

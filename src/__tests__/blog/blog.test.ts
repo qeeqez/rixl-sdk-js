@@ -6,9 +6,9 @@ const mockPostAuthV1BlogSubscribe = vi.fn();
 const mockPostAuthV1BlogUnsubscribe = vi.fn();
 
 vi.mock("../../generated/sdk.gen", () => ({
-  getAuthV1BlogSubscription: (...args: unknown[]) => mockGetAuthV1BlogSubscription(...args),
-  postAuthV1BlogSubscribe: (...args: unknown[]) => mockPostAuthV1BlogSubscribe(...args),
-  postAuthV1BlogUnsubscribe: (...args: unknown[]) => mockPostAuthV1BlogUnsubscribe(...args),
+  authV1BlogServiceGetBlogSubscription: (...args: unknown[]) => mockGetAuthV1BlogSubscription(...args),
+  authV1BlogServiceSubscribeBlog: (...args: unknown[]) => mockPostAuthV1BlogSubscribe(...args),
+  authV1BlogServiceUnsubscribeBlog: (...args: unknown[]) => mockPostAuthV1BlogUnsubscribe(...args),
 }));
 
 import {getBlogSubscriptionStatus, subscribeToBlog, unsubscribeFromBlog, type BlogSubscriptionStatus} from "@/blog";
