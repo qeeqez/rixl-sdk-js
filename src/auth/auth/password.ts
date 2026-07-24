@@ -24,7 +24,7 @@ export const confirmPasswordReset = async (token: string, password: string): Pro
     async () => {
       const validatedInput = validateInput(ResetPasswordRequestSchema, {
         token: token,
-        newPassword: password,
+        new_password: password,
       });
       await authV1EmailServiceResetPassword({
         body: validatedInput,

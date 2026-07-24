@@ -60,7 +60,7 @@ describe("Password Functions", () => {
       await confirmPasswordReset("reset-token-123", "NewPassword123");
 
       expect(mockPostAuthV1PasswordResetConfirm).toHaveBeenCalledWith({
-        body: {token: "reset-token-123", newPassword: "NewPassword123"},
+        body: {token: "reset-token-123", new_password: "NewPassword123"},
         throwOnError: true,
       });
     });

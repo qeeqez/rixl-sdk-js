@@ -24,7 +24,7 @@ describe("Auth Validation Schemas", () => {
 
   describe("ResetPasswordRequestSchema", () => {
     it("should validate valid token and password", () => {
-      const data = {token: "reset-token-123", newPassword: "NewPassword1"};
+      const data = {token: "reset-token-123", new_password: "NewPassword1"};
       const result = validateInput(ResetPasswordRequestSchema, data);
       expect(result).toEqual(data);
     });

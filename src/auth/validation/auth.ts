@@ -16,7 +16,7 @@ export const RegisterRequestSchema = v.object({
 
 export const ResetPasswordRequestSchema = v.object({
   token: v.string(),
-  newPassword: PasswordSchema,
+  new_password: PasswordSchema,
 });
 
 export const LoginOTPVerifyRequestSchema = v.object({
