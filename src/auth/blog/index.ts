@@ -22,7 +22,10 @@ export const getBlogSubscriptionStatus = async (): Promise<BlogSubscriptionStatu
     const {data} = await authV1BlogServiceGetBlogSubscription({
       throwOnError: true,
     });
-    return data as unknown as BlogSubscriptionStatus;
+    return {
+      subscribed: data.subscribed ?? false,
+      subscribed_at: data.subscribed_at,
+    };
   }, BLOG_SUBSCRIPTION_ERRORS);
 };
 
