@@ -40,17 +40,6 @@ const PROVIDER_FROM_PROTO: Partial<Record<AuthV1ExternalAccountProvider, Provide
   EXTERNAL_ACCOUNT_PROVIDER_TELEGRAM: "telegram",
 };
 
-// The gateway serializes responses in snake_case with proto enum values, while
-// the generated types model them in camelCase. Read the wire shape directly.
-interface WireConnectedProvider {
-  provider?: AuthV1ExternalAccountProvider;
-  username?: string;
-  first_name?: string;
-  last_name?: string;
-  email_address?: string;
-  image_url?: string;
-}
-
 // Both Telegram login flavors connect the same external account.
 const normalizeProviderType = (provider: string): ProviderType =>
   provider === AuthProvider.TELEGRAM_WEB || provider === AuthProvider.TELEGRAM_MINI_APP ? "telegram" : (provider as ProviderType);
@@ -69,8 +58,7 @@ export const listSocials = async (): Promise<ConnectedProvider[]> => {
       const {data} = await authV1ProvidersServiceListProviders({
         throwOnError: true,
       });
-      const wireProviders = (data.providers ?? []) as WireConnectedProvider[];
-      return wireProviders.flatMap((p) => {
+      return (data.providers ?? []).flatMap((p) => {
         const provider = p.provider ? PROVIDER_FROM_PROTO[p.provider] : undefined;
         if (!provider) return [];
         return [
