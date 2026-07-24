@@ -42,7 +42,7 @@ describe("Email Functions", () => {
       const result = await initiateEmailChange("newemail@example.com");
 
       expect(mockPutAuthV1UsersCurrentEmailsChange).toHaveBeenCalledWith({
-        body: {newEmail: "newemail@example.com"},
+        body: {new_email: "newemail@example.com"},
         throwOnError: true,
       });
       expect(result).toEqual({
@@ -87,7 +87,7 @@ describe("Email Functions", () => {
       const result = await verifyEmailWithCode("123456", "email_change", "verify-123", "test@example.com");
 
       expect(mockPostAuthV1EmailVerify).toHaveBeenCalledWith({
-        body: {code: "123456", verificationId: "verify-123"},
+        body: {code: "123456", verification_id: "verify-123"},
         throwOnError: true,
       });
       expect(result).toEqual({
@@ -158,7 +158,7 @@ describe("Email Functions", () => {
       });
 
       expect(mockPostAuthV1EmailVerify).toHaveBeenCalledWith({
-        body: {code: "123456", verificationId: "verify-123"},
+        body: {code: "123456", verification_id: "verify-123"},
         throwOnError: true,
       });
     });

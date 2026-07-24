@@ -12,36 +12,21 @@ import {HTTP_STATUS} from "../constants";
 import type {VerificationSentResponse, VerifyEmailResponse, VerifyStatusResponse} from "./types";
 import type {EmailVerificationType} from "../types";
 
-// The gateway serializes responses in snake_case; the generated types are camelCase.
-interface WireVerificationSent {
-  message?: string;
-  verification_id?: string;
-  can_resend_at?: string;
-  code_sent?: boolean;
-}
-
-interface WireEmailStatus {
-  email?: string;
-  has_email?: boolean;
-  verified?: boolean;
-}
-
 export const initiateEmailChange = async (email: string): Promise<void | VerificationSentResponse> => {
   return apiCall(
     async () => {
-      const validatedInput = validateInput(ChangeEmailRequestSchema, {newEmail: email});
+      const validatedInput = validateInput(ChangeEmailRequestSchema, {new_email: email});
       const {data} = await authV1EmailServiceInitiateEmailChange({
         body: validatedInput,
         throwOnError: true,
       });
 
-      const wire = data as WireVerificationSent;
-      if (wire.verification_id) {
+      if (data.verification_id) {
         return {
-          message: wire.message || "Verification code sent",
-          verification_id: wire.verification_id,
-          can_resend_at: wire.can_resend_at,
-          code_sent: wire.code_sent,
+          message: data.message || "Verification code sent",
+          verification_id: data.verification_id,
+          can_resend_at: data.can_resend_at,
+          code_sent: data.code_sent,
         };
       }
     },
@@ -62,13 +47,12 @@ export const addEmail = async (email: string): Promise<void | VerificationSentRe
         throwOnError: true,
       });
 
-      const wire = data as WireVerificationSent;
-      if (wire.verification_id) {
+      if (data.verification_id) {
         return {
-          message: wire.message || "Verification code sent",
-          verification_id: wire.verification_id,
-          can_resend_at: wire.can_resend_at,
-          code_sent: wire.code_sent,
+          message: data.message || "Verification code sent",
+          verification_id: data.verification_id,
+          can_resend_at: data.can_resend_at,
+          code_sent: data.code_sent,
         };
       }
     },
@@ -112,7 +96,7 @@ export const verifyEmailWithCode = async (
 
       validateInput(verifyEmailChangeRequestSchema, payload);
       const {data} = await authV1EmailServiceVerifyEmail({
-        body: {code: payload.code, verificationId: payload.verification_id},
+        body: {code: payload.code, verification_id: payload.verification_id},
         throwOnError: true,
       });
 
@@ -145,11 +129,10 @@ export const getEmailVerificationStatus = async (): Promise<void | VerifyStatusR
         throwOnError: true,
       });
 
-      const wire = data as WireEmailStatus;
       return {
-        email: wire.email || "",
-        has_email: wire.has_email ?? false,
-        verified: wire.verified || false,
+        email: data.email || "",
+        has_email: data.has_email ?? false,
+        verified: data.verified || false,
       };
     },
     {

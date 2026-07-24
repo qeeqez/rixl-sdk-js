@@ -33,7 +33,7 @@ export const ResendEmailRequestSchema = v.object({
 });
 
 export const ChangeEmailRequestSchema = v.object({
-  newEmail: EmailSchema,
+  new_email: EmailSchema,
 });
 
 export const verifyEmailChangeRequestSchema = v.object({
