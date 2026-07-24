@@ -41,7 +41,30 @@ describe("Social Connections Module", () => {
 
   describe("listSocials", () => {
     it("should list connected providers successfully", async () => {
-      const mockProviders: ConnectedProvider[] = [
+      // The gateway serves proto enum values for provider
+      const wireProviders = [
+        {
+          provider: "EXTERNAL_ACCOUNT_PROVIDER_GOOGLE",
+          username: "user@gmail.com",
+          first_name: "John",
+          last_name: "Doe",
+          email_address: "user@gmail.com",
+          image_url: "https://example.com/image.jpg",
+        },
+        {
+          provider: "EXTERNAL_ACCOUNT_PROVIDER_APPLE",
+          email_address: "user@icloud.com",
+        },
+      ];
+
+      mockGetAuthV1Providers.mockResolvedValue({data: {providers: wireProviders}});
+
+      const result = await listSocials();
+
+      expect(mockGetAuthV1Providers).toHaveBeenCalledWith({
+        throwOnError: true,
+      });
+      const expected: ConnectedProvider[] = [
         {
           provider: "google",
           username: "user@gmail.com",
@@ -55,15 +78,7 @@ describe("Social Connections Module", () => {
           email_address: "user@icloud.com",
         },
       ];
-
-      mockGetAuthV1Providers.mockResolvedValue({data: {providers: mockProviders}});
-
-      const result = await listSocials();
-
-      expect(mockGetAuthV1Providers).toHaveBeenCalledWith({
-        throwOnError: true,
-      });
-      expect(result).toEqual(mockProviders);
+      expect(result).toEqual(expected);
     });
 
     it("should return empty array when no providers connected", async () => {
@@ -81,15 +96,15 @@ describe("Social Connections Module", () => {
     });
 
     it("should handle single provider", async () => {
-      const mockProvider: ConnectedProvider[] = [
+      const wireProviders = [
         {
-          provider: "microsoft",
+          provider: "EXTERNAL_ACCOUNT_PROVIDER_MICROSOFT",
           username: "user@outlook.com",
           email_address: "user@outlook.com",
         },
       ];
 
-      mockGetAuthV1Providers.mockResolvedValue({data: {providers: mockProvider}});
+      mockGetAuthV1Providers.mockResolvedValue({data: {providers: wireProviders}});
 
       const result = await listSocials();
 
@@ -98,25 +113,39 @@ describe("Social Connections Module", () => {
     });
 
     it("should handle providers with optional fields", async () => {
-      const mockProviders: ConnectedProvider[] = [
+      const wireProviders = [
         {
-          provider: "telegram",
+          provider: "EXTERNAL_ACCOUNT_PROVIDER_TELEGRAM",
           username: "telegram_user",
         },
         {
-          provider: "facebook",
+          provider: "EXTERNAL_ACCOUNT_PROVIDER_FACEBOOK",
           first_name: "Jane",
           last_name: "Smith",
         },
       ];
 
-      mockGetAuthV1Providers.mockResolvedValue({data: {providers: mockProviders}});
+      mockGetAuthV1Providers.mockResolvedValue({data: {providers: wireProviders}});
 
       const result = await listSocials();
 
       expect(result).toHaveLength(2);
       expect(result[0]?.provider).toBe("telegram");
       expect(result[1]?.provider).toBe("facebook");
+    });
+
+    it("should drop providers with unknown enum values", async () => {
+      const wireProviders = [
+        {provider: "EXTERNAL_ACCOUNT_PROVIDER_UNSPECIFIED"},
+        {provider: "EXTERNAL_ACCOUNT_PROVIDER_GOOGLE", username: "user@gmail.com"},
+      ];
+
+      mockGetAuthV1Providers.mockResolvedValue({data: {providers: wireProviders}});
+
+      const result = await listSocials();
+
+      expect(result).toHaveLength(1);
+      expect(result[0]?.provider).toBe("google");
     });
   });
 
@@ -127,7 +156,7 @@ describe("Social Connections Module", () => {
       await connectSocialInternal("google", "google-oauth-token");
 
       expect(mockPostAuthV1ProvidersConnect).toHaveBeenCalledWith({
-        body: {provider: "google", token: "google-oauth-token"},
+        body: {provider: "EXTERNAL_ACCOUNT_PROVIDER_GOOGLE", token: "google-oauth-token"},
         throwOnError: true,
       });
     });
@@ -138,9 +167,25 @@ describe("Social Connections Module", () => {
       await connectSocialInternal("apple", "apple-id-token");
 
       expect(mockPostAuthV1ProvidersConnect).toHaveBeenCalledWith({
-        body: {provider: "apple", token: "apple-id-token"},
+        body: {provider: "EXTERNAL_ACCOUNT_PROVIDER_APPLE", token: "apple-id-token"},
         throwOnError: true,
       });
+    });
+
+    it("should map Telegram auth tokens to the telegram provider", async () => {
+      mockPostAuthV1ProvidersConnect.mockResolvedValue({data: {}});
+
+      await connectSocialInternal("tgAuthResult", "tg-token");
+
+      expect(mockPostAuthV1ProvidersConnect).toHaveBeenCalledWith({
+        body: {provider: "EXTERNAL_ACCOUNT_PROVIDER_TELEGRAM", token: "tg-token"},
+        throwOnError: true,
+      });
+    });
+
+    it("should reject unknown providers", async () => {
+      await expect(connectSocialInternal("myspace", "token-123")).rejects.toThrow("Unknown provider: myspace");
+      expect(mockPostAuthV1ProvidersConnect).not.toHaveBeenCalled();
     });
 
     it("should handle unauthorized error", async () => {
@@ -156,7 +201,7 @@ describe("Social Connections Module", () => {
 
       expect(mockPostAuthV1ProvidersConnect).toHaveBeenCalledWith({
         body: expect.objectContaining({
-          provider: "microsoft",
+          provider: "EXTERNAL_ACCOUNT_PROVIDER_MICROSOFT",
           token: "ms-token-123",
         }),
         throwOnError: true,
@@ -168,10 +213,10 @@ describe("Social Connections Module", () => {
     it("should disconnect social provider successfully", async () => {
       mockDeleteAuthV1ProvidersByProvider.mockResolvedValue({data: {}});
 
-      await disconnectSocial("provider-id-123");
+      await disconnectSocial("google");
 
       expect(mockDeleteAuthV1ProvidersByProvider).toHaveBeenCalledWith({
-        path: {provider: "provider-id-123"},
+        path: {provider: "EXTERNAL_ACCOUNT_PROVIDER_GOOGLE"},
         throwOnError: true,
       });
     });
@@ -179,28 +224,28 @@ describe("Social Connections Module", () => {
     it("should handle unauthorized error", async () => {
       mockDeleteAuthV1ProvidersByProvider.mockRejectedValue({error: "unauthorized", code: 401});
 
-      await expect(disconnectSocial("provider-id-123")).rejects.toThrow();
+      await expect(disconnectSocial("google")).rejects.toThrow();
     });
 
     it("should handle provider not found error", async () => {
       mockDeleteAuthV1ProvidersByProvider.mockRejectedValue({error: "not_found", code: 404});
 
-      await expect(disconnectSocial("nonexistent-id")).rejects.toThrow();
+      await expect(disconnectSocial("apple")).rejects.toThrow();
     });
 
     it("should handle cannot disconnect last provider error", async () => {
       mockDeleteAuthV1ProvidersByProvider.mockRejectedValue({error: "bad_request", code: 400});
 
-      await expect(disconnectSocial("last-provider-id")).rejects.toThrow();
+      await expect(disconnectSocial("telegram")).rejects.toThrow();
     });
 
-    it("should work with different provider IDs", async () => {
+    it("should work with different providers", async () => {
       mockDeleteAuthV1ProvidersByProvider.mockResolvedValue({data: {}});
 
-      await disconnectSocial("another-provider-456");
+      await disconnectSocial("microsoft");
 
       expect(mockDeleteAuthV1ProvidersByProvider).toHaveBeenCalledWith({
-        path: {provider: "another-provider-456"},
+        path: {provider: "EXTERNAL_ACCOUNT_PROVIDER_MICROSOFT"},
         throwOnError: true,
       });
     });
