@@ -1285,6 +1285,20 @@ export type AuthV1BlogSubscriptionResponse = {
 };
 
 /**
+ * CancelInvitationRequest
+ */
+export type AuthV1CancelInvitationRequest = {
+    /**
+     * user
+     */
+    user?: AuthV1ActorOrgRequest;
+    /**
+     * user_id
+     */
+    user_id?: string;
+};
+
+/**
  * CheckIsAdminResponse
  */
 export type AuthV1CheckIsAdminResponse = {
@@ -1598,6 +1612,38 @@ export type AuthV1ListAttachmentsResponse = {
 };
 
 /**
+ * ListMembershipApplicationsRequest
+ */
+export type AuthV1ListMembershipApplicationsRequest = {
+    /**
+     * user
+     */
+    user?: AuthV1UserRequest;
+    /**
+     * limit
+     */
+    limit?: number;
+    /**
+     * offset
+     */
+    offset?: number;
+    /**
+     * state
+     */
+    state?: AuthV1MembershipApplicationState;
+};
+
+/**
+ * ListMembershipApplicationsResponse
+ */
+export type AuthV1ListMembershipApplicationsResponse = {
+    /**
+     * applications
+     */
+    applications?: Array<AuthV1MembershipApplication>;
+};
+
+/**
  * ListMembershipsRequest
  */
 export type AuthV1ListMembershipsRequest = {
@@ -1854,6 +1900,61 @@ export type AuthV1Membership = {
 };
 
 /**
+ * MembershipApplication
+ */
+export type AuthV1MembershipApplication = {
+    /**
+     * id
+     */
+    id?: string;
+    /**
+     * user_id
+     */
+    user_id?: string;
+    /**
+     * org_id
+     */
+    org_id?: string;
+    /**
+     * role
+     */
+    role?: AuthV1MembershipRole;
+    /**
+     * state
+     */
+    state?: AuthV1MembershipApplicationState;
+    /**
+     * organization_username
+     */
+    organization_username?: string;
+    /**
+     * organization_first_name
+     */
+    organization_first_name?: string;
+    /**
+     * organization_last_name
+     */
+    organization_last_name?: string;
+    /**
+     * created_at
+     */
+    created_at?: GoogleProtobufTimestamp;
+    /**
+     * decided_at
+     */
+    decided_at?: GoogleProtobufTimestamp;
+    /**
+     * invitation_expires_at
+     */
+    invitation_expires_at?: GoogleProtobufTimestamp;
+};
+
+/**
+ * MembershipApplicationState
+ */
+export type AuthV1MembershipApplicationState = 'MEMBERSHIP_APPLICATION_STATE_UNSPECIFIED' | 'MEMBERSHIP_APPLICATION_STATE_PENDING' | 'MEMBERSHIP_APPLICATION_STATE_APPROVED' | 'MEMBERSHIP_APPLICATION_STATE_DECLINED' | 'MEMBERSHIP_APPLICATION_STATE_CANCELLED';
+
+/**
  * MembershipMutation
  */
 export type AuthV1MembershipMutation = {
@@ -1891,7 +1992,7 @@ export type AuthV1MembershipRole = 'MEMBERSHIP_ROLE_UNSPECIFIED' | 'MEMBERSHIP_R
 /**
  * MembershipState
  */
-export type AuthV1MembershipState = 'MEMBERSHIP_STATE_UNSPECIFIED' | 'MEMBERSHIP_STATE_PENDING' | 'MEMBERSHIP_STATE_ACCEPTED' | 'MEMBERSHIP_STATE_DECLINED';
+export type AuthV1MembershipState = 'MEMBERSHIP_STATE_UNSPECIFIED' | 'MEMBERSHIP_STATE_ACTIVE' | 'MEMBERSHIP_STATE_SUSPENDED' | 'MEMBERSHIP_STATE_LEFT' | 'MEMBERSHIP_STATE_REMOVED';
 
 /**
  * OTPStatusResponse
@@ -2197,6 +2298,20 @@ export type AuthV1PolicyRequest = {
 };
 
 /**
+ * ReactivateMemberRequest
+ */
+export type AuthV1ReactivateMemberRequest = {
+    /**
+     * user
+     */
+    user?: AuthV1ActorOrgRequest;
+    /**
+     * user_id
+     */
+    user_id?: string;
+};
+
+/**
  * RefreshTokenRequest
  */
 export type AuthV1RefreshTokenRequest = {
@@ -2479,6 +2594,20 @@ export type AuthV1SetupOtpResponse = {
 };
 
 /**
+ * SuspendMemberRequest
+ */
+export type AuthV1SuspendMemberRequest = {
+    /**
+     * user
+     */
+    user?: AuthV1ActorOrgRequest;
+    /**
+     * user_id
+     */
+    user_id?: string;
+};
+
+/**
  * TokenResponse
  */
 export type AuthV1TokenResponse = {
@@ -2561,7 +2690,7 @@ export type AuthV1UpdateMembershipStateRequest = {
     /**
      * state
      */
-    state?: AuthV1MembershipState;
+    state?: AuthV1MembershipApplicationState;
 };
 
 /**
@@ -7599,6 +7728,39 @@ export type AuthV1MembershipServiceDeclineInvitationResponses = {
 
 export type AuthV1MembershipServiceDeclineInvitationResponse = AuthV1MembershipServiceDeclineInvitationResponses[keyof AuthV1MembershipServiceDeclineInvitationResponses];
 
+export type AuthV1MembershipServiceListMembershipApplicationsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * user_id
+         */
+        'user.user_id'?: string;
+        /**
+         * limit
+         */
+        limit?: number;
+        /**
+         * offset
+         */
+        offset?: number;
+        /**
+         * state
+         */
+        state?: AuthV1MembershipApplicationState;
+    };
+    url: '/auth/v1/membership-applications';
+};
+
+export type AuthV1MembershipServiceListMembershipApplicationsResponses = {
+    /**
+     * Success
+     */
+    200: AuthV1ListMembershipApplicationsResponse;
+};
+
+export type AuthV1MembershipServiceListMembershipApplicationsResponse = AuthV1MembershipServiceListMembershipApplicationsResponses[keyof AuthV1MembershipServiceListMembershipApplicationsResponses];
+
 export type AuthV1MembershipServiceListMembershipsData = {
     body?: never;
     path?: never;
@@ -7758,7 +7920,7 @@ export type AuthV1MembershipServiceInviteMemberResponses = {
     /**
      * Success
      */
-    200: AuthV1MembershipMutation;
+    200: AuthV1MembershipApplication;
 };
 
 export type AuthV1MembershipServiceInviteMemberResponse = AuthV1MembershipServiceInviteMemberResponses[keyof AuthV1MembershipServiceInviteMemberResponses];
@@ -7795,6 +7957,36 @@ export type AuthV1MembershipServiceResendInvitationResponses = {
 };
 
 export type AuthV1MembershipServiceResendInvitationResponse = AuthV1MembershipServiceResendInvitationResponses[keyof AuthV1MembershipServiceResendInvitationResponses];
+
+export type AuthV1MembershipServiceCancelInvitationData = {
+    body?: never;
+    path: {
+        /**
+         * org_id
+         */
+        'user.org_id': string;
+        /**
+         * user_id
+         */
+        user_id: string;
+    };
+    query?: {
+        /**
+         * actor_id
+         */
+        'user.actor_id'?: string;
+    };
+    url: '/auth/v1/memberships/{user.org_id}/invite/{user_id}';
+};
+
+export type AuthV1MembershipServiceCancelInvitationResponses = {
+    /**
+     * Success
+     */
+    200: GoogleProtobufEmpty;
+};
+
+export type AuthV1MembershipServiceCancelInvitationResponse = AuthV1MembershipServiceCancelInvitationResponses[keyof AuthV1MembershipServiceCancelInvitationResponses];
 
 export type AuthV1MembershipServiceListOrganizationMembersData = {
     body?: never;
@@ -7860,6 +8052,36 @@ export type AuthV1MembershipServiceRemoveMemberResponses = {
 
 export type AuthV1MembershipServiceRemoveMemberResponse = AuthV1MembershipServiceRemoveMemberResponses[keyof AuthV1MembershipServiceRemoveMemberResponses];
 
+export type AuthV1MembershipServiceReactivateMemberData = {
+    body?: never;
+    path: {
+        /**
+         * org_id
+         */
+        'user.org_id': string;
+        /**
+         * user_id
+         */
+        user_id: string;
+    };
+    query?: {
+        /**
+         * actor_id
+         */
+        'user.actor_id'?: string;
+    };
+    url: '/auth/v1/memberships/{user.org_id}/members/{user_id}/reactivate';
+};
+
+export type AuthV1MembershipServiceReactivateMemberResponses = {
+    /**
+     * Success
+     */
+    200: AuthV1MembershipMutation;
+};
+
+export type AuthV1MembershipServiceReactivateMemberResponse = AuthV1MembershipServiceReactivateMemberResponses[keyof AuthV1MembershipServiceReactivateMemberResponses];
+
 export type AuthV1MembershipServiceUpdateMemberRoleData = {
     /**
      * UpdateMemberRoleRequest
@@ -7900,6 +8122,36 @@ export type AuthV1MembershipServiceUpdateMemberRoleResponses = {
 };
 
 export type AuthV1MembershipServiceUpdateMemberRoleResponse = AuthV1MembershipServiceUpdateMemberRoleResponses[keyof AuthV1MembershipServiceUpdateMemberRoleResponses];
+
+export type AuthV1MembershipServiceSuspendMemberData = {
+    body?: never;
+    path: {
+        /**
+         * org_id
+         */
+        'user.org_id': string;
+        /**
+         * user_id
+         */
+        user_id: string;
+    };
+    query?: {
+        /**
+         * actor_id
+         */
+        'user.actor_id'?: string;
+    };
+    url: '/auth/v1/memberships/{user.org_id}/members/{user_id}/suspend';
+};
+
+export type AuthV1MembershipServiceSuspendMemberResponses = {
+    /**
+     * Success
+     */
+    200: AuthV1MembershipMutation;
+};
+
+export type AuthV1MembershipServiceSuspendMemberResponse = AuthV1MembershipServiceSuspendMemberResponses[keyof AuthV1MembershipServiceSuspendMemberResponses];
 
 export type AuthV1MembershipServiceUpdateOrgNameData = {
     /**
@@ -7946,7 +8198,7 @@ export type AuthV1MembershipServiceUpdateMembershipStateData = {
         /**
          * state
          */
-        state?: AuthV1MembershipState;
+        state?: AuthV1MembershipApplicationState;
     };
     path: {
         /**
