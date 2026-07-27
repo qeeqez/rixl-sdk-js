@@ -6,9 +6,19 @@ vi.mock("../../auth/api", () => ({
   apiURL: {set: vi.fn(), get: vi.fn()},
 }));
 
+vi.mock("../../auth/api/refresh-tokens", () => ({
+  refreshTokens: vi.fn(),
+}));
+
 vi.mock("../../auth/authStore", () => ({
   getToken: vi.fn().mockResolvedValue("mock-access-token"),
   refreshToken: {get: vi.fn()},
+  accessToken: {set: vi.fn()},
+  expireAt: {set: vi.fn()},
+  authError: {set: vi.fn()},
+  setTokens: vi.fn(),
+  setLimitedAccessState: vi.fn(),
+  clearLimitedAccessState: vi.fn(),
 }));
 
 vi.mock("../../auth/initialization", () => ({
@@ -45,6 +55,8 @@ describe("initClient - Social Connection Flow", () => {
   let mockConnectSocialInternal: any;
   let mockRefreshToken: any;
 
+  let mockRefreshTokens: any;
+
   beforeEach(async () => {
     vi.clearAllMocks();
 
@@ -61,6 +73,14 @@ describe("initClient - Social Connection Flow", () => {
 
     const authStore = await import("../../auth/authStore");
     mockRefreshToken = authStore.refreshToken;
+
+    const refreshTokensModule = await import("../../auth/api/refresh-tokens");
+    mockRefreshTokens = refreshTokensModule.refreshTokens;
+    mockRefreshTokens.mockResolvedValue({
+      access_token: "mock-access-token",
+      refresh_token: "mock-refresh-token",
+      expires_in: 3600,
+    });
   });
 
   it("should handle social connection attempt", async () => {
