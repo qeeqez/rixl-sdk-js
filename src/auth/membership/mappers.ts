@@ -17,9 +17,10 @@ const ROLE_FROM_PROTO: Record<AuthV1MembershipRole, MembershipRole> = {
 
 const STATE_FROM_PROTO: Record<AuthV1MembershipState, MembershipState> = {
   MEMBERSHIP_STATE_UNSPECIFIED: MembershipState.PENDING,
-  MEMBERSHIP_STATE_PENDING: MembershipState.PENDING,
-  MEMBERSHIP_STATE_ACCEPTED: MembershipState.ACCEPTED,
-  MEMBERSHIP_STATE_DECLINED: MembershipState.DECLINED,
+  MEMBERSHIP_STATE_ACTIVE: MembershipState.ACCEPTED,
+  MEMBERSHIP_STATE_SUSPENDED: MembershipState.PENDING,
+  MEMBERSHIP_STATE_LEFT: MembershipState.DECLINED,
+  MEMBERSHIP_STATE_REMOVED: MembershipState.DECLINED,
 };
 
 const APPLICATION_STATE_FROM_PROTO: Record<AuthV1MembershipApplicationState, MembershipState> = {

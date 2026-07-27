@@ -5,7 +5,7 @@ import {
   authV1MembershipServiceDeclineInvitation,
   authV1MembershipServiceUpdateMembershipState,
 } from "../../generated/sdk.gen";
-import type {AuthV1MembershipRole, AuthV1MembershipState} from "../../generated/types.gen";
+import type {AuthV1MembershipRole, AuthV1MembershipApplicationState} from "../../generated/types.gen";
 import {apiCall} from "../api/utils";
 import {HTTP_STATUS} from "../constants";
 import {MembershipState, type AssignableRole} from "./types";
@@ -17,9 +17,9 @@ const ROLE_TO_PROTO: Record<AssignableRole, AuthV1MembershipRole> = {
   member: "MEMBERSHIP_ROLE_MEMBER",
 };
 
-const STATE_TO_PROTO: Record<"accepted" | "declined", AuthV1MembershipState> = {
-  accepted: "MEMBERSHIP_STATE_ACCEPTED",
-  declined: "MEMBERSHIP_STATE_DECLINED",
+const STATE_TO_PROTO: Record<"accepted" | "declined", AuthV1MembershipApplicationState> = {
+  accepted: "MEMBERSHIP_APPLICATION_STATE_APPROVED",
+  declined: "MEMBERSHIP_APPLICATION_STATE_DECLINED",
 };
 
 export const inviteMember = async (orgId: string, username: string, role: AssignableRole): Promise<void> => {
