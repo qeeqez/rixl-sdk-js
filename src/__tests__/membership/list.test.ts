@@ -3,10 +3,12 @@ import {listActiveMemberships, listPendingMemberships, listOrganizationMembers, 
 import {setupAuthTest, cleanupAuthMocks} from "../utils/auth-test-helpers";
 
 const mockListMemberships = vi.fn();
+const mockListMembershipApplications = vi.fn();
 const mockListOrganizationMembers = vi.fn();
 
 vi.mock("../../generated/sdk.gen", () => ({
   authV1MembershipServiceListMemberships: (...args: unknown[]) => mockListMemberships(...args),
+  authV1MembershipServiceListMembershipApplications: (...args: unknown[]) => mockListMembershipApplications(...args),
   authV1MembershipServiceListOrganizationMembers: (...args: unknown[]) => mockListOrganizationMembers(...args),
 }));
 
@@ -16,7 +18,7 @@ const wireMembership = (overrides: Record<string, unknown> = {}) => ({
   user_id: "user123",
   org_id: "org123",
   role: "MEMBERSHIP_ROLE_ADMIN",
-  state: "MEMBERSHIP_STATE_ACCEPTED",
+  state: "MEMBERSHIP_STATE_ACTIVE",
   organization_username: "testorg",
   organization_first_name: "Test",
   organization_last_name: "Org",
@@ -29,7 +31,7 @@ const wireMember = (overrides: Record<string, unknown> = {}) => ({
   user_id: "user456",
   org_id: "org123",
   role: "MEMBERSHIP_ROLE_ADMIN",
-  state: "MEMBERSHIP_STATE_ACCEPTED",
+  state: "MEMBERSHIP_STATE_ACTIVE",
   username: "john_doe",
   first_name: "John",
   last_name: "Doe",
@@ -43,6 +45,7 @@ describe("Membership List Module", () => {
   beforeEach(() => {
     mocks = setupAuthTest();
     mockListMemberships.mockReset();
+    mockListMembershipApplications.mockReset();
     mockListOrganizationMembers.mockReset();
   });
 
@@ -57,7 +60,7 @@ describe("Membership List Module", () => {
       const result = await listActiveMemberships();
 
       expect(mockListMemberships).toHaveBeenCalledWith({
-        query: {state: "MEMBERSHIP_STATE_ACCEPTED"},
+        query: {state: "MEMBERSHIP_STATE_ACTIVE", limit: 25},
         throwOnError: true,
       });
       expect(result).toEqual([
@@ -82,7 +85,7 @@ describe("Membership List Module", () => {
       await listActiveMemberships(paginationParams);
 
       expect(mockListMemberships).toHaveBeenCalledWith({
-        query: {...paginationParams, state: "MEMBERSHIP_STATE_ACCEPTED"},
+        query: {state: "MEMBERSHIP_STATE_ACTIVE", limit: 25, ...paginationParams},
         throwOnError: true,
       });
     });
@@ -106,21 +109,21 @@ describe("Membership List Module", () => {
 
   describe("listPendingMemberships", () => {
     it("queries the pending state and maps the result", async () => {
-      mockListMemberships.mockResolvedValue({
-        data: {memberships: [wireMembership({state: "MEMBERSHIP_STATE_PENDING"})]},
+      mockListMembershipApplications.mockResolvedValue({
+        data: {applications: [wireMembership({state: "MEMBERSHIP_APPLICATION_STATE_PENDING"})]},
       });
 
       const result = await listPendingMemberships();
 
-      expect(mockListMemberships).toHaveBeenCalledWith({
-        query: {state: "MEMBERSHIP_STATE_PENDING"},
+      expect(mockListMembershipApplications).toHaveBeenCalledWith({
+        query: {state: "MEMBERSHIP_APPLICATION_STATE_PENDING", limit: 25},
         throwOnError: true,
       });
       expect(result[0].state).toBe(MembershipState.PENDING);
     });
 
     it("returns empty array when no pending memberships", async () => {
-      mockListMemberships.mockResolvedValue({data: {memberships: []}});
+      mockListMembershipApplications.mockResolvedValue({data: {applications: []}});
 
       expect(await listPendingMemberships()).toEqual([]);
     });

@@ -135,7 +135,7 @@ describe("Membership Invite Module", () => {
 
       expect(mockUpdateMembershipState).toHaveBeenCalledWith({
         path: {"user.org_id": "org123"},
-        body: {state: "MEMBERSHIP_STATE_ACCEPTED"},
+        body: {state: "MEMBERSHIP_APPLICATION_STATE_APPROVED"},
         throwOnError: true,
       });
     });
@@ -147,7 +147,7 @@ describe("Membership Invite Module", () => {
 
       expect(mockUpdateMembershipState).toHaveBeenCalledWith({
         path: {"user.org_id": "org123"},
-        body: {state: "MEMBERSHIP_STATE_DECLINED"},
+        body: {state: "MEMBERSHIP_APPLICATION_STATE_DECLINED"},
         throwOnError: true,
       });
     });
