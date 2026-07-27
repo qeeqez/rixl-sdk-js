@@ -41,6 +41,7 @@ export {
   publicRespondToInvitation,
   type Member,
   type Membership,
+  type MembershipApplication,
   type InviteMemberRequest,
   type UpdateMemberRoleRequest,
   type ResendInviteMemberRequest,
