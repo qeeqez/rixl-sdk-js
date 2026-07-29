@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/rixlhq/rixl-js/compare/v0.7.0...v0.7.1) (2026-07-29)
+
+
+### Bug Fixes
+
+* use packageManager string instead of devEngines for bun ([93e9da4](https://github.com/rixlhq/rixl-js/commit/93e9da4b722d2f6d5212e3bb8d25f033e01f4ea5))
+
 ## [0.7.0](https://github.com/rixlhq/rixl-js/compare/v0.6.1...v0.7.0) (2026-07-29)
 
 
