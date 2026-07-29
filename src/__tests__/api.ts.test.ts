@@ -6,7 +6,7 @@ import {AuthProvider} from "@/providers";
 const mockPostAuthV1Token = vi.fn();
 
 vi.mock("../generated/sdk.gen", () => ({
-  postAuthV1Token: (...args: unknown[]) => mockPostAuthV1Token(...args),
+  authV1TokenServiceRefreshToken: (...args: unknown[]) => mockPostAuthV1Token(...args),
 }));
 
 describe("API Module", () => {
@@ -44,7 +44,7 @@ describe("API Module", () => {
       const result = await refreshTokens(AuthProvider.BEARER, "old-refresh-token");
 
       expect(mockPostAuthV1Token).toHaveBeenCalledWith({
-        headers: {Authorization: "Bearer old-refresh-token"},
+        body: {token_type: "Bearer", refresh_token: "old-refresh-token"},
         throwOnError: true,
       });
       expect(result).toEqual(mockResponse);
@@ -74,7 +74,25 @@ describe("API Module", () => {
       await refreshTokens(AuthProvider.GOOGLE, "google-token");
 
       expect(mockPostAuthV1Token).toHaveBeenCalledWith({
-        headers: {Authorization: "google google-token"},
+        body: {token_type: "google", refresh_token: "google-token"},
+        throwOnError: true,
+      });
+    });
+
+    it("should include countryCode and origin when provided", async () => {
+      mockPostAuthV1Token.mockResolvedValue({
+        data: {access_token: "token", refresh_token: "refresh", expires_in: 3600},
+      });
+
+      await refreshTokens(AuthProvider.BEARER, "token", {countryCode: "NG", origin: "https://app.example.com"});
+
+      expect(mockPostAuthV1Token).toHaveBeenCalledWith({
+        body: {
+          token_type: "Bearer",
+          refresh_token: "token",
+          country_code: "NG",
+          origin: "https://app.example.com",
+        },
         throwOnError: true,
       });
     });

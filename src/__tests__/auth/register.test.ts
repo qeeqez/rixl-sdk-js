@@ -6,8 +6,8 @@ const mockPostAuthV1Register = vi.fn();
 const mockPostAuthV1EmailVerifyResend = vi.fn();
 
 vi.mock("../../generated/sdk.gen", () => ({
-  postAuthV1Register: (...args: unknown[]) => mockPostAuthV1Register(...args),
-  postAuthV1EmailVerifyResend: (...args: unknown[]) => mockPostAuthV1EmailVerifyResend(...args),
+  authV1EmailServiceRegister: (...args: unknown[]) => mockPostAuthV1Register(...args),
+  authV1EmailServiceResendVerification: (...args: unknown[]) => mockPostAuthV1EmailVerifyResend(...args),
 }));
 
 describe("Registration Functions", () => {
@@ -44,7 +44,7 @@ describe("Registration Functions", () => {
       });
     });
 
-    it("includes subscribe_to_blog: true when opted in", async () => {
+    it("includes subscribeToBlog: true when opted in", async () => {
       mockPostAuthV1Register.mockResolvedValue({
         data: {
           verification_id: "verify-123",
@@ -60,7 +60,7 @@ describe("Registration Functions", () => {
       });
     });
 
-    it("includes subscribe_to_blog: false when opted out", async () => {
+    it("includes subscribeToBlog: false when opted out", async () => {
       mockPostAuthV1Register.mockResolvedValue({
         data: {
           verification_id: "verify-123",
@@ -76,7 +76,23 @@ describe("Registration Functions", () => {
       });
     });
 
-    it("omits subscribe_to_blog when not provided", async () => {
+    it("sends countryCode as country_code", async () => {
+      mockPostAuthV1Register.mockResolvedValue({
+        data: {
+          verification_id: "verify-123",
+          message: "Registration successful",
+        },
+      });
+
+      await registerWithEmail("newuser@example.com", "Password123", true, "NG");
+
+      expect(mockPostAuthV1Register).toHaveBeenCalledWith({
+        body: {email: "newuser@example.com", password: "Password123", subscribe_to_blog: true, country_code: "NG"},
+        throwOnError: true,
+      });
+    });
+
+    it("omits subscribeToBlog when not provided", async () => {
       mockPostAuthV1Register.mockResolvedValue({
         data: {
           verification_id: "verify-123",

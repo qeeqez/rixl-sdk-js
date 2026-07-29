@@ -38,6 +38,7 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+openapi.yaml
 
 # Sentry Config File
 .env.sentry-build-plugin

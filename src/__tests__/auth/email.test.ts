@@ -9,10 +9,10 @@ const mockPostAuthV1EmailVerify = vi.fn();
 const mockGetAuthV1UsersCurrentEmailsStatus = vi.fn();
 
 vi.mock("../../generated/sdk.gen", () => ({
-  putAuthV1UsersCurrentEmailsChange: (...args: unknown[]) => mockPutAuthV1UsersCurrentEmailsChange(...args),
-  postAuthV1UsersCurrentEmails: (...args: unknown[]) => mockPostAuthV1UsersCurrentEmails(...args),
-  postAuthV1EmailVerify: (...args: unknown[]) => mockPostAuthV1EmailVerify(...args),
-  getAuthV1UsersCurrentEmailsStatus: (...args: unknown[]) => mockGetAuthV1UsersCurrentEmailsStatus(...args),
+  authV1EmailServiceInitiateEmailChange: (...args: unknown[]) => mockPutAuthV1UsersCurrentEmailsChange(...args),
+  authV1EmailServiceAddEmail: (...args: unknown[]) => mockPostAuthV1UsersCurrentEmails(...args),
+  authV1EmailServiceVerifyEmail: (...args: unknown[]) => mockPostAuthV1EmailVerify(...args),
+  authV1EmailServiceGetUserEmailStatus: (...args: unknown[]) => mockGetAuthV1UsersCurrentEmailsStatus(...args),
 }));
 
 describe("Email Functions", () => {

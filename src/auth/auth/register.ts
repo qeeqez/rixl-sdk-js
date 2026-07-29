@@ -1,6 +1,6 @@
-import {postAuthV1Register, postAuthV1EmailVerifyResend} from "../../generated/sdk.gen";
+import {authV1EmailServiceRegister, authV1EmailServiceResendVerification} from "../../generated/sdk.gen";
 import {validateInput} from "../validation/base";
-import {EmailAuthRequestSchema, ResendEmailRequestSchema} from "../validation/auth";
+import {RegisterRequestSchema, ResendEmailRequestSchema} from "../validation/auth";
 import {apiCall} from "../api/utils";
 import {HTTP_STATUS} from "../constants";
 import type {RegistrationResponse, VerificationSentResponse} from "./types";
@@ -8,16 +8,18 @@ import type {RegistrationResponse, VerificationSentResponse} from "./types";
 export const registerWithEmail = async (
   email: string,
   password: string,
-  subscribeToBlog?: boolean
+  subscribeToBlog?: boolean,
+  countryCode?: string
 ): Promise<void | RegistrationResponse> => {
   return apiCall(
     async () => {
-      const validatedInput = validateInput(EmailAuthRequestSchema, {
+      const validatedInput = validateInput(RegisterRequestSchema, {
         email,
         password,
+        country_code: countryCode,
         subscribe_to_blog: subscribeToBlog,
       });
-      const {data} = await postAuthV1Register({
+      const {data} = await authV1EmailServiceRegister({
         body: validatedInput,
         throwOnError: true,
       });
@@ -41,7 +43,7 @@ export const resendEmailVerificationCode = async (email: string): Promise<void |
   return apiCall(
     async () => {
       const validatedInput = validateInput(ResendEmailRequestSchema, {email});
-      const {data} = await postAuthV1EmailVerifyResend({
+      const {data} = await authV1EmailServiceResendVerification({
         body: validatedInput,
         throwOnError: true,
       });

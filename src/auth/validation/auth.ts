@@ -4,6 +4,13 @@ import {EmailSchema, PasswordSchema} from "./base";
 export const EmailAuthRequestSchema = v.object({
   email: EmailSchema,
   password: PasswordSchema,
+});
+
+// Matches auth.v1.RegisterRequest: email, password, country_code?, subscribe_to_blog?
+export const RegisterRequestSchema = v.object({
+  email: EmailSchema,
+  password: PasswordSchema,
+  country_code: v.optional(v.string()),
   subscribe_to_blog: v.optional(v.boolean()),
 });
 

@@ -37,6 +37,15 @@ export interface Member extends Common {
   invitation_expires_at?: string;
 }
 
+export interface MembershipApplication extends Common {
+  organization_username: string;
+  organization_first_name: string;
+  organization_last_name: string;
+  created_at?: string;
+  decided_at?: string;
+  invitation_expires_at?: string;
+}
+
 // Invite member request
 export interface InviteMemberRequest {
   username: string;

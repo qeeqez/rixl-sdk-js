@@ -1,13 +1,13 @@
 import {
-  putAuthV1UsersCurrentEmailsChange,
-  postAuthV1UsersCurrentEmails,
-  postAuthV1EmailVerify,
-  getAuthV1UsersCurrentEmailsStatus,
+  authV1EmailServiceInitiateEmailChange,
+  authV1EmailServiceAddEmail,
+  authV1EmailServiceVerifyEmail,
+  authV1EmailServiceGetUserEmailStatus,
 } from "../../generated/sdk.gen";
-import {setTokens} from "../authStore";
 import {ChangeEmailRequestSchema, ResendEmailRequestSchema, verifyEmailChangeRequestSchema} from "../validation/auth";
 import {validateInput} from "../validation/base";
 import {apiCall} from "../api/utils";
+import {persistTokens} from "../api/tokens";
 import {HTTP_STATUS} from "../constants";
 import type {VerificationSentResponse, VerifyEmailResponse, VerifyStatusResponse} from "./types";
 import type {EmailVerificationType} from "../types";
@@ -16,7 +16,7 @@ export const initiateEmailChange = async (email: string): Promise<void | Verific
   return apiCall(
     async () => {
       const validatedInput = validateInput(ChangeEmailRequestSchema, {new_email: email});
-      const {data} = await putAuthV1UsersCurrentEmailsChange({
+      const {data} = await authV1EmailServiceInitiateEmailChange({
         body: validatedInput,
         throwOnError: true,
       });
@@ -42,7 +42,7 @@ export const addEmail = async (email: string): Promise<void | VerificationSentRe
   return apiCall(
     async () => {
       const validatedInput = validateInput(ResendEmailRequestSchema, {email});
-      const {data} = await postAuthV1UsersCurrentEmails({
+      const {data} = await authV1EmailServiceAddEmail({
         body: validatedInput,
         throwOnError: true,
       });
@@ -95,24 +95,23 @@ export const verifyEmailWithCode = async (
       const payload = normalizeVerifyEmailArgs(args);
 
       validateInput(verifyEmailChangeRequestSchema, payload);
-      const {data} = await postAuthV1EmailVerify({
+      const {data} = await authV1EmailServiceVerifyEmail({
         body: {code: payload.code, verification_id: payload.verification_id},
         throwOnError: true,
       });
 
-      if (data.tokens?.access_token && data.tokens?.refresh_token && data.tokens?.expires_in) {
-        setTokens(data.tokens.access_token, data.tokens.refresh_token, data.tokens.expires_in);
-      }
+      const tokens = data.tokens;
+      persistTokens(tokens);
 
       return {
         email: data.email || "",
         message: data.message || "Email verified",
         verified: data.verified || false,
-        tokens: data.tokens
+        tokens: tokens
           ? {
-              access_token: data.tokens.access_token!,
-              refresh_token: data.tokens.refresh_token!,
-              expires_in: data.tokens.expires_in!,
+              access_token: tokens.access_token!,
+              refresh_token: tokens.refresh_token!,
+              expires_in: Number(tokens.expires_in!),
             }
           : undefined,
       };
@@ -126,7 +125,7 @@ export const verifyEmailWithCode = async (
 export const getEmailVerificationStatus = async (): Promise<void | VerifyStatusResponse> => {
   return apiCall(
     async () => {
-      const {data} = await getAuthV1UsersCurrentEmailsStatus({
+      const {data} = await authV1EmailServiceGetUserEmailStatus({
         throwOnError: true,
       });
 

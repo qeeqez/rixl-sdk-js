@@ -41,6 +41,7 @@ export {
   publicRespondToInvitation,
   type Member,
   type Membership,
+  type MembershipApplication,
   type InviteMemberRequest,
   type UpdateMemberRoleRequest,
   type ResendInviteMemberRequest,
@@ -49,12 +50,14 @@ export {
 export {
   updateFullName,
   updateUsername,
+  getUserInfo,
   verifyUserOTP,
   setupUserOTP,
   deleteUserOTP,
   getOTPStatus,
   type OTPSetup,
   type OTPStatusResponse,
+  type UserInfo,
 } from "./user";
 export {updateOrgName, updateOrgUsername} from "./organization";
 

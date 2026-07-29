@@ -1,23 +1,34 @@
 import {
-  postAuthV1MembershipsByOrgIdMembersInvite,
-  postAuthV1MembershipsByOrgIdMembersInviteResend,
-  postAuthV1InvitationsByTokenAccept,
-  postAuthV1InvitationsByTokenDecline,
-  putAuthV1MembershipsByOrgIdMembershipState,
+  authV1MembershipServiceInviteMember,
+  authV1MembershipServiceResendInvitation,
+  authV1MembershipServiceAcceptInvitation,
+  authV1MembershipServiceDeclineInvitation,
+  authV1MembershipServiceUpdateMembershipState,
 } from "../../generated/sdk.gen";
+import type {AuthV1MembershipRole, AuthV1MembershipApplicationState} from "../../generated/types.gen";
 import {apiCall} from "../api/utils";
 import {HTTP_STATUS} from "../constants";
 import {MembershipState, type AssignableRole} from "./types";
 import {validateInput} from "../validation/base";
 import {AcceptDeclineMembershipSchema, PublicInviteResponseSchema, InviteMemberSchema, ResendInviteSchema} from "../validation/membership";
 
+const ROLE_TO_PROTO: Record<AssignableRole, AuthV1MembershipRole> = {
+  admin: "MEMBERSHIP_ROLE_ADMIN",
+  member: "MEMBERSHIP_ROLE_MEMBER",
+};
+
+const STATE_TO_PROTO: Record<"accepted" | "declined", AuthV1MembershipApplicationState> = {
+  accepted: "MEMBERSHIP_APPLICATION_STATE_APPROVED",
+  declined: "MEMBERSHIP_APPLICATION_STATE_DECLINED",
+};
+
 export const inviteMember = async (orgId: string, username: string, role: AssignableRole): Promise<void> => {
   return apiCall(
     async () => {
-      const requestBody = validateInput(InviteMemberSchema, {username, role});
-      await postAuthV1MembershipsByOrgIdMembersInvite({
-        path: {orgId},
-        body: requestBody,
+      const validated = validateInput(InviteMemberSchema, {username, role});
+      await authV1MembershipServiceInviteMember({
+        path: {"user.org_id": orgId},
+        body: {username: validated.username, role: ROLE_TO_PROTO[validated.role]},
         throwOnError: true,
       });
     },
@@ -32,10 +43,10 @@ export const inviteMember = async (orgId: string, username: string, role: Assign
 export const resendMemberInvite = async (orgId: string, userId: string): Promise<void> => {
   return apiCall(
     async () => {
-      const requestBody = validateInput(ResendInviteSchema, {user_id: userId});
-      await postAuthV1MembershipsByOrgIdMembersInviteResend({
-        path: {orgId},
-        body: requestBody,
+      validateInput(ResendInviteSchema, {user_id: userId});
+      await authV1MembershipServiceResendInvitation({
+        path: {"user.org_id": orgId},
+        body: {user_id: userId},
         throwOnError: true,
       });
     },
@@ -50,11 +61,11 @@ export const resendMemberInvite = async (orgId: string, userId: string): Promise
 export const respondToInvitation = async (orgId: string, state: MembershipState.ACCEPTED | MembershipState.DECLINED): Promise<void> => {
   return apiCall(
     async () => {
-      const requestBody = validateInput(AcceptDeclineMembershipSchema, {state}) as {state: "accepted" | "declined"};
+      const validated = validateInput(AcceptDeclineMembershipSchema, {state}) as {state: "accepted" | "declined"};
 
-      await putAuthV1MembershipsByOrgIdMembershipState({
-        path: {orgId},
-        body: requestBody,
+      await authV1MembershipServiceUpdateMembershipState({
+        path: {"user.org_id": orgId},
+        body: {state: STATE_TO_PROTO[validated.state]},
         throwOnError: true,
       });
     },
@@ -71,12 +82,12 @@ export const publicRespondToInvitation = async (token: string, state: Membership
       validateInput(PublicInviteResponseSchema, {state});
 
       if (state === MembershipState.ACCEPT) {
-        await postAuthV1InvitationsByTokenAccept({
+        await authV1MembershipServiceAcceptInvitation({
           path: {token},
           throwOnError: true,
         });
       } else {
-        await postAuthV1InvitationsByTokenDecline({
+        await authV1MembershipServiceDeclineInvitation({
           path: {token},
           throwOnError: true,
         });

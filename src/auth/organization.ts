@@ -1,4 +1,4 @@
-import {putAuthV1MembershipsByOrgIdName, putAuthV1MembershipsByOrgIdUsername} from "../generated/sdk.gen";
+import {authV1MembershipServiceUpdateOrgName, authV1MembershipServiceUpdateOrgUsername} from "../generated/sdk.gen";
 import {apiCall} from "./api/utils";
 import {HTTP_STATUS} from "./constants";
 import {validateInput} from "./validation/base";
@@ -8,8 +8,8 @@ export const updateOrgName = async (fullName: string, orgId: string): Promise<vo
   return apiCall(
     async () => {
       const requestBody = validateInput(UpdateNameSchema, {full_name: fullName});
-      await putAuthV1MembershipsByOrgIdName({
-        path: {orgId},
+      await authV1MembershipServiceUpdateOrgName({
+        path: {"user.org_id": orgId},
         body: requestBody,
         throwOnError: true,
       });
@@ -25,8 +25,8 @@ export const updateOrgUsername = async (username: string, orgId: string): Promis
   return apiCall(
     async () => {
       const requestBody = validateInput(UpdateUsernameSchema, {username});
-      await putAuthV1MembershipsByOrgIdUsername({
-        path: {orgId},
+      await authV1MembershipServiceUpdateOrgUsername({
+        path: {"user.org_id": orgId},
         body: requestBody,
         throwOnError: true,
       });

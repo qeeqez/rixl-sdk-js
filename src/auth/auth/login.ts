@@ -1,19 +1,19 @@
-import {postAuthV1Login, postAuthV1VerifyTotp} from "../../generated/sdk.gen";
-import {setTokens} from "../authStore";
+import {authV1EmailServiceLogin, authV1OtpServiceVerifyTotpForLogin} from "../../generated/sdk.gen";
 import {EmailAuthRequestSchema, LoginOTPVerifyRequestSchema} from "../validation/auth";
 import {validateInput} from "../validation/base";
 import {ApiError} from "../api/error-handlers";
 import {apiCall} from "../api/utils";
+import {persistTokens} from "../api/tokens";
 import {HTTP_STATUS} from "../constants";
 import type {LoginErrorResponse, TwoFactorResponse} from "./types";
-import type {Authv1LoginResponse} from "../../generated/types.gen";
+import type {AuthV1LoginResponse} from "../../generated/types.gen";
 
 export const loginWithEmail = async (email: string, password: string): Promise<void | TwoFactorResponse | LoginErrorResponse> => {
   return apiCall(
     async () => {
       const validatedInput = validateInput(EmailAuthRequestSchema, {email, password});
       try {
-        const {data} = await postAuthV1Login({
+        const {data} = await authV1EmailServiceLogin({
           body: validatedInput,
           throwOnError: true,
         });
@@ -34,14 +34,12 @@ export const verifyTOTPForLogin = async (code: string, session_id: string): Prom
   return apiCall(
     async () => {
       const validatedInput = validateInput(LoginOTPVerifyRequestSchema, {code, session_id});
-      const {data} = await postAuthV1VerifyTotp({
+      const {data} = await authV1OtpServiceVerifyTotpForLogin({
         body: validatedInput,
         throwOnError: true,
       });
 
-      if (data.access_token && data.refresh_token && data.expires_in) {
-        setTokens(data.access_token, data.refresh_token, data.expires_in);
-      }
+      persistTokens(data);
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Invalid or expired TOTP code"),
@@ -49,32 +47,20 @@ export const verifyTOTPForLogin = async (code: string, session_id: string): Prom
   );
 };
 
-function handleLoginResponse(data: Authv1LoginResponse, email: string): void | TwoFactorResponse | LoginErrorResponse {
+function handleLoginResponse(data: AuthV1LoginResponse, email: string): void | TwoFactorResponse | LoginErrorResponse {
   switch (data.status) {
     case "ok":
-      if (data.access_token && data.refresh_token && data.expires_in) {
-        setTokens(data.access_token, data.refresh_token, data.expires_in);
-      }
+      persistTokens(data);
       return;
-    case "2fa_required": {
-      const response = data as unknown as {
-        session_id: string;
-        authentication: string[];
-        passkey_options?: object;
-      };
-      return {
-        session_id: response.session_id,
-        email: email,
-        authentication: response.authentication as TwoFactorResponse["authentication"],
-        passkey_options: response.passkey_options,
-      };
-    }
-    case "otp_required":
+    case "2fa_required":
       return {
         session_id: data.session_id!,
         email: email,
-        authentication: ["totp"],
-      } satisfies TwoFactorResponse;
+        // The wire renders auth methods as lowercase "passkey" | "totp", which
+        // the generated AuthV1AuthMethod enum does not model.
+        authentication: data.authentication as unknown as TwoFactorResponse["authentication"],
+        passkey_options: data.passkey_options,
+      };
     case "email_not_verified":
       return {
         error_code: "email_not_verified",
@@ -93,22 +79,28 @@ interface ApiErrorBody {
 }
 
 function handleLoginError(error: unknown, email: string): TwoFactorResponse | LoginErrorResponse | never {
-  if (isApiErrorBody(error)) {
-    if (error.error === "email_not_verified") {
+  // The client error interceptor wraps thrown bodies into ApiError; tests and
+  // legacy paths may still surface the raw body directly.
+  const body = error instanceof ApiError ? error.data : error;
+  if (isApiErrorBody(body)) {
+    if (body.error === "email_not_verified") {
       return {
         error_code: "email_not_verified",
-        message: error.details || "Email not verified",
+        message: body.details || "Email not verified",
         email,
       };
     }
-    if (error.error === "provider_conflict") {
+    if (body.error === "provider_conflict") {
       return {
         error_code: "provider_conflict",
-        message: error.details || "Email registered with different provider",
+        message: body.details || "Email registered with different provider",
         email,
       };
     }
-    throw new ApiError(error.error || "Login failed", error.code || 500, "/auth/v1/login", error);
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    throw new ApiError(body.error || "Login failed", body.code || 500, "/auth/v1/login", body);
   }
   throw error;
 }

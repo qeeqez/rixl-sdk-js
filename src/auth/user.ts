@@ -1,16 +1,17 @@
 import {
-  patchAuthV1UsersCurrentName,
-  patchAuthV1UsersCurrentUsername,
-  getAuthV1UsersCurrentTotpStatus,
-  postAuthV1UsersCurrentTotpSetup,
-  postAuthV1UsersCurrentTotpVerify,
-  deleteAuthV1UsersCurrentTotpDelete,
+  authV1UserServiceUpdateName,
+  authV1UserServiceUpdateUsername,
+  authV1UserServiceGetUserInfo,
+  authV1OtpServiceGetOtpStatus,
+  authV1OtpServiceSetupOtp,
+  authV1OtpServiceVerifyOtp,
+  authV1OtpServiceDeleteOtp,
 } from "../generated/sdk.gen";
-import {setTokens} from "./authStore";
 import {validateInput} from "./validation/base";
 import {UpdateNameSchema, UpdateUsernameSchema} from "./validation/user";
 import {VerifyOTPCodeSchema} from "./validation/auth";
 import {apiCall} from "./api/utils";
+import {persistTokens} from "./api/tokens";
 import {HTTP_STATUS} from "./constants";
 
 export interface OTPSetup {
@@ -30,11 +31,51 @@ export interface OTPVerification {
   expires_in?: number;
 }
 
+export interface UserInfo {
+  id: string;
+  username: string;
+  email: string;
+  email_verified: boolean;
+  first_name: string;
+  last_name: string;
+  image_url: string;
+  language_code: string;
+  country_code: string;
+  active_org_id: string;
+}
+
+export const getUserInfo = async (userId?: string): Promise<UserInfo> => {
+  return apiCall(
+    async () => {
+      const {data} = await authV1UserServiceGetUserInfo({
+        query: userId ? {user_id: userId} : undefined,
+        throwOnError: true,
+      });
+
+      return {
+        id: data.id ?? "",
+        username: data.username ?? "",
+        email: data.email ?? "",
+        email_verified: data.email_verified ?? false,
+        first_name: data.first_name ?? "",
+        last_name: data.last_name ?? "",
+        image_url: data.image_url ?? "",
+        language_code: data.language_code ?? "",
+        country_code: data.country_code ?? "",
+        active_org_id: data.active_org_id ?? "",
+      };
+    },
+    {
+      [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Token is missing or invalid; user is not authenticated."),
+    }
+  );
+};
+
 export const updateFullName = async (fullName: string): Promise<void> => {
   return apiCall(
     async () => {
       const validatedInput = validateInput(UpdateNameSchema, {full_name: fullName});
-      await patchAuthV1UsersCurrentName({
+      await authV1UserServiceUpdateName({
         body: validatedInput,
         throwOnError: true,
       });
@@ -51,7 +92,7 @@ export const updateUsername = async (username: string): Promise<void> => {
   return apiCall(
     async () => {
       const validatedInput = validateInput(UpdateUsernameSchema, {username});
-      await patchAuthV1UsersCurrentUsername({
+      await authV1UserServiceUpdateUsername({
         body: validatedInput,
         throwOnError: true,
       });
@@ -68,14 +109,13 @@ export const updateUsername = async (username: string): Promise<void> => {
 export const getOTPStatus = async (): Promise<OTPStatusResponse> => {
   return apiCall(
     async () => {
-      const {data} = await getAuthV1UsersCurrentTotpStatus({
+      const {data} = await authV1OtpServiceGetOtpStatus({
         throwOnError: true,
       });
 
       return {
         is_setup: data.is_setup ?? false,
         created_at: data.created_at,
-        message: data.message,
       };
     },
     {
@@ -87,7 +127,7 @@ export const getOTPStatus = async (): Promise<OTPStatusResponse> => {
 export const setupUserOTP = async (): Promise<OTPSetup> => {
   return apiCall(
     async () => {
-      const {data} = await postAuthV1UsersCurrentTotpSetup({
+      const {data} = await authV1OtpServiceSetupOtp({
         throwOnError: true,
       });
 
@@ -106,14 +146,12 @@ export const verifyUserOTP = async (code: string): Promise<void> => {
   return apiCall(
     async () => {
       const validatedBody = validateInput(VerifyOTPCodeSchema, {code});
-      const {data} = await postAuthV1UsersCurrentTotpVerify({
+      const {data} = await authV1OtpServiceVerifyOtp({
         body: validatedBody,
         throwOnError: true,
       });
 
-      if (data.access_token && data.refresh_token && data.expires_in) {
-        setTokens(data.access_token, data.refresh_token, data.expires_in);
-      }
+      persistTokens(data);
     },
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid request format"),
@@ -125,7 +163,7 @@ export const verifyUserOTP = async (code: string): Promise<void> => {
 export const deleteUserOTP = async (): Promise<void> => {
   return apiCall(
     async () => {
-      await deleteAuthV1UsersCurrentTotpDelete({
+      await authV1OtpServiceDeleteOtp({
         throwOnError: true,
       });
     },

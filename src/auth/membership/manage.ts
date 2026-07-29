@@ -1,9 +1,10 @@
 import {
-  putAuthV1MembershipsByOrgIdActive,
-  putAuthV1MembershipsByOrgIdMembersByUserIdRole,
-  deleteAuthV1MembershipsByOrgIdMembersByUserId,
-  deleteAuthV1MembershipsByOrgIdLeave,
+  authV1MembershipServiceUpdateActiveMembership,
+  authV1MembershipServiceUpdateMemberRole,
+  authV1MembershipServiceRemoveMember,
+  authV1MembershipServiceLeaveOrganization,
 } from "../../generated/sdk.gen";
+import type {AuthV1MembershipRole} from "../../generated/types.gen";
 import {accessToken, expireAt, getToken} from "../authStore";
 import {apiCall} from "../api/utils";
 import {HTTP_STATUS} from "../constants";
@@ -11,11 +12,16 @@ import type {AssignableRole} from "./types";
 import {validateInput} from "../validation/base";
 import {UpdateMemberRoleSchema} from "../validation/membership";
 
+const ROLE_TO_PROTO: Record<AssignableRole, AuthV1MembershipRole> = {
+  admin: "MEMBERSHIP_ROLE_ADMIN",
+  member: "MEMBERSHIP_ROLE_MEMBER",
+};
+
 export const updateActiveMembership = async (orgId: string): Promise<void> => {
   return apiCall(
     async () => {
-      await putAuthV1MembershipsByOrgIdActive({
-        path: {orgId},
+      await authV1MembershipServiceUpdateActiveMembership({
+        body: {user: {org_id: orgId}},
         throwOnError: true,
       });
       accessToken.set(undefined);
@@ -31,10 +37,10 @@ export const updateActiveMembership = async (orgId: string): Promise<void> => {
 export const updateMemberRole = async (orgId: string, userId: string, role: AssignableRole): Promise<void> => {
   return apiCall(
     async () => {
-      const requestBody = validateInput(UpdateMemberRoleSchema, {role});
-      await putAuthV1MembershipsByOrgIdMembersByUserIdRole({
-        path: {orgId, userId},
-        body: requestBody,
+      const validated = validateInput(UpdateMemberRoleSchema, {role});
+      await authV1MembershipServiceUpdateMemberRole({
+        path: {"user.org_id": orgId, user_id: userId},
+        body: {role: ROLE_TO_PROTO[validated.role]},
         throwOnError: true,
       });
     },
@@ -49,8 +55,8 @@ export const updateMemberRole = async (orgId: string, userId: string, role: Assi
 export const deleteMember = async (orgId: string, userId: string): Promise<void> => {
   return apiCall(
     async () => {
-      await deleteAuthV1MembershipsByOrgIdMembersByUserId({
-        path: {orgId, userId},
+      await authV1MembershipServiceRemoveMember({
+        path: {"user.org_id": orgId, user_id: userId},
         throwOnError: true,
       });
     },
@@ -65,8 +71,8 @@ export const deleteMember = async (orgId: string, userId: string): Promise<void>
 export const leaveOrganization = async (orgId: string): Promise<void> => {
   return apiCall(
     async () => {
-      await deleteAuthV1MembershipsByOrgIdLeave({
-        path: {orgId},
+      await authV1MembershipServiceLeaveOrganization({
+        path: {org_id: orgId},
         throwOnError: true,
       });
     },

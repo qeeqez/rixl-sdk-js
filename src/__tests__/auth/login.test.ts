@@ -7,8 +7,8 @@ const mockPostAuthV1Login = vi.fn();
 const mockPostAuthV1VerifyTotp = vi.fn();
 
 vi.mock("../../generated/sdk.gen", () => ({
-  postAuthV1Login: (...args: unknown[]) => mockPostAuthV1Login(...args),
-  postAuthV1VerifyTotp: (...args: unknown[]) => mockPostAuthV1VerifyTotp(...args),
+  authV1EmailServiceLogin: (...args: unknown[]) => mockPostAuthV1Login(...args),
+  authV1OtpServiceVerifyTotpForLogin: (...args: unknown[]) => mockPostAuthV1VerifyTotp(...args),
 }));
 
 describe("Login Functions", () => {
@@ -45,11 +45,12 @@ describe("Login Functions", () => {
       expect(mocks.setTokensSpy).toHaveBeenCalledWith(mockToken, "refresh-123", 3600);
     });
 
-    it("should return OTP response when 2FA is required", async () => {
+    it("should return 2FA response when TOTP is required", async () => {
       mockPostAuthV1Login.mockResolvedValue({
         data: {
-          status: "otp_required",
+          status: "2fa_required",
           session_id: "session-123",
+          authentication: ["totp"],
         },
       });
 
@@ -59,6 +60,28 @@ describe("Login Functions", () => {
         session_id: "session-123",
         email: "test@example.com",
         authentication: ["totp"],
+        passkey_options: undefined,
+      });
+      expect(mocks.setTokensSpy).not.toHaveBeenCalled();
+    });
+
+    it("should return 2FA response with passkey options as a base64 string", async () => {
+      mockPostAuthV1Login.mockResolvedValue({
+        data: {
+          status: "2fa_required",
+          session_id: "session-456",
+          authentication: ["passkey"],
+          passkey_options: "eyJwdWJsaWNLZXkiOnt9fQ==",
+        },
+      });
+
+      const result = await loginWithEmail("test@example.com", "Password123");
+
+      expect(result).toEqual({
+        session_id: "session-456",
+        email: "test@example.com",
+        authentication: ["passkey"],
+        passkey_options: "eyJwdWJsaWNLZXkiOnt9fQ==",
       });
       expect(mocks.setTokensSpy).not.toHaveBeenCalled();
     });

@@ -158,9 +158,6 @@ const initPage = async () => {
   const token = getProviderToken(provider);
   if (!token) return undefined;
 
-  // TODO check when refresh token expires
-  if (refreshToken.get()) return undefined;
-
   try {
     await exchangeProviderToken(provider, token);
   } catch (error) {

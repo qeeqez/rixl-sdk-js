@@ -1,5 +1,6 @@
 import {describe, it, expect, beforeEach, vi} from "vitest";
 import {initClient, type AuthClientConfig} from "../../auth/init";
+import {ApiError} from "../../auth/api/types";
 
 // Mock implementation
 vi.mock("../../auth/api-url", () => ({
@@ -85,15 +86,18 @@ describe("initClient - OAuth Callback Handling", () => {
     expect(mockRefreshTokens).toHaveBeenCalledWith("google", "oauth-token");
   });
 
-  it("should skip token refresh if refresh token exists", async () => {
+  it("should exchange OAuth token even if refresh token exists", async () => {
     const config: AuthClientConfig = {apiUrl: "https://api.example.com"};
 
     mockDetectProvider.mockReturnValue("google");
     mockGetProviderToken.mockReturnValue("oauth-token");
     mockRefreshToken.get.mockReturnValue("existing-refresh-token");
+    mockRefreshTokens.mockRejectedValue(
+      new ApiError("error", {status: 400, endpoint: "/auth/v1/token/refresh", data: {error: "invalid_grant"}})
+    );
 
-    await initClient(config);
+    await expect(initClient(config)).rejects.toThrow();
 
-    expect(mockRefreshTokens).not.toHaveBeenCalled();
+    expect(mockRefreshTokens).toHaveBeenCalledWith("google", "oauth-token");
   });
 });
