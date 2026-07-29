@@ -4902,28 +4902,6 @@ export type GoogleProtobufEmpty = {
 export type GoogleProtobufTimestamp = string;
 
 /**
- * CompleteImageUploadRequest
- */
-export type ImagesV1CompleteImageUploadRequest = {
-    /**
-     * project_id
-     */
-    project_id?: string;
-    /**
-     * org_id
-     */
-    org_id?: string;
-    /**
-     * image_id
-     */
-    image_id?: string;
-    /**
-     * attached_to_video
-     */
-    attached_to_video?: boolean;
-};
-
-/**
  * CreateImageUploadRequest
  */
 export type ImagesV1CreateImageUploadRequest = {
@@ -5084,9 +5062,9 @@ export type ImagesV1ImageSummary = {
 };
 
 /**
- * ImageUploadInit
+ * ImageUpload
  */
-export type ImagesV1ImageUploadInit = {
+export type ImagesV1ImageUpload = {
     /**
      * image_id
      */
@@ -5293,28 +5271,6 @@ export type PlatformauthV1TokenResponse = {
 };
 
 /**
- * CompletePostUploadRequest
- */
-export type PostsV1CompletePostUploadRequest = {
-    /**
-     * project_id
-     */
-    project_id?: string;
-    /**
-     * org_id
-     */
-    org_id?: string;
-    /**
-     * feed_id
-     */
-    feed_id?: string;
-    /**
-     * post_id
-     */
-    post_id?: string;
-};
-
-/**
  * CreatePostRequest
  */
 export type PostsV1CreatePostRequest = {
@@ -5353,6 +5309,52 @@ export type PostsV1CreatePostRequest = {
      */
     video_id: string;
 });
+
+/**
+ * CreatePostUploadRequest
+ */
+export type PostsV1CreatePostUploadRequest = {
+    /**
+     * project_id
+     */
+    project_id?: string;
+    /**
+     * org_id
+     */
+    org_id?: string;
+    /**
+     * feed_id
+     */
+    feed_id?: string;
+    /**
+     * creator_id
+     */
+    creator_id?: string;
+    /**
+     * description
+     */
+    description?: string;
+    /**
+     * content_type
+     */
+    content_type?: CommonV1MediaType;
+    /**
+     * file_name
+     */
+    file_name?: string;
+    /**
+     * format
+     */
+    format?: string;
+    /**
+     * video_quality
+     */
+    video_quality?: CommonV1VideoQuality;
+    /**
+     * image_format
+     */
+    image_format?: CommonV1ImageFormat;
+};
 
 /**
  * DeletePostRequest
@@ -5394,52 +5396,6 @@ export type PostsV1GetPostRequest = {
      * is used only for path binding / optional validation.
      */
     feed_id?: string;
-};
-
-/**
- * InitPostUploadRequest
- */
-export type PostsV1InitPostUploadRequest = {
-    /**
-     * project_id
-     */
-    project_id?: string;
-    /**
-     * org_id
-     */
-    org_id?: string;
-    /**
-     * feed_id
-     */
-    feed_id?: string;
-    /**
-     * creator_id
-     */
-    creator_id?: string;
-    /**
-     * description
-     */
-    description?: string;
-    /**
-     * content_type
-     */
-    content_type?: CommonV1MediaType;
-    /**
-     * file_name
-     */
-    file_name?: string;
-    /**
-     * format
-     */
-    format?: string;
-    /**
-     * video_quality
-     */
-    video_quality?: CommonV1VideoQuality;
-    /**
-     * image_format
-     */
-    image_format?: CommonV1ImageFormat;
 };
 
 /**
@@ -5583,9 +5539,9 @@ export type PostsV1PostImage = {
 };
 
 /**
- * PostUploadInit
+ * PostUpload
  */
-export type PostsV1PostUploadInit = {
+export type PostsV1PostUpload = {
     /**
      * post_id
      */
@@ -5853,6 +5809,34 @@ export type ProjectV1UpdateVideoQualityRequest = {
 };
 
 /**
+ * ReceiveStorageEventRequest
+ */
+export type UploadV1ReceiveStorageEventRequest = {
+    /**
+     * bucket
+     */
+    bucket?: string;
+    /**
+     * object_key
+     */
+    object_key?: string;
+    /**
+     * object_size
+     */
+    object_size?: number | string | null;
+};
+
+/**
+ * ReceiveStorageEventResponse
+ */
+export type UploadV1ReceiveStorageEventResponse = {
+    /**
+     * status
+     */
+    status?: string;
+};
+
+/**
  * AudioTrack
  */
 export type VideosV1AudioTrack = {
@@ -5893,60 +5877,6 @@ export type VideosV1Chapter = {
 };
 
 /**
- * CompleteTrackUploadItem
- */
-export type VideosV1CompleteTrackUploadItem = {
-    /**
-     * id
-     */
-    id?: string;
-    /**
-     * object_key
-     */
-    object_key?: string;
-    /**
-     * size
-     */
-    size?: number | string;
-};
-
-/**
- * CompleteTrackUploadRequest
- */
-export type VideosV1CompleteTrackUploadRequest = {
-    /**
-     * project_id
-     */
-    project_id?: string;
-    /**
-     * video_id
-     */
-    video_id?: string;
-    /**
-     * items
-     */
-    items?: Array<VideosV1CompleteTrackUploadItem>;
-};
-
-/**
- * CompleteVideoUploadRequest
- */
-export type VideosV1CompleteVideoUploadRequest = {
-    /**
-     * project_id
-     */
-    project_id?: string;
-    /**
-     * org_id
-     */
-    org_id?: string;
-    /**
-     * video_id
-     */
-    video_id?: string;
-};
-
-/**
  * ConversionGetVideoRequest
  */
 export type VideosV1ConversionGetVideoRequest = {
@@ -5964,6 +5894,28 @@ export type VideosV1CreateRenditionsRequest = {
      * renditions
      */
     renditions?: Array<VideosV1RenditionInput>;
+};
+
+/**
+ * CreateTrackUploadRequest
+ */
+export type VideosV1CreateTrackUploadRequest = {
+    /**
+     * project_id
+     */
+    project_id?: string;
+    /**
+     * org_id
+     */
+    org_id?: string;
+    /**
+     * video_id
+     */
+    video_id?: string;
+    /**
+     * items
+     */
+    items?: Array<VideosV1TrackUploadItem>;
 };
 
 /**
@@ -6186,28 +6138,6 @@ export type VideosV1GetVideoResponse = {
      * visibility
      */
     visibility?: CommonV1Visibility;
-};
-
-/**
- * InitTrackUploadRequest
- */
-export type VideosV1InitTrackUploadRequest = {
-    /**
-     * project_id
-     */
-    project_id?: string;
-    /**
-     * org_id
-     */
-    org_id?: string;
-    /**
-     * video_id
-     */
-    video_id?: string;
-    /**
-     * items
-     */
-    items?: Array<VideosV1TrackUploadItem>;
 };
 
 /**
@@ -6530,9 +6460,9 @@ export type VideosV1SubtitleRowList = {
 };
 
 /**
- * TrackUploadInit
+ * TrackUpload
  */
-export type VideosV1TrackUploadInit = {
+export type VideosV1TrackUpload = {
     /**
      * targets
      */
@@ -6919,9 +6849,9 @@ export type VideosV1VideoSummary = {
 };
 
 /**
- * VideoUploadInit
+ * VideoUpload
  */
-export type VideosV1VideoUploadInit = {
+export type VideosV1VideoUpload = {
     /**
      * video_id
      */
@@ -10203,7 +10133,7 @@ export type ImagesV1ImageServiceCreateImageUploadResponses = {
     /**
      * Success
      */
-    200: ImagesV1ImageUploadInit;
+    200: ImagesV1ImageUpload;
 };
 
 export type ImagesV1ImageServiceCreateImageUploadResponse = ImagesV1ImageServiceCreateImageUploadResponses[keyof ImagesV1ImageServiceCreateImageUploadResponses];
@@ -10232,51 +10162,6 @@ export type ImagesV1ImageServiceDeleteImageResponses = {
 };
 
 export type ImagesV1ImageServiceDeleteImageResponse = ImagesV1ImageServiceDeleteImageResponses[keyof ImagesV1ImageServiceDeleteImageResponses];
-
-export type ImagesV1ImageServiceCompleteImageUploadData = {
-    /**
-     * CompleteImageUploadRequest
-     */
-    body: {
-        /**
-         * project_id
-         */
-        project_id?: string;
-        /**
-         * org_id
-         */
-        org_id?: string;
-        /**
-         * image_id
-         */
-        image_id?: string;
-        /**
-         * attached_to_video
-         */
-        attached_to_video?: boolean;
-    };
-    path: {
-        /**
-         * project_id
-         */
-        project_id: string;
-        /**
-         * image_id
-         */
-        image_id: string;
-    };
-    query?: never;
-    url: '/media/v1/projects/{project_id}/images/{image_id}/upload/complete';
-};
-
-export type ImagesV1ImageServiceCompleteImageUploadResponses = {
-    /**
-     * Success
-     */
-    200: ImagesV1GetImageResponse;
-};
-
-export type ImagesV1ImageServiceCompleteImageUploadResponse = ImagesV1ImageServiceCompleteImageUploadResponses[keyof ImagesV1ImageServiceCompleteImageUploadResponses];
 
 export type ImagesV1ImageServiceUpdateImageVisibilityData = {
     /**
@@ -10615,54 +10500,9 @@ export type PostsV1PostServiceListPosts2Responses = {
 
 export type PostsV1PostServiceListPosts2Response = PostsV1PostServiceListPosts2Responses[keyof PostsV1PostServiceListPosts2Responses];
 
-export type PostsV1PostServiceCompletePostUploadData = {
+export type PostsV1PostServiceCreatePostUploadData = {
     /**
-     * CompletePostUploadRequest
-     */
-    body: {
-        /**
-         * project_id
-         */
-        project_id?: string;
-        /**
-         * org_id
-         */
-        org_id?: string;
-        /**
-         * feed_id
-         */
-        feed_id?: string;
-        /**
-         * post_id
-         */
-        post_id?: string;
-    };
-    path: {
-        /**
-         * project_id
-         */
-        project_id: string;
-        /**
-         * feed_id
-         */
-        feed_id: string;
-    };
-    query?: never;
-    url: '/posts/v1/projects/{project_id}/feeds/{feed_id}/posts/upload/complete';
-};
-
-export type PostsV1PostServiceCompletePostUploadResponses = {
-    /**
-     * Success
-     */
-    200: PostsV1Post;
-};
-
-export type PostsV1PostServiceCompletePostUploadResponse = PostsV1PostServiceCompletePostUploadResponses[keyof PostsV1PostServiceCompletePostUploadResponses];
-
-export type PostsV1PostServiceInitPostUploadData = {
-    /**
-     * InitPostUploadRequest
+     * CreatePostUploadRequest
      */
     body: {
         /**
@@ -10717,17 +10557,17 @@ export type PostsV1PostServiceInitPostUploadData = {
         feed_id: string;
     };
     query?: never;
-    url: '/posts/v1/projects/{project_id}/feeds/{feed_id}/posts/upload/init';
+    url: '/posts/v1/projects/{project_id}/feeds/{feed_id}/posts/upload';
 };
 
-export type PostsV1PostServiceInitPostUploadResponses = {
+export type PostsV1PostServiceCreatePostUploadResponses = {
     /**
      * Success
      */
-    200: PostsV1PostUploadInit;
+    200: PostsV1PostUpload;
 };
 
-export type PostsV1PostServiceInitPostUploadResponse = PostsV1PostServiceInitPostUploadResponses[keyof PostsV1PostServiceInitPostUploadResponses];
+export type PostsV1PostServiceCreatePostUploadResponse = PostsV1PostServiceCreatePostUploadResponses[keyof PostsV1PostServiceCreatePostUploadResponses];
 
 export type PostsV1PostServiceDeletePost2Data = {
     body?: never;
@@ -11214,9 +11054,9 @@ export type VideosV1AudioTrackServiceDeleteAudioTracksByLanguageResponses = {
 
 export type VideosV1AudioTrackServiceDeleteAudioTracksByLanguageResponse = VideosV1AudioTrackServiceDeleteAudioTracksByLanguageResponses[keyof VideosV1AudioTrackServiceDeleteAudioTracksByLanguageResponses];
 
-export type VideosV1AudioTrackServiceInitAudioTrackUploadData = {
+export type VideosV1AudioTrackServiceCreateAudioTrackUploadData = {
     /**
-     * InitTrackUploadRequest
+     * CreateTrackUploadRequest
      */
     body: {
         /**
@@ -11250,55 +11090,14 @@ export type VideosV1AudioTrackServiceInitAudioTrackUploadData = {
     url: '/media/v1/projects/{project_id}/videos/{video_id}/audio-tracks/upload';
 };
 
-export type VideosV1AudioTrackServiceInitAudioTrackUploadResponses = {
+export type VideosV1AudioTrackServiceCreateAudioTrackUploadResponses = {
     /**
      * Success
      */
-    200: VideosV1TrackUploadInit;
+    200: VideosV1TrackUpload;
 };
 
-export type VideosV1AudioTrackServiceInitAudioTrackUploadResponse = VideosV1AudioTrackServiceInitAudioTrackUploadResponses[keyof VideosV1AudioTrackServiceInitAudioTrackUploadResponses];
-
-export type VideosV1AudioTrackServiceCompleteAudioTrackUploadData = {
-    /**
-     * CompleteTrackUploadRequest
-     */
-    body: {
-        /**
-         * project_id
-         */
-        project_id?: string;
-        /**
-         * video_id
-         */
-        video_id?: string;
-        /**
-         * items
-         */
-        items?: Array<VideosV1CompleteTrackUploadItem>;
-    };
-    path: {
-        /**
-         * project_id
-         */
-        project_id: string;
-        /**
-         * video_id
-         */
-        video_id: string;
-    };
-    query?: never;
-    url: '/media/v1/projects/{project_id}/videos/{video_id}/audio-tracks/upload/complete';
-};
-
-export type VideosV1AudioTrackServiceCompleteAudioTrackUploadResponses = {
-    /**
-     * Success
-     */
-    200: GoogleProtobufEmpty;
-};
-
-export type VideosV1AudioTrackServiceCompleteAudioTrackUploadResponse = VideosV1AudioTrackServiceCompleteAudioTrackUploadResponses[keyof VideosV1AudioTrackServiceCompleteAudioTrackUploadResponses];
+export type VideosV1AudioTrackServiceCreateAudioTrackUploadResponse = VideosV1AudioTrackServiceCreateAudioTrackUploadResponses[keyof VideosV1AudioTrackServiceCreateAudioTrackUploadResponses];
 
 export type VideosV1AudioTrackServiceDeleteAudioTrackData = {
     body?: never;
@@ -11540,9 +11339,9 @@ export type VideosV1SubtitleServiceDeleteSubtitlesByLanguageResponses = {
 
 export type VideosV1SubtitleServiceDeleteSubtitlesByLanguageResponse = VideosV1SubtitleServiceDeleteSubtitlesByLanguageResponses[keyof VideosV1SubtitleServiceDeleteSubtitlesByLanguageResponses];
 
-export type VideosV1SubtitleServiceInitSubtitleUploadData = {
+export type VideosV1SubtitleServiceCreateSubtitleUploadData = {
     /**
-     * InitTrackUploadRequest
+     * CreateTrackUploadRequest
      */
     body: {
         /**
@@ -11576,55 +11375,14 @@ export type VideosV1SubtitleServiceInitSubtitleUploadData = {
     url: '/media/v1/projects/{project_id}/videos/{video_id}/subtitles/upload';
 };
 
-export type VideosV1SubtitleServiceInitSubtitleUploadResponses = {
+export type VideosV1SubtitleServiceCreateSubtitleUploadResponses = {
     /**
      * Success
      */
-    200: VideosV1TrackUploadInit;
+    200: VideosV1TrackUpload;
 };
 
-export type VideosV1SubtitleServiceInitSubtitleUploadResponse = VideosV1SubtitleServiceInitSubtitleUploadResponses[keyof VideosV1SubtitleServiceInitSubtitleUploadResponses];
-
-export type VideosV1SubtitleServiceCompleteSubtitleUploadData = {
-    /**
-     * CompleteTrackUploadRequest
-     */
-    body: {
-        /**
-         * project_id
-         */
-        project_id?: string;
-        /**
-         * video_id
-         */
-        video_id?: string;
-        /**
-         * items
-         */
-        items?: Array<VideosV1CompleteTrackUploadItem>;
-    };
-    path: {
-        /**
-         * project_id
-         */
-        project_id: string;
-        /**
-         * video_id
-         */
-        video_id: string;
-    };
-    query?: never;
-    url: '/media/v1/projects/{project_id}/videos/{video_id}/subtitles/upload/complete';
-};
-
-export type VideosV1SubtitleServiceCompleteSubtitleUploadResponses = {
-    /**
-     * Success
-     */
-    200: GoogleProtobufEmpty;
-};
-
-export type VideosV1SubtitleServiceCompleteSubtitleUploadResponse = VideosV1SubtitleServiceCompleteSubtitleUploadResponses[keyof VideosV1SubtitleServiceCompleteSubtitleUploadResponses];
+export type VideosV1SubtitleServiceCreateSubtitleUploadResponse = VideosV1SubtitleServiceCreateSubtitleUploadResponses[keyof VideosV1SubtitleServiceCreateSubtitleUploadResponses];
 
 export type VideosV1SubtitleServiceDeleteSubtitleData = {
     body?: never;
@@ -11758,7 +11516,7 @@ export type VideosV1VideoServiceCreateVideoUploadResponses = {
     /**
      * Success
      */
-    200: VideosV1VideoUploadInit;
+    200: VideosV1VideoUpload;
 };
 
 export type VideosV1VideoServiceCreateVideoUploadResponse = VideosV1VideoServiceCreateVideoUploadResponses[keyof VideosV1VideoServiceCreateVideoUploadResponses];
@@ -11787,47 +11545,6 @@ export type VideosV1VideoServiceDeleteVideoResponses = {
 };
 
 export type VideosV1VideoServiceDeleteVideoResponse = VideosV1VideoServiceDeleteVideoResponses[keyof VideosV1VideoServiceDeleteVideoResponses];
-
-export type VideosV1VideoServiceCompleteVideoUploadData = {
-    /**
-     * CompleteVideoUploadRequest
-     */
-    body: {
-        /**
-         * project_id
-         */
-        project_id?: string;
-        /**
-         * org_id
-         */
-        org_id?: string;
-        /**
-         * video_id
-         */
-        video_id?: string;
-    };
-    path: {
-        /**
-         * project_id
-         */
-        project_id: string;
-        /**
-         * video_id
-         */
-        video_id: string;
-    };
-    query?: never;
-    url: '/media/v1/projects/{project_id}/videos/{video_id}/upload/complete';
-};
-
-export type VideosV1VideoServiceCompleteVideoUploadResponses = {
-    /**
-     * Success
-     */
-    200: VideosV1GetVideoResponse;
-};
-
-export type VideosV1VideoServiceCompleteVideoUploadResponse = VideosV1VideoServiceCompleteVideoUploadResponses[keyof VideosV1VideoServiceCompleteVideoUploadResponses];
 
 export type VideosV1VideoServiceUpdateVideoVisibilityData = {
     /**
