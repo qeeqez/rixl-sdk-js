@@ -28,11 +28,27 @@ jobs:
           cache: "true"
           run-install: "true"
 
-      - name: Build SDK
-        run: vp pack
+      - name: Format check
+        run: vp fmt --check
 
-      - name: Run tests with coverage
-        run: vp test --coverage --run
+      - name: Lint and type-check
+        run: vp check
+
+      - name: Verify generated SDK is up-to-date
+        run: |
+          RIXL_GENERATE=true vp pack
+          if ! git diff --quiet -- src/generated; then
+            echo "::error::src/generated is out of date. Run 'bun run generate' locally and commit the result."
+            git diff --stat -- src/generated
+            exit 1
+          fi
+
+      - parallel:
+          - name: Build SDK
+            run: vp pack
+
+          - name: Run tests with coverage
+            run: vp test --coverage --run
 
       - name: Report coverage to PR
         if: github.event_name == 'pull_request'
