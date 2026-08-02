@@ -1,20 +1,28 @@
 import {fileURLToPath} from "node:url";
 import {defineConfig} from "vite-plus";
-import {heyApiPlugin} from "@hey-api/vite-plugin";
 
 // SDK codegen is opt-in via RIXL_GENERATE=true (the `generate` script and the
 // Generate SDK workflow). Routine commands — vp check/fmt/test/pack and the
 // pre-commit hook — must never regenerate src/generated or hit the network.
+//
+// The plugin is imported lazily because `@hey-api/openapi-ts` executes
+// classic TypeScript compiler API calls at module load time (e.g.
+// `ts.NewLineKind.LineFeed`), which are not available in the native
+// `typescript@7` runtime this project uses. Loading it eagerly would crash
+// every `vp` invocation with: "Cannot read properties of undefined (reading 'LineFeed')".
 const codegenPlugins =
   process.env.RIXL_GENERATE === "true"
-    ? [
-        heyApiPlugin({
-          config: {
-            input: "https://raw.githubusercontent.com/rixlhq/openapi/refs/heads/main/openapi.yaml",
-            output: "src/generated",
-          },
-        }),
-      ]
+    ? await (async () => {
+        const {heyApiPlugin} = await import("@hey-api/vite-plugin");
+        return [
+          heyApiPlugin({
+            config: {
+              input: "https://raw.githubusercontent.com/rixlhq/openapi/refs/heads/main/openapi.yaml",
+              output: "src/generated",
+            },
+          }),
+        ];
+      })()
     : [];
 
 export default defineConfig({
