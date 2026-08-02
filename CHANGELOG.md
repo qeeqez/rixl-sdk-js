@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.3](https://github.com/rixlhq/rixl-js/compare/v0.7.2...v0.7.3) (2026-08-02)
+
+
+### Bug Fixes
+
+* fix formatting issues ([ef128a2](https://github.com/rixlhq/rixl-js/commit/ef128a2f6005c1e5d383ba7dd929794257d81305))
+
 ## [0.7.2](https://github.com/rixlhq/rixl-js/compare/v0.7.1...v0.7.2) (2026-08-02)
 
 
