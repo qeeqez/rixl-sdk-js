@@ -47,9 +47,7 @@ vi.mock("../../api/client", () => {
   const ApiError = class ApiError extends Error {
     // ... 33 lines of mock code ...
   };
-  return {
-    /* mock exports */
-  };
+  return {/* mock exports */};
 });
 ```
 

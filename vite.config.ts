@@ -37,7 +37,7 @@ export default defineConfig({
     ignorePatterns: ["**/generated/**", "**/*.gen.ts"],
   },
   fmt: {
-    ignorePatterns: ["**/generated/**", "**/*.gen.ts", "dist/**"],
+    ignorePatterns: ["**/generated/**", "**/*.gen.ts", "dist/**", "CHANGELOG.md", ".release-please-manifest.json"],
     printWidth: 140,
     tabWidth: 2,
     useTabs: false,
