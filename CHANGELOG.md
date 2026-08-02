@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.2](https://github.com/rixlhq/rixl-js/compare/v0.7.1...v0.7.2) (2026-08-02)
+
+
+### Bug Fixes
+
+* pin typescript to a supported version and upgrade build to lint, format, and run generate before push ([926b11c](https://github.com/rixlhq/rixl-js/commit/926b11c1222e156df87711be99cfd29073d38a3e))
+
 ## [0.7.1](https://github.com/rixlhq/rixl-js/compare/v0.7.0...v0.7.1) (2026-07-29)
 
 ### Bug Fixes
