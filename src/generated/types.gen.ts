@@ -4500,14 +4500,60 @@ export type ClientauthV1RevokeClientCredentialRequest = {
 };
 
 /**
+ * File
+ */
+export type CommonV1File = {
+    /**
+     * id
+     */
+    id?: string;
+    /**
+     * project_id
+     */
+    project_id?: string;
+    /**
+     * format
+     *
+     * format describes the artifact currently served at url, not the uploaded source,
+     * and is only meaningful once status is FILE_STATUS_READY. Video flips from "mp4"
+     * to "hls" when packaging completes; that is the only signal for choosing a
+     * progressive player over an HLS one. Known values: jpg, png, webp, avif, gif,
+     * mp4, hls, srt, vtt.
+     */
+    format?: string;
+    /**
+     * url
+     */
+    url?: string;
+    /**
+     * name
+     */
+    name?: string;
+    /**
+     * size
+     *
+     * size is the uploaded source's byte size for usage accounting; it is not updated
+     * when packaging replaces the artifact, so it does not describe the object at url.
+     */
+    size?: number | string;
+    /**
+     * status
+     */
+    status?: CommonV1FileStatus;
+    /**
+     * created_at
+     */
+    created_at?: GoogleProtobufTimestamp;
+    /**
+     * updated_at
+     */
+    updated_at?: GoogleProtobufTimestamp;
+};
+
+/**
  * FileStatus
  */
 export type CommonV1FileStatus = 'FILE_STATUS_UNSPECIFIED' | 'FILE_STATUS_UPLOADING' | 'FILE_STATUS_UPLOADED' | 'FILE_STATUS_PROCESSING' | 'FILE_STATUS_PREPARING' | 'FILE_STATUS_READY' | 'FILE_STATUS_ERROR';
-
-/**
- * ImageFormat
- */
-export type CommonV1ImageFormat = 'IMAGE_FORMAT_UNSPECIFIED' | 'IMAGE_FORMAT_JPG' | 'IMAGE_FORMAT_PNG' | 'IMAGE_FORMAT_WEBP' | 'IMAGE_FORMAT_GIF';
 
 /**
  * MediaType
@@ -4917,10 +4963,6 @@ export type ImagesV1CreateImageUploadRequest = {
      * name
      */
     name?: string;
-    /**
-     * format
-     */
-    format?: CommonV1ImageFormat;
 };
 
 /**
@@ -4952,6 +4994,16 @@ export type ImagesV1GetImageRequest = {
  */
 export type ImagesV1GetImageResponse = {
     /**
+     * image
+     */
+    image?: ImagesV1Image;
+};
+
+/**
+ * Image
+ */
+export type ImagesV1Image = {
+    /**
      * id
      */
     id?: string;
@@ -4974,87 +5026,7 @@ export type ImagesV1GetImageResponse = {
     /**
      * file
      */
-    file?: ImagesV1ImageFile;
-    /**
-     * visibility
-     */
-    visibility?: CommonV1Visibility;
-};
-
-/**
- * ImageFile
- */
-export type ImagesV1ImageFile = {
-    /**
-     * id
-     */
-    id?: string;
-    /**
-     * project_id
-     */
-    project_id?: string;
-    /**
-     * format
-     */
-    format?: CommonV1ImageFormat;
-    /**
-     * url
-     */
-    url?: string;
-    /**
-     * name
-     */
-    name?: string;
-    /**
-     * size
-     */
-    size?: number | string;
-    /**
-     * status
-     */
-    status?: CommonV1FileStatus;
-};
-
-/**
- * ImageSummary
- */
-export type ImagesV1ImageSummary = {
-    /**
-     * id
-     */
-    id?: string;
-    /**
-     * name
-     */
-    name?: string;
-    /**
-     * width
-     */
-    width?: number;
-    /**
-     * height
-     */
-    height?: number;
-    /**
-     * thumbhash
-     */
-    thumbhash?: string;
-    /**
-     * format
-     */
-    format?: CommonV1ImageFormat;
-    /**
-     * size
-     */
-    size?: number | string;
-    /**
-     * created_at
-     */
-    created_at?: GoogleProtobufTimestamp;
-    /**
-     * url
-     */
-    url?: string;
+    file?: CommonV1File;
     /**
      * visibility
      */
@@ -5108,7 +5080,31 @@ export type ImagesV1ListImagesResponse = {
     /**
      * images
      */
-    images?: Array<ImagesV1ImageSummary>;
+    images?: Array<ImagesV1Image>;
+    /**
+     * total
+     */
+    total?: number | string;
+    /**
+     * offset
+     *
+     * Number of items skipped before this page.
+     */
+    offset?: number;
+    /**
+     * limit
+     *
+     * Maximum number of items returned.
+     */
+    limit?: number;
+    /**
+     * sort_field
+     */
+    sort_field?: string;
+    /**
+     * sort_direction
+     */
+    sort_direction?: string;
 };
 
 /**
@@ -5192,6 +5188,16 @@ export type ImagesV1UpdateImageVisibilityRequest = {
      * visibility
      */
     visibility?: CommonV1Visibility;
+};
+
+/**
+ * UpdateImageVisibilityResponse
+ */
+export type ImagesV1UpdateImageVisibilityResponse = {
+    /**
+     * image
+     */
+    image?: ImagesV1Image;
 };
 
 /**
@@ -5311,6 +5317,16 @@ export type PostsV1CreatePostRequest = {
 });
 
 /**
+ * CreatePostResponse
+ */
+export type PostsV1CreatePostResponse = {
+    /**
+     * post
+     */
+    post?: PostsV1Post;
+};
+
+/**
  * CreatePostUploadRequest
  */
 export type PostsV1CreatePostUploadRequest = {
@@ -5343,17 +5359,9 @@ export type PostsV1CreatePostUploadRequest = {
      */
     file_name?: string;
     /**
-     * format
-     */
-    format?: string;
-    /**
      * video_quality
      */
     video_quality?: CommonV1VideoQuality;
-    /**
-     * image_format
-     */
-    image_format?: CommonV1ImageFormat;
 };
 
 /**
@@ -5399,6 +5407,16 @@ export type PostsV1GetPostRequest = {
 };
 
 /**
+ * GetPostResponse
+ */
+export type PostsV1GetPostResponse = {
+    /**
+     * post
+     */
+    post?: PostsV1Post;
+};
+
+/**
  * ListPostsRequest
  */
 export type PostsV1ListPostsRequest = {
@@ -5432,6 +5450,18 @@ export type PostsV1ListPostsResponse = {
      * total
      */
     total?: number | string;
+    /**
+     * offset
+     *
+     * Number of items skipped before this page.
+     */
+    offset?: number;
+    /**
+     * limit
+     *
+     * Maximum number of items returned.
+     */
+    limit?: number;
 };
 
 /**
@@ -5466,77 +5496,13 @@ export type PostsV1Post = {
     /**
      * image
      */
-    image: PostsV1PostImage;
+    image: ImagesV1Image;
 } | {
     /**
      * video
      */
-    video: PostsV1PostVideo;
+    video: VideosV1Video;
 });
-
-/**
- * PostFile
- */
-export type PostsV1PostFile = {
-    /**
-     * id
-     */
-    id?: string;
-    /**
-     * project_id
-     */
-    project_id?: string;
-    /**
-     * format
-     */
-    format?: string;
-    /**
-     * url
-     */
-    url?: string;
-    /**
-     * name
-     */
-    name?: string;
-    /**
-     * size
-     */
-    size?: number | string;
-    /**
-     * status
-     */
-    status?: CommonV1FileStatus;
-};
-
-/**
- * PostImage
- */
-export type PostsV1PostImage = {
-    /**
-     * id
-     */
-    id?: string;
-    /**
-     * thumbhash
-     */
-    thumbhash?: string;
-    /**
-     * width
-     */
-    width?: number;
-    /**
-     * height
-     */
-    height?: number;
-    /**
-     * attached_to_video
-     */
-    attached_to_video?: boolean;
-    /**
-     * file
-     */
-    file?: PostsV1PostFile;
-};
 
 /**
  * PostUpload
@@ -5566,52 +5532,6 @@ export type PostsV1PostUpload = {
      * upload_expires
      */
     upload_expires?: GoogleProtobufTimestamp;
-};
-
-/**
- * PostVideo
- */
-export type PostsV1PostVideo = {
-    /**
-     * id
-     */
-    id?: string;
-    /**
-     * file
-     */
-    file?: PostsV1PostFile;
-    /**
-     * poster
-     */
-    poster?: PostsV1PostImage;
-    /**
-     * duration
-     */
-    duration?: GoogleProtobufDuration;
-    /**
-     * width
-     */
-    width?: number;
-    /**
-     * height
-     */
-    height?: number;
-    /**
-     * codec
-     */
-    codec?: string;
-    /**
-     * bitrate
-     */
-    bitrate?: number;
-    /**
-     * framerate
-     */
-    framerate?: string;
-    /**
-     * hdr
-     */
-    hdr?: boolean;
 };
 
 /**
@@ -5935,10 +5855,6 @@ export type VideosV1CreateVideoUploadRequest = {
      */
     name?: string;
     /**
-     * image_format
-     */
-    image_format?: CommonV1ImageFormat;
-    /**
      * video_quality
      */
     video_quality?: CommonV1VideoQuality;
@@ -6103,41 +6019,9 @@ export type VideosV1GetVideoRequest = {
  */
 export type VideosV1GetVideoResponse = {
     /**
-     * id
+     * video
      */
-    id?: string;
-    /**
-     * duration
-     */
-    duration?: GoogleProtobufDuration;
-    /**
-     * width
-     */
-    width?: number;
-    /**
-     * height
-     */
-    height?: number;
-    /**
-     * codec
-     */
-    codec?: string;
-    /**
-     * bitrate
-     */
-    bitrate?: number;
-    /**
-     * framerate
-     */
-    framerate?: string;
-    /**
-     * hdr
-     */
-    hdr?: boolean;
-    /**
-     * visibility
-     */
-    visibility?: CommonV1Visibility;
+    video?: VideosV1Video;
 };
 
 /**
@@ -6240,7 +6124,31 @@ export type VideosV1ListVideosResponse = {
     /**
      * videos
      */
-    videos?: Array<VideosV1VideoSummary>;
+    videos?: Array<VideosV1Video>;
+    /**
+     * total
+     */
+    total?: number | string;
+    /**
+     * offset
+     *
+     * Number of items skipped before this page.
+     */
+    offset?: number;
+    /**
+     * limit
+     *
+     * Maximum number of items returned.
+     */
+    limit?: number;
+    /**
+     * sort_field
+     */
+    sort_field?: string;
+    /**
+     * sort_direction
+     */
+    sort_direction?: string;
 };
 
 /**
@@ -6674,6 +6582,16 @@ export type VideosV1UpdateVideoVisibilityRequest = {
 };
 
 /**
+ * UpdateVideoVisibilityResponse
+ */
+export type VideosV1UpdateVideoVisibilityResponse = {
+    /**
+     * video
+     */
+    video?: VideosV1Video;
+};
+
+/**
  * UploadVideoThumbnailRequest
  */
 export type VideosV1UploadVideoThumbnailRequest = {
@@ -6712,6 +6630,90 @@ export type VideosV1UploadVideoThumbnailResponse = {
  * Video
  */
 export type VideosV1Video = {
+    /**
+     * id
+     */
+    id?: string;
+    /**
+     * duration
+     */
+    duration?: GoogleProtobufDuration;
+    /**
+     * width
+     */
+    width?: number;
+    /**
+     * height
+     */
+    height?: number;
+    /**
+     * codec
+     */
+    codec?: string;
+    /**
+     * bitrate
+     */
+    bitrate?: number;
+    /**
+     * framerate
+     */
+    framerate?: string;
+    /**
+     * hdr
+     */
+    hdr?: boolean;
+    /**
+     * visibility
+     */
+    visibility?: CommonV1Visibility;
+    /**
+     * file
+     */
+    file?: CommonV1File;
+    /**
+     * poster
+     */
+    poster?: ImagesV1Image;
+};
+
+/**
+ * VideoChapters
+ */
+export type VideosV1VideoChapters = {
+    /**
+     * video_id
+     */
+    video_id?: string;
+    /**
+     * chapters
+     */
+    chapters?: Array<VideosV1Chapter>;
+};
+
+/**
+ * VideoIdList
+ */
+export type VideosV1VideoIdList = {
+    /**
+     * ids
+     */
+    ids?: Array<string>;
+};
+
+/**
+ * VideoIdRequest
+ */
+export type VideosV1VideoIdRequest = {
+    /**
+     * video_id
+     */
+    video_id?: string;
+};
+
+/**
+ * VideoRecord
+ */
+export type VideosV1VideoRecord = {
     /**
      * id
      */
@@ -6759,40 +6761,6 @@ export type VideosV1Video = {
 };
 
 /**
- * VideoChapters
- */
-export type VideosV1VideoChapters = {
-    /**
-     * video_id
-     */
-    video_id?: string;
-    /**
-     * chapters
-     */
-    chapters?: Array<VideosV1Chapter>;
-};
-
-/**
- * VideoIdList
- */
-export type VideosV1VideoIdList = {
-    /**
-     * ids
-     */
-    ids?: Array<string>;
-};
-
-/**
- * VideoIdRequest
- */
-export type VideosV1VideoIdRequest = {
-    /**
-     * video_id
-     */
-    video_id?: string;
-};
-
-/**
  * VideoScopeRequest
  */
 export type VideosV1VideoScopeRequest = {
@@ -6804,48 +6772,6 @@ export type VideosV1VideoScopeRequest = {
      * video_id
      */
     video_id?: string;
-};
-
-/**
- * VideoSummary
- */
-export type VideosV1VideoSummary = {
-    /**
-     * id
-     */
-    id?: string;
-    /**
-     * name
-     */
-    name?: string;
-    /**
-     * duration
-     */
-    duration?: GoogleProtobufDuration;
-    /**
-     * width
-     */
-    width?: number;
-    /**
-     * height
-     */
-    height?: number;
-    /**
-     * codec
-     */
-    codec?: string;
-    /**
-     * size
-     */
-    size?: number | string;
-    /**
-     * created_at
-     */
-    created_at?: GoogleProtobufTimestamp;
-    /**
-     * visibility
-     */
-    visibility?: CommonV1Visibility;
 };
 
 /**
@@ -6881,7 +6807,7 @@ export type VideosV1VideoView = {
     /**
      * video
      */
-    video?: VideosV1Video;
+    video?: VideosV1VideoRecord;
     /**
      * file
      */
@@ -10114,10 +10040,6 @@ export type ImagesV1ImageServiceCreateImageUploadData = {
          * name
          */
         name?: string;
-        /**
-         * format
-         */
-        format?: CommonV1ImageFormat;
     };
     path: {
         /**
@@ -10199,7 +10121,7 @@ export type ImagesV1ImageServiceUpdateImageVisibilityResponses = {
     /**
      * Success
      */
-    200: ImagesV1GetImageResponse;
+    200: ImagesV1UpdateImageVisibilityResponse;
 };
 
 export type ImagesV1ImageServiceUpdateImageVisibilityResponse = ImagesV1ImageServiceUpdateImageVisibilityResponses[keyof ImagesV1ImageServiceUpdateImageVisibilityResponses];
@@ -10348,7 +10270,7 @@ export type PostsV1PostServiceGetPost3Responses = {
     /**
      * Success
      */
-    200: PostsV1Post;
+    200: PostsV1GetPostResponse;
 };
 
 export type PostsV1PostServiceGetPost3Response = PostsV1PostServiceGetPost3Responses[keyof PostsV1PostServiceGetPost3Responses];
@@ -10453,7 +10375,7 @@ export type PostsV1PostServiceCreatePostResponses = {
     /**
      * Success
      */
-    200: PostsV1Post;
+    200: PostsV1CreatePostResponse;
 };
 
 export type PostsV1PostServiceCreatePostResponse = PostsV1PostServiceCreatePostResponses[keyof PostsV1PostServiceCreatePostResponses];
@@ -10534,17 +10456,9 @@ export type PostsV1PostServiceCreatePostUploadData = {
          */
         file_name?: string;
         /**
-         * format
-         */
-        format?: string;
-        /**
          * video_quality
          */
         video_quality?: CommonV1VideoQuality;
-        /**
-         * image_format
-         */
-        image_format?: CommonV1ImageFormat;
     };
     path: {
         /**
@@ -10628,7 +10542,7 @@ export type PostsV1PostServiceGetPost2Responses = {
     /**
      * Success
      */
-    200: PostsV1Post;
+    200: PostsV1GetPostResponse;
 };
 
 export type PostsV1PostServiceGetPost2Response = PostsV1PostServiceGetPost2Responses[keyof PostsV1PostServiceGetPost2Responses];
@@ -10694,7 +10608,7 @@ export type PostsV1PostServiceGetPostResponses = {
     /**
      * Success
      */
-    200: PostsV1Post;
+    200: PostsV1GetPostResponse;
 };
 
 export type PostsV1PostServiceGetPostResponse = PostsV1PostServiceGetPostResponses[keyof PostsV1PostServiceGetPostResponses];
@@ -11494,10 +11408,6 @@ export type VideosV1VideoServiceCreateVideoUploadData = {
          */
         name?: string;
         /**
-         * image_format
-         */
-        image_format?: CommonV1ImageFormat;
-        /**
          * video_quality
          */
         video_quality?: CommonV1VideoQuality;
@@ -11582,7 +11492,7 @@ export type VideosV1VideoServiceUpdateVideoVisibilityResponses = {
     /**
      * Success
      */
-    200: VideosV1GetVideoResponse;
+    200: VideosV1UpdateVideoVisibilityResponse;
 };
 
 export type VideosV1VideoServiceUpdateVideoVisibilityResponse = VideosV1VideoServiceUpdateVideoVisibilityResponses[keyof VideosV1VideoServiceUpdateVideoVisibilityResponses];
