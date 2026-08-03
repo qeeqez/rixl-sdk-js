@@ -35,10 +35,10 @@ describe("Membership Manage Module", () => {
     it("should update active membership successfully", async () => {
       mockAuthV1MembershipServiceUpdateActiveMembership.mockResolvedValue({data: {}});
 
-      await updateActiveMembership("org123");
+      await updateActiveMembership("membership123");
 
       expect(mockAuthV1MembershipServiceUpdateActiveMembership).toHaveBeenCalledWith({
-        body: {user: {org_id: "org123"}},
+        body: {membership_id: "membership123"},
         throwOnError: true,
       });
     });
@@ -46,10 +46,10 @@ describe("Membership Manage Module", () => {
     it("should invalidate token after update", async () => {
       mockAuthV1MembershipServiceUpdateActiveMembership.mockResolvedValue({data: {}});
 
-      await updateActiveMembership("org456");
+      await updateActiveMembership("membership456");
 
       expect(mockAuthV1MembershipServiceUpdateActiveMembership).toHaveBeenCalledWith({
-        body: {user: {org_id: "org456"}},
+        body: {membership_id: "membership456"},
         throwOnError: true,
       });
     });
@@ -60,7 +60,7 @@ describe("Membership Manage Module", () => {
         code: 401,
       });
 
-      await expect(updateActiveMembership("org123")).rejects.toThrow();
+      await expect(updateActiveMembership("membership123")).rejects.toThrow();
     });
   });
 

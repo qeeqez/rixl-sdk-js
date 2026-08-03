@@ -17,11 +17,11 @@ const ROLE_TO_PROTO: Record<AssignableRole, AuthV1MembershipRole> = {
   member: "MEMBERSHIP_ROLE_MEMBER",
 };
 
-export const updateActiveMembership = async (orgId: string): Promise<void> => {
+export const updateActiveMembership = async (membershipId: string): Promise<void> => {
   return apiCall(
     async () => {
       await authV1MembershipServiceUpdateActiveMembership({
-        body: {user: {org_id: orgId}},
+        body: {membership_id: membershipId},
         throwOnError: true,
       });
       accessToken.set(undefined);

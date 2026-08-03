@@ -7,14 +7,26 @@ import {describe, it, expect, beforeEach, vi, afterEach} from "vitest";
 import {setTokenRefreshFunction} from "../../auth/api/client-core";
 import {authenticatedFetch} from "../../auth/api/fetchers";
 import {apiURL} from "../../auth/api-url";
+import {pendingRequests} from "../../auth/api/deduplication";
 
 describe("API Client - Token Refresh and Retry Logic", () => {
   beforeEach(() => {
     apiURL.set("https://test-api.example.com");
+    // Clear the module-level in-flight request map so a hanging/pending
+    // request from a previous test doesn't get replayed via deduplication.
+    pendingRequests.clear();
+    // Prevent real network calls (which never resolve in the test env and
+    // cause 5s timeouts) by stubbing fetch to reject synchronously.
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(() => Promise.reject(new Error("network disabled in tests")))
+    );
   });
 
   afterEach(() => {
+    vi.unstubAllGlobals();
     vi.restoreAllMocks();
+    pendingRequests.clear();
   });
 
   describe("Token Refresh Function", () => {
