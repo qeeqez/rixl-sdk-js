@@ -4,7 +4,7 @@
 
 The official TypeScript client for the [Rixl](https://rixl.com) API.
 
-Rixl handles the media side of your product — uploading and delivering images
+Rixl handles the media side of your product: uploading and delivering images
 and videos, organising them into feeds and posts, and reporting on how people
 engage with them. It also covers the account layer around that: users and
 organisations, sign-in, subscriptions and invoices. This SDK gives you all of it
@@ -26,7 +26,7 @@ npm i @rixl/sdk
 
 ## Getting started
 
-Here is the whole thing — create a client, list the images in a project:
+Here is the whole thing. Create a client, then list the images in a project:
 
 ```ts
 import {createClient, imagesV1ImageServiceListImages} from "@rixl/sdk";
@@ -63,7 +63,7 @@ which client to use, `path` fills in the URL, `query` becomes the query string a
 
 There are two ways to identify yourself, and they answer different questions.
 
-### API keys — your backend calling as itself
+### API keys, for your backend calling as itself
 
 An API key represents your organisation. Use it for work your own systems do:
 importing a catalogue, running a nightly report, reconciling invoices. Create one
@@ -78,10 +78,10 @@ const client = createClient({
 ```
 
 The key travels as the `X-API-Key` header. Anyone holding it can do anything your
-organisation can, so it belongs on a server — never in a browser, a mobile app, or
+organisation can, so it belongs on a server. Never put one in a browser, a mobile app, or
 anything you ship to users.
 
-### Client credentials — acting on behalf of one of your users
+### Client credentials, for acting on behalf of your users
 
 If you are building on top of Rixl and your own users each need their own slice of
 it, use client credentials. You exchange a client ID and secret for a short-lived
@@ -102,7 +102,7 @@ console.log(data?.credential?.client_id, data?.client_secret);
 ```
 
 Then, in the service that handles your users' requests, exchange it for a token.
-`subject` is your own identifier for that person — whatever your database calls
+`subject` is your own identifier for that person, whatever your database calls
 them:
 
 ```ts
@@ -119,7 +119,7 @@ const {data: token} = await clientauthV1ClientCredentialServiceMintClientToken({
 });
 ```
 
-Minting needs no credentials of its own — the ID and secret are in the body — so a
+Minting needs no credentials of its own, since the ID and secret are in the body, so a
 plain client will do. The response gives you `access_token`, `token_type`,
 `expires_in` and `expires_at`. Send the token as a bearer token on the calls that
 follow:
@@ -143,7 +143,7 @@ immediately, and any already issued expire within 15 minutes.
 
 ### Public endpoints
 
-Some reads need no credentials at all — fetching a public image or video, reading
+Some reads need no credentials at all: fetching a public image or video, reading
 a public feed, listing supported languages. Call those with a client that sends no
 auth header:
 
@@ -202,7 +202,7 @@ const token = await getToken();
 ```
 
 `connect` also accepts `apiKey`, which installs an `X-API-Key` interceptor on the
-shared client. That is for server-side use — do not ship an API key to a browser.
+shared client. That is for server-side use. Do not ship an API key to a browser.
 
 The same module exports the rest of the account surface: passkey registration and
 login, one-time passcodes, email verification and password reset, organisation
@@ -213,42 +213,42 @@ membership and invitations, connected social providers, and custom domains.
 The API is organised into six areas. Every operation is exported as a function
 named `<service><Operation>`, so the prefix tells you which area you are in.
 
-**Authentication** — `authV1UserService*`, `authV1TokenService*`,
-`authV1OtpService*`, `authV1PasskeyService*`, `authV1ProvidersService*`,
-`authV1MembershipService*`, `authV1PolicyService*`, `authV1DomainService*`,
-`authV1EmailService*`, `authV1BlogService*`. Sign-in flows including passkeys and
-one-time codes, organisation membership and roles, access policies, custom
-domains, and transactional email.
-
-**Media** — `imagesV1ImageService*`, `videosV1VideoService*`,
+**Media**: `imagesV1ImageService*`, `videosV1VideoService*`,
 `videosV1AudioTrackService*`, `videosV1ChapterService*`,
 `videosV1SubtitleService*`, `videosV1LanguageService*`,
 `imagesV1ImageConversionService*`, `videosV1VideoConversionService*`. Upload and
 deliver files, attach audio and captions to a video, and convert media into the
 formats and sizes you serve.
 
-**Analytics** — `analyticsV1DashboardService*`, `analyticsV1EventsService*`,
+**Content**: `postsV1PostService*`, `feedsV1FeedService*`,
+`projectV1ProjectService*`. Group media into posts and feeds. A project is the
+container everything else hangs off, which is why so many calls take a
+`project_id`.
+
+**Analytics**: `analyticsV1DashboardService*`, `analyticsV1EventsService*`,
 `analyticsV1PostsService*`, `analyticsV1VideosService*`,
 `analyticsV1FeedsService*`, `analyticsV1FunnelsService*`,
 `analyticsV1HeatmapService*`, `analyticsV1RealtimeService*`. Track events and read
 back engagement, playback, funnels and live activity.
 
-**Billing** — `billingV1PaymentService*`, `billingV1SubscriptionService*`,
+**Billing**: `billingV1PaymentService*`, `billingV1SubscriptionService*`,
 `billingV1PlanService*`, `billingV1InvoiceService*`, `billingV1UsageService*`,
 `billingV1SalesService*`. Manage subscriptions and payment methods, and read
 invoices and metered usage.
 
-**Content** — `postsV1PostService*`, `feedsV1FeedService*`,
-`projectV1ProjectService*`. Group media into posts and feeds. A project is the
-container everything else hangs off, which is why so many calls take a
-`project_id`.
+**Account management**: `authV1UserService*`, `authV1TokenService*`,
+`authV1OtpService*`, `authV1PasskeyService*`, `authV1ProvidersService*`,
+`authV1MembershipService*`, `authV1PolicyService*`, `authV1DomainService*`,
+`authV1EmailService*`, `authV1BlogService*`. Sign-in flows including passkeys and
+one-time codes, organisation membership and roles, access policies, custom
+domains, and transactional email.
 
-**Platform** — `apikeysV1ApiKeyService*`, `clientauthV1ClientCredentialService*`,
+**Platform**: `apikeysV1ApiKeyService*`, `clientauthV1ClientCredentialService*`,
 `platformauthV1PlatformAuthService*`. Manage the credentials above
 programmatically.
 
-Where a name ends in a digit — `postsV1PostServiceListPosts2`,
-`postsV1PostServiceGetPost3` — that is a second route to the same operation. The
+A name ending in a digit, such as `postsV1PostServiceListPosts2` or
+`postsV1PostServiceGetPost3`, is a second route to the same operation. The
 plain name is the project-scoped route; the numbered ones are the feed-scoped and
 public variants. Hover the export in your editor to see which URL it hits.
 
@@ -287,13 +287,13 @@ await feedsV1FeedServiceUpdateFeed({
 Nearly every response field is optional in the types. That is deliberate: the API
 omits fields it has nothing to say about, so reach for `?.` and `??` rather than
 assuming a value is there. Integer fields wide enough to overflow a JavaScript
-number — `total`, for one — are typed `number | string`, because the API sends
+number, `total` among them, are typed `number | string`, because the API sends
 them as strings once they get large.
 
 ## Uploading files
 
 Uploads happen in two steps. You ask Rixl for a URL, then send the bytes straight
-to storage — they never pass through the API, so large files stay fast:
+to storage. The bytes never pass through the API, so large files stay fast:
 
 ```ts
 import {imagesV1ImageServiceCreateImageUpload} from "@rixl/sdk";
@@ -311,7 +311,7 @@ await fetch(upload!.upload_url!, {
 });
 ```
 
-Videos work the same way, except you get two URLs back — one for the video, one
+Videos work the same way, except you get two URLs back, one for the video and one
 for its poster image:
 
 ```ts
@@ -330,8 +330,8 @@ await Promise.all([
 ```
 
 There is no "finish" call to make. Storage tells Rixl when the object lands and
-the image or video becomes available on its own. The URLs expire — `expires_at`
-tells you when — so upload promptly rather than stashing them.
+the image or video becomes available on its own. The URLs expire, and `expires_at`
+tells you when, so upload promptly rather than stashing them.
 
 ## Pagination
 
@@ -360,7 +360,7 @@ for (;;) {
 }
 ```
 
-The SDK does not paginate for you — there is no async iterator and no automatic
+The SDK does not paginate for you. There is no async iterator and no automatic
 page fetching. Write the loop.
 
 ## Handling errors
@@ -381,8 +381,8 @@ if (error) {
 }
 ```
 
-If you would rather use `try`/`catch`, set `throwOnError` — per call or on the
-client — and the same value is thrown instead:
+If you would rather use `try`/`catch`, set `throwOnError`, per call or on the
+client, and the same value is thrown instead:
 
 ```ts
 const client = createClient({
@@ -407,8 +407,8 @@ What the codes mean:
 | 429 | You are going too fast | Back off and retry |
 | 5xx | Something broke on our side | Retry with backoff |
 
-Connection failures and timeouts surface as whatever `fetch` threw — a `TypeError`
-or an `AbortError` — with `response` undefined, so check `response` before reading
+Connection failures and timeouts surface as whatever `fetch` threw, a `TypeError`
+or an `AbortError`, with `response` undefined, so check `response` before reading
 a status off it.
 
 ## Timeouts and interception
@@ -447,7 +447,7 @@ client.interceptors.request.use(async (request) => {
 
 This package follows [SemVer](https://semver.org/spec/v2.0.0.html). New API
 operations arrive in minor releases; renamed or removed ones only in major ones.
-If an upgrade breaks you unexpectedly, please open an issue — we would rather hear
+If an upgrade breaks you unexpectedly, please open an issue. We would rather hear
 about it.
 
 ## Support
