@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.8.0](https://github.com/rixlhq/rixl-js/compare/v0.7.3...v0.8.0) (2026-08-03)
+
+
+### Features
+
+* **passkey:** expose PasskeyUnavailableError for beginPasskeyLogin ([f1e9ebc](https://github.com/rixlhq/rixl-js/commit/f1e9ebc9a5a81c2b96f82528e37c0271b33e05ca))
+* **sdk:** regenerate based on latest OpenAPI spec ([c367cf5](https://github.com/rixlhq/rixl-js/commit/c367cf515b01770272e277346360d159e34e5ebd))
+
+
+### Bug Fixes
+
+* **auth:** map AuthMethod values defensively in login response ([3b169d9](https://github.com/rixlhq/rixl-js/commit/3b169d900caa8d71dd4b9dda221eff99f3f207e8))
+* **auth:** send membership_id in updateActiveMembership ([40ac1dc](https://github.com/rixlhq/rixl-js/commit/40ac1dce27ea213a14a79b32f0c7d0c65b29d134))
+* **domain:** preserve unknown status in toDomainResponse ([f96a7e7](https://github.com/rixlhq/rixl-js/commit/f96a7e7441fdedc37554229b925d60915092435a))
+* **passkey:** throw on incomplete token response after login ([ee6ed5f](https://github.com/rixlhq/rixl-js/commit/ee6ed5fcffc8d3925fabc85f08b9c6eb6c72a947))
+
 ## [0.7.3](https://github.com/rixlhq/rixl-js/compare/v0.7.2...v0.7.3) (2026-08-02)
 
 
