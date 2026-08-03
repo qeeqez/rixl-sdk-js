@@ -67,6 +67,20 @@ export interface PasskeyBeginLogin {
   options: PublicKeyCredentialRequestOptions;
 }
 
+/**
+ * Thrown by {@link beginPasskeyLogin} when the server responds successfully
+ * but with no credential options — typically because the account has no
+ * passkeys enrolled. The OpenAPI schema does not formally model this state
+ * (both `session_id` and `options` are optional on `PasskeyBeginResponse`),
+ * so callers should distinguish it via `instanceof` rather than error text.
+ */
+export class PasskeyUnavailableError extends Error {
+  constructor(message = "No passkeys available for this account") {
+    super(message);
+    this.name = "PasskeyUnavailableError";
+  }
+}
+
 export interface PasskeyBeginRegistration {
   session_id: string;
   options: PublicKeyCredentialCreationOptions;
@@ -152,7 +166,7 @@ export const beginPasskeyLogin = async (): Promise<PasskeyBeginLogin> => {
 
     const sessionId = data.session_id;
     if (!sessionId || !data.options) {
-      throw new Error("No passkeys available for this account");
+      throw new PasskeyUnavailableError();
     }
 
     const options = decodeRequestOptions(data.options);

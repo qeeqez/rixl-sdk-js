@@ -98,6 +98,7 @@ export {
   finishPasskeyLogin,
   finishPasskeyRegistration,
   listPasskeys,
+  PasskeyUnavailableError,
   renamePasskey,
   verifyPasskeyForLogin,
   type Passkey,
