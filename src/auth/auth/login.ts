@@ -5,8 +5,28 @@ import {ApiError} from "../api/error-handlers";
 import {apiCall} from "../api/utils";
 import {persistTokens} from "../api/tokens";
 import {HTTP_STATUS} from "../constants";
-import type {LoginErrorResponse, TwoFactorResponse} from "./types";
-import type {AuthV1LoginResponse} from "../../generated/types.gen";
+import type {LoginErrorResponse, TwoFactorAuthMethod, TwoFactorResponse} from "./types";
+import type {AuthV1AuthMethod, AuthV1LoginResponse} from "../../generated/types.gen";
+
+/**
+ * Maps the AuthV1AuthMethod values returned by the gateway to the SDK's
+ * lowercase `TwoFactorAuthMethod` domain type. The proto-shaped enum uses
+ * `AUTH_METHOD_*`, but the wire has historically emitted the lowercase
+ * short form (`"passkey" | "totp"`) — accept both so we're resilient to
+ * either serialization.
+ */
+function toTwoFactorAuthMethods(methods: AuthV1LoginResponse["authentication"]): TwoFactorAuthMethod[] {
+  if (!methods) return [];
+  const mapped: TwoFactorAuthMethod[] = [];
+  for (const m of methods as Array<AuthV1AuthMethod | string>) {
+    if (m === "AUTH_METHOD_PASSKEY" || m === "passkey") {
+      mapped.push("passkey");
+    } else if (m === "AUTH_METHOD_TOTP" || m === "totp") {
+      mapped.push("totp");
+    }
+  }
+  return mapped;
+}
 
 export const loginWithEmail = async (email: string, password: string): Promise<void | TwoFactorResponse | LoginErrorResponse> => {
   return apiCall(
@@ -56,9 +76,7 @@ function handleLoginResponse(data: AuthV1LoginResponse, email: string): void | T
       return {
         session_id: data.session_id!,
         email: email,
-        // The wire renders auth methods as lowercase "passkey" | "totp", which
-        // the generated AuthV1AuthMethod enum does not model.
-        authentication: data.authentication as unknown as TwoFactorResponse["authentication"],
+        authentication: toTwoFactorAuthMethods(data.authentication),
         passkey_options: data.passkey_options,
       };
     case "email_not_verified":
