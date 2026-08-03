@@ -132,7 +132,9 @@ export const finishPasskeyLogin = async (session_id: string, credential: PublicK
         throwOnError: true,
       });
 
-      persistTokens(data);
+      if (!persistTokens(data)) {
+        throw new Error("Passkey authentication failed: incomplete token response");
+      }
     },
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid passkey credential"),
@@ -269,7 +271,9 @@ export const verifyPasskeyForLogin = async (session_id: string, credential: Publ
         throwOnError: true,
       });
 
-      persistTokens(data);
+      if (!persistTokens(data)) {
+        throw new Error("Passkey verification failed: incomplete token response");
+      }
     },
     {
       [HTTP_STATUS.BAD_REQUEST]: () => new Error("Invalid passkey credential"),

@@ -30,7 +30,9 @@ describe("verifyPasskeyForLogin", () => {
   beforeEach(() => {
     mocks = setupAuthTest();
     mockVerifyPasskey.mockReset();
-    mockVerifyPasskey.mockResolvedValue({data: {}});
+    mockVerifyPasskey.mockResolvedValue({
+      data: {access_token: "at", refresh_token: "rt", expires_in: 3600},
+    });
   });
 
   afterEach(() => cleanupAuthMocks(mocks));
