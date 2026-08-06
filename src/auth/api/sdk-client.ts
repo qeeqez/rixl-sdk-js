@@ -1,6 +1,7 @@
 import {client} from "../../generated/client.gen";
 import {apiURL} from "../api-url";
 import {getToken} from "../authStore";
+import {HTTP_STATUS} from "../constants";
 import {ApiError} from "./types";
 
 interface WireErrorBody {
@@ -79,13 +80,19 @@ export function configureSdkClient(): void {
     if (request.headers.has("Authorization")) {
       return request;
     }
-    if (isPublicRoute(request.method, new URL(request.url).pathname)) {
+    const {pathname} = new URL(request.url);
+    if (isPublicRoute(request.method, pathname)) {
       return request;
     }
     const token = await tokenResolver();
-    if (token) {
-      request.headers.set("Authorization", `Bearer ${token}`);
+    // Sending the request bare would come back as a gateway 401 indistinguishable
+    // from an invalid token, hiding the real cause (no session, or a limited-access
+    // flow that withholds full-scope tokens). Fail here instead, with the same
+    // status so downstream error maps keyed on 401 still apply.
+    if (!token) {
+      throw new ApiError("No access token available for an authenticated request", HTTP_STATUS.UNAUTHORIZED, pathname);
     }
+    request.headers.set("Authorization", `Bearer ${token}`);
     return request;
   });
 

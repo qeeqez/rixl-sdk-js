@@ -8,6 +8,7 @@
 import {describe, it, expect, beforeEach, vi} from "vitest";
 import {client} from "../../generated/client.gen";
 import {configureSdkClient} from "../../auth/api/sdk-client";
+import {ApiError} from "../../auth/api/types";
 import {getToken} from "../../auth/authStore";
 
 vi.mock("../../auth/api-url", () => ({
@@ -113,11 +114,18 @@ describe("SDK client request interceptor", () => {
     expect(request.headers.get("Authorization")).toBe("Bearer explicit-token");
   });
 
-  it("does not attach Authorization to protected routes when no token exists", async () => {
+  it("throws instead of sending a protected request when no token exists", async () => {
     mockGetToken.mockResolvedValue(undefined);
 
-    const request = await runRequestInterceptors("GET", "https://api.example.com/users/me");
+    await expect(runRequestInterceptors("GET", "https://api.example.com/users/me")).rejects.toBeInstanceOf(ApiError);
+  });
 
-    expect(request.headers.has("Authorization")).toBe(false);
+  it("reports an unauthenticated protected request as a 401 for the requested endpoint", async () => {
+    mockGetToken.mockResolvedValue(undefined);
+
+    await expect(runRequestInterceptors("GET", "https://api.example.com/users/me")).rejects.toMatchObject({
+      status: 401,
+      endpoint: "/users/me",
+    });
   });
 });
