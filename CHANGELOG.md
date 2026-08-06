@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.2](https://github.com/rixlhq/rixl-js/compare/v0.8.1...v0.8.2) (2026-08-06)
+
+
+### Bug Fixes
+
+* fix passkey ([e934e44](https://github.com/rixlhq/rixl-js/commit/e934e44799f4026183c2c133b62a554f75a4c0e8))
+
 ## [0.8.1](https://github.com/rixlhq/rixl-js/compare/v0.8.0...v0.8.1) (2026-08-06)
 
 
