@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.1](https://github.com/rixlhq/rixl-js/compare/v0.8.0...v0.8.1) (2026-08-06)
+
+
+### Bug Fixes
+
+* **auth:** exchange API keys for a real token instead of forwarding t… ([3344365](https://github.com/rixlhq/rixl-js/commit/33443654ab18b70742e6cda0e16338e2bc2774d7))
+* **auth:** exchange API keys for a real token instead of forwarding them raw ([04f3f4b](https://github.com/rixlhq/rixl-js/commit/04f3f4b75efbc1fd6db0d2f7643006dbf42a739f))
+
 ## [0.8.0](https://github.com/rixlhq/rixl-js/compare/v0.7.3...v0.8.0) (2026-08-03)
 
 
