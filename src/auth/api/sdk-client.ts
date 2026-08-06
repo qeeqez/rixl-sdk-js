@@ -15,6 +15,56 @@ function isWireErrorBody(error: unknown): error is WireErrorBody {
 
 let configured = false;
 
+type TokenResolver = () => Promise<string | undefined>;
+
+// Defaults to the end-user session token. `connect()` swaps this out via
+// setTokenResolver() when configured with an apiKey or a bare token instead,
+// so there is always exactly one credential source feeding the one interceptor
+// below, regardless of which mode (user auth vs. platform/API key) is active.
+let tokenResolver: TokenResolver = getToken;
+
+export function setTokenResolver(resolver: TokenResolver): void {
+  tokenResolver = resolver;
+}
+
+/**
+ * Routes that do not require a Bearer token at the gateway edge. These
+ * authenticate via credentials in the request body (or are webhooks verified by
+ * signature), so attaching an Authorization header here would make the gateway
+ * attempt to validate a stale/absent token and reject the request with 401.
+ * Mirrors `publicRoutes` in backend/gateway/internal/routes/routes.go.
+ */
+const publicRoutes: ReadonlyArray<{method: string; path: string; prefix?: boolean}> = [
+  {method: "POST", path: "/auth/v1/token"},
+  {method: "POST", path: "/auth/v1/register"},
+  {method: "POST", path: "/auth/v1/login"},
+  {method: "POST", path: "/auth/v1/email/verify"},
+  {method: "POST", path: "/auth/v1/email/verify/resend"},
+  {method: "POST", path: "/auth/v1/password/reset"},
+  {method: "POST", path: "/auth/v1/password/reset/confirm"},
+  {method: "POST", path: "/auth/v1/verify-totp"},
+  {method: "POST", path: "/auth/v1/verify-passkey"},
+  {method: "POST", path: "/auth/v1/invitations/", prefix: true},
+  {method: "POST", path: "/auth/v1/passkey/login/begin"},
+  {method: "POST", path: "/auth/v1/passkey/login/finish"},
+  {method: "POST", path: "/auth/v1/logout"},
+  {method: "POST", path: "/auth/v1/blog/unsubscribe/email"},
+  {method: "POST", path: "/auth/v1/blog/broadcast"},
+  {method: "GET", path: "/media/v1/videos/", prefix: true},
+  {method: "GET", path: "/media/v1/images/", prefix: true},
+  {method: "GET", path: "/media/v1/languages"},
+  {method: "GET", path: "/posts/v1/feeds/", prefix: true},
+  {method: "POST", path: "/billing/webhooks/stripe"},
+  {method: "POST", path: "/webhooks/storage"},
+  {method: "POST", path: "/platform/auth/v1/token"},
+  {method: "POST", path: "/platform/auth/v1/refresh"},
+];
+
+function isPublicRoute(method: string, pathname: string): boolean {
+  const match = method.toUpperCase();
+  return publicRoutes.some(({method: m, path, prefix}) => match === m && (prefix ? pathname.startsWith(path) : pathname === path));
+}
+
 export function configureSdkClient(): void {
   if (configured) return;
   configured = true;
@@ -29,12 +79,10 @@ export function configureSdkClient(): void {
     if (request.headers.has("Authorization")) {
       return request;
     }
-    // The token endpoint authenticates via the refresh token in its body;
-    // calling getToken() here would await the very refresh request being sent.
-    if (new URL(request.url).pathname.endsWith("/auth/v1/token")) {
+    if (isPublicRoute(request.method, new URL(request.url).pathname)) {
       return request;
     }
-    const token = await getToken();
+    const token = await tokenResolver();
     if (token) {
       request.headers.set("Authorization", `Bearer ${token}`);
     }
