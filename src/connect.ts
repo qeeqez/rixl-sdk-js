@@ -1,5 +1,8 @@
 import {client} from "./generated/client.gen";
 import {initClient} from "./auth/init";
+import {apiURL} from "./auth/api-url";
+import {configureSdkClient, setTokenResolver} from "./auth/api/sdk-client";
+import {exchangeApiKey, getPlatformToken} from "./platform/platformAuthStore";
 import type {GoogleProviderConfig, AppleProviderConfig, MicrosoftProviderConfig, TelegramProviderConfig} from "./auth/providers";
 
 export interface AuthConfig {
@@ -13,17 +16,31 @@ export interface AuthConfig {
 export interface ConnectConfig {
   baseUrl: string;
   apiKey?: string;
+  token?: string;
   auth?: AuthConfig;
 }
 
 export const connect = async (config: ConnectConfig): Promise<string | undefined> => {
+  // apiURL is the canonical baseUrl store configureSdkClient() reads from and
+  // stays subscribed to; setting it here (not just client.setConfig) keeps
+  // apiKey/token-only mode (no `auth`) from having its baseUrl silently reset
+  // to "" the first time configureSdkClient() runs.
+  apiURL.set(config.baseUrl);
   client.setConfig({baseUrl: config.baseUrl});
 
   if (config.apiKey) {
-    client.interceptors.request.use(async (request) => {
-      request.headers.set("X-API-Key", config.apiKey!);
-      return request;
-    });
+    // Exchange the API key for a real Bearer token up front rather than
+    // forwarding it raw as X-API-Key on every request — the gateway's
+    // /platform/auth/v1/token exchange is the supported flow; sending the raw
+    // key directly on arbitrary routes gets rejected with 401.
+    await exchangeApiKey(config.apiKey);
+    setTokenResolver(getPlatformToken);
+    configureSdkClient();
+  }
+
+  if (config.token) {
+    setTokenResolver(async () => config.token);
+    configureSdkClient();
   }
 
   if (config.auth) {
