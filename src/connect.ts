@@ -1,6 +1,6 @@
-import {client} from "./generated/client.gen";
 import {initClient} from "./auth/init";
 import {apiURL} from "./auth/api-url";
+import {configureAllClients} from "./client-registry";
 import {configureSdkClient, setTokenResolver} from "./auth/api/sdk-client";
 import {exchangeApiKey, getPlatformToken} from "./platform/platformAuthStore";
 import type {GoogleProviderConfig, AppleProviderConfig, MicrosoftProviderConfig, TelegramProviderConfig} from "./auth/providers";
@@ -26,7 +26,10 @@ export const connect = async (config: ConnectConfig): Promise<string | undefined
   // apiKey/token-only mode (no `auth`) from having its baseUrl silently reset
   // to "" the first time configureSdkClient() runs.
   apiURL.set(config.baseUrl);
-  client.setConfig({baseUrl: config.baseUrl});
+  // Every copy, not just this one: a bundler may have given a dependency its own
+  // copy of this package, and the generated request functions there close over
+  // that copy's client.
+  configureAllClients(config.baseUrl);
 
   if (config.apiKey) {
     // Exchange the API key for a real Bearer token up front rather than

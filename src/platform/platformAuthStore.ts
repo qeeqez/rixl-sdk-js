@@ -1,14 +1,15 @@
 import {atom, type WritableAtom} from "nanostores";
 import {platformauthV1PlatformAuthServiceExchangeApiKey, platformauthV1PlatformAuthServiceRefreshPlatformToken} from "../generated/sdk.gen";
 import {isTokenExpired} from "../auth/utils/jwt";
+import {shared} from "../shared-runtime";
 
 // Platform/API-key credential state — deliberately separate from `authStore.ts`'s
 // end-user session atoms (isLogged, accessToken, user). An API key represents a
 // developer/server credential, not a logged-in user, and must never be able to
 // flip isLogged or feed decodeAndSetUser.
-export const platformAccessToken: WritableAtom<string | undefined> = atom(undefined);
-export const platformRefreshToken: WritableAtom<string | undefined> = atom(undefined);
-export const platformExpireAt: WritableAtom<number> = atom(0);
+export const platformAccessToken: WritableAtom<string | undefined> = shared("platformAccessToken", () => atom(undefined));
+export const platformRefreshToken: WritableAtom<string | undefined> = shared("platformRefreshToken", () => atom(undefined));
+export const platformExpireAt: WritableAtom<number> = shared("platformExpireAt", () => atom(0));
 
 let currentPlatformTokenPromise: Promise<string | undefined> | null = null;
 

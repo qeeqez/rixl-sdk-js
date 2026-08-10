@@ -1,3 +1,9 @@
+// Side-effect import: registers this copy's client so connect() configures it
+// even when the consumer only ever imports `client` or a generated request
+// function, never `connect`. Without the registration a bundler-duplicated copy
+// silently keeps the generator's placeholder baseUrl.
+import "./client-registry";
+
 export {createClient} from "./generated/client";
 export {client} from "./generated/client.gen";
 export * from "./generated/types.gen";
