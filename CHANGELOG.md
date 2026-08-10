@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.3](https://github.com/rixlhq/rixl-js/compare/v0.8.2...v0.8.3) (2026-08-10)
+
+
+### Bug Fixes
+
+* survive duplicate copies of this package and fail loudly when unconfigured ([1e0cc07](https://github.com/rixlhq/rixl-js/commit/1e0cc07871b7cfbfde073c6d0639a5f373749e12))
+
 ## [0.8.2](https://github.com/rixlhq/rixl-js/compare/v0.8.1...v0.8.2) (2026-08-06)
 
 
