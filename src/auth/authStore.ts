@@ -8,19 +8,28 @@ import type {ProviderType} from "./social/socialConnections";
 import {decodeAndSetUser, isTokenExpired} from "./utils/jwt";
 import type {LoginErrorResponse} from "./auth/types";
 import type {RequiresAction} from "./types";
+import {shared} from "../shared-runtime";
 
-// Store for authentication state
-export const isLogged: WritableAtom<boolean> = atom(initVals["isLogged"] === "true" || detectProvider() !== undefined);
-export const accessToken: WritableAtom<string | undefined> = atom(initVals["accessToken"]);
-export const refreshToken: WritableAtom<string | undefined> = atom(initVals["refreshToken"]);
-export const expireAt: WritableAtom<number> = atom(Number(initVals["expireAt"]));
+// Store for authentication state. Shared across copies of this package: a
+// duplicate copy would otherwise hydrate its own tokens from the cookie and
+// then silently diverge on the first refresh or logout.
+export const isLogged: WritableAtom<boolean> = shared("isLogged", () =>
+  atom(initVals["isLogged"] === "true" || detectProvider() !== undefined)
+);
+export const accessToken: WritableAtom<string | undefined> = shared("accessToken", () => atom(initVals["accessToken"]));
+export const refreshToken: WritableAtom<string | undefined> = shared("refreshToken", () => atom(initVals["refreshToken"]));
+export const expireAt: WritableAtom<number> = shared("expireAt", () => atom(Number(initVals["expireAt"])));
 
 // Store for OAuth/Telegram login errors (403, 409)
-export const authError: WritableAtom<LoginErrorResponse | null> = atom<LoginErrorResponse | null>(null);
+export const authError: WritableAtom<LoginErrorResponse | null> = shared("authError", () => atom<LoginErrorResponse | null>(null));
 
 // Store for limited access state (Telegram user without email)
-export const requiresAction: WritableAtom<RequiresAction> = atom<RequiresAction>((initVals["requiresAction"] as RequiresAction) || null);
-export const limitedAccessToken: WritableAtom<string | null> = atom<string | null>(initVals["limitedAccessToken"] || null);
+export const requiresAction: WritableAtom<RequiresAction> = shared("requiresAction", () =>
+  atom<RequiresAction>((initVals["requiresAction"] as RequiresAction) || null)
+);
+export const limitedAccessToken: WritableAtom<string | null> = shared("limitedAccessToken", () =>
+  atom<string | null>(initVals["limitedAccessToken"] || null)
+);
 
 // Store the current getToken promise
 let currentTokenPromise: Promise<string | undefined> | null = null;

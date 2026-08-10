@@ -1,8 +1,9 @@
-import {client} from "../../generated/client.gen";
 import {apiURL} from "../api-url";
 import {getToken} from "../authStore";
 import {HTTP_STATUS} from "../constants";
 import {ApiError} from "./types";
+import {addClientInitializer, configureAllClients} from "../../client-registry";
+import {shared} from "../../shared-runtime";
 
 interface WireErrorBody {
   error?: string;
@@ -14,18 +15,20 @@ function isWireErrorBody(error: unknown): error is WireErrorBody {
   return typeof error === "object" && error !== null;
 }
 
-let configured = false;
-
 type TokenResolver = () => Promise<string | undefined>;
 
-// Defaults to the end-user session token. `connect()` swaps this out via
-// setTokenResolver() when configured with an apiKey or a bare token instead,
-// so there is always exactly one credential source feeding the one interceptor
-// below, regardless of which mode (user auth vs. platform/API key) is active.
-let tokenResolver: TokenResolver = getToken;
+// Shared across copies of this package so a duplicate copy cannot end up with a
+// second set of interceptors or fall back to session tokens while the copy the
+// consumer configured is using a platform/API-key credential.
+//
+// `tokenResolver` defaults to the end-user session token. `connect()` swaps it
+// out via setTokenResolver() when configured with an apiKey or a bare token
+// instead, so there is always exactly one credential source feeding the one
+// interceptor below, regardless of which mode is active.
+const state = shared("sdkClientState", () => ({configured: false, tokenResolver: getToken as TokenResolver}));
 
 export function setTokenResolver(resolver: TokenResolver): void {
-  tokenResolver = resolver;
+  state.tokenResolver = resolver;
 }
 
 /**
@@ -67,47 +70,49 @@ function isPublicRoute(method: string, pathname: string): boolean {
 }
 
 export function configureSdkClient(): void {
-  if (configured) return;
-  configured = true;
+  if (state.configured) return;
+  state.configured = true;
 
-  client.setConfig({baseUrl: apiURL.get()});
+  configureAllClients(apiURL.get());
 
   apiURL.subscribe((url) => {
-    client.setConfig({baseUrl: url});
+    configureAllClients(url);
   });
 
-  client.interceptors.request.use(async (request) => {
-    if (request.headers.has("Authorization")) {
+  addClientInitializer((client) => {
+    client.interceptors.request.use(async (request) => {
+      if (request.headers.has("Authorization")) {
+        return request;
+      }
+      const {pathname} = new URL(request.url);
+      if (isPublicRoute(request.method, pathname)) {
+        return request;
+      }
+      const token = await state.tokenResolver();
+      // Sending the request bare would come back as a gateway 401 indistinguishable
+      // from an invalid token, hiding the real cause (no session, or a limited-access
+      // flow that withholds full-scope tokens). Fail here instead, with the same
+      // status so downstream error maps keyed on 401 still apply.
+      if (!token) {
+        throw new ApiError("No access token available for an authenticated request", HTTP_STATUS.UNAUTHORIZED, pathname);
+      }
+      request.headers.set("Authorization", `Bearer ${token}`);
       return request;
-    }
-    const {pathname} = new URL(request.url);
-    if (isPublicRoute(request.method, pathname)) {
-      return request;
-    }
-    const token = await tokenResolver();
-    // Sending the request bare would come back as a gateway 401 indistinguishable
-    // from an invalid token, hiding the real cause (no session, or a limited-access
-    // flow that withholds full-scope tokens). Fail here instead, with the same
-    // status so downstream error maps keyed on 401 still apply.
-    if (!token) {
-      throw new ApiError("No access token available for an authenticated request", HTTP_STATUS.UNAUTHORIZED, pathname);
-    }
-    request.headers.set("Authorization", `Bearer ${token}`);
-    return request;
-  });
+    });
 
-  // The generated client throws the parsed error body (a plain object or string),
-  // which defeats every instanceof-based status mapping downstream. Wrap it into
-  // an ApiError carrying the HTTP status so apiCall error maps and consumers can
-  // handle errors by code.
-  client.interceptors.error.use((error, response, request) => {
-    if (error instanceof Error) {
-      return error;
-    }
-    const body = isWireErrorBody(error) ? error : undefined;
-    const status = response?.status ?? body?.code ?? 0;
-    const message = body?.error || body?.details || (typeof error === "string" ? error : "Request failed");
-    const endpoint = request ? new URL(request.url).pathname : "";
-    return new ApiError(message, status, endpoint, error);
+    // The generated client throws the parsed error body (a plain object or string),
+    // which defeats every instanceof-based status mapping downstream. Wrap it into
+    // an ApiError carrying the HTTP status so apiCall error maps and consumers can
+    // handle errors by code.
+    client.interceptors.error.use((error, response, request) => {
+      if (error instanceof Error) {
+        return error;
+      }
+      const body = isWireErrorBody(error) ? error : undefined;
+      const status = response?.status ?? body?.code ?? 0;
+      const message = body?.error || body?.details || (typeof error === "string" ? error : "Request failed");
+      const endpoint = request ? new URL(request.url).pathname : "";
+      return new ApiError(message, status, endpoint, error);
+    });
   });
 }
