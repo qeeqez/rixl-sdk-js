@@ -40,6 +40,106 @@ export type AnalyticsV1AnalyticsEvent = {
 });
 
 /**
+ * ChartFilter
+ */
+export type AnalyticsV1ChartFilter = {
+    /**
+     * field
+     */
+    field: string;
+    /**
+     * operator
+     */
+    operator?: 'eq' | 'neq' | 'gt' | 'gte' | 'lt' | 'lte' | 'in' | 'contains';
+    /**
+     * values
+     */
+    values?: Array<string>;
+};
+
+/**
+ * ChartQueryRequest
+ */
+export type AnalyticsV1ChartQueryRequest = {
+    /**
+     * dataset
+     */
+    dataset: string;
+    /**
+     * metric
+     */
+    metric: string;
+    /**
+     * group_by
+     */
+    group_by?: Array<string>;
+    /**
+     * filters
+     */
+    filters?: Array<AnalyticsV1ChartFilter>;
+    /**
+     * time_start
+     */
+    time_start: string;
+    /**
+     * time_end
+     */
+    time_end: string;
+    /**
+     * interval
+     */
+    interval?: string;
+    /**
+     * limit
+     */
+    limit?: number;
+};
+
+/**
+ * ChartQueryResponse
+ */
+export type AnalyticsV1ChartQueryResponse = {
+    /**
+     * rows
+     */
+    rows?: Array<AnalyticsV1ChartRow>;
+};
+
+/**
+ * ChartRow
+ */
+export type AnalyticsV1ChartRow = {
+    /**
+     * timestamp
+     */
+    timestamp?: string;
+    /**
+     * dimensions
+     */
+    dimensions?: {
+        [key: string]: string;
+    };
+    /**
+     * value
+     */
+    value?: number;
+};
+
+/**
+ * DimensionsEntry
+ */
+export type AnalyticsV1ChartRowDimensionsEntry = {
+    /**
+     * key
+     */
+    key?: string;
+    /**
+     * value
+     */
+    value?: string;
+};
+
+/**
  * ContentViewEvent
  */
 export type AnalyticsV1ContentViewEvent = {
@@ -141,6 +241,10 @@ export type AnalyticsV1DashboardStatsRequest = {
      * interval
      */
     interval?: string;
+    /**
+     * filter
+     */
+    filter?: AnalyticsV1Filter;
 };
 
 /**
@@ -151,6 +255,68 @@ export type AnalyticsV1DashboardStatsResponse = {
      * points
      */
     points?: Array<AnalyticsV1DashboardPoint>;
+};
+
+/**
+ * Dataset
+ */
+export type AnalyticsV1Dataset = {
+    /**
+     * id
+     */
+    id?: string;
+    /**
+     * label
+     */
+    label?: string;
+    /**
+     * metrics
+     */
+    metrics?: Array<AnalyticsV1DatasetMetric>;
+    /**
+     * dimensions
+     */
+    dimensions?: Array<AnalyticsV1DatasetField>;
+    /**
+     * filters
+     */
+    filters?: Array<AnalyticsV1DatasetField>;
+};
+
+/**
+ * DatasetField
+ */
+export type AnalyticsV1DatasetField = {
+    /**
+     * name
+     */
+    name?: string;
+    /**
+     * label
+     */
+    label?: string;
+    /**
+     * type
+     */
+    type?: string;
+};
+
+/**
+ * DatasetMetric
+ */
+export type AnalyticsV1DatasetMetric = {
+    /**
+     * name
+     */
+    name?: string;
+    /**
+     * label
+     */
+    label?: string;
+    /**
+     * aggregation
+     */
+    aggregation?: string;
 };
 
 /**
@@ -300,6 +466,58 @@ export type AnalyticsV1FeedStats = {
 };
 
 /**
+ * Filter
+ */
+export type AnalyticsV1Filter = {
+    /**
+     * countries
+     */
+    countries?: Array<string>;
+    /**
+     * cities
+     */
+    cities?: Array<string>;
+    /**
+     * devices
+     */
+    devices?: Array<string>;
+    /**
+     * os
+     */
+    os?: Array<string>;
+    /**
+     * languages
+     */
+    languages?: Array<string>;
+    /**
+     * regions
+     */
+    regions?: Array<string>;
+    /**
+     * browsers
+     */
+    browsers?: Array<string>;
+    /**
+     * os_versions
+     */
+    os_versions?: Array<string>;
+};
+
+/**
+ * FilterOption
+ */
+export type AnalyticsV1FilterOption = {
+    /**
+     * value
+     */
+    value?: string;
+    /**
+     * count
+     */
+    count?: number | string;
+};
+
+/**
  * FunnelAnalytics
  */
 export type AnalyticsV1FunnelAnalytics = {
@@ -415,6 +633,42 @@ export type AnalyticsV1GetFeedStatsRequest = {
      * range
      */
     range?: AnalyticsV1DateRange;
+};
+
+/**
+ * GetFilterOptionsRequest
+ */
+export type AnalyticsV1GetFilterOptionsRequest = {
+    /**
+     * dataset
+     */
+    dataset: string;
+    /**
+     * field
+     */
+    field: string;
+    /**
+     * time_start
+     */
+    time_start?: string;
+    /**
+     * time_end
+     */
+    time_end?: string;
+    /**
+     * limit
+     */
+    limit?: number;
+};
+
+/**
+ * GetFilterOptionsResponse
+ */
+export type AnalyticsV1GetFilterOptionsResponse = {
+    /**
+     * options
+     */
+    options?: Array<AnalyticsV1FilterOption>;
 };
 
 /**
@@ -642,6 +896,23 @@ export type AnalyticsV1InteractionEvent = {
      * browser
      */
     browser?: string;
+};
+
+/**
+ * ListDatasetsRequest
+ */
+export type AnalyticsV1ListDatasetsRequest = {
+    [key: string]: never;
+};
+
+/**
+ * ListDatasetsResponse
+ */
+export type AnalyticsV1ListDatasetsResponse = {
+    /**
+     * datasets
+     */
+    datasets?: Array<AnalyticsV1Dataset>;
 };
 
 /**
@@ -920,6 +1191,34 @@ export type AnalyticsV1TrackEventsRequest = {
      * events
      */
     events?: Array<AnalyticsV1AnalyticsEvent>;
+    /**
+     * city
+     */
+    city?: string;
+    /**
+     * region
+     */
+    region?: string;
+    /**
+     * device
+     */
+    device?: string;
+    /**
+     * os
+     */
+    os?: string;
+    /**
+     * os_version
+     */
+    os_version?: string;
+    /**
+     * language
+     */
+    language?: string;
+    /**
+     * browser
+     */
+    browser?: string;
 };
 
 /**
@@ -6830,6 +7129,38 @@ export type AnalyticsV1DashboardServiceGetDashboardStatsData = {
          * interval
          */
         interval?: string;
+        /**
+         * countries
+         */
+        'filter.countries'?: Array<string>;
+        /**
+         * cities
+         */
+        'filter.cities'?: Array<string>;
+        /**
+         * devices
+         */
+        'filter.devices'?: Array<string>;
+        /**
+         * os
+         */
+        'filter.os'?: Array<string>;
+        /**
+         * languages
+         */
+        'filter.languages'?: Array<string>;
+        /**
+         * regions
+         */
+        'filter.regions'?: Array<string>;
+        /**
+         * browsers
+         */
+        'filter.browsers'?: Array<string>;
+        /**
+         * os_versions
+         */
+        'filter.os_versions'?: Array<string>;
     };
     url: '/analytics/v1/dashboard';
 };
@@ -6842,6 +7173,54 @@ export type AnalyticsV1DashboardServiceGetDashboardStatsResponses = {
 };
 
 export type AnalyticsV1DashboardServiceGetDashboardStatsResponse = AnalyticsV1DashboardServiceGetDashboardStatsResponses[keyof AnalyticsV1DashboardServiceGetDashboardStatsResponses];
+
+export type AnalyticsV1DashboardServiceQueryChartData = {
+    body: AnalyticsV1ChartQueryRequest;
+    path?: never;
+    query?: never;
+    url: '/analytics/v1/dashboard/chart-query';
+};
+
+export type AnalyticsV1DashboardServiceQueryChartResponses = {
+    /**
+     * Success
+     */
+    200: AnalyticsV1ChartQueryResponse;
+};
+
+export type AnalyticsV1DashboardServiceQueryChartResponse = AnalyticsV1DashboardServiceQueryChartResponses[keyof AnalyticsV1DashboardServiceQueryChartResponses];
+
+export type AnalyticsV1DashboardServiceListDatasetsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/analytics/v1/dashboard/datasets';
+};
+
+export type AnalyticsV1DashboardServiceListDatasetsResponses = {
+    /**
+     * Success
+     */
+    200: AnalyticsV1ListDatasetsResponse;
+};
+
+export type AnalyticsV1DashboardServiceListDatasetsResponse = AnalyticsV1DashboardServiceListDatasetsResponses[keyof AnalyticsV1DashboardServiceListDatasetsResponses];
+
+export type AnalyticsV1DashboardServiceGetFilterOptionsData = {
+    body: AnalyticsV1GetFilterOptionsRequest;
+    path?: never;
+    query?: never;
+    url: '/analytics/v1/dashboard/filter-options';
+};
+
+export type AnalyticsV1DashboardServiceGetFilterOptionsResponses = {
+    /**
+     * Success
+     */
+    200: AnalyticsV1GetFilterOptionsResponse;
+};
+
+export type AnalyticsV1DashboardServiceGetFilterOptionsResponse = AnalyticsV1DashboardServiceGetFilterOptionsResponses[keyof AnalyticsV1DashboardServiceGetFilterOptionsResponses];
 
 export type AnalyticsV1EventsServiceTrackEventsData = {
     body: AnalyticsV1TrackEventsRequest;
