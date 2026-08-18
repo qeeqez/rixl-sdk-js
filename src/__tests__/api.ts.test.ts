@@ -74,7 +74,20 @@ describe("API Module", () => {
       await refreshTokens(AuthProvider.GOOGLE, "google-token");
 
       expect(mockPostAuthV1Token).toHaveBeenCalledWith({
-        body: {token_type: "google", refresh_token: "google-token"},
+        body: {token_type: "EXTERNAL_ACCOUNT_PROVIDER_GOOGLE", refresh_token: "google-token"},
+        throwOnError: true,
+      });
+    });
+
+    it("should normalize telegram providers", async () => {
+      mockPostAuthV1Token.mockResolvedValue({
+        data: {access_token: "token", refresh_token: "refresh", expires_in: 3600},
+      });
+
+      await refreshTokens(AuthProvider.TELEGRAM_WEB, "tg-token");
+
+      expect(mockPostAuthV1Token).toHaveBeenCalledWith({
+        body: {token_type: "EXTERNAL_ACCOUNT_PROVIDER_TELEGRAM", refresh_token: "tg-token"},
         throwOnError: true,
       });
     });
