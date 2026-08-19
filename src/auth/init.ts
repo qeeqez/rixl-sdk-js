@@ -1,4 +1,4 @@
-import {getToken, refreshToken, authError, setTokens, setLimitedAccessState, clearLimitedAccessState} from "./authStore";
+import {getToken, authError, setTokens, setLimitedAccessState, clearLimitedAccessState} from "./authStore";
 import {ApiError} from "./api/types";
 import {HTTP_STATUS} from "./constants";
 import type {TokenResponse, LimitedScopeTokenResponse, RequiresAction} from "./types";
@@ -22,11 +22,14 @@ import {
   updateTelegramAuthUrl,
   getProviderToken,
   detectProvider,
+  completeOAuthCallback,
+  logProviderExchangeFailure,
+  hasProviderResponse,
+  logUnusableProviderResponse,
   AuthProvider,
 } from "./providers";
 import {clearSocialConnectAttempt, hasSocialConnectAttempt} from "./social/socialState";
 import {connectSocialInternal} from "./social/socialConnections";
-import {setTokenRefreshFunction} from "./api/client-core";
 import {setLoginRedirectUrl} from "./authConfig";
 
 /**
@@ -53,11 +56,29 @@ export interface AuthClientConfig {
  * @returns A promise that resolves to the current access token (if available)
  */
 export const initClient = async (config: AuthClientConfig): Promise<string | undefined> => {
-  await initConfig(config);
-  await initPage();
-  initDeferred.resolve();
-  await initSocials();
+  try {
+    await runInitSequence(config);
+  } finally {
+    // Also on failure: a rejected exchange must still retire the credential,
+    // otherwise the same dead id_token sits in the URL and re-fails on reload.
+    completeOAuthCallback();
+  }
   return getToken();
+};
+
+const runInitSequence = async (config: AuthClientConfig): Promise<void> => {
+  try {
+    await initConfig(config);
+    await initPage();
+  } finally {
+    // Unblock waiters even if the provider token exchange failed, otherwise
+    // getToken() and every other auth call hang forever. This must happen
+    // before initSocials(): connecting a provider calls the authenticated
+    // /auth/v1/providers/connect, whose request interceptor awaits getToken(),
+    // which awaits this deferred — resolving it afterwards would deadlock.
+    initDeferred.resolve();
+  }
+  await initSocials();
 };
 
 const initConfig = async (config: AuthClientConfig) => {
@@ -65,21 +86,6 @@ const initConfig = async (config: AuthClientConfig) => {
   apiURL.set(config.apiUrl);
   configureSdkClient();
   setLoginRedirectUrl(config.loginRedirectUrl);
-
-  // Initialize the token refresh function for ky client
-  // This enables automatic 401 retry with token refresh
-  setTokenRefreshFunction(async () => {
-    const currentRefreshToken = refreshToken.get();
-    if (currentRefreshToken) {
-      const result = await refreshTokens(AuthProvider.BEARER, currentRefreshToken);
-      // Store new tokens if full response (not limited scope)
-      if (result && !("requires_action" in result)) {
-        setTokens(result.access_token, result.refresh_token, result.expires_in);
-      }
-      return getToken();
-    }
-    return undefined;
-  });
 
   // Set provider configurations and update auth URLs
   if (config.googleProvider) {
@@ -132,18 +138,23 @@ const extractAuthErrorInfo = (error: ApiError): {error: string; description: str
   };
 };
 
-const handleInitPageApiError = (error: ApiError): boolean => {
+const handleInitPageApiError = (error: ApiError): void => {
   const info = extractAuthErrorInfo(error);
 
   if (error.status === HTTP_STATUS.BAD_REQUEST && info.error === "invalid_grant") {
-    return setAuthErrorAndClear("email_not_verified", info.description, info.email);
+    setAuthErrorAndClear("email_not_verified", info.description, info.email);
+    return;
   }
 
   if (error.status === HTTP_STATUS.CONFLICT) {
-    return setAuthErrorAndClear("provider_conflict", info.description, info.email);
+    setAuthErrorAndClear("provider_conflict", info.description, info.email);
+    return;
   }
 
-  return false;
+  // Everything else used to rethrow, which reached no UI: the login page just
+  // reappeared with nothing on it. Record the gateway's own message so the page
+  // can show why, and so the failure is state rather than a lost exception.
+  setAuthErrorAndClear("provider_exchange_failed", info.error || info.description, info.email);
 };
 
 const exchangeProviderToken = async (provider: AuthProvider, token: string): Promise<void> => {
@@ -153,7 +164,12 @@ const exchangeProviderToken = async (provider: AuthProvider, token: string): Pro
 
 const initPage = async () => {
   const provider = detectProvider();
-  if (!provider) return undefined;
+  if (!provider) {
+    // A response came back but detectProvider() rejected it, so the login ends
+    // here without a request. Say why instead of returning to the login page mute.
+    if (hasProviderResponse()) logUnusableProviderResponse();
+    return undefined;
+  }
 
   const token = getProviderToken(provider);
   if (!token) return undefined;
@@ -161,10 +177,11 @@ const initPage = async () => {
   try {
     await exchangeProviderToken(provider, token);
   } catch (error) {
-    if (error instanceof ApiError && handleInitPageApiError(error)) {
-      return;
-    }
-    throw error;
+    logProviderExchangeFailure(provider, token, error);
+    // A transport failure is not an auth outcome and has no message to show, so
+    // it still propagates; the gateway's own rejections become authError state.
+    if (!(error instanceof ApiError)) throw error;
+    handleInitPageApiError(error);
   }
 };
 

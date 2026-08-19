@@ -3,7 +3,7 @@
  * Tests: createDeferred, initDeferred
  */
 
-import {describe, it, expect} from "vitest";
+import {describe, it, expect, vi} from "vitest";
 import {createDeferred} from "../auth/initialization";
 
 describe("Initialization", () => {
@@ -111,16 +111,27 @@ describe("Initialization", () => {
   });
 
   describe("initDeferred", () => {
-    it("should document that initDeferred is tested via integration", () => {
-      // initDeferred is the global deferred used by initClient
-      // It's tested through:
-      // - The initialization flow when initClient is called
-      // - Tests that wait for library initialization
-      //
-      // Direct testing would interfere with the global state
-      // and other tests that depend on initialization
+    // A second evaluation of the module stands in for a second copy of the
+    // package, which is what a bundler produces when it inlines the SDK into an
+    // optimized dependency.
+    const loadSecondCopy = async () => {
+      vi.resetModules();
+      return (await import("../auth/initialization")).initDeferred;
+    };
 
-      expect(true).toBe(true);
+    it("hands every copy of the package the same deferred", async () => {
+      const first = (await import("../auth/initialization")).initDeferred;
+
+      expect(await loadSecondCopy()).toBe(first);
+    });
+
+    it("lets a copy that never ran connect() observe initialization", async () => {
+      const other = await loadSecondCopy();
+      const observed = other.promise.then(() => "settled");
+
+      (await import("../auth/initialization")).initDeferred.resolve();
+
+      await expect(observed).resolves.toBe("settled");
     });
   });
 });

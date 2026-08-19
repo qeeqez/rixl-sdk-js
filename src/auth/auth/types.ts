@@ -37,8 +37,12 @@ export interface VerifyStatusResponse {
   verified: boolean;
 }
 
-/** Login error response for special cases that require UI action */
-export type LoginErrorCode = "email_not_verified" | "provider_conflict";
+/**
+ * Login error response for special cases that require UI action.
+ * `provider_exchange_failed` is the catch-all for a provider login the gateway
+ * rejected for any other reason; its `message` carries the gateway's own text.
+ */
+export type LoginErrorCode = "email_not_verified" | "provider_conflict" | "provider_exchange_failed";
 
 export interface LoginErrorResponse {
   error_code: LoginErrorCode;

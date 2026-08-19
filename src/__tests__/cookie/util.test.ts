@@ -51,6 +51,14 @@ describe("Cookie Utilities", () => {
       expect(result.key).toBeDefined();
     });
 
+    it("should preserve padding characters in a base64 value", () => {
+      setCookie("prefix_token", "YWJjMTIz+ZGVmL2doaQ==", {path: "/"});
+
+      const result: Partial<Record<string, string>> = getAllCookiesStartWith("prefix");
+
+      expect(result.token).toBe("YWJjMTIz+ZGVmL2doaQ==");
+    });
+
     it("should filter out the exact prefix key", () => {
       document.cookie = "prefix=exactmatch; path=/";
       document.cookie = "prefix_key=value; path=/";

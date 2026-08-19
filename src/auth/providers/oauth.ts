@@ -5,6 +5,7 @@
 
 import {atom, type WritableAtom} from "nanostores";
 import {getOauthState} from "../state";
+import {shared} from "../../shared-runtime";
 import {AuthProvider} from "./types";
 
 /**
@@ -13,6 +14,7 @@ import {AuthProvider} from "./types";
 export interface OAuthProviderConfig {
   clientId: string;
   scope?: string;
+  redirectUri?: string;
 }
 
 /**
@@ -48,9 +50,10 @@ export interface OAuthProviderResult {
  * Builds an OAuth URL from configuration and metadata
  */
 export const buildOAuthUrl = (config: OAuthProviderConfig, metadata: OAuthProviderMetadata, state: string): string => {
+  const redirectUri = config.redirectUri ?? window.location.origin;
   const params = new URLSearchParams({
     client_id: config.clientId,
-    redirect_uri: window.location.origin,
+    redirect_uri: redirectUri,
     response_type: metadata.responseType,
     scope: [...metadata.defaultScopes, ...(config.scope ? [config.scope] : [])].join(" "),
     state: state,
@@ -88,8 +91,11 @@ export const warnProviderNotConfigured = (providerName: string): void => {
  * This factory reduces code duplication across OAuth providers
  */
 export const createOAuthProvider = ({provider, metadata}: CreateOAuthProviderConfig): OAuthProviderResult => {
-  const config = atom<OAuthProviderConfig | null>(null);
-  const authUrl = atom<string | null>(null);
+  // Shared across copies of this package: connect() configures exactly one copy,
+  // so a per-copy atom leaves every other copy with a null authUrl and makes
+  // login() throw "provider is not configured" for an SDK that is configured.
+  const config = shared(`provider.${provider}.config`, () => atom<OAuthProviderConfig | null>(null));
+  const authUrl = shared(`provider.${provider}.authUrl`, () => atom<string | null>(null));
 
   const updateAuthUrl = () => {
     const currentConfig = config.get();

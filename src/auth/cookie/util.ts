@@ -1,3 +1,12 @@
+// Splitting on every "=" truncates any value containing one: setCookie() writes
+// "=" unescaped, so a padded-base64 token comes back cut at its first pad char
+// and is then rejected by the API as an expired credential.
+const splitOnFirstEquals = (pair: string): [string, string] => {
+  const trimmed = pair.trim();
+  const separator = trimmed.indexOf("=");
+  return separator === -1 ? [trimmed, ""] : [trimmed.slice(0, separator), trimmed.slice(separator + 1).trim()];
+};
+
 export const getAllCookiesStartWith = (startWithKey: string): Partial<Record<string, string>> => {
   // Check if document is available (not in test/SSR environment)
   if (typeof document === "undefined") {
@@ -6,7 +15,7 @@ export const getAllCookiesStartWith = (startWithKey: string): Partial<Record<str
 
   return document.cookie
     .split(";")
-    .map((cv) => cv.split("=").map((v) => v.trim()))
+    .map(splitOnFirstEquals)
     .filter(([key]) => key && key !== startWithKey && key.startsWith(startWithKey))
     .reduce((ac, [key, value]) => Object.assign(ac, {[key!.slice(startWithKey.length + 1)]: value}), {});
 };

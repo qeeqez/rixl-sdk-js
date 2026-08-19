@@ -26,7 +26,6 @@ export function createProvidersMock(): {
   googleAuthUrl: {get: ReturnType<typeof vi.fn>; set: ReturnType<typeof vi.fn>};
   microsoftAuthUrl: {get: ReturnType<typeof vi.fn>; set: ReturnType<typeof vi.fn>};
   telegramAuthUrl: {get: ReturnType<typeof vi.fn>; set: ReturnType<typeof vi.fn>};
-  detectProvider: ReturnType<typeof vi.fn>;
   AuthProvider: {BEARER: string};
 } {
   return {
@@ -34,7 +33,6 @@ export function createProvidersMock(): {
     googleAuthUrl: {get: vi.fn(() => "https://google.com/auth"), set: vi.fn()},
     microsoftAuthUrl: {get: vi.fn(() => "https://microsoft.com/auth"), set: vi.fn()},
     telegramAuthUrl: {get: vi.fn(() => "https://telegram.com/auth"), set: vi.fn()},
-    detectProvider: vi.fn(() => undefined),
     AuthProvider: {BEARER: "bearer"},
   };
 }
