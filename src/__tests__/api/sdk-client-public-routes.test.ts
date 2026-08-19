@@ -59,6 +59,7 @@ describe("SDK client request interceptor", () => {
     "POST /auth/v1/passkey/login/begin",
     "POST /auth/v1/passkey/login/finish",
     "POST /auth/v1/logout",
+    "POST /auth/v1/providers/connect",
     "POST /auth/v1/blog/unsubscribe/email",
     "POST /auth/v1/blog/broadcast",
     "POST /platform/auth/v1/token",

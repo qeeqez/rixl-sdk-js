@@ -1,12 +1,17 @@
-let loginRedirectUrl: string | undefined;
+import {shared} from "../shared-runtime";
+
+// Shared across copies of this package: connect() records the URL in exactly one
+// copy, so a per-copy variable makes redirectToLogin() a silent no-op whenever it
+// is reached through any other copy — the session expires and nothing happens.
+const config = shared("authConfig", () => ({loginRedirectUrl: undefined as string | undefined}));
 
 export const setLoginRedirectUrl = (url?: string): void => {
-  loginRedirectUrl = url;
+  config.loginRedirectUrl = url;
 };
 
 export const redirectToLogin = (): void => {
-  if (!loginRedirectUrl) return;
+  if (!config.loginRedirectUrl) return;
   if (typeof window === "undefined") return;
 
-  window.location.href = loginRedirectUrl;
+  window.location.href = config.loginRedirectUrl;
 };

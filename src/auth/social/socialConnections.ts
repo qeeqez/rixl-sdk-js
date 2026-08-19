@@ -4,7 +4,7 @@ import {
   authV1ProvidersServiceDisconnectProvider,
 } from "../../generated/sdk.gen";
 import type {AuthV1ExternalAccountProvider} from "../../generated/types.gen";
-import {login} from "../authStore";
+import {getToken, login} from "../authStore";
 import {AuthProvider} from "../providers/types";
 import {setSocialConnectAttempt} from "./socialState";
 import {apiCall} from "../api/utils";
@@ -41,10 +41,10 @@ const PROVIDER_FROM_PROTO: Partial<Record<AuthV1ExternalAccountProvider, Provide
 };
 
 // Both Telegram login flavors connect the same external account.
-const normalizeProviderType = (provider: string): ProviderType =>
+export const normalizeProviderType = (provider: string): ProviderType =>
   provider === AuthProvider.TELEGRAM_WEB || provider === AuthProvider.TELEGRAM_MINI_APP ? "telegram" : (provider as ProviderType);
 
-const toProtoProvider = (provider: ProviderType): AuthV1ExternalAccountProvider => {
+export const toProtoProvider = (provider: ProviderType): AuthV1ExternalAccountProvider => {
   const proto = PROVIDER_TO_PROTO[provider];
   if (!proto) {
     throw new Error(`Unknown provider: ${provider}`);
@@ -83,11 +83,14 @@ export const connectSocialInternal = async (provider: string, token: string): Pr
   return apiCall(
     async () => {
       const requestBody = validateInput(ConnectProviderSchema, {provider, token});
+      const sessionToken = await getToken();
+      const headers: Record<string, string> = sessionToken ? {Authorization: `Bearer ${sessionToken}`} : {};
       const {data} = await authV1ProvidersServiceConnectProvider({
         body: {
           provider: toProtoProvider(normalizeProviderType(requestBody.provider)),
           token: requestBody.token,
         },
+        headers,
         throwOnError: true,
       });
       persistTokens(data);

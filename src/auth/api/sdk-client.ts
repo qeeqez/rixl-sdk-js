@@ -52,6 +52,7 @@ const publicRoutes: ReadonlyArray<{method: string; path: string; prefix?: boolea
   {method: "POST", path: "/auth/v1/passkey/login/begin"},
   {method: "POST", path: "/auth/v1/passkey/login/finish"},
   {method: "POST", path: "/auth/v1/logout"},
+  {method: "POST", path: "/auth/v1/providers/connect"},
   {method: "POST", path: "/auth/v1/blog/unsubscribe/email"},
   {method: "POST", path: "/auth/v1/blog/broadcast"},
   {method: "GET", path: "/media/v1/videos/", prefix: true},

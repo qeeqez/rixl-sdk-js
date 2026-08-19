@@ -1,16 +1,18 @@
 import {atom, type WritableAtom} from "nanostores";
 import {warnProviderNotConfigured} from "./oauth";
+import {shared} from "../../shared-runtime";
 
 // Provider configuration interface
 export interface TelegramProviderConfig {
   botId: string;
 }
 
-// Store provider configuration
-export const telegramConfig: WritableAtom<TelegramProviderConfig | null> = atom<TelegramProviderConfig | null>(null);
+// Shared across copies of this package, for the reason given in oauth.ts.
+export const telegramConfig: WritableAtom<TelegramProviderConfig | null> = shared("provider.telegram.config", () =>
+  atom<TelegramProviderConfig | null>(null)
+);
 
-// Store for Telegram auth URL
-export const telegramAuthUrl: WritableAtom<string | null> = atom<string | null>(null);
+export const telegramAuthUrl: WritableAtom<string | null> = shared("provider.telegram.authUrl", () => atom<string | null>(null));
 
 /**
  * Updates the Telegram authentication URL using the configured settings
