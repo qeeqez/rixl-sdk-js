@@ -12,6 +12,7 @@ import {
   type OAuthProviderMetadata,
 } from "@/providers/oauth.ts";
 import {AuthProvider} from "@/providers";
+import {resetSharedRuntime} from "../setup/shared-runtime-reset";
 
 // Mock state module
 vi.mock("../../auth/state", () => ({
@@ -23,12 +24,16 @@ const originalLocation = global.window?.location;
 
 beforeEach(() => {
   vi.clearAllMocks();
+  // Providers created here share their atoms with every other copy of the
+  // package, so each case needs a clean registry to get its own.
+  resetSharedRuntime();
 
   // Mock window.location
   delete (global as any).window;
   (global as any).window = {
     location: {
       origin: "https://app.example.com",
+      pathname: "/",
       href: "https://app.example.com/",
     },
   };

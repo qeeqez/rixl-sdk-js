@@ -14,6 +14,16 @@ export function validateOAuthState(provider: string, state: string): boolean {
 }
 
 /**
+ * Discards the stored state for a provider so the next login round-trip mints a
+ * fresh one. The state doubles as the OAuth `nonce`, so reusing it across logins
+ * would replay a nonce the provider has already issued a token for.
+ * @param provider The provider identifier
+ */
+export function clearOauthState(provider: string): void {
+  sessionStorage.removeItem(storagePath(provider));
+}
+
+/**
  * Gets or Generates a complete state parameter for OAuth requests
  * @param provider The identifier for the provider (e.g., 'google', 'apple')
  * @returns A state string containing the provider identifier and random data

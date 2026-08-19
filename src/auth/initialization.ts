@@ -1,3 +1,5 @@
+import {shared} from "../shared-runtime";
+
 /**
  * Interface for a deferred promise that can be resolved or rejected externally
  */
@@ -24,7 +26,12 @@ export function createDeferred(): Deferred {
 }
 
 /**
- * Global deferred promise that tracks the initialization status of the auth library
- * This is resolved when initClient is called
+ * Global deferred promise that tracks the initialization status of the auth library.
+ * This is resolved when initClient is called.
+ *
+ * Shared across copies of this package. `connect()` runs in exactly one copy, so
+ * a per-copy deferred leaves every other copy awaiting a promise nothing will
+ * ever resolve — and because getToken() and the request interceptor both await
+ * it, that is not a slow path but a permanent hang.
  */
-export const initDeferred: Deferred = createDeferred();
+export const initDeferred: Deferred = shared("initDeferred", createDeferred);

@@ -49,8 +49,7 @@
   },
   "dependencies": {
     "jose": "^6.2.3",
-    "ky": "^2.0.2",
-    "nanostores": "^1.4.0",
+    "nanostores": "^1.5.1",
     "valibot": "^1.4.2"
   },
   "devDependencies": {

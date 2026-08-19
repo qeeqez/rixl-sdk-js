@@ -7,6 +7,7 @@ import {describe, it, expect, beforeEach, vi} from "vitest";
 import {buildOAuthUrl, createOAuthProvider, warnProviderNotConfigured} from "../auth/providers/oauth";
 import {AuthProvider} from "@/providers";
 import * as state from "../auth/state";
+import {resetSharedRuntime} from "./setup/shared-runtime-reset";
 
 vi.mock("../auth/state", () => ({
   getOauthState: vi.fn(),
@@ -18,6 +19,9 @@ describe("OAuth Providers", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    // Providers created here share their atoms with every other copy of the
+    // package, so each case needs a clean registry to get its own.
+    resetSharedRuntime();
     mockGetOauthState.mockReturnValue("google_test-state-123");
 
     // Mock window.location

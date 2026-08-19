@@ -27,6 +27,10 @@ vi.mock("../../auth/initialization", () => ({
 
 vi.mock("../../auth/providers", () => ({
   detectProvider: vi.fn(),
+  completeOAuthCallback: vi.fn(),
+  logProviderExchangeFailure: vi.fn(),
+  hasProviderResponse: vi.fn(() => false),
+  logUnusableProviderResponse: vi.fn(),
   getProviderToken: vi.fn(),
 }));
 

@@ -1,6 +1,6 @@
 import {atom, type WritableAtom} from "nanostores";
 import {refreshTokens} from "./api/refresh-tokens";
-import {appleAuthUrl, AuthProvider, detectProvider, googleAuthUrl, telegramAuthUrl, microsoftAuthUrl} from "./providers";
+import {appleAuthUrl, AuthProvider, googleAuthUrl, telegramAuthUrl, microsoftAuthUrl} from "./providers";
 import {initDeferred} from "./initialization";
 import {initVals, setStoreCookie} from "./cookie";
 import {user} from "./userStore";
@@ -13,9 +13,11 @@ import {shared} from "../shared-runtime";
 // Store for authentication state. Shared across copies of this package: a
 // duplicate copy would otherwise hydrate its own tokens from the cookie and
 // then silently diverge on the first refresh or logout.
-export const isLogged: WritableAtom<boolean> = shared("isLogged", () =>
-  atom(initVals["isLogged"] === "true" || detectProvider() !== undefined)
-);
+//
+// Seeded from the cookie only. An OAuth callback in the URL is not evidence of a
+// session — the exchange can still fail — so consumers must await initClient()
+// before reading this on a callback load rather than trusting an optimistic true.
+export const isLogged: WritableAtom<boolean> = shared("isLogged", () => atom(initVals["isLogged"] === "true"));
 export const accessToken: WritableAtom<string | undefined> = shared("accessToken", () => atom(initVals["accessToken"]));
 export const refreshToken: WritableAtom<string | undefined> = shared("refreshToken", () => atom(initVals["refreshToken"]));
 export const expireAt: WritableAtom<number> = shared("expireAt", () => atom(Number(initVals["expireAt"])));
@@ -31,15 +33,18 @@ export const limitedAccessToken: WritableAtom<string | null> = shared("limitedAc
   atom<string | null>(initVals["limitedAccessToken"] || null)
 );
 
-// Store the current getToken promise
-let currentTokenPromise: Promise<string | undefined> | null = null;
+// The in-flight getToken() call, so concurrent callers share one refresh.
+// Shared across copies of this package: refresh tokens rotate, so two copies
+// refreshing at once would have the slower one present a token the gateway has
+// already retired, failing a refresh that should have succeeded.
+const inFlight = shared("getTokenPromise", () => ({promise: null as Promise<string | undefined> | null}));
 
 /**
  * Reset the current token promise (for testing purposes)
  * @internal
  */
 export const resetTokenPromise = (): void => {
-  currentTokenPromise = null;
+  inFlight.promise = null;
 };
 
 // Map providers to their auth URL atoms
@@ -92,12 +97,12 @@ const ensureValidAccessToken = async (refresh: string): Promise<void> => {
 
 export const getToken = async (): Promise<string | undefined> => {
   // If there's already a getToken operation in progress, return that promise
-  if (currentTokenPromise) {
-    return currentTokenPromise;
+  if (inFlight.promise) {
+    return inFlight.promise;
   }
 
   // Create a new promise for the getToken operation
-  currentTokenPromise = (async () => {
+  inFlight.promise = (async () => {
     try {
       // Wait for the library to be initialized
       await initDeferred.promise;
@@ -121,11 +126,11 @@ export const getToken = async (): Promise<string | undefined> => {
       throw error;
     } finally {
       // Clear the promise reference when done
-      currentTokenPromise = null;
+      inFlight.promise = null;
     }
   })();
 
-  return currentTokenPromise;
+  return inFlight.promise;
 };
 /**
  * Sets authentication tokens in the store

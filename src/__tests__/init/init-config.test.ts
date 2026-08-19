@@ -37,21 +37,20 @@ vi.mock("../../auth/providers", () => ({
   updateTelegramAuthUrl: vi.fn(),
   getProviderToken: vi.fn(),
   detectProvider: vi.fn(),
+  completeOAuthCallback: vi.fn(),
+  logProviderExchangeFailure: vi.fn(),
+  hasProviderResponse: vi.fn(() => false),
+  logUnusableProviderResponse: vi.fn(),
   AuthProvider: {BEARER: "bearer"},
 }));
 
 // Mock API client core
-vi.mock("../../auth/api/client-core", () => ({
-  setTokenRefreshFunction: vi.fn(),
-}));
-
 vi.mock("../../auth/api/sdk-client", () => ({
   configureSdkClient: vi.fn(),
 }));
 
 describe("initClient - Basic Configuration", () => {
   let mockApiURL: any;
-  let mockSetTokenRefreshFunction: any;
   let mockInitDeferred: any;
   let mockDetectProvider: any;
   let mockGetToken: any;
@@ -61,9 +60,6 @@ describe("initClient - Basic Configuration", () => {
 
     const {apiURL} = await import("../../auth/api-url");
     mockApiURL = apiURL;
-
-    const apiClientCore = await import("../../auth/api/client-core");
-    mockSetTokenRefreshFunction = apiClientCore.setTokenRefreshFunction;
 
     const initialization = await import("../../auth/initialization");
     mockInitDeferred = initialization.initDeferred;
@@ -86,7 +82,6 @@ describe("initClient - Basic Configuration", () => {
     const token = await initClient(config);
 
     expect(mockApiURL.set).toHaveBeenCalledWith("https://api.example.com");
-    expect(mockSetTokenRefreshFunction).toHaveBeenCalled();
     expect(mockInitDeferred.resolve).toHaveBeenCalled();
     expect(token).toBe("access-token");
   });

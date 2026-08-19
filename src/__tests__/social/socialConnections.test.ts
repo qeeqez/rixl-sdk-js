@@ -157,6 +157,7 @@ describe("Social Connections Module", () => {
 
       expect(mockPostAuthV1ProvidersConnect).toHaveBeenCalledWith({
         body: {provider: "EXTERNAL_ACCOUNT_PROVIDER_GOOGLE", token: "google-oauth-token"},
+        headers: {Authorization: "Bearer mock-token"},
         throwOnError: true,
       });
     });
@@ -168,6 +169,7 @@ describe("Social Connections Module", () => {
 
       expect(mockPostAuthV1ProvidersConnect).toHaveBeenCalledWith({
         body: {provider: "EXTERNAL_ACCOUNT_PROVIDER_APPLE", token: "apple-id-token"},
+        headers: {Authorization: "Bearer mock-token"},
         throwOnError: true,
       });
     });
@@ -179,6 +181,7 @@ describe("Social Connections Module", () => {
 
       expect(mockPostAuthV1ProvidersConnect).toHaveBeenCalledWith({
         body: {provider: "EXTERNAL_ACCOUNT_PROVIDER_TELEGRAM", token: "tg-token"},
+        headers: {Authorization: "Bearer mock-token"},
         throwOnError: true,
       });
     });
@@ -204,6 +207,7 @@ describe("Social Connections Module", () => {
           provider: "EXTERNAL_ACCOUNT_PROVIDER_MICROSOFT",
           token: "ms-token-123",
         }),
+        headers: {Authorization: "Bearer mock-token"},
         throwOnError: true,
       });
     });
