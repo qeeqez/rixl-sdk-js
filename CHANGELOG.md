@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.1](https://github.com/rixlhq/rixl-js/compare/v0.9.0...v0.9.1) (2026-08-19)
+
+
+### Bug Fixes
+
+* **auth:** map provider token_type to OpenAPI ExternalAccountProvider enum ([cc7a555](https://github.com/rixlhq/rixl-js/commit/cc7a5553d707aab53ea89ac89d4951975c588184))
+* fix provider login ([f698881](https://github.com/rixlhq/rixl-js/commit/f69888189b22bf404928c7c76695d84a763715ed))
+
 ## [0.9.0](https://github.com/rixlhq/rixl-js/compare/v0.8.3...v0.9.0) (2026-08-13)
 
 
