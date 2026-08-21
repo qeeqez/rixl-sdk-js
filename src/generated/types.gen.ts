@@ -602,6 +602,59 @@ export type AnalyticsV1EventCount = {
 };
 
 /**
+ * ExportDashboardRequest
+ */
+export type AnalyticsV1ExportDashboardRequest = {
+    /**
+     * dashboard_id
+     */
+    dashboard_id: string;
+    /**
+     * time_start
+     */
+    time_start: string;
+    /**
+     * time_end
+     */
+    time_end: string;
+    /**
+     * format
+     */
+    format?: AnalyticsV1ExportFormat;
+};
+
+/**
+ * ExportDashboardResponse
+ */
+export type AnalyticsV1ExportDashboardResponse = {
+    /**
+     * content
+     */
+    content?: string;
+    /**
+     * content_type
+     */
+    content_type?: string;
+    /**
+     * filename
+     */
+    filename?: string;
+    /**
+     * widget_count
+     */
+    widget_count?: number;
+    /**
+     * row_count
+     */
+    row_count?: number;
+};
+
+/**
+ * ExportFormat
+ */
+export type AnalyticsV1ExportFormat = 'EXPORT_FORMAT_UNSPECIFIED' | 'EXPORT_FORMAT_CSV' | 'EXPORT_FORMAT_XLSX' | 'EXPORT_FORMAT_PDF' | 'EXPORT_FORMAT_JSON';
+
+/**
  * FeedStats
  */
 export type AnalyticsV1FeedStats = {
@@ -8091,6 +8144,47 @@ export type AnalyticsV1DashboardServiceUpdateWidgetResponses = {
 };
 
 export type AnalyticsV1DashboardServiceUpdateWidgetResponse = AnalyticsV1DashboardServiceUpdateWidgetResponses[keyof AnalyticsV1DashboardServiceUpdateWidgetResponses];
+
+export type AnalyticsV1DashboardServiceExportDashboardData = {
+    /**
+     * ExportDashboardRequest
+     */
+    body: {
+        /**
+         * dashboard_id
+         */
+        dashboard_id: string;
+        /**
+         * time_start
+         */
+        time_start: string;
+        /**
+         * time_end
+         */
+        time_end: string;
+        /**
+         * format
+         */
+        format?: AnalyticsV1ExportFormat;
+    };
+    path: {
+        /**
+         * dashboard_id
+         */
+        dashboard_id: string;
+    };
+    query?: never;
+    url: '/analytics/v1/dashboards/{dashboard_id}/export';
+};
+
+export type AnalyticsV1DashboardServiceExportDashboardResponses = {
+    /**
+     * Success
+     */
+    200: AnalyticsV1ExportDashboardResponse;
+};
+
+export type AnalyticsV1DashboardServiceExportDashboardResponse = AnalyticsV1DashboardServiceExportDashboardResponses[keyof AnalyticsV1DashboardServiceExportDashboardResponses];
 
 export type AnalyticsV1DashboardServiceUpdateDashboardLayoutData = {
     /**
