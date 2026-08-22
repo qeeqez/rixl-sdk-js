@@ -202,8 +202,27 @@ describe("Login Functions", () => {
       expect(mocks.setTokensSpy).toHaveBeenCalledWith(mockToken, "refresh-123", 3600);
     });
 
-    it("should throw error for invalid code format", async () => {
-      await expect(verifyTOTPForLogin("abc", "session-123")).rejects.toThrow();
+    it("should accept a backup code in place of a TOTP code", async () => {
+      const mockToken = createMockJWT();
+      mockPostAuthV1VerifyTotp.mockResolvedValue({
+        data: {
+          access_token: mockToken,
+          refresh_token: "refresh-123",
+          expires_in: 3600,
+        },
+      });
+
+      await verifyTOTPForLogin("BACKUP-CODE-ABC", "session-123");
+
+      expect(mockPostAuthV1VerifyTotp).toHaveBeenCalledWith({
+        body: {code: "BACKUP-CODE-ABC", session_id: "session-123"},
+        throwOnError: true,
+      });
+      expect(mocks.setTokensSpy).toHaveBeenCalledWith(mockToken, "refresh-123", 3600);
+    });
+
+    it("should throw error for empty code", async () => {
+      await expect(verifyTOTPForLogin("", "session-123")).rejects.toThrow();
     });
 
     it("should throw error for session not found", async () => {

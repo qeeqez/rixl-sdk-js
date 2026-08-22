@@ -1,5 +1,14 @@
 import {describe, it, expect, beforeEach, afterEach, vi} from "vitest";
-import {updateFullName, updateUsername, getUserInfo, getOTPStatus, setupUserOTP, verifyUserOTP, deleteUserOTP} from "../auth/user";
+import {
+  updateFullName,
+  updateUsername,
+  getUserInfo,
+  getOTPStatus,
+  setupUserOTP,
+  verifyUserOTP,
+  deleteUserOTP,
+  regenerateBackupCodes,
+} from "../auth/user";
 import {setupAuthTest, cleanupAuthMocks} from "./utils/auth-test-helpers";
 
 const mockPatchAuthV1UsersCurrentName = vi.fn();
@@ -9,6 +18,7 @@ const mockGetAuthV1UsersCurrentTotpStatus = vi.fn();
 const mockPostAuthV1UsersCurrentTotpSetup = vi.fn();
 const mockPostAuthV1UsersCurrentTotpVerify = vi.fn();
 const mockDeleteAuthV1UsersCurrentTotpDelete = vi.fn();
+const mockPostAuthV1UsersCurrentTotpBackupCodesRegenerate = vi.fn();
 
 vi.mock("../generated/sdk.gen", () => ({
   authV1UserServiceUpdateName: (...args: unknown[]) => mockPatchAuthV1UsersCurrentName(...args),
@@ -18,6 +28,7 @@ vi.mock("../generated/sdk.gen", () => ({
   authV1OtpServiceSetupOtp: (...args: unknown[]) => mockPostAuthV1UsersCurrentTotpSetup(...args),
   authV1OtpServiceVerifyOtp: (...args: unknown[]) => mockPostAuthV1UsersCurrentTotpVerify(...args),
   authV1OtpServiceDeleteOtp: (...args: unknown[]) => mockDeleteAuthV1UsersCurrentTotpDelete(...args),
+  authV1OtpServiceRegenerateBackupCodes: (...args: unknown[]) => mockPostAuthV1UsersCurrentTotpBackupCodesRegenerate(...args),
 }));
 
 describe("User Management", () => {
@@ -32,6 +43,7 @@ describe("User Management", () => {
     mockPostAuthV1UsersCurrentTotpSetup.mockReset();
     mockPostAuthV1UsersCurrentTotpVerify.mockReset();
     mockDeleteAuthV1UsersCurrentTotpDelete.mockReset();
+    mockPostAuthV1UsersCurrentTotpBackupCodesRegenerate.mockReset();
   });
 
   afterEach(() => {
@@ -195,6 +207,7 @@ describe("User Management", () => {
         data: {
           is_setup: true,
           created_at: "2024-01-01",
+          backup_codes_remaining: 8,
         },
       });
 
@@ -203,6 +216,7 @@ describe("User Management", () => {
       expect(result).toEqual({
         is_setup: true,
         created_at: "2024-01-01",
+        backup_codes_remaining: 8,
       });
       expect(mockGetAuthV1UsersCurrentTotpStatus).toHaveBeenCalledWith({
         throwOnError: true,
@@ -310,6 +324,43 @@ describe("User Management", () => {
       });
 
       await expect(deleteUserOTP()).rejects.toThrow();
+    });
+  });
+
+  describe("regenerateBackupCodes", () => {
+    it("should return backup codes", async () => {
+      mockPostAuthV1UsersCurrentTotpBackupCodesRegenerate.mockResolvedValue({
+        data: {
+          backup_codes: ["backup-1", "backup-2"],
+        },
+      });
+
+      const result = await regenerateBackupCodes();
+
+      expect(result).toEqual({
+        backup_codes: ["backup-1", "backup-2"],
+      });
+      expect(mockPostAuthV1UsersCurrentTotpBackupCodesRegenerate).toHaveBeenCalledWith({
+        throwOnError: true,
+      });
+    });
+
+    it("should pass user_id when provided", async () => {
+      mockPostAuthV1UsersCurrentTotpBackupCodesRegenerate.mockResolvedValue({
+        data: {
+          backup_codes: ["backup-3"],
+        },
+      });
+
+      const result = await regenerateBackupCodes("user-123");
+
+      expect(result).toEqual({
+        backup_codes: ["backup-3"],
+      });
+      expect(mockPostAuthV1UsersCurrentTotpBackupCodesRegenerate).toHaveBeenCalledWith({
+        query: {user_id: "user-123"},
+        throwOnError: true,
+      });
     });
   });
 });
