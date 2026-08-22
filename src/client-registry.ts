@@ -10,7 +10,7 @@ type ClientInitializer = (target: GeneratedClient) => void;
  * simply never been configured. Captured from the client itself rather than
  * hardcoded so it stays correct if the generator input ever moves.
  */
-const placeholderBaseUrl = shared("placeholderBaseUrl", () => client.getConfig().baseUrl);
+const placeholderBaseUrl = shared("placeholderBaseUrl", () => client.getConfig().baseUrl ?? "https://raw.githubusercontent.com");
 
 const clients = shared("clients", () => new Set<GeneratedClient>());
 
