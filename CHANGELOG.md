@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.12.0](https://github.com/rixlhq/rixl-js/compare/v0.11.0...v0.12.0) (2026-08-22)
+
+
+### Features
+
+* regenerate sdk ([1dc3f10](https://github.com/rixlhq/rixl-js/commit/1dc3f1048c73acbe1a2f8613c7f1c958021ee399))
+
+
+### Bug Fixes
+
+* **client:** keep placeholder guard when generator omits baseUrl ([fe85444](https://github.com/rixlhq/rixl-js/commit/fe854442f1944c4ee874b4051a4ef4ef573d1a18))
+* **sdk:** regenerate from latest spec to update permission registry route ([04cfcb6](https://github.com/rixlhq/rixl-js/commit/04cfcb60ea2320add0f3f8f51dec2b28fc1d8051))
+
 ## [0.11.0](https://github.com/rixlhq/rixl-js/compare/v0.10.0...v0.11.0) (2026-08-21)
 
 
