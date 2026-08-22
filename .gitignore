@@ -39,7 +39,6 @@ coverage
 *.sln
 *.sw?
 openapi.yaml
-openapi/
 
 # Sentry Config File
 .env.sentry-build-plugin
