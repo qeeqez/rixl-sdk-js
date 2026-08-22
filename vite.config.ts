@@ -17,7 +17,7 @@ const codegenPlugins =
         return [
           heyApiPlugin({
             config: {
-              input: "https://raw.githubusercontent.com/rixlhq/openapi/refs/heads/main/openapi.yaml",
+              input: process.env.RIXL_OPENAPI_INPUT || "../openapi/openapi.yaml",
               output: "src/generated",
             },
           }),
