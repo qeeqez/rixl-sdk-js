@@ -55,8 +55,10 @@ export {
   setupUserOTP,
   deleteUserOTP,
   getOTPStatus,
+  regenerateBackupCodes,
   type OTPSetup,
   type OTPStatusResponse,
+  type BackupCodes,
   type UserInfo,
 } from "./user";
 export {updateOrgName, updateOrgUsername} from "./organization";

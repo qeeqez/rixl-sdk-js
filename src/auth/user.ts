@@ -6,6 +6,7 @@ import {
   authV1OtpServiceSetupOtp,
   authV1OtpServiceVerifyOtp,
   authV1OtpServiceDeleteOtp,
+  authV1OtpServiceRegenerateBackupCodes,
 } from "../generated/sdk.gen";
 import {validateInput} from "./validation/base";
 import {UpdateNameSchema, UpdateUsernameSchema} from "./validation/user";
@@ -17,6 +18,11 @@ import {HTTP_STATUS} from "./constants";
 export interface OTPSetup {
   qrCodeUrl: string;
   secret: string;
+  backup_codes?: string[];
+}
+
+export interface BackupCodes {
+  backup_codes: string[];
 }
 
 export interface OTPStatusResponse {
@@ -134,6 +140,7 @@ export const setupUserOTP = async (): Promise<OTPSetup> => {
       return {
         qrCodeUrl: data.qr_code_url || "",
         secret: data.secret || "",
+        backup_codes: data.backup_codes ?? [],
       };
     },
     {
@@ -166,6 +173,23 @@ export const deleteUserOTP = async (): Promise<void> => {
       await authV1OtpServiceDeleteOtp({
         throwOnError: true,
       });
+    },
+    {
+      [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Token is missing or invalid; user is not authenticated."),
+    }
+  );
+};
+
+export const regenerateBackupCodes = async (): Promise<BackupCodes> => {
+  return apiCall(
+    async () => {
+      const {data} = await authV1OtpServiceRegenerateBackupCodes({
+        throwOnError: true,
+      });
+
+      return {
+        backup_codes: data.backup_codes ?? [],
+      };
     },
     {
       [HTTP_STATUS.UNAUTHORIZED]: () => new Error("Token is missing or invalid; user is not authenticated."),
