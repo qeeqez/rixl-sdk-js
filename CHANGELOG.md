@@ -1,5 +1,65 @@
 # Changelog
 
+## [0.7.0](https://github.com/rixlhq/rixl-js/compare/v0.6.0...v0.7.0) (2026-08-24)
+
+
+### Features
+
+* add getUserInfo ([9118090](https://github.com/rixlhq/rixl-js/commit/9118090213f8c17908f9ae801f1cedb3ea368d8f))
+* **membership:** add MembershipApplication type and toMembershipApplication mapper ([ac9ea7f](https://github.com/rixlhq/rixl-js/commit/ac9ea7fd1dc7acde793cea3f8ca40fe82cb9ca44))
+* **passkey:** expose PasskeyUnavailableError for beginPasskeyLogin ([f1e9ebc](https://github.com/rixlhq/rixl-js/commit/f1e9ebc9a5a81c2b96f82528e37c0271b33e05ca))
+* regenerate sdk ([1dc3f10](https://github.com/rixlhq/rixl-js/commit/1dc3f1048c73acbe1a2f8613c7f1c958021ee399))
+* regenerate sdk ([e614327](https://github.com/rixlhq/rixl-js/commit/e614327f98e96664c07b41ad6c5354075f895b74))
+* **sdk:** regenerate based on latest OpenAPI spec ([60aa899](https://github.com/rixlhq/rixl-js/commit/60aa8996c1c31d292cf46c2102aff0abde863dfc))
+* **sdk:** regenerate based on latest OpenAPI spec ([164d125](https://github.com/rixlhq/rixl-js/commit/164d125f10ca9e93c5044b6901651e20d37251e7))
+* **sdk:** regenerate based on latest OpenAPI spec ([f073f2d](https://github.com/rixlhq/rixl-js/commit/f073f2d1f99241c72e8084916e41a5f202c6071b))
+* **sdk:** regenerate based on latest OpenAPI spec ([c367cf5](https://github.com/rixlhq/rixl-js/commit/c367cf515b01770272e277346360d159e34e5ebd))
+* support TOTP backup codes in setup, status, regenerate and login ([7005377](https://github.com/rixlhq/rixl-js/commit/7005377ed43a75829c614093af925f7a08ee945a))
+* support TOTP backup codes in setup, status, regenerate and login ([d20d49c](https://github.com/rixlhq/rixl-js/commit/d20d49ce0ae5922035e8bcb8677c128db7d20379))
+
+
+### Bug Fixes
+
+* align login response handling with spec ([526e60f](https://github.com/rixlhq/rixl-js/commit/526e60faa72bb356711a8264cbcb7edf1ff397ae))
+* align membership tests with updated proto enum values ([a25b258](https://github.com/rixlhq/rixl-js/commit/a25b258481e312055ab0093931265e173b059106))
+* always exchange OAuth code on login redirect regardless of existing refresh token ([4a85082](https://github.com/rixlhq/rixl-js/commit/4a85082e90d62d9e7798ea215b59073141273cdf))
+* **api:** wrap generated-client errors into ApiError with HTTP status ([caaafb8](https://github.com/rixlhq/rixl-js/commit/caaafb85c3b3b08c25ff69da786aaf420595bc1a))
+* **auth:** exchange API keys for a real token instead of forwarding t… ([3344365](https://github.com/rixlhq/rixl-js/commit/33443654ab18b70742e6cda0e16338e2bc2774d7))
+* **auth:** exchange API keys for a real token instead of forwarding them raw ([04f3f4b](https://github.com/rixlhq/rixl-js/commit/04f3f4b75efbc1fd6db0d2f7643006dbf42a739f))
+* **auth:** map AuthMethod values defensively in login response ([3b169d9](https://github.com/rixlhq/rixl-js/commit/3b169d900caa8d71dd4b9dda221eff99f3f207e8))
+* **auth:** map provider token_type to OpenAPI ExternalAccountProvider enum ([cc7a555](https://github.com/rixlhq/rixl-js/commit/cc7a5553d707aab53ea89ac89d4951975c588184))
+* **auth:** send membership_id in updateActiveMembership ([40ac1dc](https://github.com/rixlhq/rixl-js/commit/40ac1dce27ea213a14a79b32f0c7d0c65b29d134))
+* **client:** keep placeholder guard when generator omits baseUrl ([fe85444](https://github.com/rixlhq/rixl-js/commit/fe854442f1944c4ee874b4051a4ef4ef573d1a18))
+* **domain:** preserve unknown status in toDomainResponse ([f96a7e7](https://github.com/rixlhq/rixl-js/commit/f96a7e7441fdedc37554229b925d60915092435a))
+* export MembershipApplication type from auth module ([c137491](https://github.com/rixlhq/rixl-js/commit/c13749178a55414a4c7cc659412b69a314ba3174))
+* fix formatting issues ([ef128a2](https://github.com/rixlhq/rixl-js/commit/ef128a2f6005c1e5d383ba7dd929794257d81305))
+* fix passkey ([e934e44](https://github.com/rixlhq/rixl-js/commit/e934e44799f4026183c2c133b62a554f75a4c0e8))
+* fix provider login ([f698881](https://github.com/rixlhq/rixl-js/commit/f69888189b22bf404928c7c76695d84a763715ed))
+* map nested domain status response to flat shap ([2669f85](https://github.com/rixlhq/rixl-js/commit/2669f85b89d14335120a54411cef7f841a228ab1))
+* **membership:** update listPendingMemberships to use membership-applications endpoint, fix state enums ([dadd5d4](https://github.com/rixlhq/rixl-js/commit/dadd5d48d6305713633343c51f9cb32916353a8f))
+* **passkey:** throw on incomplete token response after login ([ee6ed5f](https://github.com/rixlhq/rixl-js/commit/ee6ed5fcffc8d3925fabc85f08b9c6eb6c72a947))
+* pin typescript to a supported version and upgrade build to lint, format, and run generate before push ([926b11c](https://github.com/rixlhq/rixl-js/commit/926b11c1222e156df87711be99cfd29073d38a3e))
+* publish @rixl/sdk to npm via CI with trusted publishing ([99b790c](https://github.com/rixlhq/rixl-js/commit/99b790cf85a2c3af7456a551fe3857f5a66d231a))
+* read register responses from snake_case wire shape ([600ab81](https://github.com/rixlhq/rixl-js/commit/600ab8187a35e94b9d1827c997fa46c15b12ff33))
+* regenerate sdk ([26b28c7](https://github.com/rixlhq/rixl-js/commit/26b28c7f32ee8506ec6a5e7aeaa3f930f5f890d8))
+* **sdk:** regenerate from latest spec to update permission registry route ([04cfcb6](https://github.com/rixlhq/rixl-js/commit/04cfcb60ea2320add0f3f8f51dec2b28fc1d8051))
+* **sdk:** regenerate from updated OpenAPI spec and bump 0.12.1 ([bfe3d43](https://github.com/rixlhq/rixl-js/commit/bfe3d43c0c73afad6255fe469cdb769bcebf0401))
+* send email requests in snake_case and read responses directly ([2af0c86](https://github.com/rixlhq/rixl-js/commit/2af0c862a498621e7f16227b336018e9ab4435f0))
+* send login TOTP request in snake_case and read response directly ([0f5ca56](https://github.com/rixlhq/rixl-js/commit/0f5ca56035fcd17efef06164bd9c929e164acb0c))
+* send membership requests in snake_case and type mappers via generated ([1462bb3](https://github.com/rixlhq/rixl-js/commit/1462bb33f761141e2ad196b8d3fda1ff555c1612))
+* send name/userinfo requests in snake_case and read responses directly ([d84eaf4](https://github.com/rixlhq/rixl-js/commit/d84eaf4dfc77c60f0a538738e26b8a1a92c5b287))
+* send passkey requests in snake_case and read responses directly ([ea894a3](https://github.com/rixlhq/rixl-js/commit/ea894a318c487a03a053a1a01cb409a57c4a3293))
+* send password reset request in snake_case ([14e3ce3](https://github.com/rixlhq/rixl-js/commit/14e3ce3d50f56bf09872f5fec5a373c507674ca3))
+* send refresh token in logout request ([3a3eb0c](https://github.com/rixlhq/rixl-js/commit/3a3eb0c706e160caf53798a626cc50c33b714bfc))
+* send refresh token in request body ([0346a42](https://github.com/rixlhq/rixl-js/commit/0346a426962b25866b88e748e72a6d58ef1543bd))
+* send refresh token request in snake_case ([a86a3ad](https://github.com/rixlhq/rixl-js/commit/a86a3ad9ebcfcd8dc6448051d8bd8b8a7f1b2d47))
+* send register request in snake_case and read response directly ([41ab1bf](https://github.com/rixlhq/rixl-js/commit/41ab1bfb67c24badf5d8f071bf8ddbfccee05d6f))
+* survive duplicate copies of this package and fail loudly when unconfigured ([1e0cc07](https://github.com/rixlhq/rixl-js/commit/1e0cc07871b7cfbfde073c6d0639a5f373749e12))
+* update register endpoint to match backend ([ccc4b64](https://github.com/rixlhq/rixl-js/commit/ccc4b648d803a6201ac2f0c2874269fa48496f7e))
+* use packageManager string instead of devEngines for bun ([93e9da4](https://github.com/rixlhq/rixl-js/commit/93e9da4b722d2f6d5212e3bb8d25f033e01f4ea5))
+* use provider enum values for social connect/disconnect ([edab6d4](https://github.com/rixlhq/rixl-js/commit/edab6d46b58ffc12bb4159a22395d397bb7365ef))
+* wrong test ([c66e39f](https://github.com/rixlhq/rixl-js/commit/c66e39f7071d5b2ba771d9d0a42ee60f165a398b))
+
 ## [0.6.0](https://github.com/rixlhq/rixl-js/compare/v0.5.0...v0.6.0) (2026-08-24)
 
 
