@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.13.0](https://github.com/rixlhq/rixl-js/compare/v0.12.0...v0.13.0) (2026-08-24)
+
+
+### Features
+
+* support TOTP backup codes in setup, status, regenerate and login ([7005377](https://github.com/rixlhq/rixl-js/commit/7005377ed43a75829c614093af925f7a08ee945a))
+* support TOTP backup codes in setup, status, regenerate and login ([d20d49c](https://github.com/rixlhq/rixl-js/commit/d20d49ce0ae5922035e8bcb8677c128db7d20379))
+
+
+### Bug Fixes
+
+* regenerate sdk ([26b28c7](https://github.com/rixlhq/rixl-js/commit/26b28c7f32ee8506ec6a5e7aeaa3f930f5f890d8))
+* **sdk:** regenerate from updated OpenAPI spec and bump 0.12.1 ([bfe3d43](https://github.com/rixlhq/rixl-js/commit/bfe3d43c0c73afad6255fe469cdb769bcebf0401))
+* wrong test ([c66e39f](https://github.com/rixlhq/rixl-js/commit/c66e39f7071d5b2ba771d9d0a42ee60f165a398b))
+
 ## [0.12.0](https://github.com/rixlhq/rixl-js/compare/v0.11.0...v0.12.0) (2026-08-22)
 
 
