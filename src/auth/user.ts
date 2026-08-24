@@ -21,14 +21,15 @@ export interface OTPSetup {
   backup_codes?: string[];
 }
 
-export interface BackupCodes {
-  backup_codes: string[];
-}
-
 export interface OTPStatusResponse {
   is_setup: boolean;
   created_at?: string;
   message?: string;
+  backup_codes_remaining?: number;
+}
+
+export interface BackupCodes {
+  backup_codes: string[];
 }
 
 export interface OTPVerification {
@@ -122,6 +123,7 @@ export const getOTPStatus = async (): Promise<OTPStatusResponse> => {
       return {
         is_setup: data.is_setup ?? false,
         created_at: data.created_at,
+        backup_codes_remaining: data.backup_codes_remaining,
       };
     },
     {
@@ -180,10 +182,11 @@ export const deleteUserOTP = async (): Promise<void> => {
   );
 };
 
-export const regenerateBackupCodes = async (): Promise<BackupCodes> => {
+export const regenerateBackupCodes = async (userId?: string): Promise<BackupCodes> => {
   return apiCall(
     async () => {
       const {data} = await authV1OtpServiceRegenerateBackupCodes({
+        query: userId ? {user_id: userId} : undefined,
         throwOnError: true,
       });
 
