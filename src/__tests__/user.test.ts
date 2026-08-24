@@ -223,7 +223,28 @@ describe("User Management", () => {
   });
 
   describe("setupUserOTP", () => {
-    it("should return QR code and secret", async () => {
+    it("should return QR code, secret and backup codes", async () => {
+      mockPostAuthV1UsersCurrentTotpSetup.mockResolvedValue({
+        data: {
+          qr_code_url: "https://example.com/qr.png",
+          secret: "JBSWY3DPEHPK3PXP",
+          backup_codes: ["code-1", "code-2"],
+        },
+      });
+
+      const result = await setupUserOTP();
+
+      expect(result).toEqual({
+        qrCodeUrl: "https://example.com/qr.png",
+        secret: "JBSWY3DPEHPK3PXP",
+        backup_codes: ["code-1", "code-2"],
+      });
+      expect(mockPostAuthV1UsersCurrentTotpSetup).toHaveBeenCalledWith({
+        throwOnError: true,
+      });
+    });
+
+    it("should default backup codes to an empty array", async () => {
       mockPostAuthV1UsersCurrentTotpSetup.mockResolvedValue({
         data: {
           qr_code_url: "https://example.com/qr.png",
@@ -236,9 +257,7 @@ describe("User Management", () => {
       expect(result).toEqual({
         qrCodeUrl: "https://example.com/qr.png",
         secret: "JBSWY3DPEHPK3PXP",
-      });
-      expect(mockPostAuthV1UsersCurrentTotpSetup).toHaveBeenCalledWith({
-        throwOnError: true,
+        backup_codes: [],
       });
     });
   });

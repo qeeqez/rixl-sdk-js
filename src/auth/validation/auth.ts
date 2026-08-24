@@ -20,11 +20,7 @@ export const ResetPasswordRequestSchema = v.object({
 });
 
 export const LoginOTPVerifyRequestSchema = v.object({
-  code: v.pipe(
-    v.string("OTP code must be text"),
-    v.maxLength(8, "OTP code must be at most 6 characters"),
-    v.regex(/^\d+$/, "OTP code must contain only numbers")
-  ),
+  code: v.pipe(v.string("OTP code must be text"), v.minLength(1, "OTP code is required"), v.maxLength(64, "OTP code is too long")),
   session_id: v.pipe(v.string("Session ID must be text"), v.minLength(1, "Session ID is required")),
 });
 
