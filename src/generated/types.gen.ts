@@ -3890,6 +3890,30 @@ export type AuthV1UpdatePolicyRequest = {
 };
 
 /**
+ * UpdateUserAvatarRequest
+ */
+export type AuthV1UpdateUserAvatarRequest = {
+    /**
+     * user_id
+     */
+    user_id?: string;
+    /**
+     * image_id
+     */
+    image_id?: string;
+};
+
+/**
+ * UpdateUserAvatarResponse
+ */
+export type AuthV1UpdateUserAvatarResponse = {
+    /**
+     * image_id
+     */
+    image_id?: string;
+};
+
+/**
  * UpdateUsernameRequest
  */
 export type AuthV1UpdateUsernameRequest = {
@@ -3945,6 +3969,10 @@ export type AuthV1UserInfo = {
      * image_url
      */
     image_url?: string;
+    /**
+     * image_id
+     */
+    image_id?: string;
     /**
      * language_code
      */
@@ -11147,6 +11175,22 @@ export type AuthV1UserServiceGetUserResponses = {
 };
 
 export type AuthV1UserServiceGetUserResponse = AuthV1UserServiceGetUserResponses[keyof AuthV1UserServiceGetUserResponses];
+
+export type AuthV1UserServiceUpdateUserAvatarData = {
+    body: AuthV1UpdateUserAvatarRequest;
+    path?: never;
+    query?: never;
+    url: '/auth/v1/users/current/avatar';
+};
+
+export type AuthV1UserServiceUpdateUserAvatarResponses = {
+    /**
+     * Success
+     */
+    200: AuthV1UpdateUserAvatarResponse;
+};
+
+export type AuthV1UserServiceUpdateUserAvatarResponse = AuthV1UserServiceUpdateUserAvatarResponses[keyof AuthV1UserServiceUpdateUserAvatarResponses];
 
 export type AuthV1UserServiceUpdateNameData = {
     body: AuthV1UpdateNameRequest;
