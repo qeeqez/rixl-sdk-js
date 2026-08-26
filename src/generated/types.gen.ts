@@ -4581,6 +4581,38 @@ export type BillingV1GetPlanResponse = {
      * interval
      */
     interval?: string;
+    /**
+     * plan_type
+     */
+    plan_type?: BillingV1PlanType;
+    /**
+     * interval_count
+     */
+    interval_count?: number;
+    /**
+     * sort_order
+     */
+    sort_order?: number;
+    /**
+     * features
+     */
+    features?: GoogleProtobufStruct;
+    /**
+     * stripe_price_id
+     */
+    stripe_price_id?: string;
+    /**
+     * stripe_product_id
+     */
+    stripe_product_id?: string;
+    /**
+     * active
+     */
+    active?: boolean;
+    /**
+     * is_public
+     */
+    is_public?: boolean;
 };
 
 /**
@@ -4922,6 +4954,26 @@ export type BillingV1Plan = {
      * sort_order
      */
     sort_order?: number;
+    /**
+     * features
+     */
+    features?: GoogleProtobufStruct;
+    /**
+     * stripe_price_id
+     */
+    stripe_price_id?: string;
+    /**
+     * stripe_product_id
+     */
+    stripe_product_id?: string;
+    /**
+     * active
+     */
+    active?: boolean;
+    /**
+     * is_public
+     */
+    is_public?: boolean;
 };
 
 /**
@@ -5945,6 +5997,60 @@ export type GoogleProtobufEmpty = {
 };
 
 /**
+ * ListValue
+ *
+ * `ListValue` is a wrapper around a repeated field of values.
+ *
+ * The JSON representation for `ListValue` is JSON array.
+ */
+export type GoogleProtobufListValue = {
+    /**
+     * values
+     *
+     * Repeated field of dynamically typed values.
+     */
+    values?: Array<GoogleProtobufValue>;
+};
+
+/**
+ * NullValue
+ *
+ * `NullValue` is a singleton enumeration to represent the null value for the
+ * `Value` type union.
+ *
+ * The JSON representation for `NullValue` is JSON `null`.
+ */
+export type GoogleProtobufNullValue = 'NULL_VALUE';
+
+/**
+ * `Struct` represents a structured data value, consisting of fields
+ * which map to dynamically typed values. In some languages, `Struct`
+ * might be supported by a native representation. For example, in
+ * scripting languages like JS a struct is represented as an
+ * object. The details of that representation are described together
+ * with the proto support for the language.
+ *
+ * The JSON representation for `Struct` is JSON object.
+ */
+export type GoogleProtobufStruct = {
+    [key: string]: GoogleProtobufValue;
+};
+
+/**
+ * FieldsEntry
+ */
+export type GoogleProtobufStructFieldsEntry = {
+    /**
+     * key
+     */
+    key?: string;
+    /**
+     * value
+     */
+    value?: GoogleProtobufValue;
+};
+
+/**
  * A Timestamp represents a point in time independent of any time zone or local
  * calendar, encoded as a count of seconds and fractions of seconds at
  * nanosecond resolution. The count is relative to an epoch at UTC midnight on
@@ -6036,6 +6142,18 @@ export type GoogleProtobufEmpty = {
  * ) to obtain a formatter capable of generating timestamps in this format.
  */
 export type GoogleProtobufTimestamp = string;
+
+/**
+ * `Value` represents a dynamically typed value which can be either
+ * null, a number, a string, a boolean, a recursive struct value, or a
+ * list of values. A producer of value is expected to set one of these
+ * variants. Absence of any variant indicates an error.
+ *
+ * The JSON representation for `Value` is JSON value.
+ */
+export type GoogleProtobufValue = null | number | string | boolean | Array<unknown> | {
+    [key: string]: unknown;
+};
 
 /**
  * CreateImageUploadRequest
@@ -6816,6 +6934,444 @@ export type ProjectV1UpdateVideoQualityRequest = {
      * video_quality
      */
     video_quality: CommonV1VideoQuality;
+};
+
+/**
+ * AddTicketMessageRequest
+ */
+export type SupportV1AddTicketMessageRequest = {
+    /**
+     * ticket_id
+     */
+    ticket_id?: string;
+    /**
+     * body
+     */
+    body?: string;
+};
+
+/**
+ * AddTicketMessageResponse
+ */
+export type SupportV1AddTicketMessageResponse = {
+    /**
+     * message
+     */
+    message?: SupportV1TicketMessage;
+};
+
+/**
+ * Category
+ */
+export type SupportV1Category = {
+    /**
+     * id
+     */
+    id?: string;
+    /**
+     * slug
+     */
+    slug?: string;
+    /**
+     * name
+     */
+    name?: string;
+    /**
+     * description
+     */
+    description?: string;
+    /**
+     * icon
+     */
+    icon?: string;
+    /**
+     * sort_order
+     */
+    sort_order?: number;
+};
+
+/**
+ * ChatMessage
+ */
+export type SupportV1ChatMessage = {
+    /**
+     * id
+     */
+    id?: string;
+    /**
+     * thread_id
+     */
+    thread_id?: string;
+    /**
+     * author_id
+     */
+    author_id?: string;
+    /**
+     * author_type
+     */
+    author_type?: SupportV1MessageAuthor;
+    /**
+     * body
+     */
+    body?: string;
+    /**
+     * created_at
+     */
+    created_at?: GoogleProtobufTimestamp;
+};
+
+/**
+ * CloseTicketRequest
+ */
+export type SupportV1CloseTicketRequest = {
+    /**
+     * ticket_id
+     */
+    ticket_id?: string;
+};
+
+/**
+ * CloseTicketResponse
+ */
+export type SupportV1CloseTicketResponse = {
+    /**
+     * ticket
+     */
+    ticket?: SupportV1Ticket;
+};
+
+/**
+ * CreateTicketRequest
+ */
+export type SupportV1CreateTicketRequest = {
+    /**
+     * project_id
+     */
+    project_id?: string;
+    /**
+     * category_id
+     */
+    category_id?: string;
+    /**
+     * topic_id
+     */
+    topic_id?: string;
+    /**
+     * subject
+     */
+    subject?: string;
+    /**
+     * message
+     */
+    message?: string;
+    /**
+     * priority
+     */
+    priority?: SupportV1TicketPriority;
+};
+
+/**
+ * CreateTicketResponse
+ */
+export type SupportV1CreateTicketResponse = {
+    /**
+     * ticket
+     */
+    ticket?: SupportV1Ticket;
+};
+
+/**
+ * GetTicketRequest
+ */
+export type SupportV1GetTicketRequest = {
+    /**
+     * ticket_id
+     */
+    ticket_id?: string;
+};
+
+/**
+ * GetTicketResponse
+ */
+export type SupportV1GetTicketResponse = {
+    /**
+     * ticket
+     */
+    ticket?: SupportV1Ticket;
+    /**
+     * messages
+     */
+    messages?: Array<SupportV1TicketMessage>;
+};
+
+/**
+ * ListCategoriesRequest
+ */
+export type SupportV1ListCategoriesRequest = {
+    [key: string]: never;
+};
+
+/**
+ * ListCategoriesResponse
+ */
+export type SupportV1ListCategoriesResponse = {
+    /**
+     * categories
+     */
+    categories?: Array<SupportV1Category>;
+};
+
+/**
+ * ListChatMessagesRequest
+ */
+export type SupportV1ListChatMessagesRequest = {
+    /**
+     * after
+     *
+     * Return only messages created after this time. Used to poll for new replies.
+     */
+    after?: GoogleProtobufTimestamp;
+    /**
+     * limit
+     */
+    limit?: number;
+};
+
+/**
+ * ListChatMessagesResponse
+ */
+export type SupportV1ListChatMessagesResponse = {
+    /**
+     * messages
+     */
+    messages?: Array<SupportV1ChatMessage>;
+};
+
+/**
+ * ListTicketsRequest
+ */
+export type SupportV1ListTicketsRequest = {
+    /**
+     * pagination
+     */
+    pagination?: CommonV1Pagination;
+    /**
+     * status
+     */
+    status?: SupportV1TicketStatus;
+};
+
+/**
+ * ListTicketsResponse
+ */
+export type SupportV1ListTicketsResponse = {
+    /**
+     * tickets
+     */
+    tickets?: Array<SupportV1Ticket>;
+    /**
+     * total
+     */
+    total?: number | string;
+    /**
+     * offset
+     *
+     * Number of items skipped before this page.
+     */
+    offset?: number;
+    /**
+     * limit
+     *
+     * Maximum number of items returned.
+     */
+    limit?: number;
+};
+
+/**
+ * ListTopicsRequest
+ */
+export type SupportV1ListTopicsRequest = {
+    /**
+     * category_id
+     */
+    category_id?: string;
+    /**
+     * query
+     */
+    query?: string;
+};
+
+/**
+ * ListTopicsResponse
+ */
+export type SupportV1ListTopicsResponse = {
+    /**
+     * topics
+     */
+    topics?: Array<SupportV1Topic>;
+};
+
+/**
+ * MessageAuthor
+ */
+export type SupportV1MessageAuthor = 'MESSAGE_AUTHOR_UNSPECIFIED' | 'MESSAGE_AUTHOR_CUSTOMER' | 'MESSAGE_AUTHOR_AGENT' | 'MESSAGE_AUTHOR_SYSTEM';
+
+/**
+ * ProcessClickUpWebhookRequest
+ */
+export type SupportV1ProcessClickUpWebhookRequest = {
+    /**
+     * payload
+     */
+    payload?: string;
+    /**
+     * signature
+     */
+    signature?: string;
+};
+
+/**
+ * SendChatMessageRequest
+ */
+export type SupportV1SendChatMessageRequest = {
+    /**
+     * body
+     */
+    body?: string;
+};
+
+/**
+ * SendChatMessageResponse
+ */
+export type SupportV1SendChatMessageResponse = {
+    /**
+     * message
+     */
+    message?: SupportV1ChatMessage;
+};
+
+/**
+ * Ticket
+ */
+export type SupportV1Ticket = {
+    /**
+     * id
+     */
+    id?: string;
+    /**
+     * org_id
+     */
+    org_id?: string;
+    /**
+     * user_id
+     */
+    user_id?: string;
+    /**
+     * project_id
+     */
+    project_id?: string;
+    /**
+     * category_id
+     */
+    category_id?: string;
+    /**
+     * topic_id
+     */
+    topic_id?: string;
+    /**
+     * subject
+     */
+    subject?: string;
+    /**
+     * status
+     */
+    status?: SupportV1TicketStatus;
+    /**
+     * priority
+     */
+    priority?: SupportV1TicketPriority;
+    /**
+     * created_at
+     */
+    created_at?: GoogleProtobufTimestamp;
+    /**
+     * updated_at
+     */
+    updated_at?: GoogleProtobufTimestamp;
+};
+
+/**
+ * TicketMessage
+ */
+export type SupportV1TicketMessage = {
+    /**
+     * id
+     */
+    id?: string;
+    /**
+     * ticket_id
+     */
+    ticket_id?: string;
+    /**
+     * author_id
+     */
+    author_id?: string;
+    /**
+     * author_type
+     */
+    author_type?: SupportV1MessageAuthor;
+    /**
+     * body
+     */
+    body?: string;
+    /**
+     * created_at
+     */
+    created_at?: GoogleProtobufTimestamp;
+};
+
+/**
+ * TicketPriority
+ */
+export type SupportV1TicketPriority = 'TICKET_PRIORITY_UNSPECIFIED' | 'TICKET_PRIORITY_LOW' | 'TICKET_PRIORITY_NORMAL' | 'TICKET_PRIORITY_HIGH' | 'TICKET_PRIORITY_URGENT';
+
+/**
+ * TicketStatus
+ */
+export type SupportV1TicketStatus = 'TICKET_STATUS_UNSPECIFIED' | 'TICKET_STATUS_OPEN' | 'TICKET_STATUS_PENDING' | 'TICKET_STATUS_RESOLVED' | 'TICKET_STATUS_CLOSED';
+
+/**
+ * Topic
+ */
+export type SupportV1Topic = {
+    /**
+     * id
+     */
+    id?: string;
+    /**
+     * category_id
+     */
+    category_id?: string;
+    /**
+     * slug
+     */
+    slug?: string;
+    /**
+     * name
+     */
+    name?: string;
+    /**
+     * description
+     */
+    description?: string;
+    /**
+     * resolution_url
+     */
+    resolution_url?: string;
+    /**
+     * sort_order
+     */
+    sort_order?: number;
 };
 
 /**
@@ -12529,6 +13085,334 @@ export type ProjectV1ProjectServiceUpdateVideoQualityResponses = {
 };
 
 export type ProjectV1ProjectServiceUpdateVideoQualityResponse = ProjectV1ProjectServiceUpdateVideoQualityResponses[keyof ProjectV1ProjectServiceUpdateVideoQualityResponses];
+
+export type SupportV1SupportChatServiceListChatMessagesData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * A Timestamp represents a point in time independent of any time zone or local
+         * calendar, encoded as a count of seconds and fractions of seconds at
+         * nanosecond resolution. The count is relative to an epoch at UTC midnight on
+         * January 1, 1970, in the proleptic Gregorian calendar which extends the
+         * Gregorian calendar backwards to year one.
+         *
+         * All minutes are 60 seconds long. Leap seconds are "smeared" so that no leap
+         * second table is needed for interpretation, using a [24-hour linear
+         * smear](https://developers.google.com/time/smear).
+         *
+         * The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By
+         * restricting to that range, we ensure that we can convert to and from [RFC
+         * 3339](https://www.ietf.org/rfc/rfc3339.txt) date strings.
+         *
+         * # Examples
+         *
+         * Example 1: Compute Timestamp from POSIX `time()`.
+         *
+         * Timestamp timestamp;
+         * timestamp.set_seconds(time(NULL));
+         * timestamp.set_nanos(0);
+         *
+         * Example 2: Compute Timestamp from POSIX `gettimeofday()`.
+         *
+         * struct timeval tv;
+         * gettimeofday(&tv, NULL);
+         *
+         * Timestamp timestamp;
+         * timestamp.set_seconds(tv.tv_sec);
+         * timestamp.set_nanos(tv.tv_usec * 1000);
+         *
+         * Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.
+         *
+         * FILETIME ft;
+         * GetSystemTimeAsFileTime(&ft);
+         * UINT64 ticks = (((UINT64)ft.dwHighDateTime) << 32) | ft.dwLowDateTime;
+         *
+         * // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z
+         * // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.
+         * Timestamp timestamp;
+         * timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));
+         * timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));
+         *
+         * Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.
+         *
+         * long millis = System.currentTimeMillis();
+         *
+         * Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)
+         * .setNanos((int) ((millis % 1000) * 1000000)).build();
+         *
+         * Example 5: Compute Timestamp from Java `Instant.now()`.
+         *
+         * Instant now = Instant.now();
+         *
+         * Timestamp timestamp =
+         * Timestamp.newBuilder().setSeconds(now.getEpochSecond())
+         * .setNanos(now.getNano()).build();
+         *
+         * Example 6: Compute Timestamp from current time in Python.
+         *
+         * timestamp = Timestamp()
+         * timestamp.GetCurrentTime()
+         *
+         * # JSON Mapping
+         *
+         * In JSON format, the Timestamp type is encoded as a string in the
+         * [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. That is, the
+         * format is "{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z"
+         * where {year} is always expressed using four digits while {month}, {day},
+         * {hour}, {min}, and {sec} are zero-padded to two digits each. The fractional
+         * seconds, which can go up to 9 digits (i.e. up to 1 nanosecond resolution),
+         * are optional. The "Z" suffix indicates the timezone ("UTC"); the timezone
+         * is required. A proto3 JSON serializer should always use UTC (as indicated by
+         * "Z") when printing the Timestamp type and a proto3 JSON parser should be
+         * able to accept both UTC and other timezones (as indicated by an offset).
+         *
+         * For example, "2017-01-15T01:30:15.01Z" encodes 15.01 seconds past
+         * 01:30 UTC on January 15, 2017.
+         *
+         * In JavaScript, one can convert a Date object to this format using the
+         * standard
+         * [toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
+         * method. In Python, a standard `datetime.datetime` object can be converted
+         * to this format using
+         * [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with
+         * the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use
+         * the Joda Time's [`ISODateTimeFormat.dateTime()`](
+         * http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()
+         * ) to obtain a formatter capable of generating timestamps in this format.
+         */
+        after?: string;
+        /**
+         * limit
+         */
+        limit?: number;
+    };
+    url: '/support/v1/chat/messages';
+};
+
+export type SupportV1SupportChatServiceListChatMessagesResponses = {
+    /**
+     * Success
+     */
+    200: SupportV1ListChatMessagesResponse;
+};
+
+export type SupportV1SupportChatServiceListChatMessagesResponse = SupportV1SupportChatServiceListChatMessagesResponses[keyof SupportV1SupportChatServiceListChatMessagesResponses];
+
+export type SupportV1SupportChatServiceSendChatMessageData = {
+    body: SupportV1SendChatMessageRequest;
+    path?: never;
+    query?: never;
+    url: '/support/v1/chat/messages';
+};
+
+export type SupportV1SupportChatServiceSendChatMessageResponses = {
+    /**
+     * Success
+     */
+    200: SupportV1SendChatMessageResponse;
+};
+
+export type SupportV1SupportChatServiceSendChatMessageResponse = SupportV1SupportChatServiceSendChatMessageResponses[keyof SupportV1SupportChatServiceSendChatMessageResponses];
+
+export type SupportV1SupportTicketServiceListCategoriesData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/support/v1/categories';
+};
+
+export type SupportV1SupportTicketServiceListCategoriesResponses = {
+    /**
+     * Success
+     */
+    200: SupportV1ListCategoriesResponse;
+};
+
+export type SupportV1SupportTicketServiceListCategoriesResponse = SupportV1SupportTicketServiceListCategoriesResponses[keyof SupportV1SupportTicketServiceListCategoriesResponses];
+
+export type SupportV1SupportTicketServiceListTopics2Data = {
+    body?: never;
+    path: {
+        /**
+         * category_id
+         */
+        category_id: string;
+    };
+    query?: {
+        /**
+         * query
+         */
+        query?: string;
+    };
+    url: '/support/v1/categories/{category_id}/topics';
+};
+
+export type SupportV1SupportTicketServiceListTopics2Responses = {
+    /**
+     * Success
+     */
+    200: SupportV1ListTopicsResponse;
+};
+
+export type SupportV1SupportTicketServiceListTopics2Response = SupportV1SupportTicketServiceListTopics2Responses[keyof SupportV1SupportTicketServiceListTopics2Responses];
+
+export type SupportV1SupportTicketServiceListTicketsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * limit
+         *
+         * Maximum number of items to return.
+         */
+        'pagination.limit'?: number;
+        /**
+         * offset
+         *
+         * Number of items to skip before collecting the result set.
+         */
+        'pagination.offset'?: number;
+        /**
+         * status
+         */
+        status?: SupportV1TicketStatus;
+    };
+    url: '/support/v1/tickets';
+};
+
+export type SupportV1SupportTicketServiceListTicketsResponses = {
+    /**
+     * Success
+     */
+    200: SupportV1ListTicketsResponse;
+};
+
+export type SupportV1SupportTicketServiceListTicketsResponse = SupportV1SupportTicketServiceListTicketsResponses[keyof SupportV1SupportTicketServiceListTicketsResponses];
+
+export type SupportV1SupportTicketServiceCreateTicketData = {
+    body: SupportV1CreateTicketRequest;
+    path?: never;
+    query?: never;
+    url: '/support/v1/tickets';
+};
+
+export type SupportV1SupportTicketServiceCreateTicketResponses = {
+    /**
+     * Success
+     */
+    200: SupportV1CreateTicketResponse;
+};
+
+export type SupportV1SupportTicketServiceCreateTicketResponse = SupportV1SupportTicketServiceCreateTicketResponses[keyof SupportV1SupportTicketServiceCreateTicketResponses];
+
+export type SupportV1SupportTicketServiceGetTicketData = {
+    body?: never;
+    path: {
+        /**
+         * ticket_id
+         */
+        ticket_id: string;
+    };
+    query?: never;
+    url: '/support/v1/tickets/{ticket_id}';
+};
+
+export type SupportV1SupportTicketServiceGetTicketResponses = {
+    /**
+     * Success
+     */
+    200: SupportV1GetTicketResponse;
+};
+
+export type SupportV1SupportTicketServiceGetTicketResponse = SupportV1SupportTicketServiceGetTicketResponses[keyof SupportV1SupportTicketServiceGetTicketResponses];
+
+export type SupportV1SupportTicketServiceCloseTicketData = {
+    /**
+     * CloseTicketRequest
+     */
+    body: {
+        /**
+         * ticket_id
+         */
+        ticket_id?: string;
+    };
+    path: {
+        /**
+         * ticket_id
+         */
+        ticket_id: string;
+    };
+    query?: never;
+    url: '/support/v1/tickets/{ticket_id}/close';
+};
+
+export type SupportV1SupportTicketServiceCloseTicketResponses = {
+    /**
+     * Success
+     */
+    200: SupportV1CloseTicketResponse;
+};
+
+export type SupportV1SupportTicketServiceCloseTicketResponse = SupportV1SupportTicketServiceCloseTicketResponses[keyof SupportV1SupportTicketServiceCloseTicketResponses];
+
+export type SupportV1SupportTicketServiceAddTicketMessageData = {
+    /**
+     * AddTicketMessageRequest
+     */
+    body: {
+        /**
+         * ticket_id
+         */
+        ticket_id?: string;
+        /**
+         * body
+         */
+        body?: string;
+    };
+    path: {
+        /**
+         * ticket_id
+         */
+        ticket_id: string;
+    };
+    query?: never;
+    url: '/support/v1/tickets/{ticket_id}/messages';
+};
+
+export type SupportV1SupportTicketServiceAddTicketMessageResponses = {
+    /**
+     * Success
+     */
+    200: SupportV1AddTicketMessageResponse;
+};
+
+export type SupportV1SupportTicketServiceAddTicketMessageResponse = SupportV1SupportTicketServiceAddTicketMessageResponses[keyof SupportV1SupportTicketServiceAddTicketMessageResponses];
+
+export type SupportV1SupportTicketServiceListTopicsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * category_id
+         */
+        category_id?: string;
+        /**
+         * query
+         */
+        query?: string;
+    };
+    url: '/support/v1/topics';
+};
+
+export type SupportV1SupportTicketServiceListTopicsResponses = {
+    /**
+     * Success
+     */
+    200: SupportV1ListTopicsResponse;
+};
+
+export type SupportV1SupportTicketServiceListTopicsResponse = SupportV1SupportTicketServiceListTopicsResponses[keyof SupportV1SupportTicketServiceListTopicsResponses];
 
 export type VideosV1AudioTrackServiceDeleteAllAudioTracksData = {
     body?: never;
