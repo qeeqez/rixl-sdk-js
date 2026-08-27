@@ -4137,6 +4137,14 @@ export type AuthV1UserInfo = {
      * active_org_id
      */
     active_org_id?: string;
+    /**
+     * policies
+     */
+    policies?: Array<AuthV1Policy>;
+    /**
+     * permissions
+     */
+    permissions?: Array<string>;
 };
 
 /**
