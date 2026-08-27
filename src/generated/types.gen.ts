@@ -2080,6 +2080,14 @@ export type ApikeysV1ApiKey = {
      * secret
      */
     secret?: string;
+    /**
+     * policy_ids
+     */
+    policy_ids?: Array<string>;
+    /**
+     * permissions
+     */
+    permissions?: Array<string>;
 };
 
 /**
@@ -2102,6 +2110,10 @@ export type ApikeysV1CreateApiKeyRequest = {
      * expiring_at
      */
     expiring_at?: GoogleProtobufTimestamp;
+    /**
+     * policy_ids
+     */
+    policy_ids?: Array<string>;
 };
 
 /**
@@ -2184,6 +2196,46 @@ export type ApikeysV1RotateApiKeyRequest = {
  * RotateApiKeyResponse
  */
 export type ApikeysV1RotateApiKeyResponse = {
+    /**
+     * api_key
+     */
+    api_key?: ApikeysV1ApiKey;
+};
+
+/**
+ * UpdateApiKeyRequest
+ */
+export type ApikeysV1UpdateApiKeyRequest = {
+    /**
+     * org_id
+     */
+    org_id?: string;
+    /**
+     * key_id
+     */
+    key_id: string;
+    /**
+     * name
+     */
+    name?: string | null;
+    /**
+     * expiring_at
+     */
+    expiring_at?: GoogleProtobufTimestamp | null;
+    /**
+     * policy_ids
+     */
+    policy_ids?: Array<string>;
+    /**
+     * replace_policies
+     */
+    replace_policies?: boolean;
+};
+
+/**
+ * UpdateApiKeyResponse
+ */
+export type ApikeysV1UpdateApiKeyResponse = {
     /**
      * api_key
      */
@@ -9524,6 +9576,10 @@ export type ApikeysV1ApiKeyServiceCreateApiKeyData = {
          * expiring_at
          */
         expiring_at?: GoogleProtobufTimestamp;
+        /**
+         * policy_ids
+         */
+        policy_ids?: Array<string>;
     };
     path: {
         /**
@@ -9568,6 +9624,59 @@ export type ApikeysV1ApiKeyServiceDeleteApiKeyResponses = {
 };
 
 export type ApikeysV1ApiKeyServiceDeleteApiKeyResponse = ApikeysV1ApiKeyServiceDeleteApiKeyResponses[keyof ApikeysV1ApiKeyServiceDeleteApiKeyResponses];
+
+export type ApikeysV1ApiKeyServiceUpdateApiKeyData = {
+    /**
+     * UpdateApiKeyRequest
+     */
+    body: {
+        /**
+         * org_id
+         */
+        org_id?: string;
+        /**
+         * key_id
+         */
+        key_id: string;
+        /**
+         * name
+         */
+        name?: string | null;
+        /**
+         * expiring_at
+         */
+        expiring_at?: GoogleProtobufTimestamp | null;
+        /**
+         * policy_ids
+         */
+        policy_ids?: Array<string>;
+        /**
+         * replace_policies
+         */
+        replace_policies?: boolean;
+    };
+    path: {
+        /**
+         * org_id
+         */
+        org_id: string;
+        /**
+         * key_id
+         */
+        key_id: string;
+    };
+    query?: never;
+    url: '/organizations/{org_id}/api-keys/v1/{key_id}';
+};
+
+export type ApikeysV1ApiKeyServiceUpdateApiKeyResponses = {
+    /**
+     * Success
+     */
+    200: ApikeysV1UpdateApiKeyResponse;
+};
+
+export type ApikeysV1ApiKeyServiceUpdateApiKeyResponse = ApikeysV1ApiKeyServiceUpdateApiKeyResponses[keyof ApikeysV1ApiKeyServiceUpdateApiKeyResponses];
 
 export type ApikeysV1ApiKeyServiceRotateApiKeyData = {
     body?: never;
