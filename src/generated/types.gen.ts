@@ -2383,6 +2383,10 @@ export type AuthV1CheckMembershipResponse = {
      * is_member
      */
     is_member?: boolean;
+    /**
+     * is_internal_org
+     */
+    is_internal_org?: boolean;
 };
 
 /**
@@ -2633,6 +2637,24 @@ export type AuthV1GetUserResponse = {
 };
 
 /**
+ * IdentityPolicies
+ */
+export type AuthV1IdentityPolicies = {
+    /**
+     * policies
+     */
+    policies?: Array<AuthV1Policy>;
+    /**
+     * attachments
+     */
+    attachments?: Array<AuthV1PolicyAttachment>;
+    /**
+     * permissions
+     */
+    permissions?: Array<string>;
+};
+
+/**
  * InitiateEmailChangeRequest
  */
 export type AuthV1InitiateEmailChangeRequest = {
@@ -2668,6 +2690,38 @@ export type AuthV1InviteMemberRequest = {
  * ListAttachmentsResponse
  */
 export type AuthV1ListAttachmentsResponse = {
+    /**
+     * attachments
+     */
+    attachments?: Array<AuthV1PolicyAttachment>;
+};
+
+/**
+ * ListIdentityPoliciesRequest
+ */
+export type AuthV1ListIdentityPoliciesRequest = {
+    /**
+     * user
+     */
+    user?: AuthV1UserOrgRequest;
+    /**
+     * identity_type
+     */
+    identity_type?: AuthV1PolicyIdentityType;
+    /**
+     * identity_id
+     */
+    identity_id?: string;
+};
+
+/**
+ * ListIdentityPoliciesResponse
+ */
+export type AuthV1ListIdentityPoliciesResponse = {
+    /**
+     * policies
+     */
+    policies?: Array<AuthV1Policy>;
     /**
      * attachments
      */
@@ -2806,6 +2860,50 @@ export type AuthV1ListPermissionRegistryRequest = {
      * offset
      */
     offset?: number;
+};
+
+/**
+ * ListPoliciesForIdentitiesRequest
+ */
+export type AuthV1ListPoliciesForIdentitiesRequest = {
+    /**
+     * user
+     */
+    user?: AuthV1UserOrgRequest;
+    /**
+     * identity_type
+     */
+    identity_type?: AuthV1PolicyIdentityType;
+    /**
+     * identity_ids
+     */
+    identity_ids?: Array<string>;
+};
+
+/**
+ * ListPoliciesForIdentitiesResponse
+ */
+export type AuthV1ListPoliciesForIdentitiesResponse = {
+    /**
+     * by_identity
+     */
+    by_identity?: {
+        [key: string]: AuthV1IdentityPolicies;
+    };
+};
+
+/**
+ * ByIdentityEntry
+ */
+export type AuthV1ListPoliciesForIdentitiesResponseByIdentityEntry = {
+    /**
+     * key
+     */
+    key?: string;
+    /**
+     * value
+     */
+    value?: AuthV1IdentityPolicies;
 };
 
 /**
@@ -3384,6 +3482,24 @@ export type AuthV1PolicyRequest = {
 };
 
 /**
+ * PurgeIdentityPoliciesRequest
+ */
+export type AuthV1PurgeIdentityPoliciesRequest = {
+    /**
+     * user
+     */
+    user?: AuthV1UserOrgRequest;
+    /**
+     * identity_type
+     */
+    identity_type?: AuthV1PolicyIdentityType;
+    /**
+     * identity_id
+     */
+    identity_id?: string;
+};
+
+/**
  * ReactivateMemberRequest
  */
 export type AuthV1ReactivateMemberRequest = {
@@ -3503,6 +3619,42 @@ export type AuthV1RenamePasskeyRequest = {
      * name
      */
     name?: string;
+};
+
+/**
+ * ReplaceIdentityPoliciesRequest
+ */
+export type AuthV1ReplaceIdentityPoliciesRequest = {
+    /**
+     * user
+     */
+    user?: AuthV1UserOrgRequest;
+    /**
+     * identity_type
+     */
+    identity_type?: AuthV1PolicyIdentityType;
+    /**
+     * identity_id
+     */
+    identity_id?: string;
+    /**
+     * policy_ids
+     */
+    policy_ids?: Array<string>;
+};
+
+/**
+ * ReplaceIdentityPoliciesResponse
+ */
+export type AuthV1ReplaceIdentityPoliciesResponse = {
+    /**
+     * policies
+     */
+    policies?: Array<AuthV1Policy>;
+    /**
+     * permissions
+     */
+    permissions?: Array<string>;
 };
 
 /**
