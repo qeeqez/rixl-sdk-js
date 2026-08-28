@@ -2498,6 +2498,24 @@ export type AuthV1ConnectedProvider = {
 };
 
 /**
+ * CreateAvatarUploadResponse
+ */
+export type AuthV1CreateAvatarUploadResponse = {
+    /**
+     * image_id
+     */
+    image_id?: string;
+    /**
+     * upload_url
+     */
+    upload_url?: string;
+    /**
+     * expires_at
+     */
+    expires_at?: GoogleProtobufTimestamp;
+};
+
+/**
  * CreateDomainRequest
  */
 export type AuthV1CreateDomainRequest = {
@@ -11460,6 +11478,27 @@ export type AuthV1UserServiceUpdateUserAvatarResponses = {
 };
 
 export type AuthV1UserServiceUpdateUserAvatarResponse = AuthV1UserServiceUpdateUserAvatarResponses[keyof AuthV1UserServiceUpdateUserAvatarResponses];
+
+export type AuthV1UserServiceCreateAvatarUploadData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * user_id
+         */
+        user_id?: string;
+    };
+    url: '/auth/v1/users/current/avatar/upload';
+};
+
+export type AuthV1UserServiceCreateAvatarUploadResponses = {
+    /**
+     * Success
+     */
+    200: AuthV1CreateAvatarUploadResponse;
+};
+
+export type AuthV1UserServiceCreateAvatarUploadResponse = AuthV1UserServiceCreateAvatarUploadResponses[keyof AuthV1UserServiceCreateAvatarUploadResponses];
 
 export type AuthV1UserServiceUpdateNameData = {
     body: AuthV1UpdateNameRequest;
