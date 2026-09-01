@@ -160,6 +160,8 @@ describe("User Management", () => {
         language_code: "en",
         country_code: "NG",
         active_org_id: "org-789",
+        policies: [],
+        permissions: [],
       });
     });
 
@@ -191,7 +193,25 @@ describe("User Management", () => {
         language_code: "",
         country_code: "",
         active_org_id: "",
+        policies: [],
+        permissions: [],
       });
+    });
+
+    it("should return the policies and permissions userinfo grants", async () => {
+      mockGetAuthV1Userinfo.mockResolvedValue({
+        data: {
+          id: "user-123",
+          policies: [{id: "pol-1", name: "Editors", permissions: ["media:videos:edit"]}],
+          permissions: ["media:videos:edit", "media:videos:read"],
+        },
+      });
+
+      const result = await getUserInfo();
+
+      expect(result.permissions).toEqual(["media:videos:edit", "media:videos:read"]);
+      expect(result.policies).toHaveLength(1);
+      expect(result.policies[0].name).toBe("Editors");
     });
 
     it("should throw on unauthorized", async () => {

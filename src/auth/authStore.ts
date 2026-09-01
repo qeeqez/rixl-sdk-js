@@ -4,6 +4,7 @@ import {appleAuthUrl, AuthProvider, googleAuthUrl, telegramAuthUrl, microsoftAut
 import {initDeferred} from "./initialization";
 import {initVals, setStoreCookie} from "./cookie";
 import {user} from "./userStore";
+import {clearPermissions} from "./permissionStore";
 import type {ProviderType} from "./social/socialConnections";
 import {decodeAndSetUser, isTokenExpired} from "./utils/jwt";
 import type {LoginErrorResponse} from "./auth/types";
@@ -164,6 +165,7 @@ export const removeTokens = (): void => {
   expireAt.set(0);
   isLogged.set(false);
   user.set(undefined);
+  clearPermissions();
 
   // Clear limited access state on logout
   limitedAccessToken.set(null);
