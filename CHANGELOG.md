@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.21.0](https://github.com/rixlhq/rixl-js/compare/v0.20.0...v0.21.0) (2026-09-02)
+
+
+### Features
+
+* handle hidden ui ([f546e22](https://github.com/rixlhq/rixl-js/commit/f546e224436ec5711c4629b708c6bc37c856f8f2))
+* handle hidden ui ([6f0eb26](https://github.com/rixlhq/rixl-js/commit/6f0eb261c09cace3354fd20e9472d5ca682f5d26))
+
 ## [0.20.0](https://github.com/rixlhq/rixl-js/compare/v0.19.0...v0.20.0) (2026-08-31)
 
 
