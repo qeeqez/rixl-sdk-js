@@ -202,14 +202,14 @@ describe("User Management", () => {
       mockGetAuthV1Userinfo.mockResolvedValue({
         data: {
           id: "user-123",
-          policies: [{id: "pol-1", name: "Editors", permissions: ["media:videos:edit"]}],
-          permissions: ["media:videos:edit", "media:videos:read"],
+          policies: [{id: "pol-1", name: "Editors", permissions: ["media:videos:write"]}],
+          permissions: ["media:videos:write", "media:videos:read"],
         },
       });
 
       const result = await getUserInfo();
 
-      expect(result.permissions).toEqual(["media:videos:edit", "media:videos:read"]);
+      expect(result.permissions).toEqual(["media:videos:write", "media:videos:read"]);
       expect(result.policies).toHaveLength(1);
       expect(result.policies[0].name).toBe("Editors");
     });

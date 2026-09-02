@@ -61,7 +61,7 @@ The SDK SHALL provide `resolvePermissions`, which populates the permission store
 
 ### Requirement: Permission matching honors the verb hierarchy
 
-The SDK SHALL provide `hasPermission(required)` returning whether the held set satisfies the required permission, treating write verbs as satisfying read checks and `admin`/`manage` as satisfying any verb on the same resource.
+The SDK SHALL provide `hasPermission(required)` returning whether the held set satisfies the required permission, treating write verbs as satisfying read checks. The registry grants only `read` and `write`, so no other verb is a superset of any other.
 
 #### Scenario: Exact match
 
@@ -73,10 +73,10 @@ The SDK SHALL provide `hasPermission(required)` returning whether the held set s
 - **WHEN** a read permission is required and the held set contains a write verb for the same resource
 - **THEN** the check returns `true`
 
-#### Scenario: Manage and admin are supersets
+#### Scenario: A verb outside the hierarchy grants nothing extra
 
-- **WHEN** any verb is required and the held set contains `admin` or `manage` for the same resource
-- **THEN** the check returns `true`
+- **WHEN** the held set contains a verb the hierarchy does not define, such as `admin`, for the required resource
+- **THEN** the check returns `false` unless the required permission matches it exactly
 
 #### Scenario: Read does not imply write
 

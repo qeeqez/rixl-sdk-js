@@ -1,25 +1,23 @@
 import {getUserInfo} from "../user";
 import {permissions, permissionsResolved} from "../permissionStore";
-
-/**
- * Incremented whenever the identity's scope changes — an organization switch,
- * a sign-out. A response that started before the change belongs to the previous
- * scope and must not be written into the store.
- */
-let epoch = 0;
+import {permissionEpoch, retirePermissionEpoch} from "./epoch";
 
 /** An `ensurePermissions` call already in flight, so concurrent guards share one request. */
 let pending: Promise<void> | null = null;
+
+/** The scope `pending` was issued under; once retired, its answer is worthless. */
+let pendingEpoch = 0;
 
 /**
  * Invalidates any resolution already in flight.
  *
  * Call before switching the active organization: without it, a request issued
  * for the previous organization can land afterwards and repopulate the store
- * with permissions the user no longer holds.
+ * with permissions the user no longer holds. Sign-out needs no such call —
+ * `clearPermissions` retires the scope itself.
  */
 export const invalidatePermissions = (): void => {
-  epoch += 1;
+  retirePermissionEpoch();
   pending = null;
 };
 
@@ -38,11 +36,12 @@ export const invalidatePermissions = (): void => {
  * than keeps stale grants.
  */
 export const resolvePermissions = async (): Promise<void> => {
-  const started = epoch;
+  const started = permissionEpoch();
   const info = await getUserInfo();
 
-  // A switch happened while this was in flight; its answer is for the old scope.
-  if (started !== epoch) return;
+  // A switch or a sign-out happened while this was in flight; its answer is for
+  // the old scope.
+  if (started !== permissionEpoch()) return;
 
   permissions.set(new Set(info.permissions));
   permissionsResolved.set(true);
@@ -59,12 +58,18 @@ export const resolvePermissions = async (): Promise<void> => {
  */
 export const ensurePermissions = async (): Promise<void> => {
   if (permissionsResolved.get()) return;
-  if (pending) return pending;
 
-  const started = epoch;
-  pending = resolvePermissions().finally(() => {
-    if (started === epoch) pending = null;
+  // A request issued under a retired scope will discard its own answer, so
+  // joining it would leave the caller with nothing resolved.
+  const started = permissionEpoch();
+  if (pending && pendingEpoch === started) return pending;
+
+  pendingEpoch = started;
+  const request: Promise<void> = resolvePermissions().finally(() => {
+    // Only if a newer request has not already taken the slot.
+    if (pending === request) pending = null;
   });
+  pending = request;
 
-  return pending;
+  return request;
 };
