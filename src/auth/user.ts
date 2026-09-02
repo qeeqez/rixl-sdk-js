@@ -8,6 +8,7 @@ import {
   authV1OtpServiceDeleteOtp,
   authV1OtpServiceRegenerateBackupCodes,
 } from "../generated/sdk.gen";
+import type {AuthV1Policy} from "../generated/types.gen";
 import {validateInput} from "./validation/base";
 import {UpdateNameSchema, UpdateUsernameSchema} from "./validation/user";
 import {VerifyOTPCodeSchema} from "./validation/auth";
@@ -49,6 +50,10 @@ export interface UserInfo {
   language_code: string;
   country_code: string;
   active_org_id: string;
+  /** Policies attached to this user in the active organization. */
+  policies: AuthV1Policy[];
+  /** Effective permissions granted by those policies. */
+  permissions: string[];
 }
 
 export const getUserInfo = async (userId?: string): Promise<UserInfo> => {
@@ -70,6 +75,8 @@ export const getUserInfo = async (userId?: string): Promise<UserInfo> => {
         language_code: data.language_code ?? "",
         country_code: data.country_code ?? "",
         active_org_id: data.active_org_id ?? "",
+        policies: data.policies ?? [],
+        permissions: data.permissions ?? [],
       };
     },
     {

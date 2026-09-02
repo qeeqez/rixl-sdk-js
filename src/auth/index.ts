@@ -119,3 +119,7 @@ export {
   type PasskeyBeginRegistration,
   type PasskeyRegistrationResult,
 } from "./passkey";
+
+export {permissions, permissionsResolved, hasPermission, clearPermissions} from "./permissionStore";
+export {resolvePermissions, ensurePermissions, invalidatePermissions} from "./permissions/resolve";
+export {READ_VERBS, WRITE_VERBS, matches as matchesPermission} from "./permissions/matcher";
