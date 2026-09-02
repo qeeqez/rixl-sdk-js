@@ -9926,10 +9926,6 @@ export type AuthV1DomainServiceCreateDomainVerificationData = {
      */
     body: {
         /**
-         * user
-         */
-        user?: AuthV1UserOrgRequest;
-        /**
          * domain
          */
         domain?: string;
@@ -9958,10 +9954,6 @@ export type AuthV1DomainServiceSetDomainAutoJoinData = {
      * SetAutoJoinRequest
      */
     body: {
-        /**
-         * user
-         */
-        user?: AuthV1UserOrgRequest;
         /**
          * enabled
          */
@@ -10194,10 +10186,6 @@ export type AuthV1MembershipServiceInviteMemberData = {
      */
     body: {
         /**
-         * user
-         */
-        user?: AuthV1ActorOrgRequest;
-        /**
          * username
          */
         username?: string;
@@ -10230,10 +10218,6 @@ export type AuthV1MembershipServiceResendInvitationData = {
      * ResendInvitationRequest
      */
     body: {
-        /**
-         * user
-         */
-        user?: AuthV1ActorOrgRequest;
         /**
          * user_id
          */
@@ -10270,12 +10254,7 @@ export type AuthV1MembershipServiceCancelInvitationData = {
          */
         user_id: string;
     };
-    query?: {
-        /**
-         * actor_id
-         */
-        'user.actor_id'?: string;
-    };
+    query?: never;
     url: '/auth/v1/memberships/{user.org_id}/invite/{user_id}';
 };
 
@@ -10297,10 +10276,6 @@ export type AuthV1MembershipServiceListOrganizationMembersData = {
         'user.org_id': string;
     };
     query?: {
-        /**
-         * user_id
-         */
-        'user.user_id'?: string;
         /**
          * limit
          */
@@ -10334,12 +10309,7 @@ export type AuthV1MembershipServiceRemoveMemberData = {
          */
         user_id: string;
     };
-    query?: {
-        /**
-         * actor_id
-         */
-        'user.actor_id'?: string;
-    };
+    query?: never;
     url: '/auth/v1/memberships/{user.org_id}/members/{user_id}';
 };
 
@@ -10364,12 +10334,7 @@ export type AuthV1MembershipServiceReactivateMemberData = {
          */
         user_id: string;
     };
-    query?: {
-        /**
-         * actor_id
-         */
-        'user.actor_id'?: string;
-    };
+    query?: never;
     url: '/auth/v1/memberships/{user.org_id}/members/{user_id}/reactivate';
 };
 
@@ -10387,10 +10352,6 @@ export type AuthV1MembershipServiceUpdateMemberRoleData = {
      * UpdateMemberRoleRequest
      */
     body: {
-        /**
-         * user
-         */
-        user?: AuthV1ActorOrgRequest;
         /**
          * user_id
          */
@@ -10435,12 +10396,7 @@ export type AuthV1MembershipServiceSuspendMemberData = {
          */
         user_id: string;
     };
-    query?: {
-        /**
-         * actor_id
-         */
-        'user.actor_id'?: string;
-    };
+    query?: never;
     url: '/auth/v1/memberships/{user.org_id}/members/{user_id}/suspend';
 };
 
@@ -10458,10 +10414,6 @@ export type AuthV1MembershipServiceUpdateOrgNameData = {
      * UpdateOrgNameRequest
      */
     body: {
-        /**
-         * user
-         */
-        user?: AuthV1ActorOrgRequest;
         /**
          * full_name
          */
@@ -10492,10 +10444,6 @@ export type AuthV1MembershipServiceUpdateMembershipStateData = {
      */
     body: {
         /**
-         * user
-         */
-        user?: AuthV1UserOrgRequest;
-        /**
          * state
          */
         state?: AuthV1MembershipApplicationState;
@@ -10524,10 +10472,6 @@ export type AuthV1MembershipServiceUpdateOrgUsernameData = {
      * UpdateOrgUsernameRequest
      */
     body: {
-        /**
-         * user
-         */
-        user?: AuthV1ActorOrgRequest;
         /**
          * username
          */
@@ -10866,12 +10810,7 @@ export type AuthV1PolicyServiceListUserPoliciesData = {
          */
         member_id: string;
     };
-    query?: {
-        /**
-         * user_id
-         */
-        'user.user_id'?: string;
-    };
+    query?: never;
     url: '/auth/v1/memberships/{user.org_id}/members/{member_id}/policies';
 };
 
@@ -10889,10 +10828,6 @@ export type AuthV1PolicyServiceCreatePolicyData = {
      * CreatePolicyRequest
      */
     body: {
-        /**
-         * user
-         */
-        user?: AuthV1UserOrgRequest;
         /**
          * name
          */
@@ -10937,12 +10872,7 @@ export type AuthV1PolicyServiceDetachPolicyData = {
          */
         attachment_id: string;
     };
-    query?: {
-        /**
-         * user_id
-         */
-        'user.user_id'?: string;
-    };
+    query?: never;
     url: '/auth/v1/memberships/{user.org_id}/policies/attachments/{attachment_id}';
 };
 
@@ -10964,10 +10894,6 @@ export type AuthV1PolicyServiceListPermissionRegistryData = {
         'user.org_id': string;
     };
     query?: {
-        /**
-         * user_id
-         */
-        'user.user_id'?: string;
         /**
          * types
          */
@@ -11005,12 +10931,7 @@ export type AuthV1PolicyServiceDeletePolicyData = {
          */
         policy_id: string;
     };
-    query?: {
-        /**
-         * user_id
-         */
-        'user.user_id'?: string;
-    };
+    query?: never;
     url: '/auth/v1/memberships/{user.org_id}/policies/{policy_id}';
 };
 
@@ -11035,12 +10956,7 @@ export type AuthV1PolicyServiceGetPolicyData = {
          */
         policy_id: string;
     };
-    query?: {
-        /**
-         * user_id
-         */
-        'user.user_id'?: string;
-    };
+    query?: never;
     url: '/auth/v1/memberships/{user.org_id}/policies/{policy_id}';
 };
 
@@ -11058,10 +10974,6 @@ export type AuthV1PolicyServiceUpdatePolicyData = {
      * UpdatePolicyRequest
      */
     body: {
-        /**
-         * user
-         */
-        user?: AuthV1UserOrgRequest;
         /**
          * policy_id
          */
@@ -11114,12 +11026,7 @@ export type AuthV1PolicyServiceListPolicyAttachmentsData = {
          */
         policy_id: string;
     };
-    query?: {
-        /**
-         * user_id
-         */
-        'user.user_id'?: string;
-    };
+    query?: never;
     url: '/auth/v1/memberships/{user.org_id}/policies/{policy_id}/attachments';
 };
 
@@ -11137,10 +11044,6 @@ export type AuthV1PolicyServiceAttachPolicyData = {
      * AttachPolicyRequest
      */
     body: {
-        /**
-         * user
-         */
-        user?: AuthV1UserOrgRequest;
         /**
          * policy_id
          */
