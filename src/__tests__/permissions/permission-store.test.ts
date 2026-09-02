@@ -255,3 +255,55 @@ describe("organization switch", () => {
     expect(spy).toHaveBeenCalledTimes(2);
   });
 });
+
+describe("sign-out", () => {
+  beforeEach(() => {
+    clearPermissions();
+    invalidatePermissions();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("discards a response that started before a sign-out", async () => {
+    let release: (v: UserInfo) => void = () => undefined;
+    vi.spyOn(userModule, "getUserInfo").mockReturnValueOnce(
+      new Promise<UserInfo>((resolve) => {
+        release = resolve;
+      })
+    );
+
+    const stale = resolvePermissions();
+
+    // `removeTokens` clears the set; the response for the ended session lands after.
+    clearPermissions();
+    release(userInfo({permissions: ["media:images:read"]}));
+    await stale;
+
+    expect(permissions.get().size).toBe(0);
+    expect(permissionsResolved.get()).toBe(false);
+  });
+
+  it("re-requests after a sign-out rather than joining the ended session's request", async () => {
+    let release: (v: UserInfo) => void = () => undefined;
+    const spy = vi
+      .spyOn(userModule, "getUserInfo")
+      .mockReturnValueOnce(
+        new Promise<UserInfo>((resolve) => {
+          release = resolve;
+        })
+      )
+      .mockResolvedValue(userInfo({permissions: ["media:videos:read"]}));
+
+    const stale = ensurePermissions();
+    clearPermissions();
+    release(userInfo({permissions: ["media:images:read"]}));
+    await stale;
+
+    await ensurePermissions();
+
+    expect(spy).toHaveBeenCalledTimes(2);
+    expect(permissions.get()).toEqual(new Set(["media:videos:read"]));
+  });
+});

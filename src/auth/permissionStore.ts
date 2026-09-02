@@ -1,6 +1,7 @@
 import {atom, type WritableAtom} from "nanostores";
 import {shared} from "../shared-runtime";
 import {matches} from "./permissions/matcher";
+import {retirePermissionEpoch} from "./permissions/epoch";
 
 /**
  * The current identity's effective permissions in their active organization.
@@ -34,8 +35,14 @@ export const hasPermission = (required: string): boolean => matches(permissions.
  * Called on sign-out so no grant outlives the session, and before an
  * organization switch so the previous organization's grants cannot be read as
  * the new one's while the fresh answer is in flight.
+ *
+ * Emptying the set is not enough on its own: a resolution issued before the
+ * clear can land after it and repopulate the store with the retired scope's
+ * grants. Retiring the epoch here makes any such answer be discarded, so
+ * sign-out cannot be undone by a request that was already in the air.
  */
 export const clearPermissions = (): void => {
+  retirePermissionEpoch();
   permissions.set(new Set());
   permissionsResolved.set(false);
 };

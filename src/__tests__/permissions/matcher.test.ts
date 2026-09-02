@@ -82,5 +82,11 @@ describe("matches", () => {
     it("fails closed on a verb the registry has not defined here", () => {
       expect(matches(held("media:videos:write"), "media:videos:delete")).toBe(false);
     });
+
+    it("treats a held verb outside the hierarchy as no wider than itself", () => {
+      expect(matches(held("media:videos:admin"), "media:videos:read")).toBe(false);
+      expect(matches(held("media:videos:manage"), "media:videos:write")).toBe(false);
+      expect(matches(held("media:videos:admin"), "media:videos:admin")).toBe(true);
+    });
   });
 });
