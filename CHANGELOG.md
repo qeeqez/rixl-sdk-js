@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.21.1](https://github.com/rixlhq/rixl-js/compare/v0.21.0...v0.21.1) (2026-09-02)
+
+
+### Bug Fixes
+
+* resolve org permissions during switch ([7a572de](https://github.com/rixlhq/rixl-js/commit/7a572decd5e29632fd89ff92c15852251a340ce0))
+* resolve org permissions during switch ([b975338](https://github.com/rixlhq/rixl-js/commit/b97533840b0428930f76cf7d68268bacc0887d0f))
+
 ## [0.21.0](https://github.com/rixlhq/rixl-js/compare/v0.20.0...v0.21.0) (2026-09-02)
 
 
